@@ -20,13 +20,11 @@ js三大支柱
 
 ### 1.1 JS is it an interpreted script or a compiled program?
 
-![image-20221101185310879](C:\Users\sam\AppData\Roaming\Typora\typora-user-images\image-20221101185310879.png)
-
-![image-20221101185342755](C:\Users\sam\AppData\Roaming\Typora\typora-user-images\image-20221101185342755.png)
+![image-20221105150424494](../assets/image-20221105150424494.png)
 
 JS is a parsed language, but is it compiled
 
-![image-20221101185711007](C:\Users\sam\AppData\Roaming\Typora\typora-user-images\image-20221101185711007.png)
+![image-20221105150445022](../assets/image-20221105150445022.png)
 
 1. After a program leaves a developer's editor, it gets transpiled by Babel, then packed by `Webpack` (and perhaps half a dozen other build processes), then it gets delivered in that very different form to a `JS` engine.
 2. The `JS` engine parses the code to an `AST`.
@@ -82,12 +80,16 @@ NaN === NaN;            // false，Number.isNaN(..)代替
 
 ### 2.4 class and module
 
-class
+**class**
 
-- 继承 
-- 多态
+- class用来管理数据和方法
+- 继承可以帮助类更好的管理数据和方法，B继承A，A重写B同名方法就是多态
 
-module
+- The `class` mechanism allows packaging data (`text` and `pages`) to be organized together with their behaviors (e.g., `addPage(..)` and `print()`). 
+
+- The fact that both the inherited and overridden methods can have the same name and co-exist is called polymorphism. Inheritance is a powerful tool for organizing data/behavior in separate logical units (classes), but allowing the child class to cooperate with the parent by accessing/using its behavior and data.
+
+**module**
 
 - 在`ES6`之前，函数是实现模块化（工厂模式）的关键
 
@@ -102,7 +104,7 @@ module
 
 - With `class`, the `"API"` of an instance is implicit in the class definition—also, all data and methods are public. With the module factory function, you explicitly create and return an object with any publicly exposed methods, and any data or other unreferenced methods remain private inside the factory function.
 
-ES Modules（`ES6`模块）
+**ES Modules（`ES6`模块）**
 
 基于文件而不是函数，通过导入创建实例
 
@@ -177,13 +179,6 @@ forAgainstLet.print();
 for..of：遍历对象
 
 ```js
-// given an iterator of some data source:
-var it = /* .. */;
-// loop over its results one at a time
-for (let val of it) {
-    console.log(`Iterator value: ${ val }`);
-} // Iterator value: ..
-
 // given two DOM elements, `btn1` and `btn2`
 var buttonNames = new Map();
 buttonNames.set(btn1,"Button 1");
@@ -193,12 +188,12 @@ for (let [btn,btnName] of buttonNames) {
         console.log(`Clicked ${ btnName }`);
     });
 }
-for (let btnName of buttonNames.values()) {
+for (let btnName of buttonNames.values()) { // 只遍历值
     console.log(btnName);
 }
 
 var arr = [ 10, 20, 30 ];
-for (let [idx,val] of arr.entries()) {
+for (let [idx,val] of arr.entries()) { // 数组也是对象
     console.log(`[${ idx }]: ${ val }`);
 } // [0]: 10
 
@@ -207,30 +202,24 @@ for (let [idx,val] of arr.entries()) {
  `...` 
 
 ```js
-// spread an iterator into an array,
-// with each iterated value occupying
-// an array element position.
+// spread an iterator into an array, with each iterated value occupying
 var vals = [ ...it ];
 
-// spread an iterator into a function,
-// call with each iterated value
-// occupying an argument position.
+// spread an iterator into a function, call with each iterated value, occupying an argument position.
 doSomethingUseful( ...it );
 
-var greeting = "Hello world!";
-var chars = [ ...greeting ];
-chars;
-// [ "H", "e", "l", "l", "o", " ",
-//   "w", "o", "r", "l", "d", "!" ]
+var greeting = "Hello world!"; 
+var chars = [ ...greeting ]; // 字符串结构成数组
+chars; // [ "H", "e", "l", "l", "o", " ", "w", "o", "r", "l", "d", "!" ]
 ```
 
-JS迭代器遍历都有三种类型：遍历值，遍历key，遍历值和key
+`JS`迭代器遍历都有三种类型：遍历值，遍历key，遍历值和key
 
-For the most part, all built-in iterables in JS have three iterator forms available: keys-only (`keys()`), values-only (`values()`), and entries (`entries()`).
+For the most part, all built-in `iterables` in `JS` have three iterator forms available: keys-only (`keys()`), values-only (`values()`), and entries (`entries()`).
 
 ### 3.2 Closure
 
-产生于函数
+产生于函数作用域
 
 Closure is when a function remembers and continues to access variables from outside its scope, even when the function is executed in a different scope.
 
@@ -243,12 +232,8 @@ function counter(step = 1) {
     };
 }
 var incBy1 = counter(1);
-var incBy3 = counter(3);
-incBy1();       // 1
-incBy1();       // 2
-incBy3();       // 3
-incBy3();       // 6
-incBy3();       // 9
+incBy1(); // 1
+incBy1(); // 2
 
 // 异步中闭包很常见
 function getSomeData(url) {
@@ -258,12 +243,10 @@ function getSomeData(url) {
         );
     });
 }
-getSomeData("https://some.url/wherever");
-// Response (from https://some.url/wherever): ...
+getSomeData("https://some.url/wherever"); // Response (from https://some.url/wherever): ...
 
 // 外部作用域不一定是函数
-// Because this loop is using let declarations, each iteration gets new block-scoped (aka, local) idx and btn variables
-// this closure is not over the value (like 1 or 3), but over the variable idx itself.
+// Because this loop is using let declarations, each iteration gets new block-scoped (aka, local) idx and btn variables，this closure is not over the value (like 1 or 3), but over the variable idx itself.
 for (let [idx,btn] of buttons.entries()) {
     btn.addEventListener("click",function onClick(){
        console.log(`Clicked on button (${ idx })!`);
@@ -273,7 +256,7 @@ for (let [idx,btn] of buttons.entries()) {
 
 ### 3.3 `this` Keyword
 
-函数通过闭包依附在**声明**所在的作用域，作用域是变量查找规则，函数还可以通过`this`读取到**执行**上下文（函数执行时的作用域）
+函数通过闭包依附在**声明**所在的作用域，作用域是变量查找规则；函数还可以通过`this`读取到**执行**上下文（函数执行时的作用域）
 
 As discussed previously, when a function is defined, it is *attached* to its enclosing scope via closure. Scope is the set of rules that controls how references to variables are resolved. But functions also have another characteristic besides their scope that influences what they can access. This characteristic is best described as an *execution context*, and it's exposed to the function via its `this` keyword.
 
@@ -290,8 +273,7 @@ function classroom(teacher) {
 var assignment = classroom("Kyle");
 
 // 默认执行上下文
-assignment();
-// Kyle says to study undefined  -- Oops :(
+assignment(); // Kyle says to study undefined  -- Oops :(
 
 // object
 var homework = {
@@ -309,7 +291,7 @@ assignment.call(otherHomework); // Kyle says to study Math
 
 ### 3.4 Prototypes
 
-`this`是函数的特性，`prototype`是对象的特性
+`this`是函数的特性，`prototype`是对象的特性。
 
 `prototype`连接两个对象，对象被创建时产生`prototype`，连接另外一个已经存在的对象。B的`prototype`是A，B可以使用A的数据和方法。
 
@@ -439,3 +421,4 @@ var mathClass = new Classroom();
 mathClass.welcome();
 // Welcome, students!
 ```
+
