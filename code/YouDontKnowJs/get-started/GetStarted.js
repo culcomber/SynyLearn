@@ -1,19 +1,15 @@
-var topic = 'globe'; // const声明，浏览器不会保存到全局对象里面
+try {
+    doesntExist();
+}
+catch (err) {
+    console.log(err);
+    // ReferenceError: 'doesntExist' is not defined
+    // ^^^^ message printed from the caught exception
 
-function classroom(teacher) {
-    const topic = 'classroom';
-    return function study() {
-        console.log(
-            `${ teacher } says to study ${ this.topic }`
-        );
-    };
+    let onlyHere = true;
+    var outerVariable = true;
 }
 
-(classroom("Kyle"))(); // 浏览器: Kyle says to study globe node：Kyle says to study undefined
-
-var assignment = classroom("Kyle");
-var homework = {
-    topic: "JS",
-    assignment: assignment
-};
-homework.assignment(); // Kyle says to study JS
+console.log(outerVariable);     // true
+console.log(onlyHere); // 报错
+console.log(err); // 报错
