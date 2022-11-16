@@ -1,15 +1,10 @@
-try {
-    doesntExist();
+const myObj = {
+    favoriteNumber: 'function',
+    hello: 'function'
 }
-catch (err) {
-    console.log(err);
-    // ReferenceError: 'doesntExist' is not defined
-    // ^^^^ message printed from the caught exception
-
-    let onlyHere = true;
-    var outerVariable = true;
+const anotherObj = {
+    favoriteNumber: 12,
+    ...myObj,   // object spread, shallow copies `myObj`
+    hello: 'world'
 }
-
-console.log(outerVariable);     // true
-console.log(onlyHere); // 报错
-console.log(err); // 报错
+console.log(anotherObj); // { favoriteNumber: 'function', hello: 'world' }
