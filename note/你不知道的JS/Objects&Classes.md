@@ -4,12 +4,18 @@ the pairing of a property name and a value often called a "property"
 
 ### 1.1 Defining Properties
 
-**与JSON区别**
+**与`JSON`区别**
 
-- JSON属性名必须用双引号包裹，对象
+- `JSON`属性名必须用双引号包裹，对象
 
-- JSON属性值必须是基本类型（literals），而不是表达式
-- JSON不允许注释
+- `JSON`属性值必须是基本类型（literals），而不是表达式
+- `JSON`不允许注释
+
+`JSON` 的确是 JavaScript 语法的一个子集，但是 `JSON` 本身并不是合法的 JavaScript 语法
+
+```js
+ {"a"：42} 
+```
 
 **property name**
 

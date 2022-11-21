@@ -1,7 +1,6 @@
-myObj1 = {};
+var a = 42;
+var b = "foo";
+var c = [1,2,3];
 
-// is basically the same as:
-myObj2 = new Object();
-
-console.log(myObj1[_proto_])
-console.log(myObj2[_proto_])
+console.log(a && b || c); // foo
+console.log(a || b && c); // 42
