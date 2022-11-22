@@ -1,6 +1,25 @@
-var a = 42;
-var b = "foo";
-var c = [1,2,3];
+var p3 = new Promise( function(resolve,reject){
+    resolve( "B" );
+} );
 
-console.log(a && b || c); // foo
-console.log(a || b && c); // 42
+var p1 = new Promise( function(resolve,reject){
+    console.log( 'p3')
+    console.log( p3)
+    resolve( p3 );
+} );
+
+var p2 = new Promise( function(resolve,reject){
+    resolve( "A" );
+} );
+
+p1.then( function(v){
+    console.log(p3)
+    console.log( p3 );
+    console.log( v );
+} );
+
+p2.then( function(v){
+    console.log( v );
+} );
+
+// A B  <-- not  B A  as you might expect
