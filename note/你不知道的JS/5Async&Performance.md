@@ -343,9 +343,37 @@ setTimeout( function(){console.log('setTimeout')}, 0) // 21 42 252 setTimeout as
 
 返回一个 [`Promise`](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Promise)。在 promise 结束时，无论结果是 fulfilled 或者是 rejected，都会执行指定的回调函数。
 
-### Chapter 4: Generators
+## Chapter 4: Generators
 
-4.1 Breaking Run-to-Completion
+```js
+function* helloWorldGenerator() {
+    yield 'hello';
+    yield 'world';
+    return 'ending';
+}
+
+var hw = helloWorldGenerator();
+console.log(hw.next()) // { value: 'hello', done: false }
+console.log(hw.next()) // { value: 'world', done: false }
+console.log(hw.next()) // { value: 'ending', done: true }
+console.log(hw.next())// { value: undefined, done: true }
+```
+
+`next`方法可以带一个参数，该参数就会被当作上一个`yield`表达式的返回值。
+
+```js
+function *foo(x) {
+	var y = x * (yield "Hello"); // <-- yield a value!
+	return y;
+}
+var it = foo( 6 );
+var res = it.next(); // first `next()`, don't pass anything
+res.value; // "Hello"
+res = it.next( 7 ); // pass `7` to waiting `yield`
+res.value; // 42
+```
+
+### 4.1 Breaking Run-to-Completion
 
 ```js
 var x = 1;
@@ -362,26 +390,12 @@ var it = foo();
 // start `foo()` here!
 it.next(); // 第一个 next(..) 总是启动一个生成器，并运行到第一个 yield 处
 console.log(x); // 2
-bar();
+bar(); // 两个next中间可以运行其他代码
 console.log(x); // 3
-it.next(); // x: 3 第二个 next(..) 调用完成第一个被暂停的 yield 表达式
+it.next(); // x: 3 第二个 next(..) 调用完成第一个被暂停的 yield 表达式  恢复了 foo() 并让它运行到结束，但这不是必需的
 ```
 
-**Iteration Messaging**
-
-```js
-function *foo(x) {
-	var y = x * (yield "Hello"); // <-- yield a value!
-	return y;
-}
-var it = foo( 6 );
-var res = it.next(); // first `next()`, don't pass anything
-res.value; // "Hello"
-res = it.next( 7 ); // pass `7` to waiting `yield`
-res.value; // 42
-```
-
-
+**Multiple Iterators**
 
 ```js
 function *foo() {
@@ -406,7 +420,7 @@ it1.next( val2 / 2 ); // y:300 20 300 3
 it2.next( val1 / 4 ); // y:10  200 10 3
 ```
 
-aom
+
 
 Chapter 5: Program Performance
 
