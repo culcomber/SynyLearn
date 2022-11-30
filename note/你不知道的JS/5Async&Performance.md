@@ -453,6 +453,7 @@ for (var v of something) {
     console.log( v );
 
     // don't let the loop run forever!
+    // 迭代器 something 总是返回 done,for..of 循环将永远运行下去
     if (v > 500) {
         break;
     }

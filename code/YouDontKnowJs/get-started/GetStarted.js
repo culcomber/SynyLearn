@@ -7,6 +7,7 @@ var something = (function(){
 
         // standard iterator interface method
         next: function(){
+
             if (nextVal === undefined) {
                 nextVal = 1;
             }
