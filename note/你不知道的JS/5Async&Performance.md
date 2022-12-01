@@ -449,6 +449,7 @@ something.next().value;		// 9
 something.next().value;		// 33
 something.next().value;		// 105
 
+// for..of 循环在每次迭代中自动调用 next()，它不会向 next() 传入任何值，并且会在接收到 done：true 之后自动停止
 for (var v of something) {
     console.log( v );
 
@@ -457,9 +458,129 @@ for (var v of something) {
     if (v > 500) {
         break;
     }
+} // (1 9 33 105) 321 969
+
+// 等价于，但可以在需要时向 next() 传递值
+for (
+	var ret;
+	(ret = something.next()) && !ret.done;
+) {
+	console.log( ret.value );
+
+	// don't let the loop run forever!
+	if (ret.value > 500) {
+		break;
+	}
 }
-// (1 9 33 105) 321 969
+// 1 9 33 105 321 969
 ```
+
+**Iterables**
+
+上面例子的something是iterator，包含iterator的对象是iterable
+
+要从iterable提取iterator，需要给iterable添加Symbol.iterator属性
+
+The `something` object in our running example is called an *iterator*, as it has the `next()` method on its interface. But a closely related term is *iterable*, which is an `object` that **contains** an *iterator* that can iterate over its values.
+
+```js
+// 使用for..of遍历a，默认创建了Symbol.iterator
+var a = [1,3,5,7,9];
+var it = a[Symbol.iterator]();
+it.next().value;	// 1
+it.next().value;	// 3
+it.next().value;	// 5
+```
+
+**Generator Iterator**
+
+运行generator就会得到iterator
+
+a generator itself is not technically an *iterable*, though it's very similar -- when you execute the generator, you get an *iterator* back
+
+```js
+// something 的 generator形式，*something可以不断生成数值
+function *something() {
+	var nextVal;
+	while (true) {
+		if (nextVal === undefined) {
+			nextVal = 1;
+		}
+		else {
+			nextVal = (3 * nextVal) + 6;
+		}
+		yield nextVal;
+	}
+}
+// 使用for..of遍历*something和遍历iterator得到结果是一样的
+// something是generator不支持遍历，something()调用generator生成Iterator，这个Iterator拥有Symbol.iterator，所以这个Iterator也是iterable
+// The something() call produces an iterator, but the for..of loop wants an iterable, right? Yep. The generator's iterator also has a Symbol.iterator function on it, which basically does a return this, just like the something iterable we defined earlier. In other words, a generator's iterator is also an iterable!
+for (var v of something()) {
+	console.log( v );
+	// don't let the loop run forever!
+	if (v > 500) {
+		break;
+	}
+} // 1 9 33 105 321 969
+```
+
+**Stopping the Generator**
+
+try..finally
+
+return
+
+```js
+var it = something();
+for (var v of it) {
+	console.log( v );
+
+	// don't let the loop run forever!
+	if (v > 500) {
+		console.log(
+			// complete the generator's iterator
+			it.return( "Hello World" ).value
+		);
+		// no `break` needed here
+	}
+}
+// 1 9 33 105 321 969
+// cleaning up!
+// Hello World
+```
+
+### 4.3 Iterating Generators Asynchronously
+
+```js
+function foo(x,y) {
+	ajax(
+		"http://some.url.1/?x=" + x + "&y=" + y,
+		function(err,data){
+			if (err) {
+				// throw an error into `*main()`
+				it.throw( err );
+			}
+			else {
+				// resume `*main()` with received `data`
+				it.next( data );
+			}
+		}
+	);
+}
+function *main() {
+	try {
+		var text = yield foo( 11, 31 );
+		console.log( text );
+	}
+	catch (err) {
+		console.error( err );
+	}
+}
+var it = main();// start it all up!
+it.next();
+```
+
+
 
 
 

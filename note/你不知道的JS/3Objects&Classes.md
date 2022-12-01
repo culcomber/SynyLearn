@@ -108,6 +108,8 @@ myObjCopy = structuredClone(myObj);
 
 for...in 以任意顺序迭代一个对象的除[Symbol](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Symbol)以外的[可枚举](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Enumerability_and_ownership_of_properties)属性，包括**继承**的可枚举属性。
 
+for..of
+
 ```js
 myObj = {
     favoriteNumber: 42,
