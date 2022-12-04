@@ -1,36 +1,34 @@
-var something = (function(){
-    var nextVal;
-
-    return {
-        // needed for `for..of` loops
-        [Symbol.iterator]: function(){ return this; },
-
-        // standard iterator interface method
-        next: function(){
-
-            if (nextVal === undefined) {
-                nextVal = 1;
-            }
-            else {
-                nextVal = (3 * nextVal) + 6;
-            }
-
-            return { done:false, value:nextVal };
-        }
-    };
-})();
-
-something.next().value;		// 1
-something.next().value;		// 9
-something.next().value;		// 33
-something.next().value;		// 105
-
-for (var v of something) {
-    console.log( v );
-
-    // don't let the loop run forever!
-    if (v > 500) {
-        break;
-    }
+function getFoo () {
+    return new Promise(function (resolve, reject){
+        resolve('foo');
+    });
 }
-// (1 9 33 105) 321 969
+
+const g = function* () {
+    try {
+        const foo = yield getFoo();
+        console.log(foo);
+    } catch (e) {
+        console.log(e);
+    }
+};
+
+function run (generator) {
+    const it = generator(); // 得到g迭代器
+
+    function go(result) { // 参数是it
+        // { value: Promise { 'foo' }, done: false }
+        // { value: undefined, done: true }
+        if (result.done) return result.value;
+
+        return result.value.then(function (value) { // g还有yield就继续调用
+            return go(it.next(value));
+        }, function (error) {
+            return go(it.throw(error));
+        });
+    }
+
+    go(it.next()); // 运行g
+}
+
+run(g);

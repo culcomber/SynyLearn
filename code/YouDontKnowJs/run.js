@@ -1,58 +1,9 @@
-// thanks to Benjamin Gruenbaum (@benjamingr on GitHub) for
-// big improvements here!
-function run(gen) {
-    var args = [].slice.call( arguments, 1), it;
-    console.log(args)
-
-    // initialize the generator in the current context
-    it = gen.apply( this, args );
-
-    // return a promise for the generator completing
-    return Promise.resolve()
-        .then( function handleNext(value){
-            // run to the next yielded value
-            var next = it.next( value );
-
-            return (function handleResult(next){
-                // generator has completed running?
-                if (next.done) {
-                    return next.value;
-                }
-                // otherwise keep going
-                else {
-                    return Promise.resolve( next.value )
-                        .then(
-                            // resume the async loop on success, sending the resolved value back into the generator
-                            handleNext,
-
-                            // if `value` is a rejected promise, propagate error back
-                            // into the generator for its own error handling
-                            function handleErr(err) {
-                                return Promise.resolve(
-                                    it.throw( err )
-                                )
-                                    .then( handleResult );
-                            }
-                        );
-                }
-            })(next);
-        } );
-}
-
-function foo(x,y) {
-    return request(
-        "http://some.url.1/?x=" + x + "&y=" + y
-    );
-}
-
-function *main() {
-    try {
-        var text = yield foo( 11, 31 );
-        console.log( text );
+var x = 1;
+var obj = {
+    x: 2,
+    y: function () {
+        console.log(this.x);
     }
-    catch (err) {
-        console.error( err );
-    }
-}
-
-run( main );
+};
+obj.y() // 2
+setTimeout(obj.y, 1000) // 1

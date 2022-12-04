@@ -1,12 +1,6 @@
 ## Chapter 1: Types
 
-JavaScript 有七种内置类型：y
-
-
-
-
-
-null、undefined、boolean、number、string、object、symbol
+JavaScript 有七种内置类型：null、undefined、boolean、number、string、object、symbol
 
 ```js
 // 错误识别null
