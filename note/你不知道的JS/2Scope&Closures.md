@@ -1,3 +1,5 @@
+![Scope&Closures](../assets/Scope&Closures.png)
+
 ## Chapter 1: What's the Scope?
 
 作用域（lexical scope--编译时确定，运行时创建）是存储和查找变量（reference-- *target* or *source* role，在作用域内查找变量）的规则。在函数里面声明的变量（作用域和函数关联），在块里面声明的`let` / `const`变量（作用域和块关联）。
@@ -102,8 +104,8 @@ PS:`id`, `name`, and `log` are all properties(对象方法), not variables
 
 `var students = [ .. ]`的执行过程
 
-- 经过分词/词法分析和解析/语法分析得到AST；生成代码：处理 `var students`，*Compiler* 将询问Scope Manager，看是否有一个名为students的变量已经存在于Scope中，如果有的话，编译器将忽略这个声明并继续前进。否则，编译器将产生代码，代码（在执行时）要求范围管理器在该scope bucket中创建一个名为 students 的新变量。Compiler生成处理 `students = []` 的代码给Engine使用。
-- 执行代码：Engine将询问Scope Manager，在当前的Scope中是否有一个叫做students的变量可以访问，如果没有，Engine就根据**作用域链**查找下一个作用域。一旦Engine找到students，将其**初始化为undefined**，这样它就可以使用了，然后将数组[ .. ]赋值给students。
+- 经过分词/词法分析和解析/语法分析得到AST；**生成代码**：处理 `var students`，***Compiler*** 将询问Scope Manager，看是否有一个名为students的变量已经存在于Scope中，如果有的话，编译器将忽略这个声明并继续前进。否则，编译器将产生代码，代码（在执行时）要求范围管理器在该scope bucket中创建一个名为 students 的新变量。Compiler生成处理 `students = []` 的代码给Engine使用。
+- **执行代码**：**Engine**将询问Scope Manager，在当前的Scope中是否有一个叫做students的变量可以访问，如果没有，Engine就根据**作用域链**查找下一个作用域。一旦Engine找到students，将其**初始化为undefined**，这样它就可以使用了，然后将数组[ .. ]赋值给students。
 
 PS:作用域链与位置有关，就比如for循环嵌套在函数（getStudentName）里面，函数在全局作用域，作用域链就是for--getStudentName--globe
 
@@ -134,7 +136,8 @@ console.log(window.one);       // 1
 console.log(window.notOne);    // undefined
 console.log(window.notTwo);    // undefined
 console.log(window.notThree);  // undefined
-// 函数执行时创建two和hello1，函数中执行结束这两个变量随着函数一起销毁
+
+// 函数执行时创建two和hello1
 function hello () {
     var two = 1;
     function hello1 () {
@@ -143,6 +146,7 @@ function hello () {
 console.log(window.two); // ƒ hello () {...}
 console.log(window.hello); // undefined
 console.log(window.hello1); // undefined
+
 // var function不识别块作用域
 if (one === 1) {
     function hello3 () {
@@ -154,6 +158,8 @@ console.log(window.three);  // 1
 ```
 
  `let` (in an inner scope) can always shadow an outer scope's `var`. `var` (in an inner scope) can only shadow an outer scope's `let` if there is a function boundary in between
+
+var函数作用域，let块作用域，函数中同时出现car/let声明的变量，需要用块或者函数构建新的作用域，这样就会发生shadowing
 
 ```js
 function something() {
@@ -184,7 +190,7 @@ function another() {
 }
 ```
 
-### 3.2 Function Name Scope
+### 3.2 hoisting
 
 ```js
 // 函数整体会被提升
@@ -207,7 +213,7 @@ askQuestion(); // function ofTheTeacher()...
 console.log(ofTheTeacher); // ReferenceError: ofTheTeacher is not defined
 
 // 箭头函数
-var askQuestion = () => {
+var askQuestion = () => { // 同var askQuestion = function ofTheTeacher() {}
     // ..
 };
 ```
@@ -362,27 +368,7 @@ global.studentName = "Kyle";
 
 ## Chapter 5: The (Not So) Secret Lifecycle of Variables
 
-### 5.1 Hoisting
-
-var和function声明变量会被提升
-
-```js
-studentName = "Suzy";
-greeting();// Hello Suzy!
-function greeting() {
-    console.log(`Hello ${ studentName }!`);
-}
-var studentName;
-// 等同于
-function greeting() {
-    console.log(`Hello ${ studentName }!`);
-}
-var studentName;
-studentName = "Suzy";
-greeting(); // Hello Suzy!
-```
-
-### 5.2 Re-declaration
+### 5.1 Re-declaration
 
 后声明的var会被忽略，赋值会被执行
 
@@ -397,10 +383,10 @@ var greeting = "Hello!";
 typeof greeting; // "string"
 ```
 
-let const
+let/const不允许被重复声明
 
 ```js
-// let/const不允许被重复声明，以下三种情况都会报错
+// 以下三种情况都会报错
 let studentName = "Frank";
 let studentName = "Suzy"; // 报错
 
@@ -422,10 +408,10 @@ studentName = "Suzy";   // TypeError
 ```js
 // value没有被重复声明，因为块级作用域，每次进入都会被重置
 // each time a scope is entered during execution, everything resets.
-// 如果var value = Math.random(); value不会被重新声明
 var keepGoing = true;
 while (keepGoing) {
-    let value = Math.random();
+    let value = Math.random(); 
+    // 如果var value = Math.random(); value不会被重新声明，只会声明一次，块作用域限制不了var
     if (value > 0.5) {
         keepGoing = false;
     }
@@ -435,7 +421,7 @@ for (let i = 0; i < 3; i++) {
     let value = i * 10; // 
     console.log(`${ i }: ${ value }`);
 }
-// for循环里面的i可以看作是在更高层次作用域
+// for循环里面的i可以看作是在更高层次作用域，for()条件的i和内部{}的i不是同一个
 {
     // a fictional variable for illustration
     let $$i = 0;
@@ -466,7 +452,7 @@ for (const i = 0; keepGoing; /* nothing here */ ) {
 }
 ```
 
-### 5.3 TDZ
+### 5.2 TDZ
 
 临时性死区：进入作用域但是没有被初始化的这段时间，处于这个阶段的变量没有办法访问；var没有临时性死区。
 
@@ -643,13 +629,53 @@ if (typeof Array.isArray == "undefined") {
 
 ## Chapter 7: Using Closures
 
+### 7.1 See the Closure
+
+A函数内部有B函数，B对A的变量有引用，在A函数外部调用A
+
 Closure is observed when a function uses variable(s) from outer scope(s) even while running in a scope where those variable(s) wouldn't be accessible.
 
 The key parts of this definition are:
 
-- Must be a function involved
-- Must reference at least one variable from an outer scope
+- Must be **a function** involved
+
+- Must **reference at least one variable** from an outer scope
+
+  ```js
+  var students = [
+      { id: 14, name: "Kyle" },
+      { id: 73, name: "Suzy" },
+  ];
+  function getFirstStudent() {
+      return function firstStudent(){
+          return students[0].name;
+      };
+  }
+  var student = getFirstStudent();
+  student(); // Kyle
+  
+  function lookupStudent(studentID) {
+      return function nobody(){
+          var msg = "Nobody's here yet.";
+          console.log(msg);
+      };
+  }
+  var student = lookupStudent(112);
+  student(); // Nobody's here yet.
+  ```
+
 - Must be invoked in a different branch of the scope chain from the variable(s)
+
+  ```js
+  function say(myName) {
+      var greeting = "Hello";
+      output();
+      function output() {
+          console.log(`${ greeting }, ${ myName }!`);
+      }
+  }
+  say("Kyle"); // Hello, Kyle!
+  ```
 
 each of those references from the inner function to the variable in an outer scope is called a *closure*.
 
@@ -657,36 +683,36 @@ each of those references from the inner function to the variable in an outer sco
 // outer/global scope: RED(1)
 function lookupStudent(studentID) {
     // function scope: BLUE(2)
-
     var students = [
         { id: 14, name: "Kyle" },
         { id: 73, name: "Suzy" },
         { id: 112, name: "Frank" },
         { id: 6, name: "Sarah" }
     ];
-
     return function greetStudent(greeting){
         // function scope: GREEN(3)
-        // The consequence here is that this arrow function passed as a callback to the array's find(..) method has to hold the closure over studentID, rather than greetStudent(..) holding that closure. 
         var student = students.find(
             // function scope: ORANGE(4)
             student => student.id == studentID
         );
-
         return `${ greeting }, ${ student.name }!`;
     };
 }
 // 每次运行lookupStudent都会产生新的函数实例greetStudent，同时产生新的闭包
-// closure is associated with an instance of a function, rather than its single lexical definition. Even though closure is based on lexical scope, which is handled at compile time, closure is observed as a runtime characteristic of function instances.
 var chosenStudents = [
     lookupStudent(6),
     lookupStudent(112)
 ];
-
 chosenStudents[0].name; // greetStudent
 chosenStudents[0]("Hello"); // Hello, Sarah!
 chosenStudents[1]("Howdy"); // Howdy, Frank!
 ```
+
+内部 addTo(...) 函数的每个实例都在关闭自己的 num1 变量（分别为 10 和 42 的值），所以这些 num1 不会因为 adder(...) 的结束而消失。当我们后来调用这些内部的addTo(...)实例之一时，比如add10To(15)的调用，其关闭的num1变量仍然存在，并且仍然持有原来的10值。因此，该操作能够执行10+15并返回答案25。
+
+在前面那段话中，有一个重要的细节可能太容易被掩盖了，所以我们再来强化一下：闭包是与一个函数的实例相关联的，而不是与它的单一词法定义相关联。在前面的片段中，adder(...)内部只有一个addTo(...)函数的定义，所以看起来这似乎意味着一个闭包。
+
+但实际上，每当外层 adder(...) 函数运行时，就会创建一个新的内层 addTo(...) 函数实例，而对于每个新的实例，都有一个新的闭包。所以每个内部函数实例（在我们的程序中标记为 add10To(...) 和 add42To(...)）都有自己的闭包，它覆盖在执行 adder(...) 时的范围环境中的自己的实例。
 
 **Live Link, Not a Snapshot**
 
@@ -697,14 +723,17 @@ function adder(num1) {
     };
 }
 
-var add10To = adder(10);
-var add42To = adder(42);
+// adder每调用一次就生成一个新的addTo实例，实例指向的num1也是全新的，并且num1并不是值的快照，是变量
+var add10To = adder(10); // num1:10
+var add42To = adder(42); // num1:42
 
 add10To(15);    // 25
 add42To(9);     // 51
 ```
 
 ![image-20221108103705148](../assets/image-20221108103705148.png)
+
+![image-20221212155254994](../assets/image-20221212155254994.png)
 
 num1作用域是adder，num2作用域是addTo，addTo作用域是全局
 
@@ -726,6 +755,7 @@ var hello = '11'
         return count;
     };
 }
+// count可以被改变
 hits();     // 1
 hits();     // 2
 hits();     // 3
@@ -738,7 +768,7 @@ var keeps = [];
 // 如果换成let，输出1 2 3，每一次循环会产生基于块作用域的闭包，产生新的实例，并保存i的值
 for (var i = 0; i < 3; i++) {
     keeps[i] = function keepI(){
-        // closure over `i`
+        // closure over `i` 这个程序只有一个i，因为它是用var声明的
         return i;
     };
 }
@@ -780,35 +810,30 @@ keeps[1]();   // 1
 keeps[2]();   // 2
 ```
 
+### 7.2 The Closure Lifecycle and Garbage Collection (GC)
+
 **closure is per variable rather than *per scope***
 
+it's important to know where closures appear in our programs, and what variables are included. We should manage these closures carefully so we're only holding onto what's minimally needed and not wasting memory.
+
 ```js
-// getGrade and studentRecords不一定会被会被清除，主要看浏览器优化
 function manageStudentGrades(studentRecords) {
     var grades = studentRecords.map(getGrade);
-    
-    // 主动清除
-	// unset `studentRecords` to prevent unwanted memory retention in the closure
-    studentRecords = null;
-    
     return addGrade;
+    
+    // unset `studentRecords` to prevent unwanted memory retention in the closure
+    // 防止大数据保存在内存中
+    studentRecords = null;
 
-    // ************************
-
-    function getGrade(record){
+    function getGrade(record){ // 不会存在内存中，因为没有被调用
         return record.grade;
     }
-
     function sortAndTrimGradesList() {
-        // sort by grades, descending
-        grades.sort(function desc(g1,g2){
+        grades.sort(function desc(g1,g2){ // sort by grades, descending
             return g2 - g1;
         });
-
-        // only keep the top 10 grades
-        grades = grades.slice(0,10);
+        grades = grades.slice(0,10); // only keep the top 10 grades
     }
-
     function addGrade(newGrade) {
         grades.push(newGrade);
         sortAndTrimGradesList();
@@ -818,22 +843,14 @@ function manageStudentGrades(studentRecords) {
 
 var addNextGrade = manageStudentGrades([
     { id: 14, name: "Kyle", grade: 86 },
-    { id: 73, name: "Suzy", grade: 87 },
-    { id: 112, name: "Frank", grade: 75 },
     // ..many more records..
     { id: 6, name: "Sarah", grade: 91 }
 ]);
 
 // later
-
 addNextGrade(81);
-addNextGrade(68);
-// [ .., .., ... ]
+addNextGrade(68);  // [ .., .., ... ]
 ```
-
-## Chapter 8: The Module Pattern
-
-
 
 ## Appendix A: Exploring Further
 

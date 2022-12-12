@@ -2,6 +2,8 @@
 
 线程（Thread）是最小的执行单元，而进程（Process）由至少一个线程组成
 
+程序中现在运行的部分和将来运行的部分之间的关系就是异步编程的核心
+
 **Event Loop**
 
 `setTimeout(..)` 并没有把你的回调函数挂在事件循环队列中。它所做的是设定一个定时器。当定时器到时后，环境会把你的回调函数放在事件循环中
@@ -31,11 +33,11 @@ while (true) {
 
 **Parallel Threading**
 
-`async`: the gap between ***now* and later**
+**`async`**: the gap between ***now* and later**
 
-parallel: things being able to **occur simultaneously**
+**parallel**: things being able to **occur simultaneously**
 
-`JS`是单进程，但是可以异步
+`JS`是单进程，可以异步
 
 ```js
 var a = 20;
@@ -55,7 +57,6 @@ var res = [];
 function response(data) {
 	res.push( data );
 }
-
 // res有顺序之别
 function response(data) {
 	if (data.url == "http://some.url.1") {
@@ -155,38 +156,7 @@ ajax( "http://some.url.2", response );
 
 ### 3.1 Promises
 
-回调是最基础的异步模式
-
-回调两个主要缺陷：缺乏顺序性和可信任性
-
-```js
-// 创造了一个Promise实例
-const promise = new Promise(function(resolve, reject) { // 由 JavaScript 引擎提供，不是回调函数
-  // ... some code
-  if (/* 异步操作成功 */){
-    resolve(value);
-  } else {
-    reject(error);
-  }
-});
-
-// Promise实例生成以后，可以用then方法分别指定resolved状态和rejected状态的回调函数。p.then(..) 调用本身返回了另外一个 promise
-promise.then(function(value) {
-  // success
-}, function(error) {
-  // failure
-});
-
-// 实例
-function timeout(ms) {
-  return new Promise((resolve, reject) => {
-    setTimeout(resolve, ms, 'done');
-  });
-}
-timeout(100).then((value) => {
-  console.log(value);
-});
-```
+回调是最基础的异步模式，解决回调两个主要缺陷：缺乏顺序性和可信任性
 
 Calling Too Late
 
@@ -579,14 +549,4 @@ function *main() {
 var it = main();// start it all up!
 it.next();
 ```
-
-
-
-
-
-Chapter 5: Program Performance
-
-
-
-Chapter 6: Benchmarking & Tuning
 

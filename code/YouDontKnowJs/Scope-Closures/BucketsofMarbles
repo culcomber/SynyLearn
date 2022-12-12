@@ -1,0 +1,59 @@
+/*
+1.If you color all the scopes (including the global scope!) different colors, you need at least six colors.
+Make sure to add a code comment labeling each scope with its color.
+BONUS: identify any implied scopes your code may have.
+2.Each scope has at least one identifier.
+3.Contains at least two function scopes and at least two block scopes.
+4.At least one variable from an outer scope must be shadowed by a nested scope variable (see Chapter 3).
+5.At least one variable reference must resolve to a variable declaration
+at least two levels higher in the scope chain.
+
+1.如果你给所有的作用域（包括全局作用域！）涂上不同的颜色，你至少需要六种颜色。确保添加一个代码注释，给每个作用域标上它的颜色。
+BONUS：确定你的代码可能有的任何隐含作用域。
+2。每个作用域至少有一个标识符。
+3。至少包含两个函数作用域和至少两个块作用域。
+4。一个外层作用域的至少一个变量必须被一个嵌套的作用域变量所影射（见第三章）。
+5。至少有一个变量引用必须解析到作用域链中至少高两级的变量声明。
+*/
+
+// RED(1)
+const howMany = 100;
+
+// Sieve of Eratosthenes
+function findPrimes(howMany) {
+    // BLUE(2)
+    var sieve = Array(howMany).fill(true);
+    var max = Math.sqrt(howMany);
+
+    for (let i = 2; i < max; i++) {
+        // GREEN(3)
+        if (sieve[i]) {
+            // ORANGE(4)
+            let j = Math.pow(i,2);
+            for (let k = j; k < howMany; k += i) {
+                // PURPLE(5)
+                sieve[k] = false;
+            }
+        }
+    }
+
+    return sieve
+        .map(function getPrime(flag,prime){
+            // PINK(6)
+            if (flag) return prime;
+            return flag;
+        })
+        .filter(function onlyPrimes(v){
+            // YELLOW(7)
+            return !!v;
+        })
+        .slice(1);
+}
+
+findPrimes(howMany);
+// [
+//    2, 3, 5, 7, 11, 13, 17,
+//    19, 23, 29, 31, 37, 41,
+//    43, 47, 53, 59, 61, 67,
+//    71, 73, 79, 83, 89, 97
+// ]
