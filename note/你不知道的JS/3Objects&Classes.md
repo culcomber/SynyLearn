@@ -6,7 +6,7 @@ the pairing of a property name and a value often called a "property"
 
 **与`JSON`区别**
 
-- `JSON`属性名必须用双引号包裹，对象
+- `JSON`属性名必须用双引号包裹
 
 - `JSON`属性值必须是基本类型（literals），而不是表达式
 - `JSON`不允许注释
@@ -70,7 +70,7 @@ anotherObj = {
 
 当在一个对象字面量前使用`...`时，将把属性（键/值对）"扩散 "到正在定义的对象中。只能**在`{ .. }`对象字面量内使用**，使用后就会创建新的对象属性。the `...` object spread syntax can only appear inside the `{ .. }` object literal, which is creating a new object value.
 
-**浅拷贝**，可以想象成一个for循环，只复制了可以枚举的顶层属性，如果有属性值是对象，只是复制对象所在地址
+**浅拷贝**，可以想象成一个for循环，只复制了**可以枚举的顶层属性**，如果有属性值是对象，只是复制对象所在地址
 
 ```js
 const myObj = {
@@ -102,7 +102,11 @@ myObjCopy = structuredClone(myObj);
 
 `Object.entries(..)` 遍历属性
 
-`Object.keys(..)` 遍历key；`Object.getOwnPropertyNames(..)`可以返回**non-enumerable**属性名，但是不会返回Symbol；`Object.getOwnPropertySymbols(..)`只返回Symbol属性名
+`Object.keys(..)` 遍历key
+
+`Object.getOwnPropertyNames(..)`可以返回**non-enumerable**属性名，但是不会返回Symbol
+
+`Object.getOwnPropertySymbols(..)`只返回Symbol属性名
 
 `Object.values(..)`遍历value
 
@@ -145,12 +149,11 @@ const {
     lastName: lname = "--missing--"
 } = myObj;
 
-// Destructuring is about access and assignment (source to target) 不限于创建变量
+// Destructuring is about access and assignment (source to target) 不限制于创建变量
 let fave;
 // surrounding ( ) are required syntax here, when a declarator is not used
 ({ favoriteNumber: fave } = myObj);
 fave;  // 42
-
 ```
 
 object is sometimes just a **temporary transport container** rather than a meaningful value in and of itself
@@ -160,7 +163,6 @@ function formatValues({ one, two, three }) { // 传入对象解构成三个值
     one = one.toUpperCase();
     two = `--${two}--`;
     three = three.substring(0,5);
-
     return { one, two, three };
 }
 
@@ -171,6 +173,10 @@ one;     // "KYLE"
 two;     // "--Simpson--"
 three;   // "getif"
 ```
+
+总结：Object Spread，对象到对象，`const anotherObj = { ...myObj }`
+
+解构赋值，对象到变量，`const { lastName: lname = "--missing--"} = myObj`
 
 **Conditional Property Access**
 
@@ -254,7 +260,7 @@ if (!Object.hasOwn) {
 
 描述属性的对象，`Object.getOwnPropertyDescriptor(..)`获取
 
-`accessor property`：getter/setter
+不返回 getter/setter
 
 ```js
 myObj = {favoriteNumber: 42,};
@@ -287,7 +293,7 @@ anotherObj.fave; // Getting 'fave' value! 得到123
 
 ### 2.2 Object Sub-Types
 
-继承了父类型的行为，但又扩展了行为。换句话说，values of these sub-types are fully objects, but are also *more than just* objects.
+继承了父类型的行为，但又扩展了行为的对象。换句话说，values of these sub-types are fully objects, but are also *more than just* objects.
 
 **Arrays**
 
@@ -308,7 +314,7 @@ myList.length; // 15
 myList; // [ 23, 42, 109, empty x 11, "Hello" ]
 
 // looks like a real slot with a real `undefined` value in it, but beware, it's a trick!
-myList[9]; // undefined 其实是empty，数组方法 map(..)会跳过empty
+myList[9]; // undefined   但值其实是empty，数组方法 map(..)会跳过empty
 ```
 
 **Functions**
@@ -388,7 +394,7 @@ emptyObj.toString;   // undefine
 
 In other words, you can think of functions themselves as having been "created" by a `new Function(..)` call, and then `[[Prototype]]`-linked to the `Function.prototype` object. This object contains properties/methods all functions "inherit" by default, such as `toString()` (to string serialize the source code of a function) and `call(..)` / `apply(..)` / `bind(..)` 
 
-由于{ .}对象字面语法与new Object()调用基本相同，被命名/定位在Object.prototype的内置对象被用作我们创建并命名为myObj的新对象的内部[[Prototype]] 值。
+由于{ }对象字面语法与`new Object()`调用基本相同，被命名/定位在`Object.prototype`的内置对象被用作我们创建并命名为`myObj`的新对象的内部[[Prototype]] 值。
 
 ## Chapter 3: Classy Objects
 
@@ -796,20 +802,4 @@ three.fn     |
 two          | (this = globalThis)
 one          | (this = {})
 [ global ]   | (this = globalThis)
-```
-
-## Chapter 5: Delegatio
-
-In fact, I would argue JS is inherently less class-oriented than the `class` keyword might appear. Because JS is a dynamic, prototypal language, its strong suit is actually... *delegation*.
-
-```
-var calc = calculator();
-
-useCalc(calc,"4+3=");           // 4+3=7
-useCalc(calc,"+9=");            // +9=16
-useCalc(calc,"*8=");            // *5=128
-useCalc(calc,"7*2*3=");         // 7*2*3=42
-useCalc(calc,"1/0=");           // 1/0=ERR
-useCalc(calc,"+3=");            // +3=ERR
-useCalc(calc,"51=");            // 51
 ```
