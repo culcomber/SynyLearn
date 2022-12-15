@@ -23,12 +23,12 @@ var a = [ 1, "2", [3] ];
 delete a[2]
 a.hello = "hello"
 console.log(a) // [ 1, '2', <1 empty item>, hello: 'hello' ]
-console.log(a.length) // 3
+console.log(a.length) // 3 delete不会改变length
 ```
 
 **Array-Likes**
 
-**`Array.from(arrayLike, mapFn, thisArg)`** 方法对一个类似数组或可迭代对象创建一个新的，浅拷贝的数组实例。
+**`Array.from(arrayLike, mapFn, thisArg)`** 方法对一个类似数组或可迭代对象创建一个**新的浅拷贝的数组**。
 
 - arrayLike：想要转换成数组的伪数组对象或可迭代对象。
 
@@ -36,7 +36,7 @@ console.log(a.length) // 3
 
 - thisArg ：可选参数，执行回调函数 mapFn 时 this 对象
 
-**`slice(start, end)`** 方法返回一个新的数组对象，这一对象是一个由 `begin` 和 `end` 决定的原数组的**浅拷贝**（包括 `begin`，不包括`end`）。原始数组不会被改变。两个参数都是可选。
+**`slice(start, end)`** 方法返回一个**新的浅拷贝数组**，这一对象是一个由 `begin` 和 `end` 决定的原数组的浅拷贝（包括 `begin`，不包括`end`）。原始数组不会被改变。两个参数都是可选。
 
 - `begin` ：为负数，则表示从原数组中的倒数第几个元素开始提取；如省略则从索引 `0` 开始；如果超出原数组的索引范围，则会返回空数组。
 
@@ -51,30 +51,69 @@ arr = Array.prototype.slice.call( arguments );
 arr = Array.prototype.from.call( arguments );
 ```
 
-### 2.2 Strings
-
-字符串是类数组，和字符数组不一样
-
 **字符串和数组同名的方法**
 
-indexOf
-
-- **`Obj.indexOf(searchElement, fromIndex)`** 方法返回在数组中可以找到给定元素的第一个索引，如果不存在，则返回 -1。fromIndex 可选
-  开始查找的位置。
-- **`Sting.indexOf(searchString, position)`** 方法，给定一个参数：要搜索的子字符串，搜索整个调用字符串，并返回指定子字符串第一次出现的索引。给定第二个参数：一个数字，该方法将返回指定子字符串在大于或等于指定数字的索引处的第一次出现。
-
-concat
+**concat**
 
 - **`Obj.concat(value0, value1, /* … ,*/ valueN)`** 方法用于合并两个或多个数组。此方法不会更改现有数组，而是返回一个新数组。参数可以是数组/值。
-- **`Sting.concat(str2, [, ...strN])`** 方法将一个或多个字符串与原字符串连接合并，形成一个新的字符串并返回。
+- **`Sting.concat(str1, [, ...strN])`** 方法将一个或多个字符串与原字符串连接合并，形成一个新的字符串并返回。
+
+```js
+const array = ['a', 'b', 'c'].concat(['d', 'e', 'f']); // ["a", "b", "c", "d", "e", "f"]
+const stringNew = "".concat(...['Hello', ' ', 'Venkat', '!'])  // "Hello Venkat!"
+```
+
+**at**
+
+**`Array.prototype.at()`**方法接收一个整数值并返回该索引对应的元素，允许正数和负数。负整数从数组中的最后一个元素开始倒数。
+
+**`String.prototype.at()`**方法接受一个整数值，并返回一个新的 String，该字符串由位于指定偏移量处的单个 UTF-16 码元组成。该方法允许正整数和负整数。负整数从字符串中的最后一个字符开始倒数。
+
+```js
+const array1 = [5, 12, 8, 130, 44];
+let index = 2;
+console.log(array1.at(index)); // 8
+index = -2;
+console.log(array1.at(index)); // 130
+
+const sentence = 'The quick brown fox jumps over the lazy dog.';
+index = 5;
+console.log(sentence.at(index)); // u
+index = -4;
+console.log(sentence.at(index)); // d
+```
+
+**includes**
+
+**`Array.prototype.includes(searchElement, fromIndex)`**方法用来判断一个数组是否包含一个指定的值，根据情况，如果包含则返回 true，否则返回 false。
+
+**`String.prototype.includes(searchString, position)`**方法执行区分大小写的搜索，以确定是否可以在另一个字符串中找到一个字符串，并根据情况返回 `true` 或 `false`。
+
+**indexOf**
+
+- **`Obj.indexOf(searchElement, fromIndex)`** 方法返回在数组中可以找到给定元素的第一个索引，如果不存在，则返回 -1。fromIndex 可选，开始查找的位置。
+- **`Sting.indexOf(searchString, position)`** 方法，给定一个参数：要搜索的子字符串，搜索整个调用字符串，并返回指定子字符串第一次出现的索引。给定第二个参数：一个数字，该方法将返回指定子字符串在大于或等于指定数字的索引处的第一次出现。
 
 ```js
 ['ant', 'bison', 'camel', 'duck', 'bison'].indexOf('bison') // 返回  1
 'Blue Whale'.indexOf('Blue') // 返回  0
-
-const array = ['a', 'b', 'c'].concat(['d', 'e', 'f']); // ["a", "b", "c", "d", "e", "f"]
-const stringNew = "".concat(...['Hello', ' ', 'Venkat', '!'])  // "Hello Venkat!"
 ```
+
+**lastIndexOf**
+
+**`Array.prototype.lastIndexOf(searchElement, fromIndex)`** 方法返回指定元素在数组中的最后一个的索引，如果不存在则返回 -1。从数组的后面向前查找，从 fromIndex 处开始。
+
+**`String.prototype.lastIndexOf(searchString, position)`**方法返回调用String 对象的指定值最后一次出现的索引，在一个字符串中的指定位置 fromIndex处从后向前搜索。如果没找到这个特定值则返回 -1。
+
+**slice**
+
+**`Array.prototype.slice(start, end)`**方法返回一个新的数组对象，这一对象是一个由 begin 和 end 决定的原数组的浅拷贝（包括 begin，不包括end）。原始数组不会被改变。
+
+**`String.prototype.slice(start, end)`**方法提取某个字符串的一部分，并返回一个新的字符串，且不会改动原字符串。
+
+### 2.2 Strings
+
+字符串是类数组，和字符数组（本身是数组，元素是字符）不一样
 
 **sting调用数组方法**
 
