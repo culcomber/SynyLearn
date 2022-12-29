@@ -1,6 +1,7 @@
-async function getData() {
-    return await Promise.resolve("I made it!");
+let config = {
+    alert: setInterval(() => {
+        console.log('Alert!')
+    }, 1000)
 }
 
-const data = getData();
-console.log(data);
+config = null
