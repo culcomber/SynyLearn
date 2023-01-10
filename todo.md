@@ -1,72 +1,60 @@
 # `todo`
-异步
 
-2/5回顾
+## 1 底层基础
 
-3/4回顾
+- 编译原理
+- 浏览器架构
+- Web 网络
+- 事件循环机制
+- `V8` 的内存管理
+- 浏览器的渲染流程
+- Web 安全
 
-函数式编程
+## 2 三件套
 
-`FrontEndGitHub有JS问题    30day项目    收藏夹：项目/js`
+- JavaScript 核心
+- 设计模式
+- 函数式编程
 
-react收藏夹  找项目做
+- `CSS`/HTML
 
+## 3 常用框架
 
+- React
 
-一、JavaScript基础 51 1月
+- `Vue`
 
-Authentication==编译原理 设计模式
+- Node
 
-四、运行环境 24 2月
+## 4 构建工具链
 
-浏览器
+- 项目构建
+- `nginx`
+- 开发提速
+- 版本控制
+- 持续集成
+- 测试
+- 性能优化
 
-Node
+## 5 框架和类库
 
-二、HTML和`CSS` 21 2月
+- `TypeScript`
+- 多端开发
+- 数据流管理
+- 实用库
+- 开发和调试
+- Web Components
+- Progressive Web `Apps`
+- Server-side rendering
+- Static Site Generators
+- `Graphql`
+- Mobile applications
+- Desktop Applications in JavaScript
 
-五、框架和类库 38 3 4 5月
+## 6 综合
 
-`TypeScript`
-React
-`Vue`
-多端开发
-数据流管理
-实用库
-开发和调试
+- 业务-项目和代发知识
 
-Web Components
+- 面试技巧
 
-Progressive Web Apps
-
-Server-side rendering
-
-Static Site Generators
-
-Graphql
-
-Mobile applications
-
-Desktop Applications in JavaScript
-
-六、前端工程 20  3 4 5月
-
-项目构建
-`nginx`==网络协议
-开发提速
-版本控制
-持续集成
-
-三、计算机基础 18  6月
-
-编译原理
-网络协议
-设计模式
-
-七、项目和业务 15 6月
-
-后端技能
-性能优化
-前端安全
-业务相关
-
+- 个人项目
