@@ -12,75 +12,66 @@
 
 ## 1 底层基础
 
-- 计算机组成原理
-- 操作系统 
-  - 鸟哥的Linux私房菜
-- 数据库 
-  - MySQL必知必会
-  - **80 |** **程序员练级攻略：数据库**
-  
-- 编译原理 
+- 计算机组成原理 1/12-1/13
+- 编译原理
 
   - [字符编码](http://www.imkevinyang.com/2010/06/%E5%85%B3%E4%BA%8E%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81%EF%BC%8C%E4%BD%A0%E6%89%80%E9%9C%80%E8%A6%81%E7%9F%A5%E9%81%93%E7%9A%84.html)
-
+- 操作系统
+  - 鸟哥的Linux私房菜
+- 数据库
+  - MySQL必知必会
+  - **80 |** **程序员练级攻略：数据库**
 - [Web 网络](https://developer.mozilla.org/zh-CN/docs/Web/HTTP)
 
   - https://www.keycdn.com/blog/http-security-headers
-
 - 浏览器架构
-
 - 事件循环机制 
-
 - `V8` 的内存管理 
-
 - 浏览器的渲染流程
 
   - [超完整的Chrome浏览器客户端调试大全](http://www.igeekbar.com/igeekbar/post/156.htm)
-
 - Web 安全
 
   - OWASP - Open Web Application Security Project
   - https://medium.com/@vcarl/overly-defensive-programming-e7a1b3d234c2
-
 - 实践
+- 用这些系统知识操作一下文件系统，实现一个可以拷贝目录树的小程序。
+- 用 fork / wait / waitpid 写一个多进程的程序，用 pthread 写一个多线程带同步或互斥的程序。比如，多进程购票的程序。
+- 用 signal / kill / raise / alarm / pause / sigprocmask 实现一个多进程间的信号量通信的程序。
+- 学会使用 gcc 和 gdb 来编程和调试程序（参看我的[《**用 gdb 调试程序**》](https://blog.csdn.net/haoel/article/details/2879)）。
+- 学会使用 makefile 来编译程序（参看我的[《**跟我一起写 makefile**》](https://blog.csdn.net/haoel/article/details/2886)）。
+- Socket 的进程间通信。用 C 语言写一个 1 对 1 的聊天小程序，或是一个简单的 HTTP服务器。
 
-  - 用这些系统知识操作一下文件系统，实现一个可以拷贝目录树的小程序。
-
-  - 用 fork / wait / waitpid 写一个多进程的程序，用 pthread 写一个多线程带同步或互斥的程序。比如，多进程购票的程序。
-
-  - 用 signal / kill / raise / alarm / pause / sigprocmask 实现一个多进程间的信号量通信的程序。
-
-  - 学会使用 gcc 和 gdb 来编程和调试程序（参看我的[《**用 gdb 调试程序**》](https://blog.csdn.net/haoel/article/details/2879)）。
-
-  - 学会使用 makefile 来编译程序（参看我的[《**跟我一起写 makefile**》](https://blog.csdn.net/haoel/article/details/2886)）。
-
-  - Socket 的进程间通信。用 C 语言写一个 1 对 1 的聊天小程序，或是一个简单的 HTTP服务器。
+87 | 程序员练级攻略：前端基础和底层原理
+88 | 程序员练级攻略：前端性能优化和框架
 
 ## 2 三件套
 
-- JavaScript 核心 1
-- 设计模式 1 
+- JavaScript 核心 1 2/6-2/19
+- 设计模式 1 2/20-2/26
   - **76 |** **程序员练级攻略：软件设计**
 
-- 函数式编程 1
+- 函数式编程 1 2/27-3/5
 
-- `CSS`/HTML 2
+- `CSS`/HTML 2 3/6-3/19
 
 ## 3 常用框架
 
-- React 2
+- React 2 3/20-4/2
 
-- `Vue `1
+- `Vue `1 4/3-416
 
-- Node
+- Node 4/17-4/30
   - [Node.js 最佳实践](https://github.com/goldbergyoni/nodebestpractices/blob/master/README.chinese.md)
   
 
 ## 4 构建工具链
 
+**5/6做项目（多端 后管）过程中把4、5看完**
+
 [带你入门前端工程](https://woai3c.github.io/introduction-to-front-end-engineering/)
 
-**做项目**：多端 后管
+[系统设计入门](https://github.com/xitu/system-design-primer/blob/translation/README-zh-Hans.md)
 
 - 项目构建
 - `nginx`
@@ -175,6 +166,8 @@
 
 ## 6 综合
 
+**七月份综合复习**
+
 - 业务-项目和代发知识
 
 - 面试技巧
@@ -200,3 +193,17 @@
 **前端开发**。这里的前端主要是 HTML 5 的前端了，这一节会带你学习一下前端开发所需要知道的基础知识，尤其是对前端开发语言 JavaScript 的学习，我花费了相当的篇幅列出了很多很经典的学习资料，必定会让你成为一个 JavaScript 高手。然后你还需要了解浏览器是怎样工作的，还有相关的网络协议和一些性能优化的技巧。最后则是JavaScript 框架的学习，这里我只给了 React.js 和 Vue.js，并通过 React.js 带出来**函数式编程**的学习。
 
 **信息源**。最后，则是一些信息源，其中包括各大公司的技术 Blog，还有相关的论文集散地。
+
+
+
+**JavaScript 的核心原理**。这里我会给出好些网上很不错的讲 JavaScript 的原理的文章或图书，你一定要学好语言的特性，并且详细了解其中的各种坑。
+
+**浏览器的工作原理**。这也是一块硬骨头，我觉得这是前端程序员需要了解和明白的关键知识点，不然，你将无法深入下去。
+
+**网络协议 HTTP**。也是要着重了解的，尤其是 HTTP/2，还有 HTTP 的几种请求方式：短连接、长连接、Stream 连接、WebSocket 连接。
+
+**前端性能调优**。有了以上的这些基础后，你就可以进入前端性能调优的主题了，我相信你可以很容易上手各种性能调优技术的。
+
+**框架学习**。我只给了 React 和 Vue 两个框架。就这两个框架来说，Virtual DOM 技术是其底层技术，组件化是其思想，管理组件的状态是其重点。而对于 React 来说，函数式编程又是其编程思想，所以，这些基础技术都是你需要好好研究和学习的。
+
+**UI 设计**。设计也是前端需要做的一个事，比如像 Google 的 Material UI，或是比较流行的 Atomic Design 等应该是前端工程师需要学习的。
