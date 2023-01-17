@@ -12,18 +12,18 @@
 
 ## 1 底层基础
 
-- 计算机组成原理 1/12-1/13
+- 计算机组成原理
 - 编译原理
 
   - [字符编码](http://www.imkevinyang.com/2010/06/%E5%85%B3%E4%BA%8E%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81%EF%BC%8C%E4%BD%A0%E6%89%80%E9%9C%80%E8%A6%81%E7%9F%A5%E9%81%93%E7%9A%84.html)
 - 操作系统
   - 鸟哥的Linux私房菜
-- 数据库
-  - MySQL必知必会
-  - **80 |** **程序员练级攻略：数据库**
 - [Web 网络](https://developer.mozilla.org/zh-CN/docs/Web/HTTP)
 
   - https://www.keycdn.com/blog/http-security-headers
+- 数据库
+  - MySQL必知必会
+  - **80 |** **程序员练级攻略：数据库**
 - 浏览器架构
 - 事件循环机制 
 - `V8` 的内存管理 
