@@ -1,12 +1,12 @@
 # `todo`
 
-<img src="note/assets/image-20230111171451069.png" alt="image-20230111171451069" style="zoom:80%;" />
+<img src="assets/image-20230111171451069.png" alt="image-20230111171451069" style="zoom:80%;" />
 
-<img src="note/assets/image-20230111150706971.png" alt="image-20230111150706971" style="zoom:80%;" />
+<img src="assets/image-20230111150706971.png" alt="image-20230111150706971" style="zoom:80%;" />
 
-<img src="note/assets/image-20230111150607806.png" alt="image-20230111150607806" style="zoom:80%;" />
+<img src="assets/image-20230111150607806.png" alt="image-20230111150607806" style="zoom:80%;" />
 
-<img src="note/assets/image-20230111151344950.png" alt="image-20230111151344950" style="zoom:80%;" />
+<img src="assets/image-20230111151344950.png" alt="image-20230111151344950" style="zoom:80%;" />
 
 收集资料——整体了解——重点细节深入——实践
 
