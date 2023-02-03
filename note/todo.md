@@ -8,6 +8,17 @@
 
 <img src="assets/image-20230111151344950.png" alt="image-20230111151344950" style="zoom:80%;" />
 
+87 | 程序员练级攻略：前端基础和底层原理
+88 | 程序员练级攻略：前端性能优化和框架
+
+2/3 miniproject 浏览器、三件套
+
+4/5 xft模拟项目 常用框架、构建工具
+
+6/7 多端项目or优化前面项目 把前面知识应用起来
+
+
+
 收集资料——整体了解——重点细节深入——实践
 
 ## 1 底层基础
@@ -18,12 +29,19 @@
   - [字符编码](http://www.imkevinyang.com/2010/06/%E5%85%B3%E4%BA%8E%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81%EF%BC%8C%E4%BD%A0%E6%89%80%E9%9C%80%E8%A6%81%E7%9F%A5%E9%81%93%E7%9A%84.html)
 - 操作系统
   - 鸟哥的Linux私房菜
-- [Web 网络](https://developer.mozilla.org/zh-CN/docs/Web/HTTP)
-
-  - https://www.keycdn.com/blog/http-security-headers
 - 数据库
   - MySQL必知必会
   - **80 |** **程序员练级攻略：数据库**
+- 实践
+  - 用这些系统知识操作一下文件系统，实现一个可以拷贝目录树的小程序。
+  - 用 fork / wait / waitpid 写一个多进程的程序，用 pthread 写一个多线程带同步或互斥的程序。比如，多进程购票的程序。
+  - 用 signal / kill / raise / alarm / pause / sigprocmask 实现一个多进程间的信号量通信的程序。
+  - 学会使用 gcc 和 gdb 来编程和调试程序（参看我的[《**用 gdb 调试程序**》](https://blog.csdn.net/haoel/article/details/2879)）。
+  - 学会使用 makefile 来编译程序（参看我的[《**跟我一起写 makefile**》](https://blog.csdn.net/haoel/article/details/2886)）。
+  - Socket 的进程间通信。用 C 语言写一个 1 对 1 的聊天小程序，或是一个简单的 HTTP服务器。
+
+------
+
 - 浏览器架构
 - 事件循环机制 
 - `V8` 的内存管理 
@@ -34,42 +52,103 @@
 
   - OWASP - Open Web Application Security Project
   - https://medium.com/@vcarl/overly-defensive-programming-e7a1b3d234c2
-- 实践
-- 用这些系统知识操作一下文件系统，实现一个可以拷贝目录树的小程序。
-- 用 fork / wait / waitpid 写一个多进程的程序，用 pthread 写一个多线程带同步或互斥的程序。比如，多进程购票的程序。
-- 用 signal / kill / raise / alarm / pause / sigprocmask 实现一个多进程间的信号量通信的程序。
-- 学会使用 gcc 和 gdb 来编程和调试程序（参看我的[《**用 gdb 调试程序**》](https://blog.csdn.net/haoel/article/details/2879)）。
-- 学会使用 makefile 来编译程序（参看我的[《**跟我一起写 makefile**》](https://blog.csdn.net/haoel/article/details/2886)）。
-- Socket 的进程间通信。用 C 语言写一个 1 对 1 的聊天小程序，或是一个简单的 HTTP服务器。
+- [Web 网络](https://developer.mozilla.org/zh-CN/docs/Web/HTTP)
+- https://www.keycdn.com/blog/http-security-headers
 
-87 | 程序员练级攻略：前端基础和底层原理
-88 | 程序员练级攻略：前端性能优化和框架
+2.12
 
 ## 2 三件套
 
-- JavaScript 核心 1 2/6-2/19
-- 设计模式 1 2/20-2/26
+- JavaScript 核心 
+- 设计模式  
   - **76 |** **程序员练级攻略：软件设计**
 
-- 函数式编程 1 2/27-3/5
+- 函数式编程 
 
-- `CSS`/HTML 2 3/6-3/19
+- `CSS`/HTML
+  - Canvas（位图）
+  - SVG（矢量图） 
+  - WebGL（3D 图）
 
- Canvas（位图）、SVG（矢量图） 和 WebGL（3D 图）
+
+5.熟悉各种Web前端技术，包括HTML/XML/CSS等，有基于Ajax的前端应用开发经验。  
+
+初级：
+
+- HTML方面包括但不限于：语义化标签，history api，storage，ajax2.0等。
+- CSS方面包括但不限于：文档流，重绘重排，flex，BFC，IFC，before/after，动画，keyframe，画三角，优先级矩阵等。
+- 知道axios或同级别网络请求库，知道axios的核心功能。
+- 能口喷xhr用法，知道网络请求相关技术和技术底层，包括但不限于：content-type，不同type的作用；restful设计理念；cors处理方案，以及浏览器和服务端执行流程；口喷文件上传实现；
+- 知道如何完成登陆模块，包括但不限于：登陆表单如何实现；cookie登录态维护方案；token base登录态方案；session概念；
+
+0.掌握图形学，webgl或熟练使用threejs框架，熟练canvas相关渲染及动画操作的优先。
+
+初级：
+
+- 学习过图形学相关知识，知道矩阵等数学原理在动画中的作用，知道三维场景需要的最基础的构成，能用threejs搭3d场景，知道webgl和threejs的关系。
+- 知道canvas是干嘛的，聊到旋转能说出canvas的api。
+- 知道css动画，css动画属性知道关键字和用法(换句话说，电话面试会当场出题要求口喷css动画，至少能说对大概，而不是回答百度一下就会用)。
+- 知道js动画，能说出1~2个社区js动画库，知道js动画和css动画优缺点以及适用场景。
+- 知道raf和其他达到60fps的方法。
+
+1.熟练掌握JavaScript。
+
+初级：
+
+- JavaScript各种概念都得了解，《JavaScript语言精粹》这本书的目录都得有概念，并且这些核心点都能脱口而出是什么。这里列举一些做参考：
+- 知道组合寄生继承，知道class继承。
+- 知道怎么创建类function + class。
+- 知道闭包在实际场景中怎么用，常见的坑。
+- 知道模块是什么，怎么用。
+- 知道[event loop](https://www.zhihu.com/search?q=event loop&search_source=Entity&hybrid_search_source=Entity&hybrid_search_extra={"sourceType"%3A"answer"%2C"sourceId"%3A2671717786})是什么，能举例说明event loop怎么影响平时的编码。
+- 掌握基础数据结构，比如堆、栈、树，并了解这些数据结构[计算机基础](https://www.zhihu.com/search?q=计算机基础&search_source=Entity&hybrid_search_source=Entity&hybrid_search_extra={"sourceType"%3A"answer"%2C"sourceId"%3A2671717786})中的作用。
+- 知道ES6数组相关方法，比如forEach，map，reduce。
+
+3.26
 
 ## 3 常用框架
 
-- React 2 3/20-4/2
+- React  
 
-- `Vue `1 4/3-416
+- `Vue `
 
-- Node 4/17-4/30
+- Node
   - [Node.js 最佳实践](https://github.com/goldbergyoni/nodebestpractices/blob/master/README.chinese.md)
   
 
+3.熟练掌握React前端框架，了解技术底层。同时了解vue以及angular等其他框架者优先。
+
+初级：
+
+- 知道react常见优化方案，脱口而出常用生命周期，知道他们是干什么的。
+- 知道react大致实现思路，能对比react和js控制原生dom的差异，能口喷一个简化版的react。
+- 知道[diff算法](https://www.zhihu.com/search?q=diff算法&search_source=Entity&hybrid_search_source=Entity&hybrid_search_extra={"sourceType"%3A"answer"%2C"sourceId"%3A2671717786})大致实现思路。
+- 对state和props有自己的使用心得，结合受控组件、hoc等特性描述，需要说明各种方案的适用场景。
+- 以上几点react替换为vue或angular同样适用。
+
+4.熟练掌握[react生态](https://www.zhihu.com/search?q=react生态&search_source=Entity&hybrid_search_source=Entity&hybrid_search_extra={"sourceType"%3A"answer"%2C"sourceId"%3A2671717786})常用工具，redux/react-router等。
+
+初级：
+
+- 知道react-router，redux，redux-thunk，react-redux，immutable，antd或同级别社区组件库。
+- 知道vue和angular对应全家桶分别有哪些。
+- 知道浏览器react相关插件有什么，怎么用。
+- 知道react-router v3/v4的差异。
+- 知道antd组件化设计思路。
+- 知道thunk干嘛用的，怎么实现的。
+
 ## 4 构建工具链
 
-**5/6做项目（多端 后管）过程中把4、5看完**
+2.熟悉常用工程化工具，掌握模块化思想和技术实现方案。
+
+初级：
+
+- 知道[webpack](https://www.zhihu.com/search?q=webpack&search_source=Entity&hybrid_search_source=Entity&hybrid_search_extra={"sourceType"%3A"answer"%2C"sourceId"%3A2671717786})，rollup以及他们适用的场景。
+- 知道webpack v4和v3的区别。
+- 脱口而出webpack基础配置。
+- 知道webpack打包结果的代码结构和执行流程，知道index.js，runtime.js是干嘛的。
+- 知道amd，cmd，commonjs，es module分别是什么。
+- 知道所有模块化标准定义一个模块怎么写。给出2个文件，能口喷一段代码完成模块打包和执行的核心逻辑。
 
 [带你入门前端工程](https://woai3c.github.io/introduction-to-front-end-engineering/)
 
@@ -167,8 +246,6 @@
 - 游戏框架：Cocos 引擎
 
 ## 6 综合
-
-**七月份综合复习**
 
 - 业务-项目和代发知识
 
