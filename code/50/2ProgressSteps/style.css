@@ -1,5 +1,11 @@
 @import url('https://fonts.googleapis.com/css?family=Muli&display=swap');
 
+/* 定义变量 */
+:root {
+  --line-border-fill: #3498db;
+  --line-border-empty: #383838;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -13,3 +19,90 @@ body {
   overflow: hidden;
   margin: 0;
 }
+
+.container {
+  /* 按钮居中 */
+  text-align: center;
+}
+
+.progress-container {
+  display: block;
+  justify-content: space-between;
+  position: relative;
+  margin-bottom: 30px;
+  max-width: 100%;
+  width: 350px;
+}
+
+.progress-container::before {
+  content: '';
+  background-color: var(--line-border-empty);
+  position: relative;
+  top: 50%;
+  left: 0;
+  /* 垂直绝对居中？ */
+  transform: translateY(-50%);
+  height: 4px;
+  width: 100%;
+  z-index: -1;
+}
+
+.progress {
+  background-color: var(--line-borde-fill);
+  position: relative;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  height: 4px;
+  width: 0%;
+  z-index: -1;
+  transition: 0.4s ease;
+}
+
+.circle {
+  background-color: #1f1f1f;
+  color: #e2e2e2;
+  border-radius: 50%;
+  height: 30px;
+  width: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 3px solid var(--line-border-empty);
+  /* 过度忽略？ */
+  transition: 0.4s ease;
+}
+
+.circle.active {
+  border-color: var(--line-borde-fill);
+}
+
+.btn {
+  background-color: var(--line-borde-fill);
+  color: #fff;
+  border: 0;
+  border-radius: 6px;
+  cursor: pointer;
+  /* 继承样式？ */
+  font-family: inherit;
+  padding: 8px 30px;
+  margin: 5px;
+  font-size: 14px;
+}
+
+.btn:active {
+  /* todo */
+  transform: scale(0.98);
+}
+
+.btn:focus {
+  /* todo */
+  outline: 0;
+}
+
+.btn:disabled {
+  background-color: var(--line-border-empty);
+  /* todo */
+  cursor: not-allowed;
+}
+
