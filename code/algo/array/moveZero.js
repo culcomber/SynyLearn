@@ -1,4 +1,4 @@
-const arrayList = [0,1,0,3,12]; //
+const arrayList = [0,1,0,3,12];
 
 function moveZero (nums) {
     let zeroIndex = -1;

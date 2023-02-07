@@ -1,0 +1,74 @@
+@import url('https://fonts.googleapis.com/css?family=Muli&display=swap');
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Muli', sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  overflow: hidden;
+  margin: 0;
+}
+
+.container {
+  display: flex;
+  width: 80vw;
+  /* 背景基于panel */
+  /* background-repeat: no-repeat;
+  background-size: cover;
+  flex: 1; */
+}
+
+.card-item {
+  height: 90vh;
+  margin: 10px;
+  border-radius: 50px;
+
+  background-repeat: no-repeat;
+  background-size: cover;
+  flex: 1;
+  background-position: center;
+  cursor: pointer; /* 可点击 */
+  position: relative; /* 给标题定位 */
+}
+
+.card-item h3{
+  margin: 0;
+  opacity: 0;
+
+  /* 基于panel绝对定位 */
+  font-size: 24px;
+  color: #fff;
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+}
+
+.card-item.active {
+  flex: 10;
+  /* opacity: 1; 不能选中h3*/
+  /* transition: opcity 1s ease-in-out 0.4s;  */
+}
+
+/* 被选中的卡片对应的标题 */
+.card-item.active h3{
+  opacity: 1;
+  /* 延迟0.4s防止宽度不够 ,标题塌落 */
+  transition: opacity 0.3s ease-in 0.4s;
+}
+
+@media (max-width:480px) {
+  .container {
+    width: 100vw;
+  }
+
+  .card-item:nth-child(4),
+  .card-item:nth-child(5){
+    display: none;
+  }
+
+}

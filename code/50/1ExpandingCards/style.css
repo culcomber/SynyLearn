@@ -1,0 +1,68 @@
+@import url('https://fonts.googleapis.com/css?family=Muli&display=swap');
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Muli', sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  overflow: hidden;
+  margin: 0;
+}
+
+.container {
+  display: flex;
+  width: 90vw;
+}
+
+.card-item {
+  height: 80vh;
+  margin: 10px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 50px;
+  cursor: pointer; /* 可点击 */
+  flex: 1; /* 默认0 不放大 */
+  position: relative; /* 给标题定位 */
+}
+
+/* 增加权重 空格-父子关系 */
+.card-item h3 {
+  font-size: 24px;
+  color: #fff;
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  /* h3默认margin 24px */
+  margin: 0;
+  /* 没有展开标题不显示 */
+  opacity: 0;
+}
+
+/* 连着后面-同级关系 */
+.card-item.active {
+  flex: 10;
+}
+
+/* 被选中的卡片对应的标题 */
+.card-item.active h3{
+  opacity: 1;
+  /* 延迟0.4s防止宽度不够 ,标题塌落 */
+  transition: opacity 0.3s ease-in 0.4s;
+}
+
+@media (max-width: 480px) {
+  .container {
+    width: 100vw;
+  }
+
+  .card-item:nth-of-type(4),
+  .card-item:nth-of-type(5) {
+    display: none;
+  }
+}

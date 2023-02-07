@@ -13,11 +13,3 @@ body {
   overflow: hidden;
   margin: 0;
 }
-
-.container{
-  display: flex;
-}
-
-.item-card {
-  object-fit: cover;
-}

@@ -76,14 +76,12 @@
 - JavaScript 核心 
 - 设计模式  
   - **76 |** **程序员练级攻略：软件设计**
-
 - 函数式编程 
-
 - `CSS`/HTML
   - Canvas（位图）
   - SVG（矢量图） 
   - WebGL（3D 图）
-
+  - 收藏夹
 
 5.熟悉各种Web前端技术，包括HTML/XML/CSS等，有基于Ajax的前端应用开发经验。  
 
