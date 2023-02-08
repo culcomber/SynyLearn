@@ -26,7 +26,7 @@ body {
 }
 
 .progress-container {
-  display: block;
+  display: flex;
   justify-content: space-between;
   position: relative;
   margin-bottom: 30px;
@@ -34,13 +34,14 @@ body {
   width: 350px;
 }
 
+/* 伪元素 */
 .progress-container::before {
   content: '';
   background-color: var(--line-border-empty);
   position: relative;
   top: 50%;
   left: 0;
-  /* 垂直绝对居中？ */
+  /* todo垂直绝对居中？ */
   transform: translateY(-50%);
   height: 4px;
   width: 100%;
@@ -69,7 +70,7 @@ body {
   align-items: center;
   justify-content: center;
   border: 3px solid var(--line-border-empty);
-  /* 过度忽略？ */
+  /* todo 过度忽略？ */
   transition: 0.4s ease;
 }
 
