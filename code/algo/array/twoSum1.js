@@ -22,7 +22,7 @@ function twoLoop (nums, target) {
 function mapData (nums, target) {
   let mapData = {}; // key:value 当前值：下标
   for (let i = 0; i < nums.length; i++) {
-    // todo
+    // mapData[target-nums[i] = 0 所以不能  if(mapData[target-nums[i]])
     if(mapData[target-nums[i]] !== undefined) { // 储存桶中是否有需要的值
       return [mapData[target-nums[i]], i];
     } else {
@@ -32,8 +32,5 @@ function mapData (nums, target) {
   return [];
 };
 
-
 console.log(twoLoop(nums, target));
 console.log(mapData(nums, target));
-let dada = {};
-console.log(data.hello !== undefined);

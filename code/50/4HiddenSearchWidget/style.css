@@ -12,7 +12,7 @@ body {
   height: 100vh;
   overflow: hidden;
   margin: 0;
-  /* linear-gradient */
+  /* linear-gradient:创建一个表示两种或多种颜色线性渐变的图片 */
   background-image: linear-gradient(90deg, #7d5fff, #7158e2);
 }
 
@@ -41,7 +41,7 @@ body {
   left: 0;
   height: 50px;
   width: 50px;
-  transition: transform 0.3 ease;
+  transition: transform 0.3s ease;
 }
 
 .btn:focus,.input:focus {
