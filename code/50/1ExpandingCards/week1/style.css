@@ -13,3 +13,55 @@ body {
   overflow: hidden;
   margin: 0;
 }
+
+.container {
+  display: flex;
+  width: 90vw;
+}
+
+.card-item {
+  position: relative;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  height: 80vh;
+  border-radius: 50px;
+  cursor: pointer;
+  /* 必须有不然图片没有宽度 */
+  flex: 1; 
+  margin: 10px;
+  /* transition: flex 0.6 ease-in; */
+}
+
+.card-item h3 {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  margin: 0;
+  /* 字体颜色 */
+  font-size: 24px;
+  color: #fff;
+  opacity: 0;
+  transition: opacity 0.4 ease-in 0.3;
+}
+
+/* active就是控制动画 */
+.card-item.active {
+  flex: 10;
+}
+
+.card-item.active h3 {
+  opacity: 1;
+}
+
+@media (max-width: 400px) {
+  .card-item:nth-of-type(4),.card-item:nth-of-type(5) {
+    display: none;
+  }
+  .card-item.active {
+    flex: 5;
+  }
+  .container {
+    width: 100vw;
+  }
+}

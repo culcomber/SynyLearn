@@ -17,31 +17,33 @@ body {
 .container {
   display: flex;
   width: 90vw;
+  /*align-items 默认stretch，铺满高度， justify-content 默认左对齐，使用默认值即可*/
 }
 
+/* 定位 结构-长宽、背景、边框 margin other */
 .card-item {
+  position: relative; /* 给标题定位 */
+  flex: 1; /* 默认0 不放大，必须有不然图片没有宽度 */
   height: 80vh;
-  margin: 10px;
+  /* 背景基于panel */
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   border-radius: 50px;
+  margin: 10px;
   cursor: pointer; /* 可点击 */
-  flex: 1; /* 默认0 不放大 */
-  position: relative; /* 给标题定位 */
 }
 
 /* 增加权重 空格-父子关系 */
 .card-item h3 {
-  font-size: 24px;
-  color: #fff;
   position: absolute;
   bottom: 20px;
   left: 20px;
-  /* h3默认margin 24px */
-  margin: 0;
-  /* 没有展开标题不显示 */
-  opacity: 0;
+  /* 字体颜色默认样式 */
+  font-size: 24px;
+  color: #fff;
+  margin: 0;  /* h3默认margin 24px */
+  opacity: 0; /* 没有展开标题不显示 */
 }
 
 /* 连着后面-同级关系 */
@@ -52,8 +54,7 @@ body {
 /* 被选中的卡片对应的标题 */
 .card-item.active h3{
   opacity: 1;
-  /* 延迟0.4s防止宽度不够 ,标题塌落 */
-  transition: opacity 0.3s ease-in 0.4s;
+  transition: opacity 0.3s ease-in 0.4s; /* 延迟0.4s防止宽度不够 ,标题塌落 */
 }
 
 @media (max-width: 480px) {
