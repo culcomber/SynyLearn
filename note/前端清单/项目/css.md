@@ -1,41 +1,172 @@
 ## 1、选择器
 
-todo
+### 1.1 文档结构选择器
 
-https://juejin.cn/post/6844904147414712334#heading-41
+| 选择器          | 示例                                                         | 示例说明                                                     |
+| :-------------- | :----------------------------------------------------------- | :----------------------------------------------------------- |
+| `div.intro`     | 交集选择器是为了找两个或多个选择器的交集,用法就是把两个选择器放在一起,法语"选择器A选择器B" |                                                              |
+| element,element | div,p                                                        | 并集选择器，选择所有`<div>`元素和`<p>`元素                   |
+| element element | div p                                                        | 后代选择器，选择`<div>`元素内的**所有`<p>`元素**             |
+| element>element | div>p                                                        | 子选择器，选择所有父级是 `<div>` 元素的 **`<p>` 子元素**     |
+| element+element | div+p                                                        | 相邻兄弟选择器，选择所有紧跟在 `<div>` 元素之后的**第一个 `<p>` 元素** |
+| element~element | div~p                                                        | 一般兄弟选择器，选择前面有 `<div>` 元素的**每个 `<p>` 元素** |
 
-https://juejin.cn/post/7136087057542086693#heading-0
+![image-20230214125545391](../../assets/image-20230214125545391.png)
 
-https://github.com/chokcoco/iCSS/issues/57
+### 1.2 属性选取器
 
-文档结构选择器
-| 选择器                                                       | 示例             | 示例说明                                                     | CSS  |
-| :----------------------------------------------------------- | :--------------- | :----------------------------------------------------------- | :--- |
-|`div.intro`      | 交集选择器是为了找两个或多个选择器的交集,用法就是把两个选择器放在一起,法语"选择器A选择器B" |      |
-| *[element,element](https://www.runoob.com/cssref/sel-element-comma.html)* | div,p            | 选择所有`<div>`元素和`<p>`元素                               | 1    |
-| [*element* *element*](https://www.runoob.com/cssref/sel-element-element.html) | div p            | 选择`<div>`元素内的所有`<p>`元素                             | 1    |
-| [*element*>*element*](https://www.runoob.com/cssref/sel-element-gt.html) | div>p            | 选择所有父级是 `<div>` 元素的 `<p>` 元素                     | 2    |
-| [*element*+*element*](https://www.runoob.com/cssref/sel-element-pluss.html) | div+p            | 选择所有紧跟在 `<div>` 元素之后的第一个 `<p>` 元素           | 2    |
+| 选择器 | 示例             | 示例说明 |
+| :------ | :--------------- | :--------------------|
+| [attribute] | [foo]      | 选择所有带 `foo` 属性的元素                  |
+| [attribute=value] | `[foo=abc]` | 选择 `foo=abc`的所有元素 |
+| [attribute~=value] | `[foo~=abc]` | 选择` foo`属性包含单词 `abc` 的所有元素 |
+| [attribute*=value] | `a[src*="runoob"]` | 选择每一个`src`属性的值包含子字符串"`runoob`"的元素          |
+| [attribute\|=value] | `[lang|=en]`    | 选择 `lang` 属性等于` en`，或者以 `en- `为开头的所有元素 |
+| [attribute^=value] | `a[src^="https"]` | 选择每一个`src`属性的值以`"https"`开头的元素                 |
+| [attribute$=value] | `a[src$=".pdf"]` | 选择每一个`src`属性的值以`".pdf"`结尾的元素                  |
 
-属性选取器
-| 选择器 | 示例             | 示例说明 | CSS  |
-| :----------------------------------------------------------- | :--------------- | :----------------------------------------------------------- | :--- |
-| [[*attribute*\]](https://www.runoob.com/cssref/sel-attribute.html) | [target]         | 选择所有带有target属性元素                                   | 2    |
-| [[*attribute*=*value*\]](https://www.runoob.com/cssref/sel-attribute-value.html) | [target=-blank]  | 选择所有使用target="-blank"的元素                            | 2    |
-| [[*attribute*~=*value*\]](https://www.runoob.com/cssref/sel-attribute-value-contains.html) | [title~=flower]  | 选择标题属性包含单词"flower"的所有元素                       | 2    |
-| [[*attribute*\|=*language*\]](https://www.runoob.com/cssref/sel-attribute-value-lang.html) | [lang\|=en]      | 选择 lang 属性等于 **en**，或者以 **en-** 为开头的所有元素   | 2    |
-| [*element1*~*element2*](https://www.runoob.com/cssref/sel-gen-sibling.html) | p~ul             | 选择p元素之后的每一个ul元素                                  | 3    |
-| [[*attribute*^=*value*\]](https://www.runoob.com/cssref/sel-attr-begin.html) | a[src^="https"]  | 选择每一个src属性的值以"https"开头的元素                     | 3    |
-| [[*attribute*$=*value*\]](https://www.runoob.com/cssref/sel-attr-end.html) | a[src$=".pdf"]   | 选择每一个src属性的值以".pdf"结尾的元素                      | 3    |
-| [[*attribute**=*value*\]](https://www.runoob.com/cssref/sel-attr-contain.html) | a[src*="runoob"] | 选择每一个src属性的值包含子字符串"runoob"的元素              | 3    |
 
-伪类选择器
+```html
+<ul>
+    <li foo>1</li>
+    <li foo="abc">2</li>
+    <li foo="abc efj">3</li>
+    <li foo="abcefj">4</li>
+    <li foo="efjabc">5</li>
+    <li foo="ab">6</li>
+</ul>
+```
+
+```css
+/* 选择所有带 foo 属性的元素，选中所有li */
+[foo]{
+    background-color:red;
+} 
+
+/* 选择 attribute=value 的所有元素，选中第二个li */
+[foo=abc]{
+    background-color:red;
+}
+
+/* 选择 attribute 属性包含单词 value 的所有元素，选中2、3 li */
+[foo~=abc]{
+    background-color:red;
+}
+
+/* 选择其 attribute 属性中包含 value 子串的每个元素，选中2、3、4、5 li */
+[foo*=abc]{
+    background-color:red;
+}
+
+/* 选择其 attribute 属性值以 value 开头的所有元素，选中2、3、4 li */
+[foo^=abc]{
+    background-color:red;
+}
+
+/* 选择其 attribute 属性值以 value 结束的所有元素，选中2、5 li */
+[foo$=abc]{
+    background-color:red;
+}
+
+/* 选择 attribute 属性值等于value或者 value- 开头的所有元素，选中2 */
+[foo|=abc]{
+    background-color:red;
+}
+```
+
+### 1.3 伪类选择器
 
 <img src="../../assets/image-20230207201125879.png" alt="image-20230207201125879" style="zoom:80%;" />
 
-伪元素选择器
+孩子选择器 child
+
+- `element:nth-child(n)`：选择第n个孩子
+
+- `element:first-child`：选择属于父元素element的第一个子元素。 等同 :nth-child(1)
+
+- `element:last-child`：选择属于父元素element的最后一个子元素
+
+- `element:only-child`：选择了父元素 element 唯一的子元素
+
+- `element:nth-last-child(n)`：倒数第n个子元素
+
+同类型选择器 type
+
+- `element:nth-of-type(n)` 同类型的第n个元素
+
+- `element:first-of-type`：同类型的第一个子元素
+
+- `element:last-of-type`：同类型的最后一个子元素
+
+- `element:nth-last-of-type(n)`：同类型的倒数第n个子元素
+
+- `element:last-of-type`：同类型的倒数第一个子元素
+
+- `element:first-of-type`：同类型的第一个子元素
+
+- `element:only-of-type`：父元素里唯一同类型子元素
+
+状态
+
+- `a:link`：没有访问过的状态
+
+- `a:active`：链接正在被点击
+
+- `a:hover`：选择鼠标指针位于其上的链接
+
+- `a:visited`：选择所有已被访问的链接
+
+- `:focus`：选择器用于选取获得焦点的元素。接收键盘事件或其他用户输入的元素都允许
+
+特殊
+
+- `:root`：匹配文档树的根元素，表示为`<html>`元素，声明全局变量
+
+- `:target`：需要一个id去匹配文档URI的片段标识符
+
+  ```html
+  <section id="section2">Example</section>
+  
+  section:target {
+    border: 2px solid black;
+  }
+  // 若当前 URL 等于http://www.example.com/index.html#section2，元素可以被选中
+  ```
+
+- `:empty`：没有子元素的元素，只计算元素结点及文本（包括空格），注释、运行指令不考虑
+
+- `:not`：选择除某个元素之外的所有元素，不会增加选择器的优先级，只会应用在一个元素上
+
+> 伪类选择的权重与类选择器，属性选择器的权重相同。`:not` 否定伪类在优先级计算中不会被看作是伪类，但是在计算选择器数量时还是会把其中的选择器当做普通选择器进行计数。
+
+表单
+
+| 选择器                                                       | 示例           | 示例说明                                         |
+| :----------------------------------------------------------- | :------------- | :----------------------------------------------- |
+| [:lang(*language*)](https://www.runoob.com/cssref/sel-lang.html) | p:lang(it)     | 选择一个`lang`属性的起始值`="it"`的所有`<p>`元素 |
+| [:enabled](https://www.runoob.com/cssref/sel-enabled.html)   | input:enabled  | 选择每一个**已启用**的输入元素                   |
+| [:disabled](https://www.runoob.com/cssref/sel-disabled.html) | input:disabled | 选择每一个**禁用**的输入元素                     |
+| [:checked](https://www.runoob.com/cssref/sel-checked.html)   | input:checked  | 选择每个**选中**的输入元素                       |
+| [:out-of-range](https://www.runoob.com/cssref/sel-out-of-range.html) | :out-of-range  | 匹配值在**指定区间之外**的input元素              |
+| [:in-range](https://www.runoob.com/cssref/sel-in-range.html) | :in-range      | 匹配值在**指定区间之内**的input元素              |
+| [:read-write](https://www.runoob.com/cssref/sel-read-write.html) | :read-write    | 用于匹配**可读及可写**的元素                     |
+| [:read-only](https://www.runoob.com/cssref/sel-read-only.html) | :read-only     | 用于匹配设置 "`readonly`"（**只读**） 属性的元素 |
+| [:optional](https://www.runoob.com/cssref/sel-optional.html) | :optional      | 用于匹配**可选**的输入元素                       |
+| [:required](https://www.runoob.com/cssref/sel-required.html) | :required      | 用于匹配设置了 "**required**" 属性的元素         |
+| [:valid](https://www.runoob.com/cssref/sel-valid.html)       | :valid         | 用于匹配**输入值为合法**的元素                   |
+| [:invalid](https://www.runoob.com/cssref/sel-invalid.html)   | :invalid       | 用于匹配**输入值为非法**的元素                   |
+
+### 1.4 伪元素选择器
 
 <img src="../../assets/image-20230207201144586.png" alt="image-20230207201144586" style="zoom:80%;" />
+
+| 选择器                                                       | 示例           | 示例说明                      |
+| :----------------------------------------------------------- | :------------- | :---------------------------- |
+| [:first-letter](https://www.runoob.com/cssref/sel-firstletter.html) | p:first-letter | 选择每一个`<p>`元素的第一个字母 |
+| [:first-line](https://www.runoob.com/cssref/sel-firstline.html) | p:first-line   | 选择每一个`<p>`元素的第一行   |
+| [:before](https://www.runoob.com/cssref/sel-before.html)     | p:before       | 在每个`<p>`元素之前插入内容   |
+| [:after](https://www.runoob.com/cssref/sel-after.html)       | p:after        | 在每个`<p>`元素之后插入内容   |
+| [::selection](https://www.runoob.com/cssref/sel-selection.html) | ::selection    | 选择被用户选取的元素部分 |
 
 ## 2、`css`单位
 
