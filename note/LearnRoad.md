@@ -1,11 +1,5 @@
 # `todo`
 
-<img src="assets/image-20230111171451069.png" alt="image-20230111171451069" style="zoom:80%;" />
-
-<img src="assets/image-20230111150706971.png" alt="image-20230111150706971" style="zoom:80%;" />
-
-<img src="assets/image-20230111150607806.png" alt="image-20230111150607806" style="zoom:80%;" />
-
 <img src="assets/image-20230111151344950.png" alt="image-20230111151344950" style="zoom:80%;" />
 
 87 | 程序员练级攻略：前端基础和底层原理
@@ -19,18 +13,6 @@
 
 6/7 多端项目or优化前面项目 把前面知识应用起来
 
-
-
-8：30-9：00 吃早餐 看题目
-
-11：00-13：10 尝试--吃饭--看
-
-14：00-15：00 再尝试，学不知道的
-
-加班/回去后，把项目弄好，就学习
-
-吃饭 运动 回去 洗澡 记账
-
 ------
 
 收集资料——整体了解——重点细节深入——实践
@@ -39,39 +21,10 @@
 
 ## 1 底层基础
 
-- 计算机组成原理
-- 编译原理
+- 浏览器
 
-  - [字符编码](http://www.imkevinyang.com/2010/06/%E5%85%B3%E4%BA%8E%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81%EF%BC%8C%E4%BD%A0%E6%89%80%E9%9C%80%E8%A6%81%E7%9F%A5%E9%81%93%E7%9A%84.html)
-- 操作系统
-  - 鸟哥的Linux私房菜
-- 数据库
-  - MySQL必知必会
-  - **80 |** **程序员练级攻略：数据库**
-- 实践
-  - 用这些系统知识操作一下文件系统，实现一个可以拷贝目录树的小程序。
-  - 用 fork / wait / waitpid 写一个多进程的程序，用 pthread 写一个多线程带同步或互斥的程序。比如，多进程购票的程序。
-  - 用 signal / kill / raise / alarm / pause / sigprocmask 实现一个多进程间的信号量通信的程序。
-  - 学会使用 gcc 和 gdb 来编程和调试程序（参看我的[《**用 gdb 调试程序**》](https://blog.csdn.net/haoel/article/details/2879)）。
-  - 学会使用 makefile 来编译程序（参看我的[《**跟我一起写 makefile**》](https://blog.csdn.net/haoel/article/details/2886)）。
-  - Socket 的进程间通信。用 C 语言写一个 1 对 1 的聊天小程序，或是一个简单的 HTTP服务器。
-
-------
-
-- 浏览器架构
-- 事件循环机制 
-- `V8` 的内存管理 
-- 浏览器的渲染流程
-
-  - [超完整的Chrome浏览器客户端调试大全](http://www.igeekbar.com/igeekbar/post/156.htm)
-- Web 安全
-
-  - OWASP - Open Web Application Security Project
-  - https://medium.com/@vcarl/overly-defensive-programming-e7a1b3d234c2
-- [Web 网络](https://developer.mozilla.org/zh-CN/docs/Web/HTTP)
-- https://www.keycdn.com/blog/http-security-headers
-
-2.12
+- 网络
+- 安全
 
 ## 2 三件套
 

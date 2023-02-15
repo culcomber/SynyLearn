@@ -18,92 +18,86 @@ body {
   height: 100vh;
   overflow: hidden;
   margin: 0;
+  background-color: #1f1f1f;
 }
 
 .container {
-  /* 按钮居中 */
-  text-align: center;
+  text-align: center; /* 按钮居中 */
 }
 
 .progress-container {
+  max-width: 100%;
+  width: 350px;
   display: flex;
   justify-content: space-between;
   position: relative;
   margin-bottom: 30px;
-  max-width: 100%;
-  width: 350px;
 }
 
 /* 伪元素 */
 .progress-container::before {
   content: '';
-  background-color: var(--line-border-empty);
-  position: relative;
-  top: 50%;
-  left: 0;
-  /* todo垂直绝对居中？ */
-  transform: translateY(-50%);
   height: 4px;
   width: 100%;
+  background-color: var(--line-border-empty);
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);   /* 值是百分数，移动距离相对元素自身的尺寸计算 */
   z-index: -1;
 }
 
 .progress {
-  background-color: var(--line-borde-fill);
-  position: relative;
+  height: 4px;
+  width: 0%;
+  background-color: var(--line-border-fill);
+  position: absolute;
   top: 50%;
   left: 0;
   transform: translateY(-50%);
-  height: 4px;
-  width: 0%;
   z-index: -1;
   transition: 0.4s ease;
 }
 
 .circle {
-  background-color: #1f1f1f;
-  color: #e2e2e2;
-  border-radius: 50%;
   height: 30px;
   width: 30px;
+  background-color: #1f1f1f;
+  color: #e2e2e2;
+  border: 3px solid var(--line-border-empty);
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 3px solid var(--line-border-empty);
-  /* todo 过度忽略？ */
-  transition: 0.4s ease;
+  transition: 0.4s ease; /* transition-property初始值：all */
 }
 
 .circle.active {
-  border-color: var(--line-borde-fill);
+  border-color: var(--line-border-fill);
 }
 
 .btn {
-  background-color: var(--line-borde-fill);
+  font-family: inherit; /* 继承，覆盖原本样式 */
+  font-size: 14px;
+  background-color: var(--line-border-fill);
   color: #fff;
   border: 0;
   border-radius: 6px;
   cursor: pointer;
-  /* 继承样式？ */
-  font-family: inherit;
   padding: 8px 30px;
   margin: 5px;
-  font-size: 14px;
 }
 
 .btn:active {
-  /* todo */
-  transform: scale(0.98);
+  transform: scale(0.98); /* scale缩放 */
 }
 
 .btn:focus {
-  /* todo */
-  outline: 0;
+  outline: 0; /* border 和 outline 很类似，但outline 不占据空间，绘制于元素内容周围 */
 }
 
 .btn:disabled {
   background-color: var(--line-border-empty);
-  /* todo */
-  cursor: not-allowed;
+  cursor: not-allowed;  /* cursor有很多值展示不同状态的鼠标箭头 */
 }
 

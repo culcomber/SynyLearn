@@ -2,7 +2,7 @@
 
 :root {
   --left-bg-color: rgba(87, 84, 236, 0.7);
-  --right-bg-color: rbga(43, 43, 43, 0.3);
+  --right-bg-color: rgba(43, 43, 43, 0.3);
   --left-btn-hover-color: rgba(87, 84, 236, 1);
   --right-btn-hover-color: rgba(43, 43, 43, 1);
   --hover-width: 75%;
@@ -25,17 +25,17 @@ body {
 }
 
 .container {
-  position: relative;
-  width: 100%; /* 100vw区别？ */
+  width: 100%; /* 据父对象来确定大小，这里使用 width: 100vw;可以达到同样效果 父元素宽度就是百分百*/
   height: 100%;
   background: #333;
+  position: relative;
 }
 
 .split {
-  position: absolute;
   width: 50%;
   height: 100%;
-  overflow: hidden; /* 作用？ */
+  position: absolute;
+  overflow: hidden; /* 宽度变小时隐藏标题 */
 }
 
 /* 两侧布局 */
@@ -56,46 +56,46 @@ body {
 /* 遮罩层 */
 .split.left::before {
   content: '';
-  position: absolute;
   width: 100%;
   height: 100%;
   background-color: var(--left-bg-color);
+  position: absolute;
 }
 
 .split.right::before {
   content: '';
-  position: absolute;
   width: 100%;
   height: 100%;
   background-color: var(--right-bg-color);
+  position: absolute;
 }
 
 h1 {
-  font-size: 4rem; /* rem? */
+  font-size: 4rem; /* 对于根元素字体大小 */
   color: #fff;
-  position: absolute; /* 基于split？ */
+  white-space: nowrap;
+  position: absolute; /* 相对于 static 定位以外的第一个父元素进行定位，基于split */
   left: 50%;
   top: 20%;
-  transform: translateX(-50%); /* 居中定位？ */
-  white-space: nowrap;
+  transform: translateX(-50%);
 }
 
 .btn {
-  position: absolute;
-  left: 50%;
-  top: 40%;
   width: 15rem;
+  font-size: 1rem;
+  color: #fff;
+  border: #fff solid 0.2rem;
+  font-weight: bold;
+  text-decoration: none; /* 下划线 */
+  text-transform: uppercase; /* 将元素的文本大写 */
   padding: 1.5rem;
   display: flex; /* 使得内部文字居中 */
   align-items: center;
   justify-content: center;
   transform: translateX(-50%); /* 作用 */
-  font-size: 1rem;
-  color: #fff;
-  border: #fff solid 0.2rem;
-  font-weight: bold;
-  text-decoration: none; /* text-decoration text-transform? */
-  text-transform: uppercase;
+  position: absolute;
+  left: 50%;
+  top: 40%;
 }
 
 /* 按钮悬浮属性 */
@@ -114,7 +114,7 @@ h1 {
 .split.left,
 .split.right::before,
 .split.left::before {  
-  transition: all var(--speed) ease-in-out; /* all none? */
+  transition: all var(--speed) ease-in-out;
 }
 
 /* 变宽度 hover-left加在container */

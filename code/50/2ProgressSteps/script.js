@@ -1,4 +1,3 @@
-// todo antd实现步奏条
 const progress = document.getElementById('progress');
 const prev = document.getElementById('prev');
 const next = document.getElementById('next');
@@ -28,22 +27,25 @@ prev.addEventListener('click', () => {
 
 function update() {
   circles.forEach((circle, idx) => {
+    // 步骤圆圈
     if (idx < currentActive) {
       circle.classList.add('active');
     } else {
       circle.classList.remove('active');
     }
 
+    // 线
     const actives = document.querySelectorAll('.active');
     progress.style.width = (actives.length - 1) / (circles.length - 1) * 100 + '%';
-  
+    
+    // 按钮
     if (currentActive === 1) {
-      prev.disable = true;
+      prev.disabled = true;
     } else if (currentActive === circles.length) {
-      next.disable = true;
+      next.disabled = true;
     } else {
-      prev.disable = false;
-      next.disable = false;
+      prev.disabled = false;
+      next.disabled = false;
     }
   })
 }

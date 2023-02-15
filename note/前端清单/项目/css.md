@@ -170,6 +170,8 @@
 
 ## 2、`css`单位
 
+`CSS`中的根元素是指`:root`选择器匹配到的元素，文档树中最顶层结构的元素。在 `html`中是 `html`元素。在`svg` 中，根元素是指`svg`。
+
 相对长度单位指定了一个长度相对于另一个长度的属性。对于不同的设备相对长度更适用。
 
 | 单位 | 描述                                                         |
@@ -357,12 +359,12 @@ https://github.com/chokcoco/iCSS/issues/90
 
 transition产生动画的条件是transition设置的property发生变化。
 
-| 值                         | 描述                              |
-| -------------------------- | --------------------------------- |
-| transition-property        | 规定设置过渡效果的 CSS 属性的名称 |
-| transition-duration        | 规定完成过渡效果需要多少秒或毫秒  |
-| transition-timing-function | 规定速度效果的速度曲线            |
-| transition-delay           | 定义过渡效果何时开始              |
+| 值                         | 描述                                                         |
+| -------------------------- | ------------------------------------------------------------ |
+| transition-property        | 规定设置过渡效果的 CSS 属性的名称。none：没有过渡动画。all：默认，所有可被动画的属性都表现出过渡动画。 |
+| transition-duration        | 规定完成过渡效果需要多少秒或毫秒                             |
+| transition-timing-function | 规定速度效果的速度曲线                                       |
+| transition-delay           | 定义过渡效果何时开始                                         |
 
 ### 3.2 `animation`
 
@@ -488,11 +490,27 @@ sticky：粘性定位，该定位基于用户滚动的位置。它的行为就�
 }
 ```
 
+## 10、inherit
 
+todo
 
+https://juejin.cn/post/6987565731881680903
 
+## 11、text
 
+**text-decoration**
 
+- text-decoration-line：文本修饰的位置，如none没有文本修饰效果，下划线`underline`，删除线`line-through`，修饰线`overline`。
+- text-decoration-color：文本修饰的颜色
+- text-decoration-style：文本修饰的样式，如`solid`实线，`double`双实线，`dotted`点划线，`dashed`虚线,`wavy`波浪线。
+- text-decoration-thickness：文本修饰线的粗细
 
+**text-transform**
 
+| 值         | 描述                                           |
+| :--------- | :--------------------------------------------- |
+| none       | 默认。阻止所有字符的大小写被转换。             |
+| capitalize | 强制每个单词的首字母转换为大写。               |
+| uppercase  | 强制所有字符被转换为大写。                     |
+| lowercase  | 强制所有字符被转换为小写。                     |
 
