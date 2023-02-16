@@ -18,18 +18,16 @@ body {
 }
 
 .container {
-  background-color: #fafafa;
   width: 100vw;
   min-height: 100vh;
-  padding: 50px;
-  transform-origin: top left;
+  background-color: #fafafa;
+  /* padding显示#fafafa，content：margin: 50px auto; 如果在content设置padding，会有body设置的黑色背景*/
+  padding: 50px; 
+  transform-origin: top left; /* 更改一个元素变形的原点 */
   transition: transform 0.5s linear;
 }
 
-.container.show-nav {
-  transform: rotate(-20deg);
-}
-
+/* 左上角按钮 */
 .circle-container {
   position: fixed;
   top: -100px;
@@ -37,26 +35,21 @@ body {
 }
 
 .circle {
-  background-color: #ff7979;
   height: 200px;
   width: 200px;
   border-radius: 50%;
-  position: relative;
+  background-color: #ff7979;
+  position: relative; /* 给botton定位 */
   transition: transform 0.5s linear;
-}
-
-.container.show-nav .circle {
-  transform: rotate(-70deg);
 }
 
 .circle button {
   cursor: pointer;
-  position: absolute;
+  position: absolute; 
   top: 50%;
-  left: 50%;
+  left: 50%; /* button左上角在circle中间 */
   height: 100px;
-  /* todo */
-  background: transparent;
+  background: transparent;  /* 指定背景颜色是透明的。这是默认;按钮默认background-color: buttonface; */
   border: 0;
   font-size: 26px;
   color: #fff;
@@ -73,14 +66,22 @@ body {
 .circle button#close {
   top: 60%;
   transform: rotate(90deg);
-  transform-origin: top left;
+  transform-origin: top left;  /* 基于自身box，不是父元素，默认值中心位置 */
+}
+
+/* 旋转 */
+.container.show-nav {
+  transform: rotate(-20deg);
+}
+
+.container.show-nav .circle {
+  transform: rotate(-70deg); /* .container.show-nav 已经旋转20° */
 }
 
 nav {
   position: fixed;
   bottom: 40px;
   left: 0;
-  /* todo */
   z-index: 100;
 }
 
@@ -93,13 +94,13 @@ nav ul li {
   text-transform: uppercase;
   color: #fff;
   margin: 40px 0;
-  transform: translateX(-100%);
-  transition: transform 0.4s ease-in;
+  transform: translateX(-100%); /* 隐藏 */
+  transition: transform 0.4s ease-in 0.3s;
 }
 
 .container.show-nav + nav li {
   transform: translateX(0);
-  transition-delay: 0.3s;
+  /* transition-delay: 0.3s; */
 }
 
 /* 图标 */
@@ -108,10 +109,10 @@ nav ul li i {
   margin-right: 10px;
 }
 
-/* 制造坡度 */
+
 nav ul li + li {
-  margin-left: 15px;
-  transform: translateX(-150%);
+  margin-left: 15px; /* 制造坡度 */
+  transform: translateX(-150%); /* 设置了margin-left，需要偏移多点位置 */
 }
 
 nav ul li + li + li {
@@ -121,9 +122,7 @@ nav ul li + li + li {
 
 nav a {
   color: #fafafa;
-  /* 去除默认样式 */
-  text-decoration: none;
-  /* todo all */
+  text-decoration: none; /* 去除默认样式 */
   transition: all 0.5s;
 }
 
@@ -133,31 +132,27 @@ nav a:hover {
   font-weight: bold;
 }
 
+/* 文本样式 */
 .content {
   max-width: 1000px;
-  /* 居中 */
-  margin: 50px auto;
+  margin: 50px auto; /* 居中 */
 }
 
 .content img {
-  /* todo 图片铺满父元素 */
-  max-width: 100%;
+  max-width: 100%; /* content的宽度不包括padding和margin */
 }
 
 .content h1 {
-  /* 替换默认样式 */
-  margin: 0;
+  margin: 0; /* 替换默认样式 */
 }
 
 .content small {
   color: #555;
-  /* 斜体 */
-  font-style: italic;
+  font-style: italic; /* 斜体 */
 }
 
 .content p {
   color: #333;
-  /* 行间距 */
-  line-height: 1.5; 
+  line-height: 1.5; /* 行间距 */
 }
 
