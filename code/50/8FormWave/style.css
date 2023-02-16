@@ -42,11 +42,6 @@ body {
   margin-bottom: 30px;
 }
 
-.container a {
-  text-decoration: none;
-  color: lightblue;
-}
-
 .btn {
   width: 100%;
   font-size: 16px;
@@ -56,17 +51,21 @@ body {
   border-radius: 5px;
   padding: 15px;
   cursor: pointer;
-  /* display: inline-block; */
+  /* display: inline-block; 按钮默认样式*/
 }
 
 .text {
   margin-top: 30px;
 }
 
+.container a {
+  text-decoration: none;
+  color: lightblue;
+}
+
 .form-control {
   width: 300px;
-  /* 右侧的值? */
-  margin: 10px 0 40px;
+  margin: 10px 0 40px; /* 右边距和左边距是 0 */
   position: relative;
 }
 
@@ -74,23 +73,23 @@ body {
   width: 100%;
   font-size: 18px;
   color: #fff;
-  /* transparent?透明？ */
   background-color: transparent;
   border: 0;
   border-bottom: 2px #fff solid;
-  /* 不需要? */
-  display: block;
+  /* display: block; */
+  /* 默认display: inline-block; */
   padding: 15px 0;
 }
 
+/* 相对于input定位 */
 .form-control label {
-  position: absolute;
+  position: absolute; 
   top: 15px;
   left: 0;
-  pointer-events: none;
+  pointer-events: none; /* 元素永远不会成为鼠标事件 */
 }
 
-/* ? */
+/* 每个字母transition-delay:依次递增 */
 .form-control label span {
   display: inline-block;
   font-size: 18px;
@@ -98,6 +97,7 @@ body {
   transition: 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
+/* input被选中或校验时改变label颜色，并向上移动，触发cubic-bezier动画 */
 .form-control input:focus + label span,
 .form-control input:valid + label span {
   color: lightblue;

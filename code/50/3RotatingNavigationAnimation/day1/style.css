@@ -13,3 +13,35 @@ body {
   overflow: hidden;
   margin: 0;
 }
+
+.circle {
+  height: 200px;
+  width: 200px;
+  border-radius: 50%;
+  background-color: #ff7979;
+  position: relative;
+  transition: transform 0.5s linear;
+}
+
+.circle button {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  height: 100px;
+  background: transparent;  /* 指定背景颜色是透明的。这是默认;按钮默认background-color: buttonface; */
+  border: 0;
+  font-size: 26px;
+  color: #fff;
+}
+
+.circle button#open {
+  left: 60%;
+}
+
+.circle button#close {
+  top: 60%;
+  transform: rotate(90deg);
+  transform-origin: top left;
+}
+
