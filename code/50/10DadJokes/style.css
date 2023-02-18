@@ -40,8 +40,7 @@ body {
 h3 {
   margin: 0;
   opacity: 0.5;
-  /* todo */
-  letter-spacing: 2px;
+  letter-spacing: 2px; /* 文本字符的间距 */
 }
 
 .joke {

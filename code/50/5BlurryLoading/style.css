@@ -17,8 +17,10 @@ body {
 .bg {
   background: url(../assets/img/photo-1549880338-65ddcdfd017b.avif) no-repeat center center/cover;
   position: absolute;
+  /* width:100vw left: -30px 左侧会有30px空白 */
+  /* filter: blur(0px) 周围会有白边，下面四个属性取消白边 */
   top: -30px;
-  left: -30px;
+  left: -30px; 
   width: calc(100vw + 60px);
   height: calc(100vh + 60px);
   z-index: -1;
