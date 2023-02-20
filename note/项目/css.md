@@ -11,7 +11,7 @@
 | element+element | div+p                                                        | 相邻兄弟选择器，选择所有紧跟在 `<div>` 元素之后的**第一个 `<p>` 元素** |
 | element~element | div~p                                                        | 一般兄弟选择器，选择前面有 `<div>` 元素的**每个 `<p>` 元素** |
 
-![image-20230214125545391](../../assets/image-20230214125545391.png)
+![image-20230214125545391](../assets/image-20230214125545391.png)
 
 ### 1.2 属性选取器
 
@@ -76,7 +76,7 @@
 
 ### 1.3 伪类选择器
 
-<img src="../../assets/image-20230207201125879.png" alt="image-20230207201125879" style="zoom:80%;" />
+<img src="../assets/image-20230207201125879.png" alt="image-20230207201125879" style="zoom:80%;" />
 
 孩子选择器 child
 
@@ -158,7 +158,7 @@
 
 ### 1.4 伪元素选择器
 
-<img src="../../assets/image-20230207201144586.png" alt="image-20230207201144586" style="zoom:80%;" />
+<img src="../assets/image-20230207201144586.png" alt="image-20230207201144586" style="zoom:80%;" />
 
 | 选择器                                                       | 示例           | 示例说明                      |
 | :----------------------------------------------------------- | :------------- | :---------------------------- |
@@ -213,7 +213,7 @@
 | *x% y%*                             | 第一个值是水平位置，第二个值是垂直。左上角是0％ 0％。右下角是100％ 100％。如果仅指定了一个值，其他值将是50％。 **默认值为：0％ 0％** |
 | *xpos ypos*                         | 第一个值是水平位置，第二个值是垂直。左上角是0。单位可以是像素（`0px 0px`）或任何其他 [`CSS`单位](https://www.runoob.com/try/css-units.html)`。如果仅指定了一个值，其他值将是50％。你可以混合使用％和positions |
 
-![img](../../assets/1B-WVVIQGgMPozUyWuxzK4Q.gif)
+![img](../assets/1B-WVVIQGgMPozUyWuxzK4Q.gif)
 
 **background-size：指定背景图片的大小**
 
@@ -224,19 +224,19 @@
 | cover      | 此时会保持图像的纵横比并将图像缩放成将完全覆盖背景定位区域的最小大小。 |
 | contain    | 此时会保持图像的纵横比并将图像缩放成将适合背景定位区域的最大大小。 |
 
-<img src="../../assets/image-20230213114855781.png" alt="image-20230213114855781" style="zoom:67%;" />
+<img src="../assets/image-20230213114855781.png" alt="image-20230213114855781" style="zoom:67%;" />
 
 **background-repeat：指定如何重复背景图像**
 
-<img src="../../assets/1owqJkCZt4HMGeRBXo4S4yw.png" alt="Example showing the different background-repeat values" style="zoom:67%;" />
+<img src="../assets/1owqJkCZt4HMGeRBXo4S4yw.png" alt="Example showing the different background-repeat values" style="zoom:67%;" />
 
 **background-origin：设置背景图像显示的原点**
 
-<img src="../../assets/12Rcc_4LxBGe8iY8Dlde7_A.png" alt="img" style="zoom:67%;" />
+<img src="../assets/12Rcc_4LxBGe8iY8Dlde7_A.png" alt="img" style="zoom:67%;" />
 
 **background-clip：设置背景图像向外剪裁的区域**
 
-<img src="../../assets/1Zkr2L1WyW1CxlY6LrGzypg.png" alt="img" style="zoom:67%;" />
+<img src="../assets/1Zkr2L1WyW1CxlY6LrGzypg.png" alt="img" style="zoom:67%;" />
 
 **background-attachment：设置背景图像是否固定或者随着页面的其余部分滚动**
 
@@ -251,7 +251,7 @@
 - 径向渐变 `background-image: radial-gradient(#fff, #000)` :
 - 角向渐变 `background-image: conic-gradient(#fff, #000)` :
 
-<img src="../../assets/image-20230213165205389.png" alt="image-20230213165205389" style="zoom:67%;" />
+<img src="../assets/image-20230213165205389.png" alt="image-20230213165205389" style="zoom:67%;" />
 
 **background-blend-mode：义了背景层的混合模式（图片与颜色）**
 
@@ -263,11 +263,11 @@ https://github.com/chokcoco/iCSS/issues/84
 
 ## 4、border
 
-![image-20230213172138773](../../assets/image-20230213172138773.png)
+![image-20230213172138773](../assets/image-20230213172138773.png)
 
-<img src="../../assets/image-20230213172454618.png" alt="image-20230213172454618" style="zoom:80%;" />
+<img src="../assets/image-20230213172454618.png" alt="image-20230213172454618" style="zoom:80%;" />
 
-<img src="../../assets/image-20230213172552231.png" alt="image-20230213172552231" style="zoom:60%;" />
+<img src="../assets/image-20230213172552231.png" alt="image-20230213172552231" style="zoom:60%;" />
 
 **border**
 
@@ -275,7 +275,7 @@ https://github.com/chokcoco/iCSS/issues/84
 
 - border-style：指定边框的样式
 
-  <img src="../../assets/image-20230213191839241.png" alt="image-20230213191839241" style="zoom:80%;" />
+  <img src="../assets/image-20230213191839241.png" alt="image-20230213191839241" style="zoom:80%;" />
 
 - border-color：指定边框的颜色
 
@@ -287,7 +287,7 @@ https://github.com/chokcoco/iCSS/issues/84
 
 - border-image-slice：将使用 border-image-source 引用的图像划分为多个区域。这些区域组成了一个元素的边框图像
 
-  ![The nine regions defined by the border-image or border-image-slice properties](../../assets/border-image-slice.png)
+  ![The nine regions defined by the border-image or border-image-slice properties](../assets/border-image-slice.png)
 
 - border-image-width：图像边界的宽度
 
@@ -297,9 +297,9 @@ https://github.com/chokcoco/iCSS/issues/84
 
 **border-radius：设置元素的外边框圆角**
 
-<img src="../../assets/image-20230213172832941.png" alt="image-20230213172832941" style="zoom:80%;" />
+<img src="../assets/image-20230213172832941.png" alt="image-20230213172832941" style="zoom:80%;" />
 
-![border-bottom-left-radius.png](../../assets/border-bottom-left-radius.png)
+![border-bottom-left-radius.png](../assets/border-bottom-left-radius.png)
 
 ```css
 border-radius: 1em/5em;
@@ -334,7 +334,7 @@ border-bottom-left-radius:  1em 5em;
 | auto    | 如果内容被修剪，则浏览器会显示滚动条以便查看其余的内容。     |
 | inherit | 规定应该从父元素继承 overflow 属性的值。                     |
 
-<img src="../../assets/image-20230213091709142.png" alt="image-20230213091709142" style="zoom:80%;" />
+<img src="../assets/image-20230213091709142.png" alt="image-20230213091709142" style="zoom:80%;" />
 
 todo
 
@@ -387,7 +387,7 @@ animation是由多个transition的效果叠加，并且可操作性更强
 
 todo https://juejin.cn/post/6844903874579578887
 
-<img src="../../assets/image-20230213194144408.png" alt="image-20230213194144408" style="zoom:33%;" />
+<img src="../assets/image-20230213194144408.png" alt="image-20230213194144408" style="zoom:33%;" />
 
 - 移动（translate）
   - translate()
