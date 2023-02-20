@@ -417,6 +417,11 @@ todo https://juejin.cn/post/6844903874579578887
 - 视域函数
   - perspective()
 
+### 3.4 filter
+
+将模糊或颜色偏移等图形效果应用于元素
+
+blur() 函数将高斯模糊应用于输入图像
 
 ## 7、object-fit
 
@@ -513,4 +518,58 @@ https://juejin.cn/post/6987565731881680903
 | capitalize | 强制每个单词的首字母转换为大写。               |
 | uppercase  | 强制所有字符被转换为大写。                     |
 | lowercase  | 强制所有字符被转换为小写。                     |
+
+## 12、常用
+
+定位——长宽——box模型——边框/背景——字体大小/样式——颜色——特有样式
+
+**链接**
+
+
+
+**input**
+
+```css
+.input {
+  height: 50px;
+  width: 50px;
+  padding: 15px;
+  border: 0;
+  background-color: #fff;
+  font-size: 18px;
+}
+
+.input:focus {
+  outline: none;
+}
+```
+
+**button**
+
+```css
+.btn {
+  margin: 5px;
+  padding: 8px 30px;
+  border: 0;
+  border-radius: 6px;
+  background-color: var(--line-border-fill);
+  color: #fff;
+  font-family: inherit; /* 继承，覆盖原本样式 */
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.btn:active {
+  transform: scale(0.98); /* scale缩放 */
+}
+
+.btn:focus {
+  outline: 0; /* border 和 outline 很类似，但outline 不占据空间，绘制于元素内容周围 */
+}
+
+.btn:disabled {
+  background-color: var(--line-border-empty);
+  cursor: not-allowed;  /* cursor有很多值展示不同状态的鼠标箭头 */
+}
+```
 

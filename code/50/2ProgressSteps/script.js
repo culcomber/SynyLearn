@@ -26,26 +26,26 @@ prev.addEventListener('click', () => {
 })
 
 function update() {
+  // 线
+  const actives = document.querySelectorAll('.active');
+  progress.style.width = (actives.length - 1) / (circles.length - 1) * 100 + '%';  
+
+  // 按钮
+  if (currentActive === 1) {
+    prev.disabled = true;
+  } else if (currentActive === circles.length) {
+    next.disabled = true;
+  } else {
+    prev.disabled = false;
+    next.disabled = false;
+  }
+
   circles.forEach((circle, idx) => {
     // 步骤圆圈
     if (idx < currentActive) {
       circle.classList.add('active');
     } else {
       circle.classList.remove('active');
-    }
-
-    // 线
-    const actives = document.querySelectorAll('.active');
-    progress.style.width = (actives.length - 1) / (circles.length - 1) * 100 + '%';
-    
-    // 按钮
-    if (currentActive === 1) {
-      prev.disabled = true;
-    } else if (currentActive === circles.length) {
-      next.disabled = true;
-    } else {
-      prev.disabled = false;
-      next.disabled = false;
     }
   })
 }

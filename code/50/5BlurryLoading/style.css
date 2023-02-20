@@ -24,6 +24,7 @@ body {
   width: calc(100vw + 60px);
   height: calc(100vh + 60px);
   z-index: -1;
+  /* 将模糊或颜色偏移等图形效果应用于元素，blur() 函数将高斯模糊应用于输入图像 */
   filter: blur(0px);
 }
 

@@ -44,15 +44,15 @@ body {
 }
 
 .circle button {
+  font-size: 26px;
+  color: #fff;
+  background: transparent;  /* 指定背景颜色是透明的。这是默认;按钮默认background-color: buttonface; */
+  border: 0;
   cursor: pointer;
   position: absolute; 
   top: 50%;
   left: 50%; /* button左上角在circle中间 */
   height: 100px;
-  background: transparent;  /* 指定背景颜色是透明的。这是默认;按钮默认background-color: buttonface; */
-  border: 0;
-  font-size: 26px;
-  color: #fff;
 }
 
 .circle button:focus {
