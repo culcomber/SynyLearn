@@ -1,3 +1,7 @@
+// 输入：digits = [1,2,3]
+// 输出：[1,2,4]
+// 解释：输入数组表示数字 123。
+
 /**
  * @param {number[]} digits
  * @return {number[]}

@@ -6,7 +6,6 @@ let nums = [2,7,11,15], target = 9;
 
 // 暴力枚举
 function twoLoop (nums, target) {
-  // todo nums.length - 1
   for (let i = 0; i < nums.length - 1; i++) {
     for (let j = i + 1; j < nums.length; j++) {
       if (nums[i] + nums[j] === target) {
