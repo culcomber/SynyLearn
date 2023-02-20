@@ -223,27 +223,99 @@ const scale = (num, in_min, in_max, out_min, out_max) => {
 
 ## 13 Random Choice Picker
 
+<img src="../assets/image-20230220221453326.png" alt="image-20230220221453326" style="zoom:50%;" />
 
+`html`
+
+- 
+
+`css`
+
+- 
+
+`js`
+
+- 
 
 ## 14 Animated Navigation
 
+<img src="../assets/image-20230220221737089.png" alt="image-20230220221737089" style="zoom:50%;" />
 
+`html`
+
+- 
+
+`css`
+
+- 
+
+`js`
+
+- 
 
 ## 15 Incrementing Counter
 
+<img src="../assets/image-20230220221752307.png" alt="image-20230220221752307" style="zoom:33%;" />
 
+`html`
+
+- 
+
+`css`
+
+- 
+
+`js`
+
+- 
 
 ## 16 Drink Water
 
+<img src="../assets/image-20230220221834570.png" alt="image-20230220221834570" style="zoom:30%;" />
 
+`html`
+
+- 
+
+`css`
+
+- 
+
+`js`
+
+- 
 
 ## 17 Movie `App`
 
+<img src="../assets/image-20230220221902375.png" alt="image-20230220221902375" style="zoom:33%;" />
 
+`html`
+
+- 
+
+`css`
+
+- 
+
+`js`
+
+- 
 
 ## 18 Background Slider
 
+<img src="../assets/image-20230220221929517.png" alt="image-20230220221929517" style="zoom:33%;" />
 
+`html`
+
+- 
+
+`css`
+
+- 
+
+`js`
+
+- 
 
 ## 19 Theme Clock
 
