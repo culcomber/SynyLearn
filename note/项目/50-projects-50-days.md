@@ -119,11 +119,12 @@ const scale = (num, in_min, in_max, out_min, out_max) => {
 
 `css`
 
-- 11
+- `nth-of-type(even)`设置`transform: translateX(-400%)`，奇数从右侧滑入，偶数从左侧划入
 
 `js`
 
-- scroll
+- `window.addEventListener('scroll', checkBoxs)`监听滚动事件
+- `window.innerHeight`屏幕高度，`getBoundingClientRect().top`距离顶部高度，遍历所有`box`，当`box`距离顶部高度小于屏幕高度的五分之四时，添加`show`，`translateX(0)`
 
 ## 07 Split Landing Page
 
