@@ -115,15 +115,15 @@ const scale = (num, in_min, in_max, out_min, out_max) => {
 
 `html`
 
-- 
+- 设置多个`<div class="box"><h2>Content</h2></div>`
 
 `css`
 
-- 
+- 11
 
 `js`
 
-- 
+- scroll
 
 ## 07 Split Landing Page
 

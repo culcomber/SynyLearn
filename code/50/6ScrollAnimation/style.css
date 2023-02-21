@@ -22,8 +22,6 @@ h1 {
 }
 
 .box {
-  background-color: steelblue;
-  color: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -31,12 +29,17 @@ h1 {
   height: 200px;
   margin: 10px;
   border-radius: 10px;
+  /* x 偏移量 | y 偏移量 | 阴影模糊半径 | 阴影颜色 */
   box-shadow: 2px 4px 5px rgba(0, 0, 0, 0.3);
+  background-color: steelblue;
+  color: #fff;
   transform: translateX(400%);
   transition: transform 0.4s ease;
 }
 
+/* 同类型的第n个元素，奇数：odd/2n+1；偶数：even/2n；其他 3n-1 */
 .box:nth-of-type(even) {
+  /* 向右偏移 */
   transform: translateX(-400%);
 }
 
