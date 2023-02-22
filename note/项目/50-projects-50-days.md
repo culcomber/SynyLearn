@@ -132,15 +132,17 @@ const scale = (num, in_min, in_max, out_min, out_max) => {
 
 `html`
 
-- 
+- `container`包含两个`div`，`div`显示背景图片和遮罩层，div内部包含标题和`a`标签
 
 `css`
 
-- 
+- `:root`可以定义变量
+- 左右两个`div`基于`container`绝对布局分别设置`left: 0;right: 0;`
+- `::before`伪类设置遮罩层，`:hover`设置鼠标悬浮在a标签时样式
 
 `js`
 
-- 
+- 左右标签添加鼠标事件，`addEventListener('mouseenter',);`，给`container`添加属性，移入左侧，左侧占75%右侧占25%，反之亦然
 
 ## 08 Form Wave
 
@@ -148,15 +150,15 @@ const scale = (num, in_min, in_max, out_min, out_max) => {
 
 `html`
 
-- 
+- <img src="../../../LearnNote/note/assets/image-20230222144158890.png" alt="image-20230222144158890" style="zoom:80%;" />
 
 `css`
 
-- 
+- <img src="../../../LearnNote/note/assets/image-20230222144703559.png" alt="image-20230222144703559" style="zoom:80%;" />
 
 `js`
 
-- 
+- 操作label
 
 ## 09 Sound Board
 
@@ -164,47 +166,39 @@ const scale = (num, in_min, in_max, out_min, out_max) => {
 
 `html`
 
-- 
+- <img src="../../../LearnNote/note/assets/image-20230222152657986.png" alt="image-20230222152657986" style="zoom:80%;" />
 
 `css`
 
-- 
+- `audio`
 
 `js`
 
-- 
+- 创建数组`['applause', 'boo', 'gasp', 'tada', 'victory', 'wrong']`，遍历数组创建注释内容（屏幕显示的内容），给每个按钮添加点击事件，播放音频
 
 ## 10 Dad Jokes
 
 <img src="../assets/image-20230220202201286.png" alt="image-20230220202201286" style="zoom:30%;" />
 
-`html`
-
-- 
-
 `css`
 
-- 
+- `max-width: 100%;`百分比基于context box 
 
 `js`
 
-- 
+- `fetch`请求
 
 ## 11 Event `Keycodes`
 
 <img src="../assets/image-20230220202218510.png" alt="image-20230220202218510" style="zoom:50%;" />
 
-`html`
-
-- 
-
 `css`
 
-- 
+- ` display: inline-flex;`nline对外-flex对内
 
 `js`
 
-- 
+- `window.addEventListener('keydown', (event) => {}`键盘点击事件，`event`绑定很多属性
 
 ## 12 `Faq` Collapse
 
@@ -216,11 +210,11 @@ const scale = (num, in_min, in_max, out_min, out_max) => {
 
 `css`
 
-- 
+- 图标
 
 `js`
 
-- 
+- fetch
 
 ## 13 Random Choice Picker
 
@@ -236,7 +230,7 @@ const scale = (num, in_min, in_max, out_min, out_max) => {
 
 `js`
 
-- 
+- 操作输入内容
 
 ## 14 Animated Navigation
 

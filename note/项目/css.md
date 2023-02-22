@@ -366,6 +366,8 @@ transition产生动画的条件是transition设置的property发生变化。
 | transition-timing-function | 规定速度效果的速度曲线                                       |
 | transition-delay           | 定义过渡效果何时开始                                         |
 
+<img src="../../../LearnNote/note/assets/image-20230222145226913.png" alt="image-20230222145226913" style="zoom:80%;" />
+
 ### 3.2 `animation`
 
 `transition`扩展
@@ -573,7 +575,7 @@ https://juejin.cn/post/6987565731881680903
 }
 ```
 
-13、`box-shadow`
+## 13、`box-shadow`
 
 如果元素同时设置了 [`border-radius`](https://developer.mozilla.org/zh-CN/docs/Web/CSS/border-radius)属性，那么阴影也会有圆角效果。多个阴影在 z 轴上的顺序和多个 [text shadows](https://developer.mozilla.org/zh-CN/docs/Web/CSS/text-shadow) 规则相同 (第一个阴影在最上面)。
 

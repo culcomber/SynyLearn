@@ -81,21 +81,21 @@ h1 {
 }
 
 .btn {
-  width: 15rem;
-  font-size: 1rem;
-  color: #fff;
-  border: #fff solid 0.2rem;
-  font-weight: bold;
-  text-decoration: none; /* 下划线 */
-  text-transform: uppercase; /* 将元素的文本大写 */
-  padding: 1.5rem;
-  display: flex; /* 使得内部文字居中 */
-  align-items: center;
-  justify-content: center;
-  transform: translateX(-50%); /* 作用 */
   position: absolute;
   left: 50%;
   top: 40%;
+  display: flex; /* 使得内部文字居中 */
+  align-items: center;
+  justify-content: center;
+  width: 15rem;
+  padding: 1.5rem;
+  border: #fff solid 0.2rem;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: bold;
+  text-decoration: none; /* 下划线 */
+  text-transform: uppercase; /* 将元素的文本大写 */
+  transform: translateX(-50%); /* 作用 */
 }
 
 /* 按钮悬浮属性 */

@@ -12,4 +12,34 @@ body {
   height: 100vh;
   overflow: hidden;
   margin: 0;
+  background-color: #383838;
+  /* text-align: center; */
+}
+
+.key {
+  min-width: 150px;
+  position: relative;
+  /* inline对外-flex对内 */
+  display: inline-flex;
+  align-items: center;
+  flex-direction: column;
+  margin: 10px;
+  padding: 20px;
+  border:1px solid #999999;
+  /* x 偏移量 | y 偏移量 | 阴影模糊半径 | 阴影颜色 */
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+  background-color: #2B2B2B;
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.key small {
+  position: absolute;
+  top: -24px;
+  left: 0;
+  text-align: center;
+  width: 100%;
+  color: #c4c4c4;
+  font-size: 14px;
 }

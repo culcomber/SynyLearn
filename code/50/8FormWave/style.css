@@ -44,12 +44,12 @@ body {
 
 .btn {
   width: 100%;
-  font-size: 16px;
-  font-family: inherit;
-  background-color: lightblue;
+  padding: 15px;
   border: 0;
   border-radius: 5px;
-  padding: 15px;
+  background-color: lightblue;
+  font-size: 16px;
+  font-family: inherit;
   cursor: pointer;
   /* display: inline-block; 按钮默认样式*/
 }
@@ -71,14 +71,15 @@ body {
 
 .form-control input {
   width: 100%;
-  font-size: 18px;
-  color: #fff;
-  background-color: transparent;
+  padding: 15px 0;
   border: 0;
   border-bottom: 2px #fff solid;
+  background-color: transparent;
+  color: #fff;
+  font-size: 18px;
   /* display: block; */
   /* 默认display: inline-block; */
-  padding: 15px 0;
+  
 }
 
 /* 相对于input定位 */
