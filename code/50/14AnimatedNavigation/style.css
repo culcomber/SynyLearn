@@ -72,7 +72,8 @@ nav ul a {
   margin: 0 10px;
 }
 
-/* icon是白色盒子，没有变化，里面的line从=变成x */
+/* icon是白色盒子，没有变化，里面的line从=变成x，
+因为ul宽度变为0，nav宽度变短，所以就向右移动 */
 .icon { /* button */
   height: 30px;
   width: 30px;
@@ -109,6 +110,7 @@ nav ul a {
   bottom: 10px;
 }
 
+/* 旋转基于元素中心点，两条平行线要交叉，y轴上需要移动 */
 nav.active .icon .line1 {
   transform: rotate(-765deg) translateY(5.5px);
 }
