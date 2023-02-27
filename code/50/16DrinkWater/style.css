@@ -1,5 +1,10 @@
 @import url('https://fonts.googleapis.com/css?family=Muli&display=swap');
 
+:root {
+  --border-color: #144fc6;
+  --fill-color: #6ab3f8;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -7,9 +12,101 @@
 body {
   font-family: 'Muli', sans-serif;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  align-items: center;  /* 交叉轴上对称，此时是x */
+  /* justify-content: center;
   height: 100vh;
   overflow: hidden;
-  margin: 0;
+  margin: 0; */
+  background-color: #3494e4;
+  color: #fff;
+  flex-direction: column;
+  margin-bottom: 40px;
+}
+
+h1 {
+  margin: 10px 0 0;
+}
+
+h3 {
+  font-weight: 400;
+  margin: 10px 0;
+}
+
+.cup {
+  height: 330px;
+  width: 150px;
+  margin: 30px 0;
+  display: flex;
+  flex-direction: column;  /* remained和percentage可以竖直展示 */
+  overflow: hidden;  /* percentage底部可以包裹进border-radius */
+  background-color: #fff;
+  border: 4px solid var(--border-color);
+  color: var(--border-color);
+  border-radius: 0 0 40px 40px;
+}
+
+.cup.cup-small { 
+  height: 95px;
+  width: 50px;
+  margin: 5px;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 0 0 15px 15px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: 0.3s ease;
+}
+
+.cup.cup-small.full {
+  background-color: var(--fill-color);
+  color: #fff;
+}
+
+.cups {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;  /* 250ml会换行，ml在下一行显示居中需要 */
+  width: 280px;
+}
+
+/* 大水杯上方提示 */
+.remained {
+  /* 居中显示 */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  /* text-align: center; Remained liters宽度等于本身，盒子居中就可*/
+  flex: 1; /* 会占用上方空间 */
+  transition: 0.3s ease;
+}
+
+.remained span {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.remained small {
+  font-size: 12px;
+}
+
+/* 大水杯下方水量 */
+.percentage {
+  background-color: var(--fill-color);
+  /* 居中显示 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 30px;
+  height: 0;
+  transition: 0.3s ease;
+}
+
+.text {
+  text-align: center;
+  margin: 0 0 5px;
 }
