@@ -1,6 +1,8 @@
+代码片段插件
+
+
+
 [中文独立博客列表](https://github.com/timqian/chinese-independent-blogs)
-
-
 
 ## 项目
 
@@ -64,10 +66,6 @@ https://github.com/CyC2018/CS-Notes
 
 
 
-代码片段插件
-
-
-
 Blog 系统
 
 **业务上的需求如下：**
@@ -119,7 +117,7 @@ Blog 系统
 
 
 
-实现一个 telnet 版本的聊天服务器，主要有以下需求。
+聊天服务器
 
 - 每个客户端可以用使用telnet ip:port的方式连接到服务器上。
 - 新连接需要用用户名和密码登录，如果没有，则需要注册一个。
@@ -148,73 +146,3 @@ Blog 系统
 
 
 
-Ctrl + T 通过匹配文本打开文件
-
-CTRL + L = 选中当前行
-
-CTRL + R = 切换工作区
-
-
-
-Shift + Alt + rightArrow 选中切换
-
-Shift + Alt + upArrow 选中复制
-
-SHIFT + ALT + I = 在所选的每一行的末尾插入光标
-
-
-
-Ctrl + Alt + F 格式化
-
-
-
-Ctrl + Shift + F  搜索所有文件的文本
-
-Ctrl + Shift + T 重新打开 关闭的编辑页
-
-Ctrl + Shift + P 打开控制面板
-
-
-
-
-
-箭头（ctrl 移动字母 shift 选中 alt操作）
-
-ctrl + right/leftArrow 光标移动字母
-
-alt + right/leftArrow 切换标签页
-
-alt + up/downArrow 行数据换行
-
-shift + right/leftArrow  往前往后选中一个字母
-
-shift + up/downArrow  向上向下选中数据
-
-ctrl + shift + right/leftArrow  往前往后选中一个单词
-
-shift + alt + rightArrow 选中段落
-
-shift + alt + up/downArrow 复制一行
-
-ctrl + alt + up/downArrow 光标复制
-
-
-
-Ctrl + Backspace 删除上一个单词
-
-Ctrl + X 剪切命令删除一行
-
-Ctrl + C 复制一行
-
-Ctrl+V 
-
-Ctrl+Enter 向下插入空白行
-
-Ctrl+Shift+Enter 向上插入空白行
-
-Ctrl + L 选中一行
-
-Ctrl+[	Outdent Line
-
-Ctrl+Shift+[	Fold (collapse) region	
-Ctrl+H Replace	
