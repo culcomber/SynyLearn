@@ -1,72 +1,181 @@
-代码片段插件
+## `github`
 
-
-
-[中文独立博客列表](https://github.com/timqian/chinese-independent-blogs)
-
-## 项目
-
-[freeCodeCamp](https://www.freecodecamp.org/) 三件套 框架 D3 测试 安全
+### 应用
 
 [TodoMVC](https://github.com/tastejs/todomvc) 各种框架实现todo
 
-[Project Based Learning](https://github.com/practical-tutorials/project-based-learning#javascript) 各编程语言项目合集
+票据管理 https://github.com/crater-invoice/crater
 
-[TypeScript type challenges](https://github.com/type-challenges/type-challenges)
+组织与美化本地媒体库 https://github.com/Dusk-Labs/dim
 
-[TS入门和项目](https://www.totaltypescript.com/workshops/typescript-generics)
+[备忘录](https://github.com/usememos/memos)
 
-[1 single HTML](https://github.com/Metroxe/one-html-page-challenge)
+[自定义配置的浏览器起始页](https://github.com/leon-kfd/Dashboard)
 
-[JavaScript30](https://github.com/wesbos/JavaScript30)
+[m3u8 视频在线提取工具](https://github.com/Momo707577045/m3u8-downloader)
 
-[[30-Days-Of-JavaScript](https://github.com/Asabeneh/30-Days-Of-JavaScript)](https://github.com/Asabeneh/30-Days-Of-JavaScript)
+[中国亲戚关系计算器](https://github.com/mumuy/relationship)
 
-[50projects50days](https://github.com/bradtraversy/50projects50days)
+[lucky-canvas 抽奖插件 | 一个支持H5, 微信小程序, React的抽奖插件](https://github.com/LuckDraw/lucky-canvas)
 
-[awesome-nodejs](https://github.com/sindresorhus/awesome-nodejs)
+[vue-admin-box | 免费并且开源的中后台管理系统模板](https://github.com/cmdparkour/vue-admin-box)
 
-[从零开始构建 JavaScript 技术栈](https://github.com/verekia/js-stack-from-scratch)
+阅读器
+
+https://github.com/troyeguo/koodo-reader
+
+https://github.com/axipo/pdfTranslator
+
+[H5播放器](https://github.com/bilibili/flv.js)
+
+音乐播放器
+
+https://github.com/qier222/YesPlayMusic
+
+https://github.com/lyswhut/lx-music-desktop
+
+后管
+
+https://github.com/PanJiaChen/vue-element-admin/blob/master/README.zh-CN.md
+
+https://github.com/flipped-aurora/gin-vue-admin
 
 [vue-admin-template](https://github.com/PanJiaChen/vue-admin-template/blob/master/README-zh.md)
 
-[网易云播放器](https://github.com/qier222/YesPlayMusic)
+终端
+
+[实用的一站式个人博客系统](https://github.com/nocobase/nocobase/blob/main/README.zh-CN.md)
+
+笔记软件
+
+https://github.com/streetwriters/notesnook
+
+https://github.com/batnoter/batnoter
+
+https://github.com/kkoomen/pointless
+
+https://github.com/siyuan-note/siyuan
+
+https://github.com/taniarascia/takenote
+
+https://github.com/foambubble/foam
+
+### 工具
+
+手机前端页面设计的调试面板 https://github.com/liriliri/eruda
+
+[实现浏览器内截屏](https://github.com/niklasvh/html2canvas)
+
+### `CSS`/`jS`平台
+
+响应式布局万圣节网站 https://github.com/bedimcode/responsive-halloween-website
+
+用于制作 3D 地图的 JavaScript 开源库 https://github.com/felixpalmer/procedural-gl-js
+
+构建动画模型 https://github.com/alyssaxuu/animockup
+
+使用 React 和 d3 快速创建可交互和可配置的图形 https://github.com/danielcaldas/react-d3-graph
+
+网格布局 https://github.com/Leniolabs/layoutit-grid
+
+生成各种可视化交互数据图 https://github.com/vega/vega-lite
+
+[Blink - 一款自定义的生成故障艺术动画的组件库](https://github.com/MrXujiang/blink)
+
+[frontend-developer-roadmap | 一个能提高开发者工作效率的前端js库汇总](https://github.com/MrXujiang/frontend-developer-roadmap)
+
+### 富文本编辑器
+
+https://github.com/worktile/slate-angular/blob/master/README.zh-CN.md
+
+[write email in Markdown](https://github.com/adam-p/markdown-here)
+
+[Resumes generated using the GitHub informations](https://github.com/resume/resume.github.com)
+
+https://github.com/wangeditor-team/wangEditor
+
+### 组件库
+
+Windows 7 风格的 `UI` 组件 https://github.com/khang-nd/7.css
+
+手绘组件库 https://chr15m.github.io/DoodleCSS/
+
+时间轴 https://github.com/prabhuignoto/react-chrono
+
+博客主题 https://github.com/cotes2020/jekyll-theme-chirpy
+
+中文内容展示设计的排版样式增强 https://github.com/sivan/heti
+
+[react-cropper-pro - 轻量强大的图片上传/裁切/压缩组件](https://github.com/MrXujiang/react-cropper-pro)
+
+[mitu-editor - 轻量级且强大的图片编辑器](https://github.com/H5-Dooring/mitu-editor)
+
+[powerNice - 一款轻量级文档管理编辑器](http://h5.dooring.cn/powernice/views)
+
+[rc-drag - 基于react的轻量级拖拽缩放组件](https://github.com/MrXujiang/rc-drag)
+
+[DevUI中后台产品开源前端解决方案](https://github.com/DevCloudFE/ng-devui)
+
+### `H5`搭建
+
+搭建`H5`页面 https://github.com/MrXujiang/h5-Dooring
+
+### 低代码平台
+
+程序员修炼之道 The Pragmatic Programmer
+
+[使用gin+vue进行极速开发的全栈开发基础平台](https://github.com/flipped-aurora/gin-vue-admin)
+代码整洁之道 Clean Code
+
+[基于antd开箱即用的后台管理模版ant-simple-pro](https://github.com/lgf196/ant-simple-pro)
+程序员的职业素养 The Clean Code
+
+https://github.com/illacloud/illa-builder
+领域驱动设计和实践 Domain-Driven Design
+
+https://github.com/nocobase/nocobase/blob/main/README.zh-CN.md
+测试驱动的面向对象软件开发 Growing Object-Oriented Software, Guided by Tests
+
+### 表单
+
+持续交付 Continuous Delivery
+
+Web 流程图组件 https://github.com/bcakmakoglu/vue-flow
+
+Excel 的在线表格 https://github.com/dream-num/Luckysheet/blob/master/README-zh.md
+
+智能表格 https://github.com/revolist/revogrid
+不要学习微服务框架，学习演进式架构（Evolutionary Architecture）。
+
+创建数据流 https://github.com/jerosoler/Drawflow
+不要学习新的编程语言，学习代码整洁之道、设计模式、领域驱动设计（DDD）。
+
+快速制作出富有表现张力的 Web 演示文稿  https://github.com/presenta-software/presenta-lib
+不要学习 LeSS 和规模化敏捷框架（SAFe），学习精益生产原则（Lean manufacturing principles）。
+
+[为**开发者**打造的**演示文稿**工具](https://cn.sli.dev/)
+不要学习 Hystrix，学习容错模式（Fault Tolerance Patterns）。
+
+[基于 Vue3.x + TypeScript 的在线演示文稿（幻灯片）应用](https://github.com/pipipi-pikachu/PPTist)
+不要学习 Docker，学成持续交付。
+
+[滴滴开源的流程图编辑框架](https://github.com/didi/LogicFlow)
+
+### 源码
+
+基于 JavaScript V8 引擎和 Rust，搭建了一个微型浏览器 https://github.com/lmt-swallow/puppy-browser/
+
+[最小化的浏览器](https://github.com/minbrowser/min)
+
+https://github.com/verekia/js-stack-from-scratch
+
+## `cando`
+
+### 代码片段插件
 
 
 
-## 前端面试
-
-https://github.com/haizlin/fe-interview
-
-https://github.com/CavsZhouyou/Front-End-Interview-Notebook
-
-https://github.com/qappleh/Interview
-
-https://github.com/Chocolate1999/Front-end-learning-to-organize-notes
-
-https://github.com/liyupi/mianshiya-public
-
-https://github.com/jwasham/coding-interview-university
-
-https://github.com/DopplerHQ/awesome-interview-questions
-
-https://github.com/yangshun/front-end-interview-handbook
-
-https://github.com/sudheerj/reactjs-interview-questions
-
-https://github.com/Advanced-Frontend/Daily-Interview-Question
-
-https://github.com/InterviewMap/CS-Interview-Knowledge-Map
-
-https://github.com/sudheerj/javascript-interview-questions
-
-https://github.com/wolverinn/Waking-Up
-
-https://github.com/CyC2018/CS-Notes
-
-
-
-Blog 系统
+### `Blog` 系统
 
 **业务上的需求如下：**
 
@@ -93,7 +202,7 @@ Blog 系统
 
 
 
-投票系统
+### 投票系统
 
 **业务上的需求如下：**
 
@@ -141,6 +250,38 @@ Blog 系统
 - 需要支持多个消费者消费消息（只要有一个消费者成功处理消息就可以删除消息）。
 - 消息队列要做到不丢数据（要把消息持久化下来）。
 - 能做到性能很高。
+
+
+
+## 前端面试
+
+https://github.com/haizlin/fe-interview
+
+https://github.com/CavsZhouyou/Front-End-Interview-Notebook
+
+https://github.com/qappleh/Interview
+
+https://github.com/Chocolate1999/Front-end-learning-to-organize-notes
+
+https://github.com/liyupi/mianshiya-public
+
+https://github.com/jwasham/coding-interview-university
+
+https://github.com/DopplerHQ/awesome-interview-questions
+
+https://github.com/yangshun/front-end-interview-handbook
+
+https://github.com/sudheerj/reactjs-interview-questions
+
+https://github.com/Advanced-Frontend/Daily-Interview-Question
+
+https://github.com/InterviewMap/CS-Interview-Knowledge-Map
+
+https://github.com/sudheerj/javascript-interview-questions
+
+https://github.com/wolverinn/Waking-Up
+
+https://github.com/CyC2018/CS-Notes
 
 
 
