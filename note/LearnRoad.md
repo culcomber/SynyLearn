@@ -5,21 +5,11 @@
 87 | 程序员练级攻略：前端基础和底层原理
 88 | 程序员练级攻略：前端性能优化和框架
 
-------
-
-2/3 miniproject 浏览器、三件套
-
-4/5 xft模拟项目 常用框架、构建工具
-
-6/7 多端项目or优化前面项目 把前面知识应用起来
-
-------
-
 收集资料——整体了解——重点细节深入——实践
 
 收藏夹--清单
 
-
+------
 
 程序员修炼之道 The Pragmatic Programmer
 
@@ -37,17 +27,138 @@
 
 不要学习微服务框架，学习演进式架构（Evolutionary Architecture）。
 
-不要学习新的编程语言，学习代码整洁之道、设计模式、领域驱动设计（DDD）。
+不要学习新的编程语言，学习代码整洁之道、设计模式、领域驱动设计（`DDD`）。
 
-不要学习 LeSS 和规模化敏捷框架（SAFe），学习精益生产原则（Lean manufacturing principles）。
+不要学习 `LeSS` 和规模化敏捷框架（`SAFe`），学习精益生产原则（Lean manufacturing principles）。
 
-不要学习 Hystrix，学习容错模式（Fault Tolerance Patterns）。
+不要学习 `Hystrix`，学习容错模式（Fault Tolerance Patterns）。
 
 不要学习 Docker，学成持续交付。
 
-不要学习 Angular、React 和 Vue，学习 Web、HTTP 和 REST。
+不要学习 Angular、React 和 `Vue`，学习 Web、HTTP 和 REST。
 
+------
 
+3 浏览器/HTML/`CSS`
+
+[全栈公开课 2022](https://fullstackopen.com/zh/)
+
+[**`CSS`**: *A search engine in `CSS`*](https://stories.algolia.com/a-search-engine-in-css-b5ec4e902e97)
+
+[**`Node.js`**: *Write your own `bittorrent` client*](https://allenkim67.github.io/programming/2016/05/04/how-to-make-your-own-bittorrent-client.html)
+
+[**`Node.js`**: *Build a `DNS` Server in `Node.js`*](https://engineerhead.github.io/dns-server/)
+
+[**`Node.js`**: *Create a `CLI `tool in `Javascript`*](https://citw.dev/tutorial/create-your-own-cli-tool)
+
+[**`Node.js`**: *How to create a real-world Node `CLI app` with Node*](https://medium.freecodecamp.org/how-to-create-a-real-world-node-cli-app-with-node-391b727bbed3)
+
+[响应式布局万圣节网站](https://github.com/bedimcode/responsive-halloween-website) 
+
+[手绘组件库](https://chr15m.github.io/DoodleCSS/) 
+
+4 `JS`
+
+other
+
+- [**JavaScript**: *Build Your Own Module Bundler - `Minipack`*](https://github.com/ronami/minipack)
+- [**`TypeScript`**: *Tiny Package Manager: Learns how `npm` or Yarn works*](https://github.com/g-plane/tiny-package-manager)
+- [**`Node.js`**: *Build a static site generator in 40 lines with `Node.js`*](https://www.webdevdrops.com/en/build-static-site-generator-nodejs-8969ebe34b22/)
+- [Build a Jupyter Notebook Extension](https://link.medium.com/wWUO7TN8SS)
+- [**JavaScript**: *Learn JavaScript Promises by Building a Promise from Scratch*](https://levelup.gitconnected.com/understand-javascript-promises-by-building-a-promise-from-scratch-84c0fd855720)
+- [**JavaScript**: *Implementing promises from scratch (TDD way)*](https://www.mauriciopoppe.com/notes/computer-science/computation/promises/)
+- [**JavaScript**: *Implement your own — call(), apply() and bind() method in JavaScript*](https://blog.usejournal.com/implement-your-own-call-apply-and-bind-method-in-javascript-42cc85dba1b)
+
+Template Engine
+
+- [**JavaScript**: *JavaScript template engine in just 20 lines*](http://krasimirtsonev.com/blog/article/Javascript-template-engine-in-just-20-line)
+- [**JavaScript**: *Understanding JavaScript Micro-`Templating`*](https://medium.com/wdstack/understanding-javascript-micro-templating-f37a37b3b40e)
+
+`Regex` Engine
+
+- [**JavaScript**: *Build a `Regex` Engine in Less than 40 Lines of Code*](https://nickdrane.com/build-your-own-regex/)
+- [**JavaScript**: *How to implement regular expressions in functional `javascript` using derivatives*](http://dpk.io/dregs/toydregs)
+- [**JavaScript**: *Implementing a Regular Expression Engine*](https://deniskyashif.com/2019/02/17/implementing-a-regular-expression-engine/)
+
+other
+
+- Build a Progressive Web Application (`PWA`)
+  - [Part 1](https://bitsofco.de/bitsofcode-pwa-part-1-offline-first-with-service-worker/)
+  - [Part 2](https://bitsofco.de/bitsofcode-pwa-part-2-instant-loading-with-indexeddb/)
+  - [Part 3](https://bitsofco.de/bitsofcode-pwa-part-3-push-notifications/)
+- [Build A Native Desktop App with JS](https://medium.freecodecamp.org/build-native-desktop-apps-with-javascript-a49ede90d8e9)
+- Build a Powerful API with NodeJs,GraphQL and Hapi
+  - [Part I](https://medium.com/@wesharehoodies/how-to-setup-a-powerful-api-with-nodejs-graphql-mongodb-hapi-and-swagger-e251ac189649)
+
+5  `Node` 
+
+`Web Server`
+
+- [**`Node.js`**: *Let's code a web server from scratch with `NodeJS` Streams*](https://www.codementor.io/ziad-saab/let-s-code-a-web-server-from-scratch-with-nodejs-streams-h4uc9utji)
+- [**`Node.js`**: *lets-build-express*](https://github.com/antoaravinth/lets-build-express)
+- [**`Node.js`**: *Building A Simple Single Sign On(`SSO`) Server And Solution From Scratch In `Node.js`.*](https://codeburst.io/building-a-simple-single-sign-on-sso-server-and-solution-from-scratch-in-node-js-ea6ee5fdf340)
+
+other
+
+- [Build a real-time Markdown Editor with NodeJS](https://scotch.io/tutorials/building-a-real-time-markdown-viewer)
+- [Test-Driven Development with Node, Postgres and Knex](http://mherman.org/blog/2016/04/28/test-driven-development-with-node/)
+- Write a Twitter Bot in Node.js
+  - [Part 1](https://codeburst.io/build-a-simple-twitter-bot-with-node-js-in-just-38-lines-of-code-ed92db9eb078)
+  - [Part 2](https://codeburst.io/build-a-simple-twitter-bot-with-node-js-part-2-do-more-2ef1e039715d)
+- [Build A Simple Search Bot in 30 minutes](https://medium.freecodecamp.org/how-to-build-a-simple-search-bot-in-30-minutes-eb56fcedcdb1)
+- [Build A Job Scraping Web App](https://medium.freecodecamp.org/how-i-built-a-job-scraping-web-app-using-node-js-and-indreed-7fbba124bbdc)
+- [Building a GitHub App](https://blog.scottlogic.com/2017/05/22/gifbot-github-integration.html)
+- How to build your own Uber-for-X App using JavaScript, Node.JS, MongoDB and Web Sockets
+  - [Part 1](https://www.ashwinhariharan.tech/blog/how-to-build-your-own-uber-for-x-app/)
+  - [Part 2](https://www.ashwinhariharan.tech/blog/how-to-build-your-own-uber-for-x-app-part-2/)
+
+6 React 
+
+[**JavaScript**: *Build a ride hailing `app` with React Native*](https://pusher.com/tutorials/ride-hailing-react-native)
+
+- [Create Serverless React.js Apps](http://serverless-stack.com/)
+- [Create a Trello Clone](http://codeloveandboards.com/blog/2016/01/04/trello-tribute-with-phoenix-and-react-pt-1/)
+- [Create a Character Voting App with React, Node, MongoDB and SocketIO](http://sahatyalkabov.com/create-a-character-voting-app-using-react-nodejs-mongodb-and-socketio)
+- [React Tutorial: Cloning Yelp](https://www.fullstackreact.com/articles/react-tutorial-cloning-yelp/)
+- [Build a Full Stack Movie Voting App with Test-First Development using Mocha, React, Redux and Immutable](https://teropa.info/blog/2015/09/10/full-stack-redux-tutorial.html)
+- [Build a Twitter Stream with React and Node](https://scotch.io/tutorials/build-a-real-time-twitter-stream-with-node-and-react-js)
+- [Build A Simple Medium Clone using React.js and Node.js](https://medium.com/@kris101/clone-medium-on-node-js-and-react-js-731cdfbb6878)
+- [Integrate MailChimp in JS](https://medium.freecodecamp.org/how-to-integrate-mailchimp-in-a-javascript-web-app-2a889fb43f6f)
+- [Build A Chrome Extension with React + Parcel](https://medium.freecodecamp.org/building-chrome-extensions-in-react-parcel-79d0240dd58f)
+- [Build A ToDo App With React Native](https://blog.hasura.io/tutorial-fullstack-react-native-with-graphql-and-authentication-18183d13373a)
+- [Make a Chat Application](https://medium.freecodecamp.org/how-to-build-a-chat-application-using-react-redux-redux-saga-and-web-sockets-47423e4bc21a)
+- [Create a News App with React Native](https://medium.freecodecamp.org/create-a-news-app-using-react-native-ced249263627)
+- [Learn Webpack For React](https://medium.freecodecamp.org/learn-webpack-for-react-a36d4cac5060)
+- [Testing React App With Puppeteer and Jest](https://blog.bitsrc.io/testing-your-react-app-with-puppeteer-and-jest-c72b3dfcde59)
+- [Build Your Own React Boilerplate](https://medium.freecodecamp.org/how-to-build-your-own-react-boilerplate-2f8cbbeb9b3f)
+- [Code The Game Of Life With React](https://medium.freecodecamp.org/create-gameoflife-with-react-in-one-hour-8e686a410174)
+- [A Basic React+Redux Introductory Tutorial](https://hackernoon.com/a-basic-react-redux-introductory-tutorial-adcc681eeb5e)
+- [Build an Appointment Scheduler](https://hackernoon.com/build-an-appointment-scheduler-using-react-twilio-and-cosmic-js-95377f6d1040)
+- [Build A Chat App with Sentiment Analysis](https://codeburst.io/build-a-chat-app-with-sentiment-analysis-using-next-js-c43ebf3ea643)
+- [Build A Full Stack Web Application Setup](https://hackernoon.com/full-stack-web-application-using-react-node-js-express-and-webpack-97dbd5b9d708)
+- [Create Todoist clone with React and Firebase](https://www.youtube.com/watch?v=hT3j87FMR6M)
+- Build A Random Quote Machine
+  - [Part 1](https://www.youtube.com/watch?v=3QngsWA9IEE)
+  - [Part 2](https://www.youtube.com/watch?v=XnoTmO06OYo)
+  - [Part 3](https://www.youtube.com/watch?v=us51Jne67_I)
+  - [Part 4](https://www.youtube.com/watch?v=iZx7hqHb5MU)
+  - [Part 5](https://www.youtube.com/watch?v=lpba9vBqXl0)
+  - [Part 6](https://www.youtube.com/watch?v=Jvp8j6zrFHE)
+  - [Part 7](https://www.youtube.com/watch?v=M_hFfrN8_PQ)
+- [React Phone E-Commerce Project(video)](https://www.youtube.com/watch?v=-edmQKcOW8s)
+
+7 `Vue`/Angular 
+
+- [Vue 2 + Firebase: How to build a Vue app with Firebase authentication system in 15 minutes](https://medium.com/@anas.mammeri/vue-2-firebase-how-to-build-a-vue-app-with-firebase-authentication-system-in-15-minutes-fdce6f289c3c)
+- [Vue.js Application Tutorial – Creating a Simple Budgeting App with Vue](https://matthiashager.com/complete-vuejs-application-tutorial/)
+- [Build a Blog with Vue, GraphQL and Apollo](https://scotch.io/tutorials/build-a-blog-with-vue-graphql-and-apollo-client)
+- Build a full stack web application using MEVN (MongoDB, Express, Vue, Node) stack
+  - [Part 1](https://medium.com/@anaida07/mevn-stack-application-part-1-3a27b61dcae0)
+  - [Part 2](https://medium.com/@anaida07/mevn-stack-application-part-2-2-9ebcf8a22753)
+- [Vue.js To-Do List Tutorial (video)](https://www.youtube.com/watch?v=78tNYZUS-ps)
+- [Vue 2 + Pub/Sub: Build a peer to peer multi-user platform for games](https://www.ably.io/tutorials/peer-to-peer-vue)
+
+------
 
 ## 1 底层基础
 
