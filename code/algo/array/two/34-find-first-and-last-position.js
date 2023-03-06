@@ -12,7 +12,7 @@
  */
 var searchRange = function(nums, target) {
     const getLeftBorder = function(nums, target) {
-        let left = 0, right = nums.length - 1, leftBorder = -2;;
+        let left = 0, right = nums.length - 1, leftBorder = -2;
         while (left <= right) {
             let middle = left + Math.floor((right - left) / 2);
             if(nums[middle] < target){ 
@@ -26,7 +26,7 @@ var searchRange = function(nums, target) {
     }
 
     const getRightBorder = function(nums, target) {
-        let left = 0, right = nums.length - 1, rightBorder= -2;;
+        let left = 0, right = nums.length - 1, rightBorder= -2;
         while (left <= right) {
             let middle = left + Math.floor((right - left) / 2);
             if (nums[middle] > target) {
