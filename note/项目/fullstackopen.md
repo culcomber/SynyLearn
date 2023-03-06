@@ -83,15 +83,24 @@ const App = () => {
 
 ### a 从渲染集合到模块学习
 
-
+循环
 
 ### b 表单
 
+json-server是一个方便的工具，它能够在开发阶段使用服务器端的功能，而不需要对其进行任何编程
 
+[fetch](https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/fetch)基于[promises](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)，XHR使用的事件驱动模型
 
 ### c 从服务器获取数据
 
+```
+render 0 notes // 定义该组件的函数主体被执行，该组件被首次渲染
+effect
+promise fulfilled
+render 3 notes // 对状态更新函数的调用会触发组件的重新渲染
+```
 
+<img src="../assets/image-20230307000943374.png" alt="image-20230307000943374" style="zoom:50%;" />
 
 ### d 在服务端将数据Alert出来
 
