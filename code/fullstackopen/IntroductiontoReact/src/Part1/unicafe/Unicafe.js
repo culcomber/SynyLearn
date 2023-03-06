@@ -10,6 +10,10 @@ const Button = ({ onClick, text }) => (
     </button>
 )
 
+const StatisticLine = ({ value, text }) => {
+    return text === "positive" ? <tr><td>{text}</td><td>{value}%</td></tr> : <tr><td>{text}</td><td>{value}</td></tr>;
+}
+
 /*条件渲染*/
 const Statistics = ({good, neutral, bad}) => {
     const total = good + neutral + bad;
@@ -66,10 +70,6 @@ const Unicafe = () => {
 
     const handleBadClick = () =>
         setClicks({...clicks, bad: clicks.bad + 1})*/
-
-    const StatisticLine = ({ value, text }) => {
-        return text === "positive" ? <tr><td>{text}</td><td>{value}%</td></tr> : <tr><td>{text}</td><td>{value}</td></tr>;
-    }
 
     return (
         <div>
