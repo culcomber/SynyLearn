@@ -9,9 +9,12 @@ import {
 } from 'react-router-dom';
 import './index.css';
 import App from './App';
-import Unicafe from "./unicafe/Unicafe";
-import Courseinfo from "./courseinfo/Courseinfo";
-import Anecdotes from "./anecdotes/Anecdotes";
+import Unicafe from "./Part1/unicafe/Unicafe";
+import Courseinfo from "./Part1/courseinfo/Courseinfo";
+import Anecdotes from "./Part1/anecdotes/Anecdotes";
+import Countries from "./Part2/countries/Countries";
+import Coursecontents from "./Part2/coursecontents/Coursecontents";
+import Phonebook from "./Part2/phonebook/Phonebook";
 // import reportWebVitals from './reportWebVitals';
 
 const router = createBrowserRouter([
@@ -30,6 +33,18 @@ const router = createBrowserRouter([
     {
         path: "anecdotes",
         element: <Anecdotes/>,
+    },
+    {
+        path: "countries",
+        element: <Countries/>,
+    },
+    {
+        path: "coursecontents",
+        element: <Coursecontents/>,
+    },
+    {
+        path: "phonebook",
+        element: <Phonebook/>,
     },
 ]);
 

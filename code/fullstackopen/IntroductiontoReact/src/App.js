@@ -6,7 +6,7 @@ import React from "react";
 function App() {
   return (
       <div>
-          <h1>Hello World</h1>
+          <h1>Part1</h1>
           <div>
               <Link to="unicafe">Unicafe</Link>
           </div>
@@ -15,6 +15,16 @@ function App() {
           </div>
           <div>
               <Link to="anecdotes">Anecdotes</Link>
+          </div>
+          <h1>Part2</h1>
+          <div>
+              <Link to="countries">Countries</Link>
+          </div>
+          <div>
+              <Link to="coursecontents">Coursecontents</Link>
+          </div>
+          <div>
+              <Link to="phonebook">Phonebook</Link>
           </div>
       </div>
   );

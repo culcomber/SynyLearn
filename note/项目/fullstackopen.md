@@ -37,8 +37,6 @@ const App = () => {
 export default App
 ```
 
-
-
 ### d 深入React 应用调试
 
 注意点
