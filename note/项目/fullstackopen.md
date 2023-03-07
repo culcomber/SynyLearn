@@ -51,8 +51,6 @@ export default App
 
 - 在代码的任何地方写下[debugger](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/debugger)命令
 
-<img src="../../../LearnNote/note/assets/image-20230304212658452.png" alt="image-20230304212658452" style="zoom:67%;" />
-
 - 在*Sources*标签中添加断点来访问调试器
 
 **Function that returns a function**
@@ -104,7 +102,49 @@ render 3 notes // 对状态更新函数的调用会触发组件的重新渲染
 
 ### d 在服务端将数据Alert出来
 
+REST
 
+封装请求
 
 ### e 给React应用加点样式
+
+<img src="D:/LearnNote/note/assets/image-20230307170040688.png" alt="image-20230307170040688" style="zoom:50%;" />
+
+
+
+
+
+Part 3
+
+a Node.js 与 Express
+
+浏览器通常不支持 JavaScript 的最新功能，在浏览器中运行的代码必须用例如 babel 进行 转写 。
+
+最新版本的 Node 支持 JavaScript 的绝大部分最新特性。
+
+
+
+JSON 是一个字符串
+
+<img src="../assets/image-20230307174058549.png" alt="image-20230307174058549" style="zoom:50%;" />
+
+
+
+现在对应用代码的修改会导致服务器自动重新启动。值得注意的是，即使后端服务器自动重启，浏览器仍然需要手动刷新。这是因为与在 React 中工作时不同，我们没有自动重新加载浏览器所需的 [hot reload](https://gaearon.github.io/react-hot-loader/getstarted/) 功能。
+
+在脚本中不需要指定 nodemon 的 node/modules/.bin/nodemon 路径，因为 _npm 自动知道从该目录中搜索该文件。
+
+与 start 和 test 脚本不同，我们还必须在命令中加入 run。
+
+
+
+b 把应用部署到网上
+
+
+
+c 将数据存入MongoDB
+
+
+
+d ESLint与代码检查
 

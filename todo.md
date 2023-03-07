@@ -3,7 +3,8 @@
 - [EventLoop](https://developer.mozilla.org/en-US/docs/Web/JavaScript/EventLoop)
 - [网络工作者](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Using_web_workers)
 - [单线程](https://medium.com/techtrument/multithreading-javascript-46156179cf9a)
-- [Index as a key is an anti-pattern](https://robinpokorny.medium.com/index-as-a-key-is-an-anti-pattern-e0349aece318)
+- [Index as a key is an anti-pattern](https://robinpokorny.medium.com/index-as-a-key-is-an-anti-pattern-e0349aece318)、
+- [export](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/export)
 
 
 
