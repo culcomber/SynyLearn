@@ -81,7 +81,9 @@ const App = () => {
 
 ### a 从渲染集合到模块学习
 
-循环
+todo [JavaScript中的函数式编程](https://www.youtube.com/playlist?list=PL0zVEGEvSaeEd9hlmCXrk5yUyqUag-n84)的前三部分
+
+`console.log('props value is', props)`
 
 ### b 表单
 
