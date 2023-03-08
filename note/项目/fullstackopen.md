@@ -118,33 +118,204 @@ Part 3
 
 a Node.js 与 Express
 
-浏览器通常不支持 JavaScript 的最新功能，在浏览器中运行的代码必须用例如 babel 进行 转写 。
+1. Simple web server
 
-最新版本的 Node 支持 JavaScript 的绝大部分最新特性。
+   - 在目录下运行`npm init`初始化项目，会创建`package.json`文件
 
+   - 在项目的根部添加一个 `index.js` 文件，要运行项目可以在命令行使用`node index.js`
 
+   - 为了方便后续运行，修改`package.json`的`scripts`对象，增加`"start": "node index.js"`属性。后续在命令行中使用 `npm run start` (**可简写`npm start`**)启动项目
 
-JSON 是一个字符串
+     <img src="../assets/image-20230308102232496.png" alt="image-20230308102232496" style="zoom:70%;" />
 
-<img src="../assets/image-20230307174058549.png" alt="image-20230307174058549" style="zoom:50%;" />
+   - 使用`http`模块响应请求
 
+      ```js
+      const http = require('http')
+      let notes = [...]
+      const app = http.createServer((request, response) => {
+        response.writeHead(200, { 'Content-Type': 'application/json' })
+        response.end(JSON.stringify(notes))
+      })
+      const PORT = 3001
+      app.listen(PORT)
+      console.log(`Server running on port ${PORT}`)
+      ```
 
+      **JSON 是一个字符串**
 
-现在对应用代码的修改会导致服务器自动重新启动。值得注意的是，即使后端服务器自动重启，浏览器仍然需要手动刷新。这是因为与在 React 中工作时不同，我们没有自动重新加载浏览器所需的 [hot reload](https://gaearon.github.io/react-hot-loader/getstarted/) 功能。
+      <img src="../assets/image-20230307174058549.png" alt="image-20230307174058549" style="zoom:50%;" />
 
-在脚本中不需要指定 nodemon 的 node/modules/.bin/nodemon 路径，因为 _npm 自动知道从该目录中搜索该文件。
+      todo
 
-与 start 和 test 脚本不同，我们还必须在命令中加入 run。
+      浏览器中运行的代码都使用 ES6 模块。模块用 [export](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/export) 来定义，用 [import](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import) 来使用。Node.js 使用 [CommonJS](https://en.wikipedia.org/wiki/CommonJS) 模块。
 
+2. **express**
 
+   浏览器通常不支持 JavaScript 的最新功能，在浏览器中运行的代码必须用例如 babel 进行 转写 。
+
+   **最新版本的 Node 支持 JavaScript 的绝大部分最新特性**。
+
+   ```js
+   const express = require('express')
+   const app = express()
+   
+   let notes = [...]
+   
+   // request包含 HTTP 请求的所有信息，response定义如何对请求进行响应
+   app.get('/', (request, response) => {
+     response.send('<h1>Hello World!</h1>')
+   })
+   
+   app.get('/api/notes', (request, response) => {
+     response.json(notes)
+   })
+   
+   const PORT = 3001
+   app.listen(PORT, () => {
+     console.log(`Server running on port ${PORT}`)
+   })
+   ```
+
+3. **nodemon**
+
+   现在对应用代码的修改会导致服务器自动重新启动。即使后端服务器自动重启，浏览器仍然需要手动刷新，因为没有自动重新加载浏览器所需的 [hot reload](https://gaearon.github.io/react-hot-loader/getstarted/) 功能。
+
+   在脚本中不需要指定 `nodemon` 的 `node/modules/.bin/nodemon` 路径，因为 `npm` 自动知道从该目录中搜索该文件。
+
+4. REST
+
+   | URL      | verb   | functionality                                                |
+   | :------- | :----- | :----------------------------------------------------------- |
+   | notes/10 | GET    | fetches a single resource                                    |
+   | notes    | GET    | fetches all resources in the collection                      |
+   | notes    | POST   | creates a new resource based on the request data             |
+   | notes/10 | DELETE | removes the identified resource                              |
+   | notes/10 | PUT    | replaces the entire identified resource with the request data |
+   | notes/10 | PATCH  | replaces a part of the identified resource with the request data |
+
+   todo Richardson 成熟度模型中的 [RESTful 成熟度第二层次](https://martinfowler.com/articles/richardsonMaturityModel.html)
+
+5. Fetching a single resource
+
+   ```js
+   app.get('/api/notes/:id', (request, response) => {
+     const id = Number(request.params.id)
+     const note = notes.find(note => note.id === id)
+     if (note) {
+       response.json(note)
+     } else {
+       // 使用 status 方法来设置状态，并使用 end 方法来响应请求，而不发送任何数据。
+       response.status(404).end()
+     }
+   })
+   ```
+
+6. Deleting resources
+
+   ```js
+   app.delete('/api/notes/:id', (request, response) => {
+     const id = Number(request.params.id)
+     notes = notes.filter(note => note.id !== id)
+     response.status(204).end()
+   })
+   ```
+
+7. Postman
+
+   ![fullstack content](../assets/11x.png)
+
+   The Visual Studio Code REST client
+
+   ![fullstack content](../assets/12ea.png)
+
+   The WebStorm HTTP Client：HTTP请求存储在.http和.rest文件中
+
+8. Receiving data
+
+   ```js
+   app.use(express.json()) // 将请求的 JSON 数据转化为 JavaScript 对象
+   
+   const generateId = () => {
+     const maxId = notes.length > 0
+       ? Math.max(...notes.map(n => n.id)) // 找到当前最大id
+       : 0
+     return maxId + 1
+   }
+   
+   app.post('/api/notes', (request, response) => {
+     const body = request.body
+     if (!body.content) {
+       return response.status(400).json({
+         error: 'content missing'
+       })
+     }
+     const note = {
+       content: body.content,
+       important: body.important || false,
+       date: new Date(),
+       id: generateId(),
+     }
+     notes = notes.concat(note)
+     response.json(note)
+   })
+   ```
+
+9. Middleware
+
+   ```js
+   const requestLogger = (request, response, next) => {
+     console.log('Method:', request.method)
+     console.log('Path:  ', request.path)
+     console.log('Body:  ', request.body)
+     console.log('---')
+     next() // 将控制权交给下一个中间件
+   }
+   
+   // 中间件函数的调用顺序是它们被 Express 服务器对象的 use 方法所使用的顺序
+   app.use(express.json())
+   app.use(requestLogger)
+   ```
+
+   todo
+
+   [中间件](http://expressjs.com/en/guide/using-middleware.html)
 
 b 把应用部署到网上
 
+1. Same origin policy and CORS
 
+   
+
+2. Application to the Internet
+
+   
+
+3. Frontend production build
+
+   
+
+4. Serving static files from the backend
+
+   
+
+5. The whole app to interne
+
+   
+
+6. Streamlining deploying of the frontend
+
+   
+
+7. Proxy
+
+   
+
+8. 1
 
 c 将数据存入MongoDB
 
-
+todo [使用](https://tenderlovemaking.com/2016/02/05/i-am-a-puts-debuggerer.html)这种[方法](https://swizec.com/blog/javascript-debugging-slightly-beyond-consolelog/)
 
 d ESLint与代码检查
 
