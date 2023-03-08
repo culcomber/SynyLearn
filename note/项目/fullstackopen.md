@@ -87,11 +87,114 @@ todo [JavaScript中的函数式编程](https://www.youtube.com/playlist?list=PL0
 
 ### b 表单
 
-json-server是一个方便的工具，它能够在开发阶段使用服务器端的功能，而不需要对其进行任何编程
+1. Controlled component
 
-[fetch](https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/fetch)基于[promises](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)，XHR使用的事件驱动模型
+   ```jsx
+   import { useState } from 'react'
+   const App = (props) => {
+     const [notes, setNotes] = useState(props.notes)
+     const [newNote, setNewNote] = useState('')
+   
+     const addNote = (event) => {
+       event.preventDefault()
+       const noteObject = {
+         content: newNote,
+         important: Math.random() > 0.5,
+         id: notes.length + 1,
+       }
+   
+       setNotes(notes.concat(noteObject))
+       setNewNote('')
+     }
+   
+     const handleNoteChange = (event) => {
+       console.log(event.target.value)
+       setNewNote(event.target.value)
+     }
+     
+     return (
+       <div>
+         <form onSubmit={addNote}>
+           <input value={newNote} onChange={handleNoteChange} />
+           <button type="submit">save</button>
+         </form>
+       </div>
+     )
+   }
+   ```
+
+2. Filtering Displayed Elements
+
+   ```jsx
+   const App = (props) => {
+     const [showAll, setShowAll] = useState(false)
+     const notesToShow = showAll
+       ? notes
+       : notes.filter(note => note.important)
+   
+     return (
+       <div>
+         <div>
+           <button onClick={() => setShowAll(!showAll)}>
+             show {showAll ? 'important' : 'all' }
+           </button>
+         </div> 
+         <ul>
+           <ul>
+             {notesToShow.map(note => 
+               <Note key={note.id} note={note} />
+             )}
+           </ul>
+         </ul>
+       </div>
+     )
+   }  
+   ```
 
 ### c 从服务器获取数据
+
+1. The browser as a runtime environment
+
+   todo [事件循环到底是什么？](https://www.youtube.com/watch?v=8aGhZQkoFbQ)
+
+   - 在项目的根目录下创建一个名为`db.json`的文件
+
+   - 安装`json-server`
+
+     `json-server`是一个方便的工具，它能够在开发阶段使用服务器端的功能，而不需要对其进行任何编程
+
+     [fetch](https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/fetch)基于[promises](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)，XHR使用的事件驱动模型
+
+   - 启动服务
+
+     `npx json-server --port 3001 --watch db.json`
+
+   - 不再推荐使用XHR，浏览器已经广泛支持[fetch](https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/fetch)方法，该方法基于所谓的[promises](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)，而不是XHR使用的事件驱动模型。
+
+2. npm
+
+   ```
+   npm install axios
+   npm install json-server --save-dev // 被安装为开发依赖项
+   
+   "scripts": {
+   	"server": "json-server -p3001 --watch db.json"
+   },
+   ```
+
+3. Axios and promises
+
+   为了同时运行json-server和你的react应用，你可能需要使用两个终端窗口。一个用于保持 json-server 运行，另一个用于运行 react-app。
+
+4. Effect-hooks
+
+   
+
+5. The development runtime environment
+
+   
+
+
 
 ```
 render 0 notes // 定义该组件的函数主体被执行，该组件被首次渲染
@@ -110,15 +213,13 @@ REST
 
 ### e 给React应用加点样式
 
-<img src="D:/LearnNote/note/assets/image-20230307170040688.png" alt="image-20230307170040688" style="zoom:50%;" />
 
 
 
 
+## Part 3
 
-Part 3
-
-a Node.js 与 Express
+### a Node.js 与 Express
 
 1. Simple web server
 
@@ -283,7 +384,7 @@ a Node.js 与 Express
 
    [中间件](http://expressjs.com/en/guide/using-middleware.html)
 
-b 把应用部署到网上
+### b 把应用部署到网上
 
 1. Same origin policy and CORS
 
@@ -315,9 +416,9 @@ b 把应用部署到网上
 
 8. 1
 
-c 将数据存入MongoDB
+### c 将数据存入MongoDB
 
 todo [使用](https://tenderlovemaking.com/2016/02/05/i-am-a-puts-debuggerer.html)这种[方法](https://swizec.com/blog/javascript-debugging-slightly-beyond-consolelog/)
 
-d ESLint与代码检查
+### d ESLint与代码检查
 
