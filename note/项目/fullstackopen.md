@@ -296,15 +296,6 @@ todo [JavaScript中的函数式编程](https://www.youtube.com/playlist?list=PL0
    export default { getAll, create, update }
    ```
 
-4. Promises and Errors
-
-   
-
-### e 给React应用加点样式
-
-1. Improved error message
-2. Inline styles
-
 ## Part 3
 
 ### a Node.js 与 Express
@@ -474,9 +465,18 @@ todo [JavaScript中的函数式编程](https://www.youtube.com/playlist?list=PL0
 
 ### b 把应用部署到网上
 
-1. Same origin policy and CORS
+1. Same origin policy and [CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS)
 
-   
+   todo [同源策略](https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy)和 CORS 
+
+   通过使用 Node's [cors](https://github.com/expressjs/cors) 中间件来允许来自其他*原点*的请求
+
+   ```js
+   const cors = require('cors')
+   app.use(cors())
+   ```
+
+   <img src="../assets/image-20230309114613894.png" alt="image-20230309114613894" style="zoom:80%;" />
 
 2. Application to the Internet
 
