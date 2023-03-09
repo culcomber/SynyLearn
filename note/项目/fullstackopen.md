@@ -171,7 +171,9 @@ todo [JavaScript中的函数式编程](https://www.youtube.com/playlist?list=PL0
 
    - 不再推荐使用XHR，浏览器已经广泛支持[fetch](https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/fetch)方法，该方法基于所谓的[promises](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)，而不是XHR使用的事件驱动模型。
 
-2. npm
+2. Axios and promises
+
+   为了同时运行json-server和你的react应用，你可能需要使用两个终端窗口。一个用于保持 json-server 运行，另一个用于运行 react-app。
 
    ```
    npm install axios
@@ -182,40 +184,109 @@ todo [JavaScript中的函数式编程](https://www.youtube.com/playlist?list=PL0
    },
    ```
 
-3. Axios and promises
+3. Effect-hooks
 
-   为了同时运行json-server和你的react应用，你可能需要使用两个终端窗口。一个用于保持 json-server 运行，另一个用于运行 react-app。
-
-4. Effect-hooks
-
+   ```js
+   import { useState, useEffect } from 'react'
+   import axios from 'axios'
+   import Note from './components/Note'
    
-
-5. The development runtime environment
-
+   const App = () => {
+     const [notes, setNotes] = useState([])
+     const [newNote, setNewNote] = useState('')
+     const [showAll, setShowAll] = useState(true)
    
-
-
-
-```
-render 0 notes // 定义该组件的函数主体被执行，该组件被首次渲染
-effect
-promise fulfilled
-render 3 notes // 对状态更新函数的调用会触发组件的重新渲染
-```
-
-<img src="../assets/image-20230307000943374.png" alt="image-20230307000943374" style="zoom:50%;" />
+     useEffect(() => {
+       console.log('effect')
+       axios
+         .get('http://localhost:3001/notes')
+         .then(response => {
+           console.log('promise fulfilled')
+           setNotes(response.data)
+         })
+     }, [])
+     console.log('render', notes.length, 'notes')
+   
+     // ...
+   }
+   
+   // render 0 notes // 定义该组件的函数主体被执行，该组件被首次渲染
+   // effect
+   // promise fulfilled
+   // render 3 notes // 对状态更新函数的调用会触发组件的重新渲染
+   ```
 
 ### d 在服务端将数据Alert出来
 
-REST
+1. Sending Data to the Server
 
-封装请求
+   ```js
+   addNote = event => {
+     event.preventDefault()
+     const noteObject = {
+       content: newNote,
+       date: new Date(),
+       important: Math.random() > 0.5,
+     }
+   
+     // 在POST请求中发送的数据是一个JavaScript对象，axios自动知道为Content-Type头设置适当的application/json值
+     axios
+       .post('http://localhost:3001/notes', noteObject) // 把数据传到后台
+       .then(response => {
+         setNotes(notes.concat(response.data)) // 使用后台返回数据
+         setNewNote('')
+       })
+   }
+   ```
+
+2. Changing the Importance of Notes
+
+   在POST请求中发送的数据是一个JavaScript对象，axios自动知道为*Content-Type*头设置适当的*application/json*值
+
+   ```js
+   // App.js
+   const toggleImportanceOf = id => {
+     const url = `http://localhost:3001/notes/${id}`
+     const note = notes.find(n => n.id === id)
+     const changedNote = { ...note, important: !note.important }
+   
+     axios.put(url, changedNote).then(response => {
+       setNotes(notes.map(note => note.id !== id ? note : response.data))
+     })
+   }
+   
+   // Note.js
+   const Note = ({ note, toggleImportance }) => {
+     const label = note.important
+       ? 'make not important' : 'make important'
+   
+     return (
+       <li>
+         {note.content}
+         <button onClick={toggleImportance}>{label}</button>
+       </li>
+     )
+   }
+   ```
+
+3. Extracting Communication with the Backend into a Separate Module
+
+   [单一责任原则](https://en.wikipedia.org/wiki/Single_responsibility_principle)，将这种通信提取到[模块](https://fullstackopen.com/en/part2/rendering_a_collection_modules#refactoring-modules)
+
+   
+
+4. Cleaner Syntax for Defining Object Literals
+
+   
+
+5. Promises and Errors
+
+   
 
 ### e 给React应用加点样式
 
-
-
-
+1. Improved error message
+2. Inline styles
 
 ## Part 3
 
