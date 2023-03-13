@@ -482,8 +482,6 @@ todo [JavaScript中的函数式编程](https://www.youtube.com/playlist?list=PL0
 
 2. Application to the Internet
 
-   - 本地项目根目录下创建`Procfile`文件，内容为`web: node index.js`
-
    - 修改`index.js`，`const PORT = process.env.PORT || 3001`
 
    - 建立render账号
@@ -492,35 +490,99 @@ todo [JavaScript中的函数式编程](https://www.youtube.com/playlist?list=PL0
 
      <img src="../assets/image-20230310165326488.png" alt="image-20230310165326488" style="zoom:50%;" />
 
-   - 本地命令行输入`heroku login`，验证身份
+   - 关联github项目，部署项目
 
-   - 创建一个Heroku应用
+     <img src="../assets/image-20230313165534395.png" alt="image-20230313165534395" style="zoom:50%;" />
 
 3. Frontend production build
 
-   
+   - 用[npm run build](https://github.com/facebookincubator/create-react-app#npm-run-build-or-yarn-build)命令创建create-react-app的[生产构建](https://reactjs.org/docs/optimizing-performance.html#use-the-production-build)
+
+     <img src="../assets/image-20230313165902275.png" alt="image-20230313165902275" style="zoom:50%;" />
 
 4. Serving static files from the backend
 
-   
+   - 部署前端的一个选择是将生产构建（*build*目录）复制到后端仓库的根目录，并配置后端以显示前端的*主页*（文件*build/index.html*）作为其主页面。
+
+     ```js
+     // index.html
+     // 每当express收到一个HTTP GET请求时，它将首先检查build目录中是否包含一个与请求地址相对应的文件。如果找到了正确的文件，express将返回它。
+     app.use(express.static('build'))
+     ```
+
+   - 前端和后端都在同一个地址，我们可以将*baseUrl*声明为一个[相对](https://www.w3.org/TR/WD-html40-970917/htmlweb.html#h-5.1.2)URL
+
+     ```js
+     // react src\services\notes.js
+     import axios from 'axios'
+     const baseUrl = '/api/notes'
+     ```
+
+     **Proxy**
+
+     本地前端的地址是*localhost:3000*，对后端的请求会进入错误的地址*localhost:3000/api/notes*。本地后台是在*localhost:3001*。
+
+     <img src="../assets/image-20230313171646164.png" alt="image-20230313171646164" style="zoom:50%;" />
+
+     需要在*package.json*配置代理，如果React应用向*[http://localhost:3000](http://localhost:3000/)*的服务器地址做HTTP请求，，该请求将被重定向到*[http://localhost:3001](http://localhost:3001/)*的服务器(只有本地react应用起作用，后台只是使用构建的`index.js`)
+
+     ```bash
+     {
+       "proxy": "http://localhost:3001"
+     }
+     ```
 
 5. The whole app to interne
 
-   
+   单页应用
+
+   - 用浏览器进入https://fullstackopen-node.onrender.com/地址，服务器从*build*仓库返回*index.html*文件（前台生产构建）
+
+     ```html
+     <head>
+       <meta charset="utf-8"/>
+       <title>React App</title>
+       <link href="/static/css/main.f9a47af2.chunk.css" rel="stylesheet">
+     </head>
+     <body>
+       <div id="root"></div>
+       <script src="/static/js/1.578f4ea1.chunk.js"></script>
+       <script src="/static/js/main.104ca08d.chunk.js"></script>
+     </body>
+     </html>
+     ```
+
+   - 该文件包含获取定义应用样式的CSS样式表的指令，以及两个*script*标签，指示浏览器获取应用的JavaScript代码--实际的React应用（前台index.js文件，引用App.js——请求api/notes获取首页数据）。
+
+   <img src="../assets/image-20230313171033108.png" alt="image-20230313171033108" style="zoom:80%;" />
 
 6. Streamlining deploying of the frontend
 
-   
+   为了创建一个新的前端生产构建，不需要额外的手工工作，让我们在**后端仓库**的*package.json*中添加一些npm脚本。
 
-7. Proxy
+   脚本 *npm run build:ui* 构建前端，并将生产版本复制到后端仓库下。 *npm run deploy*释放当前的后端到heroku。
 
-   
+   *npm run deploy:full*结合了这两者，并包含必要的*git*命令来更新后端仓库。
 
-8. 1
+   还有一个脚本*npm run logs:prod*来显示heroku的日志。
+
+   ```json
+   {
+     "scripts": {
+       //...
+       "build:ui": "rm -rf build && cd ../part2-notes/ && npm run build && cp -r build ../notes-backend",
+       "deploy": "git push heroku main",
+       "deploy:full": "npm run build:ui && git add . && git commit -m uibuild && npm run deploy",
+       "logs:prod": "heroku logs --tail"
+     }
+   }
+   ```
 
 ### c 将数据存入MongoDB
 
 todo [使用](https://tenderlovemaking.com/2016/02/05/i-am-a-puts-debuggerer.html)这种[方法](https://swizec.com/blog/javascript-debugging-slightly-beyond-consolelog/)
+
+
 
 ### d ESLint与代码检查
 
