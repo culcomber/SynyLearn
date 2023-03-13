@@ -480,7 +480,19 @@ todo [JavaScript中的函数式编程](https://www.youtube.com/playlist?list=PL0
 
 2. Application to the Internet
 
-   
+   - 本地项目根目录下创建`Procfile`文件，内容为`web: node index.js`
+
+   - 修改`index.js`，`const PORT = process.env.PORT || 3001`
+
+   - 建立render账号
+
+   - 创建一个render应用
+
+     <img src="../assets/image-20230310165326488.png" alt="image-20230310165326488" style="zoom:50%;" />
+
+   - 本地命令行输入`heroku login`，验证身份
+
+   - 创建一个Heroku应用
 
 3. Frontend production build
 
