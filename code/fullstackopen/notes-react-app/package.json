@@ -41,5 +41,5 @@
   "devDependencies": {
     "json-server": "^0.17.2"
   },
-  "proxy": "https://fullstackopen-node.onrender.com"
+  "proxy": "http://localhost:3001"
 }

@@ -583,19 +583,85 @@ todo [JavaScript中的函数式编程](https://www.youtube.com/playlist?list=PL0
 
 todo [使用](https://tenderlovemaking.com/2016/02/05/i-am-a-puts-debuggerer.html)这种[方法](https://swizec.com/blog/javascript-debugging-slightly-beyond-consolelog/)
 
-1. Debugging Node applications
-2. MongoDB
-3. Schema
-4. Creating and saving objects
-5. Fetching objects from the database
-6. Backend connected to a database
-7. Database configuration into its own module
-8. Using database in route handlers
-9. Verifying frontend and backend integration
-10. Error handling
-11. Moving error handling into middleware
-12. The order of middleware loading
-13. Other operations
+1. MongoDB
+   - 创建Atlas集群
+
+   - 建立与数据库的连接
+
+     ```js
+     const url = "mongodb+srv://SamTL:<password>@cluster0.xauoi5d.mongodb.net/?retryWrites=true&w=majority";
+     
+     mongoose.connect(url)
+     ```
+
+2. Schema
+
+   为一个笔记定义[模式](http://mongoosejs.com/docs/guide.html)和匹配的[模型](http://mongoosejs.com/docs/models.html)
+
+   ```js
+   const noteSchema = new mongoose.Schema({ // 模式，告诉Mongoose如何将笔记对象存储在数据库中
+     content: String,
+     date: Date,
+     important: Boolean,
+   })
+   
+   const Note = mongoose.model('Note', noteSchema) // 模型，构造函数，根据提供的参数创建新的JavaScript对象
+   ```
+
+3. Creating and saving objects
+
+   应用在*Note*[模型](http://mongoosejs.com/docs/models.html)的帮助下创建一个新的笔记对象
+
+   ```js
+   const note = new Note({ // 具有模型的所有属性，其中包括将对象保存到数据库的方法
+     content: 'HTML is Easy',
+     date: new Date(),
+     important: false,
+   })
+   
+   note.save().then(result => {
+     console.log('note saved!')
+     mongoose.connection.close() // 关闭数据库连接
+   })
+   ```
+
+4. Fetching objects from the database
+
+   todo 查询[语法](https://docs.mongodb.com/manual/reference/operator/)
+
+   ```js
+   // 全部笔记
+   Note.find({}).then(result => {
+     result.forEach(note => {
+       console.log(note)
+     })
+     mongoose.connection.close()
+   })
+   
+   // 只包括重要的笔记
+   Note.find({ important: true }).then(result => {
+     // ...
+   })
+   
+   ```
+
+5. Backend connected to a database
+
+   
+
+6. Database configuration into its own module
+
+7. Using database in route handlers
+
+8. Verifying frontend and backend integration
+
+9. Error handling
+
+10. Moving error handling into middleware
+
+11. The order of middleware loading
+
+12. Other operations
 
 
 
