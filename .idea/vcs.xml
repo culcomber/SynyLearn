@@ -2,6 +2,7 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/code/fullstackopen/node-js-getting-started" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/code/fullstackopen/NodeServer" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/code/fullstackopen/node-js-getting-started" vcs="" />
   </component>
 </project>
