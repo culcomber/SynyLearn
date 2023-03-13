@@ -1,13 +1,4 @@
-- [Ajax](https://developer.mozilla.org/en-US/docs/Web/Guide/AJAX)
-- [事件循环](https://www.youtube.com/watch?v=8aGhZQkoFbQ)
-- [EventLoop](https://developer.mozilla.org/en-US/docs/Web/JavaScript/EventLoop)
-- [网络工作者](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Using_web_workers)
-- [单线程](https://medium.com/techtrument/multithreading-javascript-46156179cf9a)
-- [Index as a key is an anti-pattern](https://robinpokorny.medium.com/index-as-a-key-is-an-anti-pattern-e0349aece318)、
-- [export](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/export)
-- 在[这篇文章](https://robinpokorny.medium.com/index-as-a-key-is-an-anti-pattern-e0349aece318)中可以阅读更多关于这个问题的内容
-
-
+- [事件循环](https://www.youtube.com/watch?v=8aGhZQkoFbQ)   [EventLoop](https://developer.mozilla.org/en-US/docs/Web/JavaScript/EventLoop)
 
 
 

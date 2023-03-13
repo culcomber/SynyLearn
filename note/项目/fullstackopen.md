@@ -10,6 +10,8 @@ AJAX能够使用包含在HTML中的JavaScript来获取网页内容，而不需�
 
 JSX
 
+todo [Ajax](https://developer.mozilla.org/en-US/docs/Web/Guide/AJAX)
+
 ### b JavaScript
 
 在使用React时，经常使用函数式编程的技术。函数式编程范式的一个特点是使用[不可变的](https://en.wikipedia.org/wiki/Immutable_object)数据结构。在React代码中，最好使用[concat](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/concat)方法，该方法不会将项目添加到数组中，而是创建一个新的数组，其中同时包含旧数组和新项目的内容。
