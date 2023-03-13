@@ -569,7 +569,6 @@ todo [JavaScript中的函数式编程](https://www.youtube.com/playlist?list=PL0
    ```json
    {
      "scripts": {
-       //...
        "build:ui": "rm -rf build && cd ../part2-notes/ && npm run build && cp -r build ../notes-backend",
        "deploy": "git push heroku main",
        "deploy:full": "npm run build:ui && git add . && git commit -m uibuild && npm run deploy",
@@ -578,9 +577,25 @@ todo [JavaScript中的函数式编程](https://www.youtube.com/playlist?list=PL0
    }
    ```
 
+   Windows上，npm脚本在cmd.exe中执行，作为默认的shell，不支持bash命令。为了让上述bash命令发挥作用，你可以将默认的shell改为Bash	`npm config set script-shell "C:\\Program Files\\git\\bin\\bash.exe"`
+
 ### c 将数据存入MongoDB
 
 todo [使用](https://tenderlovemaking.com/2016/02/05/i-am-a-puts-debuggerer.html)这种[方法](https://swizec.com/blog/javascript-debugging-slightly-beyond-consolelog/)
+
+1. Debugging Node applications
+2. MongoDB
+3. Schema
+4. Creating and saving objects
+5. Fetching objects from the database
+6. Backend connected to a database
+7. Database configuration into its own module
+8. Using database in route handlers
+9. Verifying frontend and backend integration
+10. Error handling
+11. Moving error handling into middleware
+12. The order of middleware loading
+13. Other operations
 
 
 
