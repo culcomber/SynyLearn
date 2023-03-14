@@ -928,6 +928,72 @@ ESlint有大量的[规则](https://eslint.org/docs/rules/)，通过编辑*.eslin
 
 1. Project structure
 
+   优化目录结构
+
+   ```protobuf
+   ├── index.js // index.js文件只从app.js文件中导入实际应用
+   ├── app.js
+   ├── build
+   │   └── ...
+   ├── controllers
+   │   └── notes.js
+   ├── models
+   │   └── note.js
+   ├── package-lock.json
+   ├── package.json
+   ├── utils
+   │   ├── config.js // 环境变量的处理
+   │   ├── logger.js // 打印到控制台
+   │   └── middleware.js
+   ```
+
+   **info**用于打印正常的日志信息，**error**用于所有的错误信息，如果我们想开始将日志写入文件或将它们发送到外部日志服务，如 [graylog](https://www.graylog.org/) 或 [papertrail](https://papertrailapp.com/) 我们只需要在一个地方进行修改
+
+   ```js
+   // utils/logger.js
+   const info = (...params) => {
+     console.log(...params)
+   }
+   
+   const error = (...params) => {
+     console.error(...params)
+   }
+   
+   module.exports = {
+     info, error
+   }
+   ```
+
+   环境变量的处理被提取到一个单独的*utils/config.js*文件中。
+
+   ```js
+   require('dotenv').config()
+   
+   const PORT = process.env.PORT
+   const MONGODB_URI = process.env.MONGODB_URI
+   
+   module.exports = {
+     MONGODB_URI,
+     PORT
+   }
+   ```
+
+   路由的事件处理程序通常被称为controllers，创建*controllers/notes.js*
+
+2. Note on exports
+
+   
+
+3. Testing Node applications
+
+   
+
+4. Exercises 4.3.-4.7.
+
+### b 测试后端应用
+
+1. Test environment
+
    通过模拟数据库而不是使用真正的数据库来实现一些后端测试是有益的
 
    将系统的多个组件作为一个整体进行测试的测试，被称为[集成测试](https://en.wikipedia.org/wiki/Integration_testing)
@@ -950,21 +1016,21 @@ ESlint有大量的[规则](https://eslint.org/docs/rules/)，通过编辑*.eslin
 
    cross-env：在自定义配置环境变量的时候，由于在不同的环境下（window和linux），配置方式也是不同。使用 cross-env命令，就不必担心平台设置。
 
-2. Note on exports
+   - 新建测试 MongoDB Atlas 数据库
 
-   
+   - 配置数据库连接
 
-3. Testing Node applications
+     ```js
+     // note.js
+     const MONGODB_URI = process.env.NODE_ENV === 'test'
+       ? process.env.TEST_MONGODB_URI
+       : process.env.MONGODB_URI
+     
+     // .env 部署项目需要更新
+     TEST_MONGODB_URI=
+     ```
 
-   
-
-4. Exercises 4.3.-4.7.
-
-### b 测试后端应用
-
-1. Test environment
-
-   
+     
 
 2. supertest
 
