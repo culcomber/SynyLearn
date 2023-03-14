@@ -962,6 +962,15 @@ ESlint有大量的[规则](https://eslint.org/docs/rules/)，通过编辑*.eslin
    module.exports = {
      info, error
    }
+   
+   // 使用
+   const logger = require('./utils/logger')
+   logger.info('message')
+   logger.error('error message')
+   
+   const { info, error } = require('./utils/logger')
+   info('message')
+   error('error message')
    ```
 
    环境变量的处理被提取到一个单独的*utils/config.js*文件中。
@@ -980,15 +989,11 @@ ESlint有大量的[规则](https://eslint.org/docs/rules/)，通过编辑*.eslin
 
    路由的事件处理程序通常被称为controllers，创建*controllers/notes.js*
 
-2. Note on exports
+2. Testing Node applications
 
    
 
-3. Testing Node applications
-
-   
-
-4. Exercises 4.3.-4.7.
+3. Exercises 4.3.-4.7.
 
 ### b 测试后端应用
 
@@ -1029,8 +1034,6 @@ ESlint有大量的[规则](https://eslint.org/docs/rules/)，通过编辑*.eslin
      // .env 部署项目需要更新
      TEST_MONGODB_URI=
      ```
-
-     
 
 2. supertest
 
