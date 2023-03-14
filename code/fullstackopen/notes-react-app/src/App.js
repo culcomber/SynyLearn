@@ -15,6 +15,9 @@ const App = () => {
       setNotes(response.data);
     });*/
     noteService.getAll().then((initialNotes) => {
+      console.log('initialNotes');
+      console.log(initialNotes);
+
       setNotes(initialNotes);
     });
   }, []);

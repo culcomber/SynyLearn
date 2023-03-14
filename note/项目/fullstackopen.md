@@ -306,11 +306,14 @@ todo [JavaScript中的函数式编程](https://www.youtube.com/playlist?list=PL0
 
    - 在目录下运行`npm init`初始化项目，会创建`package.json`文件
 
+
    - 在项目的根部添加一个 `index.js` 文件，要运行项目可以在命令行使用`node index.js`
+
 
    - 为了方便后续运行，修改`package.json`的`scripts`对象，增加`"start": "node index.js"`属性。后续在命令行中使用 `npm run start` (**可简写`npm start`**)启动项目
 
      <img src="../assets/image-20230308102232496.png" alt="image-20230308102232496" style="zoom:70%;" />
+
 
    - 使用`http`模块响应请求
 
@@ -338,28 +341,28 @@ todo [JavaScript中的函数式编程](https://www.youtube.com/playlist?list=PL0
 
    浏览器通常不支持 JavaScript 的最新功能，在浏览器中运行的代码必须用例如 babel 进行 转写 。
 
-   **最新版本的 Node 支持 JavaScript 的绝大部分最新特性**。
+   最新版本的 Node 支持 JavaScript 的绝大部分最新特性**。
 
-   ```js
-   const express = require('express')
-   const app = express()
-   
-   let notes = [...]
-   
-   // request包含 HTTP 请求的所有信息，response定义如何对请求进行响应
-   app.get('/', (request, response) => {
-     response.send('<h1>Hello World!</h1>')
-   })
-   
-   app.get('/api/notes', (request, response) => {
-     response.json(notes)
-   })
-   
-   const PORT = 3001
-   app.listen(PORT, () => {
-     console.log(`Server running on port ${PORT}`)
-   })
-   ```
+```js
+const express = require('express')
+const app = express()
+
+let notes = [...]
+
+// request包含 HTTP 请求的所有信息，response定义如何对请求进行响应
+app.get('/', (request, response) => {
+  response.send('<h1>Hello World!</h1>')
+})
+
+app.get('/api/notes', (request, response) => {
+  response.json(notes)
+})
+
+const PORT = 3001
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`)
+})
+```
 
 3. **nodemon**
 
@@ -369,101 +372,145 @@ todo [JavaScript中的函数式编程](https://www.youtube.com/playlist?list=PL0
 
 4. REST
 
-   | URL      | verb   | functionality                                                |
-   | :------- | :----- | :----------------------------------------------------------- |
-   | notes/10 | GET    | fetches a single resource                                    |
-   | notes    | GET    | fetches all resources in the collection                      |
-   | notes    | POST   | creates a new resource based on the request data             |
-   | notes/10 | DELETE | removes the identified resource                              |
-   | notes/10 | PUT    | replaces the entire identified resource with the request data |
-   | notes/10 | PATCH  | replaces a part of the identified resource with the request data |
+| URL      | verb   | functionality                                                |
+| :------- | :----- | :----------------------------------------------------------- |
+| notes/10 | GET    | fetches a single resource                                    |
+| notes    | GET    | fetches all resources in the collection                      |
+| notes    | POST   | creates a new resource based on the request data             |
+| notes/10 | DELETE | removes the identified resource                              |
+| notes/10 | PUT    | replaces the entire identified resource with the request data |
+| notes/10 | PATCH  | replaces a part of the identified resource with the request data |
 
-   todo Richardson 成熟度模型中的 [RESTful 成熟度第二层次](https://martinfowler.com/articles/richardsonMaturityModel.html)
+​	todo Richardson 成熟度模型中的 [RESTful 成熟度第二层次](https://martinfowler.com/articles/richardsonMaturityModel.html)
 
 5. Fetching a single resource
 
-   ```js
-   app.get('/api/notes/:id', (request, response) => {
-     const id = Number(request.params.id)
-     const note = notes.find(note => note.id === id)
-     if (note) {
-       response.json(note)
-     } else {
-       // 使用 status 方法来设置状态，并使用 end 方法来响应请求，而不发送任何数据。
-       response.status(404).end()
-     }
-   })
-   ```
+```js
+app.get('/api/notes/:id', (request, response) => {
+  const id = Number(request.params.id)
+  const note = notes.find(note => note.id === id)
+  if (note) {
+    response.json(note)
+  } else {
+    // 使用 status 方法来设置状态，并使用 end 方法来响应请求，而不发送任何数据。
+    response.status(404).end()
+  }
+})
+```
 
 6. Deleting resources
 
-   ```js
-   app.delete('/api/notes/:id', (request, response) => {
-     const id = Number(request.params.id)
-     notes = notes.filter(note => note.id !== id)
-     response.status(204).end()
-   })
-   ```
+```js
+app.delete('/api/notes/:id', (request, response) => {
+  const id = Number(request.params.id)
+  notes = notes.filter(note => note.id !== id)
+  response.status(204).end()
+})
+```
 
 7. Postman
 
-   ![fullstack content](../assets/11x.png)
+![fullstack content](../assets/11x.png)
 
-   The Visual Studio Code REST client
+8. The Visual Studio Code REST client
 
-   ![fullstack content](../assets/12ea.png)
+![fullstack content](../assets/12ea.png)
 
-   The WebStorm HTTP Client：HTTP请求存储在.http和.rest文件中
+​	The WebStorm HTTP Client：HTTP请求存储在.http和.rest文件中
 
-8. Receiving data
+9. Receiving data
 
-   ```js
-   app.use(express.json()) // 将请求的 JSON 数据转化为 JavaScript 对象
-   
-   const generateId = () => {
-     const maxId = notes.length > 0
-       ? Math.max(...notes.map(n => n.id)) // 找到当前最大id
-       : 0
-     return maxId + 1
-   }
-   
-   app.post('/api/notes', (request, response) => {
-     const body = request.body
-     if (!body.content) {
-       return response.status(400).json({
-         error: 'content missing'
-       })
-     }
-     const note = {
-       content: body.content,
-       important: body.important || false,
-       date: new Date(),
-       id: generateId(),
-     }
-     notes = notes.concat(note)
-     response.json(note)
-   })
-   ```
+```js
+app.use(express.json()) // 将请求的 JSON 数据转化为 JavaScript 对象
 
-9. Middleware
+const generateId = () => {
+  const maxId = notes.length > 0
+    ? Math.max(...notes.map(n => n.id)) // 找到当前最大id
+    : 0
+  return maxId + 1
+}
 
-   ```js
-   const requestLogger = (request, response, next) => {
-     console.log('Method:', request.method)
-     console.log('Path:  ', request.path)
-     console.log('Body:  ', request.body)
-     console.log('---')
-     next() // 将控制权交给下一个中间件
-   }
-   
-   // 中间件函数的调用顺序是它们被 Express 服务器对象的 use 方法所使用的顺序
-   app.use(express.json())
-   app.use(requestLogger)
-   ```
+app.post('/api/notes', (request, response) => {
+  const body = request.body
+  if (!body.content) {
+    return response.status(400).json({
+      error: 'content missing'
+    })
+  }
+  const note = {
+    content: body.content,
+    important: body.important || false,
+    date: new Date(),
+    id: generateId(),
+  }
+  notes = notes.concat(note)
+  response.json(note)
+})
+```
 
-   todo
+10. Middleware
 
-   [中间件](http://expressjs.com/en/guide/using-middleware.html)
+*中间件*函数能够访问[请求对象](https://expressjs.com/zh-cn/4x/api.html#req) (`req`)、[响应对象](https://expressjs.com/zh-cn/4x/api.html#res) (`res`) 以及应用程序的请求/响应循环中的下一个中间件函数。下一个中间件函数通常由名为 `next` 的变量来表示。
+
+如果当前中间件函数没有结束请求/响应循环，那么它必须调用 `next()`，以将控制权传递给下一个中间件函数。否则，请求将保持挂起状态。
+
+中间件执行顺序和代码中app.use顺序有关。
+
+- 应用层中间件
+
+  使用 `app.use()` 和 `app.METHOD()` 函数将应用层中间件绑定到[应用程序对象](https://expressjs.com/zh-cn/4x/api.html#app)的实例，其中 `METHOD` 是中间件函数处理的请求的小写 HTTP 方法（例如 GET、PUT 或 POST）
+
+  ```js
+  var app = express();
+  app.use('/user/:id', function (req, res, next) {
+    console.log('Request Type:', req.method);
+    next();
+  });
+  app.get('/user/:id', function (req, res, next) {
+    res.end(req.params.id);
+  });
+  ```
+
+- 路由器层中间件
+
+  绑定到 `express.Router()` 的实例
+
+  ```js
+  var app = express();
+  var router = express.Router();
+  
+  // a middleware function with no mount path. This code is executed for every request to the router
+  router.use(function (req, res, next) {
+    console.log('Time:', Date.now());
+    next();
+  });
+  ```
+
+- 错误处理中间件
+
+  错误处理函数有四个自变量而不是三个，专门具有特征符 `(err, req, res, next)`
+
+- 内置中间件
+
+- 第三方中间件
+
+```js
+const requestLogger = (request, response, next) => {
+  console.log('Method:', request.method)
+  console.log('Path:  ', request.path)
+  console.log('Body:  ', request.body)
+  console.log('---')
+  next() // 将控制权交给下一个中间件
+}
+
+// 中间件函数的调用顺序是它们被 Express 服务器对象的 use 方法所使用的顺序
+app.use(express.json())
+app.use(requestLogger)
+```
+
+todo
+
+[中间件](http://expressjs.com/en/guide/using-middleware.html)
 
 ### b 把应用部署到网上
 
@@ -647,23 +694,278 @@ todo [使用](https://tenderlovemaking.com/2016/02/05/i-am-a-puts-debuggerer.htm
 
 5. Backend connected to a database
 
-   
+   格式化Mongoose返回的对象的一种方法是[修改](https://stackoverflow.com/questions/7034848/mongodb-output-id-instead-of-id)模式的*toJSON*方法
+
+   ```js
+   noteSchema.set('toJSON', {
+     transform: (document, returnedObject) => {
+       returnedObject.id = returnedObject._id.toString()
+       delete returnedObject._id
+       delete returnedObject.__v
+     }
+   })
+   ```
 
 6. Database configuration into its own module
 
+   创建一个名为*models*的新目录，并添加一个名为*note.js*的文件，用来连接数据库并创建模型
+
+   ```js
+   // note.js
+   module.exports = mongoose.model('Note', noteSchema)
+   
+   // index.js 导入该模块
+   const Note = require('./models/note')
+   ```
+
+   **定义环境变量**
+
+   - 在应用启动时定义它
+
+   - 使用dotenv库
+
+     根部创建一个*.env*文件
+
+     ```js
+     // .env
+     MONGODB_URI=mongodb+srv://fullstack:<password>@cluster0.o1opl.mongodb.net/noteApp?retryWrites=true&w=majority
+     PORT=3001
+     
+     // note.js
+     const url = process.env.MONGODB_URI
+     ```
+
+     .env文件被gitignored，Heroku就不会从版本库中获得数据库的网址，所以你必须自己设置它。
+
 7. Using database in route handlers
 
-8. Verifying frontend and backend integration
+   ```js
+   // 获取一个单独的笔记——findById
+   app.get('/api/notes/:id', (request, response) => {
+     Note.findById(request.params.id).then(note => {
+       response.json(note)
+     })
+   })
+   ```
 
-9. Error handling
+8. Error handling
 
-10. Moving error handling into middleware
+   如果在数据库中没有找到匹配的对象，*note*的值将是*null*，*else*块被执行。这将导致一个状态代码为*404 not found*的响应。如果由*findById*方法返回的承诺被拒绝（例如id是空对象，不符合findById传参规范），那么响应的状态码将是*500 internal server error*。
 
-11. The order of middleware loading
+   ```js
+   app.get('/api/notes/:id', (request, response) => {
+     Note.findById(request.params.id)
+       .then(note => {
+         if (note) {
+           response.json(note)
+         } else {
+           response.status(404).end()
+         }
+       })
+       .catch(error => {
+         console.log(error)
+         response.status(500).end()
+       })
+   })
+   ```
 
-12. Other operations
+   <img src="../assets/image-20230314131643945.png" alt="image-20230314131643945" style="zoom:50%;" />
 
+9. Moving error handling into middleware
 
+   在一个地方实现所有的错误处理会更好
+
+   ```js
+   app.get('/api/notes/:id', (request, response, next) => {
+     Note.findById(request.params.id)
+       .then(note => {
+         if (note) {
+           response.json(note)
+         } else {
+           response.status(404).end()
+         }
+       })
+       .catch(error => next(error)) // passes the error forward with the next function
+   })
+   ```
+
+   Express [error handlers](https://expressjs.com/en/guide/error-handling.html) are middleware 
+
+   ```js
+   const errorHandler = (error, request, response, next) => {
+     console.error(error.message)
+   
+     if (error.name === 'CastError') {
+       return response.status(400).send({ error: 'malformatted id' })
+     }
+   
+     next(error)
+   }
+   
+   // this has to be the last loaded middleware.
+   app.use(errorHandler)
+   ```
+
+10. Other operations
+
+     [findByIdAndRemove](https://mongoosejs.com/docs/api.html#model_Model.findByIdAndRemove) 
+
+    ```js
+    app.delete('/api/notes/:id', (request, response, next) => {
+      Note.findByIdAndRemove(request.params.id)
+        .then(result => {
+          response.status(204).end()
+        })
+        .catch(error => next(error))
+    })
+    ```
+
+    [findByIdAndUpdate](https://mongoosejs.com/docs/api.html#model_Model.findByIdAndUpdate) 
+
+    ```js
+    app.put('/api/notes/:id', (request, response, next) => {
+      const body = request.body
+    
+      const note = {
+        content: body.content,
+        important: body.important,
+      }
+    
+      Note.findByIdAndUpdate(request.params.id, note, { new: true })
+        .then(updatedNote => {
+          response.json(updatedNote)
+        })
+        .catch(error => next(error))
+    })
+    ```
 
 ### d ESLint与代码检查
+
+数据库校验
+
+为模式中的每个字段定义特定的验证规则。
+
+*minLength*和*required*验证器是[内置](https://mongoosejs.com/docs/validation.html#built-in-validators)，由Mongoose提供。Mongoose的[自定义验证器](https://mongoosejs.com/docs/validation.html#custom-validators)功能允许我们创建新的验证器，如果内置的验证器都不能满足我们的需求。
+
+```js
+const noteSchema = new mongoose.Schema({
+  content: {    
+      type: String,    
+      minLength: 5,    
+      required: true  
+  },  
+    date: {    
+        type: Date,    
+        required: true  
+    },  
+    important: Boolean
+})
+```
+
+扩展错误处理程序来处理这些验证错误。
+
+```js
+const errorHandler = (error, request, response, next) => {
+  if (error.name === 'CastError') {
+    return response.status(400).send({ error: 'malformatted id' })
+  } else if (error.name === 'ValidationError') {    
+    return response.status(400).json({ error: error.message })  
+  }
+  next(error)
+}
+```
+
+当*findOneAndUpdate*被执行时，默认不运行验证，重新制定一下路由代码。
+
+```js
+app.put('/api/notes/:id', (request, response, next) => {
+  const { content, important } = request.body
+  Note.findByIdAndUpdate(
+    request.params.id,
+    { content, important },
+    { new: true, runValidators: true, context: 'query' }
+  ).then(updatedNote => {
+     response.json(updatedNote)
+  }).catch(error => next(error))
+})
+```
+
+Lint
+
+初始化一个默认的ESlint配置。
+
+```bash
+npx eslint --init
+```
+
+<img src="../assets/image-20230314150914732.png" alt="image-20230314150914732" style="zoom:50%;" />
+
+创建一个单独的*npm脚本*来进行linting，将检查项目中的每个文件。
+
+```json
+{
+  "scripts": {
+    "lint": "eslint ."
+  },
+}
+```
+
+当命令运行时，*build*目录中的文件也会被检查，创建一个[.eslintignore](https://eslint.org/docs/user-guide/configuring#ignoring-files-and-directories)文件来实现忽略build文件的检查
+
+```js
+build
+```
+
+更好的选择是在编辑器中配置一个*eslint-plugin*，持续运行linter。
+
+ESlint有大量的[规则](https://eslint.org/docs/rules/)，通过编辑*.eslintrc.js*文件可以自定义规则。Airbnb的[Javascript style guide](https://github.com/airbnb/javascript)，将Airbnb的[ESlint](https://github.com/airbnb/javascript/tree/master/packages/eslint-config-airbnb)配置运用到了其中。
+
+## Part 4
+
+### a 从后端结构到测试入门
+
+1. Project structure
+
+   
+
+2. Note on exports
+
+   
+
+3. Testing Node applications
+
+   
+
+4. Exercises 4.3.-4.7.
+
+### b 测试后端应用
+
+1. Test environment
+2. supertest
+3. Initializing the database before tests
+4. Running tests one by one
+5. async/await
+6. async/await in the backend
+7. More tests and refactoring the backend
+8. Error handling and async/await
+9. Eliminating the try-catch
+10. Optimizing the beforeEach function
+11. Refactoring tests
+12. Exercises 4.13.-4.14.
+
+### c 用户管理
+
+1. References across collections
+2. Mongoose schema for users
+3. Creating users
+4. Creating a new note
+5. Populate
+
+### d 密钥认证
+
+1. Limiting creating new notes to logged in users
+2. Error handling
+3. Problems of Token-based authentication
+4. End notes
+5. Exercises 4.15.-4.23.
 
