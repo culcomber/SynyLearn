@@ -932,11 +932,11 @@ ESlint有大量的[规则](https://eslint.org/docs/rules/)，通过编辑*.eslin
 
    ```protobuf
    ├── index.js // index.js文件只从app.js文件中导入实际应用
-   ├── app.js
+   ├── app.js // 路由处理notes.js，中间件调用middleware.js
    ├── build
    │   └── ...
    ├── controllers
-   │   └── notes.js
+   │   └── notes.js // 调用数据库模型note.js
    ├── models
    │   └── note.js
    ├── package-lock.json
@@ -991,9 +991,72 @@ ESlint有大量的[规则](https://eslint.org/docs/rules/)，通过编辑*.eslin
 
 2. Testing Node applications
 
-   
+   - 测试库：[jest](https://jestjs.io/)，[Mocha](https://mochajs.org/)，test脚本，用Jest执行测试并以*verbose*风格报告测试的执行情况，Jest默认期望测试文件的名称包含*.test*
 
-3. Exercises 4.3.-4.7.
+     ```JSON
+     {
+       "scripts": {
+         "test": "jest --verbose"  
+       },
+       //Jest需要指定执行环境为Node
+       "jest": {
+        "testEnvironment": "node"
+       }
+       // 或者，Jest可以寻找一个默认名为jest.config.js的配置文件，配置文件可以这样定义执行环境
+       /*module.exports = {
+         testEnvironment: 'node',
+       } */
+     }
+     
+     ```
+
+   - 创建被测试文件*utils/for_testing.js*
+
+     ```js
+     const reverse = (string) => {
+       return string
+         .split('')
+         .reverse()
+         .join('')
+     }
+     
+     const average = (array) => {
+       const reducer = (sum, item) => {
+         return sum + item
+       }
+     
+       return array.reduce(reducer, 0) / array.length
+     }
+     
+     module.exports = {
+       reverse,
+       average,
+     }
+     ```
+
+   - 创建测试文件*tests/reverse.test.js*
+
+     ```js
+     const reverse = require('../utils/for_testing').reverse
+     
+     test('reverse of a', () => {
+       const result = reverse('a')
+     
+       expect(result).toBe('a')
+     })
+     
+     test('reverse of react', () => {
+       const result = reverse('react')
+     
+       expect(result).toBe('tcaer')
+     })
+     
+     test('reverse of releveler', () => {
+       const result = reverse('releveler')
+     
+       expect(result).toBe('releveler')
+     })
+     ```
 
 ### b 测试后端应用
 
