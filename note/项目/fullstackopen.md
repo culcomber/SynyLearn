@@ -735,7 +735,9 @@ todo [使用](https://tenderlovemaking.com/2016/02/05/i-am-a-puts-debuggerer.htm
      const url = process.env.MONGODB_URI
      ```
 
-     .env文件被gitignored，Heroku就不会从版本库中获得数据库的网址，所以你必须自己设置它。
+     .env文件被gitignored，render就不会从版本库中获得数据库的网址，所以你必须自己设置它。
+     
+     <img src="../assets/image-20230314160942044.png" alt="image-20230314160942044" style="zoom:80%;" />
 
 7. Using database in route handlers
 
@@ -926,7 +928,27 @@ ESlint有大量的[规则](https://eslint.org/docs/rules/)，通过编辑*.eslin
 
 1. Project structure
 
-   
+   通过模拟数据库而不是使用真正的数据库来实现一些后端测试是有益的
+
+   将系统的多个组件作为一个整体进行测试的测试，被称为[集成测试](https://en.wikipedia.org/wiki/Integration_testing)
+
+   用*NODE_ENV*环境变量来定义应用的执行模式，应用*不是*在生产模式下，只加载*.env*文件中定义的环境变量，通常为开发和测试定义不同的模式
+
+   ```json
+   {
+     "scripts": {
+       "start": "cross-env NODE_ENV=production node index.js",
+       "dev": "cross-env NODE_ENV=development nodemon index.js",
+       "test": "cross-env NODE_ENV=test jest --verbose --runInBand"
+     },
+   }
+   ```
+
+   --verbose：Display individual test **results** with the test suite hierarchy.
+
+   --runInBand：Alias: -i. Run all tests **serially** in the current process, rather than creating a worker pool of child processes that run tests. This can be useful for debugging.
+
+   cross-env：在自定义配置环境变量的时候，由于在不同的环境下（window和linux），配置方式也是不同。使用 cross-env命令，就不必担心平台设置。
 
 2. Note on exports
 
@@ -941,31 +963,88 @@ ESlint有大量的[规则](https://eslint.org/docs/rules/)，通过编辑*.eslin
 ### b 测试后端应用
 
 1. Test environment
+
+   
+
 2. supertest
+
+   
+
 3. Initializing the database before tests
+
+   
+
 4. Running tests one by one
+
+   
+
 5. async/await
+
+   
+
 6. async/await in the backend
+
+   
+
 7. More tests and refactoring the backend
+
+   
+
 8. Error handling and async/await
+
+   
+
 9. Eliminating the try-catch
+
+   
+
 10. Optimizing the beforeEach function
+
+    
+
 11. Refactoring tests
+
+    
+
 12. Exercises 4.13.-4.14.
 
 ### c 用户管理
 
 1. References across collections
+
+   
+
 2. Mongoose schema for users
+
+   
+
 3. Creating users
+
+   
+
 4. Creating a new note
+
+   
+
 5. Populate
 
 ### d 密钥认证
 
 1. Limiting creating new notes to logged in users
+
+   
+
 2. Error handling
+
+   
+
 3. Problems of Token-based authentication
+
+   
+
 4. End notes
+
+   
+
 5. Exercises 4.15.-4.23.
 
