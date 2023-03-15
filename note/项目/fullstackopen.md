@@ -1102,11 +1102,52 @@ ESlint有大量的[规则](https://eslint.org/docs/rules/)，通过编辑*.eslin
 
 2. supertest
 
+   测试 HTTP 
+
+   ```js
+   const mongoose = require('mongoose')
+   const supertest = require('supertest')
+   const app = require('../app')
    
+   const api = supertest(app) // 从app.js模块中导入Express应用，并将其与supertest函数包装成一个所谓的superagent对象
+   
+   // api对象的方法调用前面有await关键字
+   // Jest默认的5000ms的测试超时，第三个参数将超时设置为100000毫秒。确保测试不会因为运行时间而失败
+   test('notes are returned as json', async () => {
+     await api
+       .get('/api/notes')
+       .expect(200)
+       .expect('Content-Type', /application\/json/)
+   }, 100000)
+   
+   // 所有的测试都运行完毕，须关闭Mongoose使用的数据库连接
+   afterAll(() => {
+     mongoose.connection.close()
+   })
+   ```
 
 3. Initializing the database before tests
 
+   ```js
+   // 初始化数据库
+   const Note = require('../models/note')
+   const initialNotes = [
+     {content: 'HTML is easy',date: new Date(), important: false,},
+     {content: 'Browser can execute only Javascript',date: new Date(),important: true,},
+   ]
+   beforeEach(async () => {
+     await Note.deleteMany({})
+     let noteObject = new Note(initialNotes[0])
+     await noteObject.save()
+     noteObject = new Note(initialNotes[1])
+     await noteObject.save()
+   })
    
+   test('there are two notes', async () => {
+     const response = await api.get('/api/notes')
+     expect(response.body).toHaveLength(initialNotes.length)
+   })
+   ```
 
 4. Running tests one by one
 
@@ -1123,15 +1164,37 @@ ESlint有大量的[规则](https://eslint.org/docs/rules/)，通过编辑*.eslin
 
    todo [回调地狱](http://callbackhell.com/)  [链式承诺](https://javascript.info/promise-chaining)
 
-   
-
-   
+   ```js
+   // 获取数据可以采取异步模式
+   notesRouter.get('/', async (request, response) => {
+     const notes = await Note.find({})
+     response.json(notes)
+   })
+   ```
 
 7. More tests and refactoring the backend
 
-   
+   抽象通用测试到`tests\test_helper.js`
 
-8. Error handling and async/await
+7. Error handling and async/await
+
+   ```js
+   notesRouter.post('/', async (request, response, next) => {
+     const body = request.body
+   
+     const note = new Note({
+       content: body.content,
+       important: body.important || false,
+       date: new Date(),
+     })
+     try {
+       const savedNote = await note.save()
+       response.status(201).json(savedNote)
+     } catch(exception) {
+       next(exception)
+     }
+   })
+   ```
 
    
 
