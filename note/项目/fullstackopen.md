@@ -930,6 +930,8 @@ ESlint有大量的[规则](https://eslint.org/docs/rules/)，通过编辑*.eslin
 
    优化目录结构
 
+   Express应用提取到*app.js*文件中，*index.js*文件的作用被改变为在指定端口用Node的内置*http*对象启动该应用
+
    ```protobuf
    ├── index.js // index.js文件只从app.js文件中导入实际应用
    ├── app.js // 路由处理notes.js，中间件调用middleware.js
@@ -1066,7 +1068,7 @@ ESlint有大量的[规则](https://eslint.org/docs/rules/)，通过编辑*.eslin
 
    将系统的多个组件作为一个整体进行测试的测试，被称为[集成测试](https://en.wikipedia.org/wiki/Integration_testing)
 
-   用*NODE_ENV*环境变量来定义应用的执行模式，应用*不是*在生产模式下，只加载*.env*文件中定义的环境变量，通常为开发和测试定义不同的模式
+   用*NODE_ENV*环境变量来定义应用的执行模式
 
    ```json
    {
@@ -1089,7 +1091,7 @@ ESlint有大量的[规则](https://eslint.org/docs/rules/)，通过编辑*.eslin
    - 配置数据库连接
 
      ```js
-     // note.js
+     // utils/config.js
      const MONGODB_URI = process.env.NODE_ENV === 'test'
        ? process.env.TEST_MONGODB_URI
        : process.env.MONGODB_URI
@@ -1108,13 +1110,20 @@ ESlint有大量的[规则](https://eslint.org/docs/rules/)，通过编辑*.eslin
 
 4. Running tests one by one
 
+   ```shell
+   ## 运行在tests/note_api.test.js文件中的测试
+   npm test -- tests/note_api.test.js
+   ## -t选项可用于运行具有特定名称的测试
+   npm test -- -t "a specific note is within the returned notes"
+   ## 运行所有名称中包含notes的测试
+   npm test -- -t 'notes'
+   ```
+
+5. async/await in the backend
+
+   todo [回调地狱](http://callbackhell.com/)  [链式承诺](https://javascript.info/promise-chaining)
+
    
-
-5. async/await
-
-   
-
-6. async/await in the backend
 
    
 
