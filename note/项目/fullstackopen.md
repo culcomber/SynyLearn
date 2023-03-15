@@ -1196,21 +1196,50 @@ ESlint有大量的[规则](https://eslint.org/docs/rules/)，通过编辑*.eslin
    })
    ```
 
-   
+8. Eliminating the try-catch
 
-9. Eliminating the try-catch
+   express-async-errors可以在*async*路由中发生异常，执行会自动传递给错误处理中间件
 
-   
+   ```js
+   notesRouter.post('/', async (request, response, next) => {
+     const body = request.body
+     const note = new Note({
+       content: body.content,
+       important: body.important || false,
+       date: new Date(),
+     })
+     const savedNote = await note.save()
+     response.status(201).json(savedNote)
+   })
+   ```
 
-10. Optimizing the beforeEach function
+9. Optimizing the beforeEach function
 
-    
+   ```js
+   beforeEach(async () => {
+     await Note.deleteMany({})
+     /*forEach循环的每个迭代都会产生自己的异步操作，而beforeEach不会等待它们执行完毕
+     在forEach循环内部定义的await命令不在beforeEach函数中
+     helper.initialNotes.forEach(async (note) => {
+       let noteObject = new Note(note)
+       await noteObject.save()
+     })*/
+       
+     const noteObjects = helper.initialNotes.map(note => new Note(note)) // 创建分配给一个Mongoose对象数组
+     const promiseArray = noteObjects.map(note => note.save()) // promise数组，用于将每个项目保存到数据库中
+     await Promise.all(promiseArray) // 等待每个保存笔记的承诺完成
+       
+     // 保证顺序
+     /*for (let note of helper.initialNotes) {
+       let noteObject = new Note(note)
+       await noteObject.save()
+     }*/
+   })
+   ```
 
 11. Refactoring tests
 
-    
-
-12. Exercises 4.13.-4.14.
+    用*describe*块来分组相关的测试，测试的可读性会得到改善。
 
 ### c 用户管理
 
