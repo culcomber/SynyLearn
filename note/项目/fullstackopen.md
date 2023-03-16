@@ -1323,9 +1323,17 @@ ESlint有大量的[规则](https://eslint.org/docs/rules/)，通过编辑*.eslin
 
 4. Creating a new note
 
-   
+   创建新笔记的代码需要更新，以便将笔记分配给创建它的用户
+
+   <img src="../assets/image-20230316151336791.png" alt="image-20230316151336791" style="zoom:50%;" />
 
 5. Populate
+
+   当HTTP GET请求被发送到*/api/users*，用户对象也将包含用户的笔记内容，而不仅仅是他们的ID。在一个关系型数据库中，这个功能将通过一个*连接查询*来实现。
+
+   Mongoose的连接是通过[populate](http://mongoosejs.com/docs/populate.html)方法完成的。
+
+6. 1
 
 ### d 密钥认证
 
