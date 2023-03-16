@@ -1329,19 +1329,23 @@ ESlint有大量的[规则](https://eslint.org/docs/rules/)，通过编辑*.eslin
 
 5. Populate
 
-   当HTTP GET请求被发送到*/api/users*，用户对象也将包含用户的笔记内容，而不仅仅是他们的ID。在一个关系型数据库中，这个功能将通过一个*连接查询*来实现。
-
-   Mongoose的连接是通过[populate](http://mongoosejs.com/docs/populate.html)方法完成的。
-
-6. 1
+   当HTTP GET请求被发送到*/api/users*，用户对象也将包含用户的笔记内容，而不仅仅是他们的ID。在一个关系型数据库中，这个功能将通过一个*连接查询*来实现。Mongoose的连接是通过[populate](http://mongoosejs.com/docs/populate.html)方法完成的。
 
 ### d 密钥认证
 
+todo [基于令牌的认证](https://scotch.io/tutorials/the-ins-and-outs-of-token-based-authentication#toc-how-token-based-works)
+
 1. Limiting creating new notes to logged in users
 
-   
+   <img src="../assets/image-20230316152546869.png" alt="image-20230316152546869" style="zoom:50%;" />
+
+   [jsonwebtoken](https://github.com/auth0/node-jsonwebtoken)允许我们生成[JSON web tokens](https://jwt.io/)
+
+   处理登录`controllers/login.js`
 
 2. Error handling
+
+   新增笔记时在请求头增加token
 
    
 
