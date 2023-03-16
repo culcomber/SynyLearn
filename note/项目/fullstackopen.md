@@ -1241,19 +1241,85 @@ ESlint有大量的[规则](https://eslint.org/docs/rules/)，通过编辑*.eslin
 
     用*describe*块来分组相关的测试，测试的可读性会得到改善。
 
-### c 用户管理
+### c 用户管理y
 
 1. References across collections
 
-   
+   每个笔记应该与创建它的用户相联系
+
+   模式一：用户存储笔记
+
+   ```js
+   [
+     {
+       username: 'hellas',
+       _id: 141414,
+       notes: [
+         {
+           content:
+             'A proper dinosaur codes with Java',
+           important: false,
+         },
+       ],
+     },
+   ]
+   ```
+
+   模式二：用户存储笔记id
+
+   ```js
+   [
+     {
+       username: 'mluukkai',
+       _id: 123456,
+       notes: [221212, 221255],
+     }
+   ]
+   ```
 
 2. Mongoose schema for users
 
+   todo Mongo已经支持[查找聚合查询](https://docs.mongodb.com/manual/reference/operator/aggregation/lookup/)
+
+   扩展模型：与关系型数据库的惯例形成鲜明对比的是，*引用现在被存储在两个文件中*：笔记引用了创建它的用户，而用户有一个数组，引用了他们创建的所有笔记。
+
+   ```js
+   // models/user.js
+   const userSchema = new mongoose.Schema({
+     username: String,
+     name: String,
+     passwordHash: String,
+     notes: [
+       {
+         type: mongoose.Schema.Types.ObjectId,
+         ref: 'Note'
+       }
+     ],
+   })
    
+   // models/note.js
+   const noteSchema = new mongoose.Schema({
+     content: {
+       type: String,
+       required: true,
+       minlength: 5
+     },
+     date: Date,
+     important: Boolean,
+     user: {
+       type: mongoose.Schema.Types.ObjectId,
+       ref: 'User'
+     }
+   })
+   ```
 
 3. Creating users
 
-   
+   密码需要加密存储到数据库，借助[bcrypt](https://github.com/kelektiv/node.bcrypt.js)
+
+   创建*controllers/users.js*来处理用户*router*
+
+   实践[测试驱动开发(TDD)](https://en.wikipedia.org/wiki/Test-driven_development)，即在功能实现之前编写新功能的测试
 
 4. Creating a new note
 
