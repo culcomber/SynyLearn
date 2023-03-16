@@ -1347,15 +1347,221 @@ todo [基于令牌的认证](https://scotch.io/tutorials/the-ins-and-outs-of-tok
 
    新增笔记时在请求头增加token
 
+   todo 使用一个Node [HTTPS](https://nodejs.org/api/https.html)服务器
+
+   <img src="../assets/image-20230316165210779.png" alt="image-20230316165210779" style="zoom:50%;" />
+
+## Part 5
+
+### a 完成前台的登录功能
+
+1. Handling login
+
+   *services/login.js*：向服务器地址*api/login*发送一个HTTP POST请求来完成登录操作
+
+   条件渲染表单
+
+   ```js
+     {!user && loginForm()} 
+     {user && <div>
+       <p>{user.name} logged in</p>
+         {noteForm()}
+       </div>
+     } 
+   ```
+
+2. Creating new notes
+
+   新增笔记增加token
+
+   ```js
+   import axios from 'axios'
+   const baseUrl = '/api/notes'
+   
+   let token = null
+   const setToken = newToken => {
+     token = `bearer ${newToken}`
+   }
+   
+   const create = async newObject => {
+     const config = {
+       headers: { Authorization: token },
+     }
+     const response = await axios.post(baseUrl, newObject, config)
+     return response.data
+   }
+   
+   export default { getAll, create, update, setToken }
+   
+   // App.js
+   const handleLogin = async (event) => {
+       event.preventDefault()
+       try {
+         noteService.setToken(user.token) // 保存登录token
+       } catch (exception) {
+       }
+     }
+   ```
+
+3. Saving the token to the browser's local storage
+
+   将登录信息保存到[本地存储](https://developer.mozilla.org/en-US/docs/Web/API/Storage)防止页面刷新重新登陆
+
+   不能原封不动地保存一个JavaScript对象。该对象必须首先被解析为JSON
+
+   ```js
+   useEffect(() => {
+       const loggedUserJSON = window.localStorage.getItem('loggedNoteappUser')
+       if (loggedUserJSON) {
+         const user = JSON.parse(loggedUserJSON)
+         setUser(user)
+         noteService.setToken(user.token)
+       }
+   }, [])
+   
+   const handleLogin = async (event) => {
+       try {
+         window.localStorage.setItem(
+           'loggedNoteappUser', JSON.stringify(user)
+         )
+       } catch (exception) {
+         // ...
+       }
+   }
+   
+   // 清空存储
+   window.localStorage.removeItem('loggedNoteappUser')
+   window.localStorage.clear()
+   ```
+
    
 
-3. Problems of Token-based authentication
+4. A note on using local storage
 
    
 
-4. End notes
+5. 1
+
+### b props.children 与 proptypes
+
+1. Displaying the login form only when appropriate
 
    
 
-5. Exercises 4.15.-4.23.
+2. The components children, aka. props.children
 
+   
+
+3. State of the forms
+
+   
+
+4. References to components with ref
+
+   
+
+5. One point about components
+
+   
+
+6. PropTypes
+
+   
+
+7. ESlint
+
+   
+
+8. Exercises 5.11.-5.12.
+
+### c 测试React 应用
+
+1. Rendering the component for tests
+
+   
+
+2. Running tests
+
+   
+
+3. Test file location
+
+   
+
+4. Searching for content in a component
+
+   
+
+5. Debugging tests
+
+   
+
+6. Clicking buttons in tests
+
+   
+
+7. Tests for the Togglable component
+
+   
+
+8. Testing the forms
+
+   
+
+9. About finding the elements
+
+   
+
+10. Test coverage
+
+    
+
+11. Frontend integration tests
+
+    
+
+12. Snapshot testing
+
+    
+
+13. 1
+
+### d 端到端测试
+
+1. Cypress
+
+   
+
+2. Writing to a form
+
+   
+
+3. Some things to note
+
+   
+
+4. Testing new note form
+
+   
+
+5. Controlling the state of the database
+
+   
+
+6. Failed login test
+
+   
+
+7. Bypassing the UI
+
+   
+
+8. Changing the importance of a note
+
+   
+
+9. Running and debugging the tests
+
+   
+
+10. Exercises 5.17.-5.22.
