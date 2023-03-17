@@ -1555,53 +1555,60 @@ todo [基于令牌的认证](https://scotch.io/tutorials/the-ins-and-outs-of-tok
 
 1. Rendering the component for tests
 
+   *src/components/Note.test.js*编写测试
+
+   ```jsx
+   import React from 'react'
+   import '@testing-library/jest-dom/extend-expect'
+   import { render, screen } from '@testing-library/react'
+   import Note from './Note'
+   test('renders content', () => {
+     const note = {
+       content: 'Component testing is done with react-testing-library',
+       important: true
+     }
+     render(<Note note={note} />)
+     const element = screen.getByText('Component testing is done with react-testing-library')
+     screen.debug(element)
+     expect(element).toBeDefined()
+   })
+   ```
+
+2. Clicking buttons in tests
+
+   [user-event](https://testing-library.com/docs/user-event/intro)模拟用户输入
+
+   todo [testing-library 学习指南](https://rualc.com/frontend/testing-library/#testing-library-jian-jie)
+
+   ```js
+   // forEach.js
+   export function forEach(items, callback) {
+     for (let index = 0; index < items.length; index++) {
+       callback(items[index]);
+     }
+   }
    
+   // forEach.test.js
+   const forEach = require('./forEach');
+   const mockCallback = jest.fn(x => 42 + x);
+   test('forEach mock function', () => {
+     forEach([0, 1], mockCallback);
+     // The mock function was called twice
+     expect(mockCallback.mock.calls).toHaveLength(2);
+     // The first argument of the first call to the function was 0
+     expect(mockCallback.mock.calls[0][0]).toBe(0);
+     // The first argument of the second call to the function was 1
+     expect(mockCallback.mock.calls[1][0]).toBe(1);
+     // The return value of the first call to the function was 42
+     expect(mockCallback.mock.results[0].value).toBe(42);
+   });
+   ```
 
-2. Running tests
+3. Test coverage
 
-   
+   命令行输入`npm test -- --coverage`
 
-3. Test file location
-
-   
-
-4. Searching for content in a component
-
-   
-
-5. Debugging tests
-
-   
-
-6. Clicking buttons in tests
-
-   
-
-7. Tests for the Togglable component
-
-   
-
-8. Testing the forms
-
-   
-
-9. About finding the elements
-
-   
-
-10. Test coverage
-
-    
-
-11. Frontend integration tests
-
-    
-
-12. Snapshot testing
-
-    
-
-13. 1
+   <img src="../assets/image-20230317160924397.png" alt="image-20230317160924397" style="zoom:50%;" />
 
 ### d 端到端测试
 
