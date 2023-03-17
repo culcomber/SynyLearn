@@ -1509,21 +1509,47 @@ todo [基于令牌的认证](https://scotch.io/tutorials/the-ins-and-outs-of-tok
 
 4. References to components with ref
 
+   新增笔记后隐藏表单，可见性是由*Togglable*组件中的*visible*变量控制的，在父组件控制子组件
+
+   *组件的三个独立实例*，它们都有自己的独立状态
+
+   ```jsx
+   <div>
+     <Togglable buttonLabel="1" ref={togglable1}>
+       first
+     </Togglable>
    
-
-5. One point about components
-
+     <Togglable buttonLabel="2" ref={togglable2}>
+       second
+     </Togglable>
    
+     <Togglable buttonLabel="3" ref={togglable3}>
+       third
+     </Togglable>
+   </div>
+   ```
 
-6. PropTypes
+5. PropTypes
 
+   使用组件时没有传递必要的prop给出报错提示，使用[prop-types](https://github.com/facebook/prop-types)限制
+
+   ```js
+   import PropTypes from 'prop-types'
    
-
-7. ESlint
-
+   const Togglable = React.forwardRef((props, ref) => {
+     // ..
+   })
    
+   Togglable.propTypes = {
+     buttonLabel: PropTypes.string.isRequired
+   }
+   ```
 
-8. Exercises 5.11.-5.12.
+6. ESlint
+
+   安装[eslint-plugin-jest](https://www.npmjs.com/package/eslint-plugin-jest)
+
+   创建*.eslintrc.js*文件
 
 ### c 测试React 应用
 

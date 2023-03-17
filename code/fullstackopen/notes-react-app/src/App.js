@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react'
+/* eslint-disable no-unused-vars */
+import { useState, useEffect, useRef } from 'react'
 import Note from './components/Note'
 import Notification from './components/Notification'
 import Footer from './components/Footer'
@@ -16,6 +17,7 @@ const App = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
+  const noteFormRef = useRef()
 
   useEffect(() => {
     /*axios.get("http://localhost:3001/notes").then((response) => {
@@ -77,11 +79,12 @@ const App = () => {
       setNewNote("");
     });*/
 
+    noteFormRef.current.toggleVisibility()
     noteService
       .create(noteObject)
-        .then(returnedNote => {
-          setNotes(notes.concat(returnedNote))
-        })
+      .then(returnedNote => {
+        setNotes(notes.concat(returnedNote))
+      })
   }
 
   const handleNoteChange = (event) => {
@@ -103,7 +106,7 @@ const App = () => {
       .update(id, changedNote).then(returnedNote => {
         setNotes(notes.map(note => note.id !== id ? note : returnedNote))
       })
-      .catch(error => {
+      .catch(() => {
         setErrorMessage(
           `Note '${note.content}' was already removed from server`
         )
@@ -119,7 +122,7 @@ const App = () => {
     <form onSubmit={handleLogin}>
       <div>
         username
-          <input
+        <input
           type="text"
           value={username}
           name="Username"
@@ -128,7 +131,7 @@ const App = () => {
       </div>
       <div>
         password
-          <input
+        <input
           type="password"
           value={password}
           name="Password"
@@ -164,18 +167,18 @@ const App = () => {
       {!user &&
           <Togglable buttonLabel="log in">
             <LoginForm
-                username={username}
-                password={password}
-                handleUsernameChange={({ target }) => setUsername(target.value)}
-                handlePasswordChange={({ target }) => setPassword(target.value)}
-                handleSubmit={handleLogin}
+              username={username}
+              password={password}
+              handleUsernameChange={({ target }) => setUsername(target.value)}
+              handlePasswordChange={({ target }) => setPassword(target.value)}
+              handleSubmit={handleLogin}
             />
           </Togglable>
       }
       {user &&
           <div>
             <p>{user.name} logged in</p>
-            <Togglable buttonLabel="new note">
+            <Togglable buttonLabel='new note' ref={noteFormRef}>
               <NoteForm createNote={addNote} />
             </Togglable>
           </div>
@@ -187,13 +190,13 @@ const App = () => {
         </button>
       </div>
       <ul>
-         {notesToShow.map(note =>
-            <Note
-              key={note.id}
-              note={note}
-              toggleImportance={() => toggleImportanceOf(note.id)}
-            />
-          )}
+        {notesToShow.map(note =>
+          <Note
+            key={note.id}
+            note={note}
+            toggleImportance={() => toggleImportanceOf(note.id)}
+          />
+        )}
       </ul>
 
       <Footer />
