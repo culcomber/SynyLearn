@@ -1434,23 +1434,72 @@ todo [基于令牌的认证](https://scotch.io/tutorials/the-ins-and-outs-of-tok
    window.localStorage.clear()
    ```
 
-   
-
 4. A note on using local storage
 
-   
-
-5. 1
+   todo [跨站脚本（XSS）](https://owasp.org/www-community/attacks/xss/) [XSS - localStorage vs Cookies](https://academind.com/tutorials/localstorage-vs-cookies-xss/)
 
 ### b props.children 与 proptypes
 
 1. Displaying the login form only when appropriate
 
+   默认不显示登录表单，当用户按`login`按钮时，登录表单就会出现，用户可以通过点击取消按钮来关闭登录表格
+
+   把登录表单提取到组件中`components/LoginForm.js`，`loginVisible`，它定义了登录表单是否应该显示给用户
+
+   ```jsx
+   const App = () => {
+     const [loginVisible, setLoginVisible] = useState(false)
+     const loginForm = () => {
+       const hideWhenVisible = { display: loginVisible ? 'none' : '' }
+       const showWhenVisible = { display: loginVisible ? '' : 'none' }
    
+       return (
+         <div>
+           <div style={hideWhenVisible}>
+             <button onClick={() => setLoginVisible(true)}>log in</button>
+           </div>
+           <div style={showWhenVisible}>
+             <LoginForm/>
+             <button onClick={() => setLoginVisible(false)}>cancel</button>
+           </div>
+         </div>
+       )
+     }
+   }
+   ```
 
 2. The components children, aka. props.children
 
+   一开始显示按钮，点击按钮显示表单，表单中有按钮取消，点击取消，不显示表单。登录表单和新增笔记表单都有这个逻辑，可以抽成组件。
+
+   *Togglable*的开头和结尾标签之间添加任何我们想要的React元素，比如说这样。
+
+   ```jsx
+   <Togglable buttonLabel="reveal">
+     <p>this line is at start hidden</p>
+     <p>also this is hidden</p>
+   </Togglable>
    
+   {!user &&
+     <Togglable buttonLabel="log in">
+       <LoginForm
+           username={username}
+           password={password}
+           handleUsernameChange={({ target }) => setUsername(target.value)}
+           handlePasswordChange={({ target }) => setPassword(target.value)}
+           handleSubmit={handleLogin}
+       />
+     </Togglable>
+   }
+   {user &&
+     <div>
+       <p>{user.name} logged in</p>
+       <Togglable buttonLabel="new note">
+         <NoteForm createNote={addNote} />
+       </Togglable>
+     </div>
+   }
+   ```
 
 3. State of the forms
 

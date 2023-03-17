@@ -2,6 +2,9 @@ import { useState, useEffect } from 'react'
 import Note from './components/Note'
 import Notification from './components/Notification'
 import Footer from './components/Footer'
+import LoginForm from './components/LoginForm'
+import NoteForm from './components/NoteForm'
+import Togglable from './components/Togglable'
 import noteService from './services/notes'
 import loginService from './services/login'
 
@@ -25,6 +28,7 @@ const App = () => {
       })
   }, [])
 
+  // 初始化时拿持久化缓存的token。保证刷新后不用重新登陆
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loggedNoteappUser')
     if (loggedUserJSON) {
@@ -41,7 +45,7 @@ const App = () => {
         username, password,
       })
       // 保存登录token
-      noteService.setToken(user.token) 
+      noteService.setToken(user.token)
       window.localStorage.setItem(
         'loggedNoteappUser', JSON.stringify(user)
       ) // 持久化缓存
@@ -56,7 +60,7 @@ const App = () => {
       }, 5000)
     }
   }
-  
+
   const addNote = (event) => {
     event.preventDefault()
     const noteObject = {
@@ -83,8 +87,8 @@ const App = () => {
     setNewNote(event.target.value)
   }
 
-  const notesToShow = showAll 
-    ? notes 
+  const notesToShow = showAll
+    ? notes
     : notes.filter(note => note.important)
 
   const toggleImportanceOf = id => {
@@ -149,13 +153,32 @@ const App = () => {
       <h1>Notes app</h1>
       <Notification message={errorMessage} />
 
-      {/* 有条件地渲染表单 */}
-      {!user && loginForm()} 
+      {/* 有条件地渲染表单
+      {!user && loginForm()}
       {user && <div>
         <p>{user.name} logged in</p>
           {noteForm()}
         </div>
-      } 
+      }*/}
+      {!user &&
+          <Togglable buttonLabel="log in">
+            <LoginForm
+                username={username}
+                password={password}
+                handleUsernameChange={({ target }) => setUsername(target.value)}
+                handlePasswordChange={({ target }) => setPassword(target.value)}
+                handleSubmit={handleLogin}
+            />
+          </Togglable>
+      }
+      {user &&
+          <div>
+            <p>{user.name} logged in</p>
+            <Togglable buttonLabel="new note">
+              <NoteForm createNote={addNote} />
+            </Togglable>
+          </div>
+      }
 
       <div>
         <button onClick={() => setShowAll(!showAll)}>
@@ -164,7 +187,7 @@ const App = () => {
       </div>
       <ul>
         <ul>
-         {notesToShow.map(note => 
+         {notesToShow.map(note =>
             <Note
               key={note.id}
               note={note}
