@@ -1503,7 +1503,9 @@ todo [基于令牌的认证](https://scotch.io/tutorials/the-ins-and-outs-of-tok
 
 3. State of the forms
 
-   
+   新的笔记在创建之前的内容，*App*组件实际上并不需要，这个内容应该放在NoteForm组件内
+
+   *Often, several components need to reflect the same changing data. We recommend lifting the shared state up to their closest common ancestor.*
 
 4. References to components with ref
 

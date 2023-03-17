@@ -61,12 +61,13 @@ const App = () => {
     }
   }
 
-  const addNote = (event) => {
-    event.preventDefault()
+  const addNote = (noteObject) => {
+    // 抽象到NoteForm处理
+    /*event.preventDefault()
     const noteObject = {
       content: newNote,
       important: Math.random() > 0.5,
-    }
+    }*/
 
     // 在POST请求中发送的数据是一个JavaScript对象，axios自动知道为Content-Type头设置适当的application/json值
     /*axios
@@ -75,11 +76,11 @@ const App = () => {
       setNotes(notes.concat(response.data)); // 使用后台返回数据
       setNewNote("");
     });*/
+
     noteService
       .create(noteObject)
         .then(returnedNote => {
           setNotes(notes.concat(returnedNote))
-          setNewNote('')
         })
   }
 
@@ -186,7 +187,6 @@ const App = () => {
         </button>
       </div>
       <ul>
-        <ul>
          {notesToShow.map(note =>
             <Note
               key={note.id}
@@ -194,7 +194,6 @@ const App = () => {
               toggleImportance={() => toggleImportanceOf(note.id)}
             />
           )}
-        </ul>
       </ul>
 
       <Footer />
