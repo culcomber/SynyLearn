@@ -312,7 +312,7 @@ todo [JavaScript中的函数式编程](https://www.youtube.com/playlist?list=PL0
 
    - 为了方便后续运行，修改`package.json`的`scripts`对象，增加`"start": "node index.js"`属性。后续在命令行中使用 `npm run start` (**可简写`npm start`**)启动项目
 
-     <img src="../assets/image-20230308102232496.png" alt="image-20230308102232496" style="zoom:70%;" />
+     <img src="../../assets/image-20230308102232496.png" alt="image-20230308102232496" style="zoom:70%;" />
 
 
    - 使用`http`模块响应请求
@@ -331,7 +331,7 @@ todo [JavaScript中的函数式编程](https://www.youtube.com/playlist?list=PL0
 
       **JSON 是一个字符串**
 
-      <img src="../assets/image-20230307174058549.png" alt="image-20230307174058549" style="zoom:50%;" />
+      <img src="../../../assets/image-20230307174058549.png" alt="image-20230307174058549" style="zoom:50%;" />
 
       todo
 
@@ -410,11 +410,11 @@ app.delete('/api/notes/:id', (request, response) => {
 
 7. Postman
 
-![fullstack content](../assets/11x.png)
+![fullstack content](../../assets/11x.png)
 
 8. The Visual Studio Code REST client
 
-![fullstack content](../assets/12ea.png)
+![fullstack content](../../assets/12ea.png)
 
 ​	The WebStorm HTTP Client：HTTP请求存储在.http和.rest文件中
 
@@ -525,7 +525,7 @@ todo
    app.use(cors())
    ```
 
-   <img src="../assets/image-20230309114613894.png" alt="image-20230309114613894" style="zoom:80%;" />
+   <img src="../../assets/image-20230309114613894.png" alt="image-20230309114613894" style="zoom:80%;" />
 
 2. Application to the Internet
 
@@ -535,17 +535,17 @@ todo
 
    - 创建一个render应用
 
-     <img src="../assets/image-20230310165326488.png" alt="image-20230310165326488" style="zoom:50%;" />
+     <img src="../../assets/image-20230310165326488.png" alt="image-20230310165326488" style="zoom:50%;" />
 
    - 关联github项目，部署项目
 
-     <img src="../assets/image-20230313165534395.png" alt="image-20230313165534395" style="zoom:50%;" />
+     <img src="../../assets/image-20230313165534395.png" alt="image-20230313165534395" style="zoom:50%;" />
 
 3. Frontend production build
 
    - 用[npm run build](https://github.com/facebookincubator/create-react-app#npm-run-build-or-yarn-build)命令创建create-react-app的[生产构建](https://reactjs.org/docs/optimizing-performance.html#use-the-production-build)
 
-     <img src="../assets/image-20230313165902275.png" alt="image-20230313165902275" style="zoom:50%;" />
+     <img src="../../assets/image-20230313165902275.png" alt="image-20230313165902275" style="zoom:50%;" />
 
 4. Serving static files from the backend
 
@@ -569,7 +569,7 @@ todo
 
      本地前端的地址是*localhost:3000*，对后端的请求会进入错误的地址*localhost:3000/api/notes*。本地后台是在*localhost:3001*。
 
-     <img src="../assets/image-20230313171646164.png" alt="image-20230313171646164" style="zoom:50%;" />
+     <img src="../../assets/image-20230313171646164.png" alt="image-20230313171646164" style="zoom:50%;" />
 
      需要在*package.json*配置代理，如果React应用向*[http://localhost:3000](http://localhost:3000/)*的服务器地址做HTTP请求，，该请求将被重定向到*[http://localhost:3001](http://localhost:3001/)*的服务器(只有本地react应用起作用，后台只是使用构建的`index.js`)
 
@@ -601,7 +601,7 @@ todo
 
    - 该文件包含获取定义应用样式的CSS样式表的指令，以及两个*script*标签，指示浏览器获取应用的JavaScript代码--实际的React应用（前台index.js文件，引用App.js——请求api/notes获取首页数据）。
 
-   <img src="../assets/image-20230313171033108.png" alt="image-20230313171033108" style="zoom:80%;" />
+   <img src="../../assets/image-20230313171033108.png" alt="image-20230313171033108" style="zoom:80%;" />
 
 6. Streamlining deploying of the frontend
 
@@ -737,7 +737,7 @@ todo [使用](https://tenderlovemaking.com/2016/02/05/i-am-a-puts-debuggerer.htm
 
      .env文件被gitignored，render就不会从版本库中获得数据库的网址，所以你必须自己设置它。
      
-     <img src="../assets/image-20230314160942044.png" alt="image-20230314160942044" style="zoom:80%;" />
+     <img src="../../assets/image-20230314160942044.png" alt="image-20230314160942044" style="zoom:80%;" />
 
 7. Using database in route handlers
 
@@ -771,7 +771,7 @@ todo [使用](https://tenderlovemaking.com/2016/02/05/i-am-a-puts-debuggerer.htm
    })
    ```
 
-   <img src="../assets/image-20230314131643945.png" alt="image-20230314131643945" style="zoom:50%;" />
+   <img src="../../assets/image-20230314131643945.png" alt="image-20230314131643945" style="zoom:50%;" />
 
 9. Moving error handling into middleware
 
@@ -900,7 +900,7 @@ Lint
 npx eslint --init
 ```
 
-<img src="../assets/image-20230314150914732.png" alt="image-20230314150914732" style="zoom:50%;" />
+<img src="../../assets/image-20230314150914732.png" alt="image-20230314150914732" style="zoom:50%;" />
 
 创建一个单独的*npm脚本*来进行linting，将检查项目中的每个文件。
 
@@ -1325,7 +1325,7 @@ ESlint有大量的[规则](https://eslint.org/docs/rules/)，通过编辑*.eslin
 
    创建新笔记的代码需要更新，以便将笔记分配给创建它的用户
 
-   <img src="../assets/image-20230316151336791.png" alt="image-20230316151336791" style="zoom:50%;" />
+   <img src="../../assets/image-20230316151336791.png" alt="image-20230316151336791" style="zoom:50%;" />
 
 5. Populate
 
@@ -1337,7 +1337,7 @@ todo [基于令牌的认证](https://scotch.io/tutorials/the-ins-and-outs-of-tok
 
 1. Limiting creating new notes to logged in users
 
-   <img src="../assets/image-20230316152546869.png" alt="image-20230316152546869" style="zoom:50%;" />
+   <img src="../../assets/image-20230316152546869.png" alt="image-20230316152546869" style="zoom:50%;" />
 
    [jsonwebtoken](https://github.com/auth0/node-jsonwebtoken)允许我们生成[JSON web tokens](https://jwt.io/)
 
@@ -1349,7 +1349,7 @@ todo [基于令牌的认证](https://scotch.io/tutorials/the-ins-and-outs-of-tok
 
    todo 使用一个Node [HTTPS](https://nodejs.org/api/https.html)服务器
 
-   <img src="../assets/image-20230316165210779.png" alt="image-20230316165210779" style="zoom:50%;" />
+   <img src="../../assets/image-20230316165210779.png" alt="image-20230316165210779" style="zoom:50%;" />
 
 ## Part 5
 
@@ -1608,13 +1608,21 @@ todo [基于令牌的认证](https://scotch.io/tutorials/the-ins-and-outs-of-tok
 
    命令行输入`npm test -- --coverage`
 
-   <img src="../assets/image-20230317160924397.png" alt="image-20230317160924397" style="zoom:50%;" />
+   <img src="../../assets/image-20230317160924397.png" alt="image-20230317160924397" style="zoom:50%;" />
 
 ### d 端到端测试
 
 1. Cypress
 
-   
+   *端到端*（E2E）测试[系统整体](https://en.wikipedia.org/wiki/System_testing)
+
+   Cypress的测试可以在前端或后端仓库中，甚至可以在它们自己的独立仓库中，需要被测系统正在运行
+
+   当后端和前端都在运行时，我们可以用以下命令启动Cypress
+
+   ```js
+   npm run cypress:open
+   ```
 
 2. Writing to a form
 
