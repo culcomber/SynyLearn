@@ -10,7 +10,7 @@ const reducer = combineReducers({
   notes: noteReducer,
   filter: filterReducer
 })
-const store = createStore(noteReducer)
+const store = createStore(reducer)
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <Provider store={store}>

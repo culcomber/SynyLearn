@@ -35,6 +35,7 @@ const noteReducer = (state = initialState, action) => {
 const generateId = () => Number((Math.random() * 1000000).toFixed(0));
 
 // 处理函数，单独导出，index.js只使用到了noteReducer
+// return store对象，被调用dispatch(createNote(content))
 export const createNote = (content) => {
   return {
     type: "NEW_NOTE",

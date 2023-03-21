@@ -88,12 +88,24 @@
 
 ### b 再来点 reducers
 
-1. Store with complex state
-2. Combined reducers
-3. Finishing the filters
-4. Redux Toolkit
-5. Redux DevTools
-6. Exercises 6.9.-6.12.
+1. Combined reducers
+
+   ```js
+   const reducer = combineReducers({
+     notes: noteReducer,
+     filter: filterReducer
+   })
+   
+   const store = createStore(reducer)
+   ```
+
+2. Finishing the filters
+
+3. Redux Toolkit
+
+4. Redux DevTools
+
+5. Exercises 6.9.-6.12.
 
 ### c 在Redux应用中与后端通信
 
