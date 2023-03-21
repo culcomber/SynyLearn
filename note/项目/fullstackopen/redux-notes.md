@@ -32,23 +32,59 @@
 
 2. Redux
 
-   - 创建应用`npx create-react-app redux-notes`
+   Reducers：`(state, action) => newState`
 
-3. Redux-notes
+   Reducers example
 
-4. Pure functions, immutable
+   ```js
+   const initialState = { value: 0 }
+   
+   function counterReducer(state = initialState, action) {
+     // Check to see if the reducer cares about this action
+     if (action.type === 'counter/increment') {
+       // If so, make a copy of `state`
+       return {
+         ...state,
+         // and update the copy with the new value
+         value: state.value + 1
+       }
+     }
+     // otherwise return the existing state unchanged
+     return state
+   }
+   ```
 
-5. Array spread syntax
+3. Pure functions, immutable
 
-6. Uncontrolled form
+   Reducers建议使用纯函数
 
-7. Action creators
+   纯函数的定义是：
 
-8. Forwarding Redux-Store to various components
+   1.   如果函数的调用参数相同，则永远返回相同的结果。它**不依赖于程序执行期间函数外部任何状态或数据的变化**，必须只依赖于其输入参数。
 
-9. More components
+   2.   **该函数不会产生任何可观察的副作用**，例如网络请求，输入和输出设备或数据突变（mutation）。
 
-10. Exercises 6.3.-6.8.
+   测试Reducers的state不会被改变：`deep-freeze`
+
+4. Uncontrolled form
+
+   controlled components：推荐使用，表单状态由react管理
+
+   uncontrolled components：表单状态由dom管理
+
+   <img src="../../assets/image-20230321111214113.png" alt="image-20230321111214113" style="zoom:50%;" />
+
+   ```jsx
+   // controlled 
+   <input type="text" value={this.state.value} onChange={this.handleChange} />
+   
+   // uncontrolled 
+   <input defaultValue="Bob" type="text" ref={this.input} />
+   ```
+
+5. More components
+
+   使用了redux，组件的状态改变处理由reducer负责，组件本身和状态处理分离
 
 ### b 再来点 reducers
 
