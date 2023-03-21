@@ -64,7 +64,7 @@
 
    2.   **该函数不会产生任何可观察的副作用**，例如网络请求，输入和输出设备或数据突变（mutation）。
 
-   测试Reducers的state不会被改变：`deep-freeze`
+   测试Reducers的state不会被改变插件：`deep-freeze`
 
 4. Uncontrolled form
 

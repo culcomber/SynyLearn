@@ -1,5 +1,20 @@
-const noteReducer = (state = [], action) => {
+const initialState = [
+  {
+    content: 'reducer defines how redux store works',
+    important: true,
+    id: 1,
+  },
+  {
+    content: 'state of store can contain any data',
+    important: false,
+    id: 2,
+  },
+]
+
+// state使用初始化参数
+const noteReducer = (state = initialState, action) => {
   switch (action.type) {
+    // 组件使用dispatch(createNote(content))，dispatch派发
     case "NEW_NOTE":
       // return state.concat(action.data)
       return [...state, action.payload];
