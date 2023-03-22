@@ -8,6 +8,9 @@ import NoteForm from './components/NoteForm'
 import Togglable from './components/Togglable'
 import noteService from './services/notes'
 import loginService from './services/login'
+import {Link, Route, Router, Routes} from "react-router-dom";
+
+const Home = () => (<h1>Notes app</h1>)
 
 const App = () => {
   const [notes, setNotes] = useState([])
@@ -39,6 +42,10 @@ const App = () => {
       noteService.setToken(user.token)
     }
   }, [])
+
+  const padding = {
+    padding: 5
+  }
 
   const handleLogin = async (event) => {
     event.preventDefault()
@@ -153,8 +160,19 @@ const App = () => {
   )
 
   return (
-    <div>
-      <h1>Notes app</h1>
+    <Router>
+      <div>
+        <Link style={padding} to="/">home</Link>
+        <Link style={padding} to="/notes">notes</Link>
+        <Link style={padding} to="/users">users</Link>
+      </div>
+      <Routes>
+        <Route path="/notes" element={<Notes />} />
+        <Route path="/users" element={<Users />} />
+        <Route path="/" element={<Home />} />
+      </Routes>
+
+
       <Notification message={errorMessage} />
 
       {/* 有条件地渲染表单
@@ -200,7 +218,7 @@ const App = () => {
       </ul>
 
       <Footer />
-    </div>
+    </Router>
   )
 }
 

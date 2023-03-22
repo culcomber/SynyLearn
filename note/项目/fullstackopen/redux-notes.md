@@ -197,8 +197,6 @@ export const initializeNotes = () => {
 }
 ```
 
-
-
 ### d React Query, useReducer and the context
 
 1. Managing data on the server with the React Query library
@@ -210,7 +208,7 @@ export const initializeNotes = () => {
 7. Which state management solution to choose?
 8. Exercises 6.23.-6.24.
 
-### d connect方法(old)
+### e connect方法(old)
 
 1. Using the connect-function to share the redux store to components
 2. mapDispatchToProps
@@ -219,3 +217,106 @@ export const initializeNotes = () => {
 5. Presentational/Container revisited
 6. Redux and the component state
 7. Exercises 6.19.-6.21.
+
+## Part 7
+
+a React Router
+
+1. React Router
+
+   ```jsx
+   import {BrowserRouter as Router,Routes, Route, Link} from 'react-router-dom'
+   const App = () => {
+     const padding = {padding: 5}
+     return (
+       <Router>
+         <div>
+           <Link style={padding} to="/">home</Link>
+           <Link style={padding} to="/notes">notes</Link>
+           <Link style={padding} to="/users">users</Link>
+         </div>
+         <Routes>
+           <Route path="/notes" element={<Notes />} />
+           <Route path="/users" element={<Users />} />
+           <Route path="/" element={<Home />} />
+         </Routes>
+         <div>
+           <i>Note app, Department of Computer Science 2023</i>
+         </div>
+       </Router>
+     )
+   }
+   ```
+
+2. Parameterized route
+
+   ```jsx
+   <Link to={`/notes/${note.id}`}>{note.content}</Link>
+   
+   <Route path="/notes/:id" element={<Note notes={notes} />} />
+   
+   const id = useParams().id
+   const note = notes.find(n => n.id === Number(id)) 
+   ```
+
+3. useNavigate
+
+   ```jsx
+   const navigate = useNavigate()
+   const onSubmit = (event) => {
+       event.preventDefault()
+       props.onLogin('mluukkai')
+       navigate('/')
+   }
+   ```
+
+4. Parameterized route revisited
+
+   ```js
+   const match = useMatch('/notes/:id')
+   const note = match
+       ? notes.find(note => note.id === Number(match.params.id))
+       : null
+   ```
+
+b Custom hooks
+
+```jsx
+const useField = (type) => {
+  const [value, setValue] = useState('')
+  const onChange = (event) => {
+    setValue(event.target.value)
+  }
+  return {type,value,onChange}
+}
+
+const App = () => {
+  const name = useField('text')
+  const born = useField('date')
+  const height = useField('number')
+  return (
+    <div>
+      <form>
+        name:<input  {...name} />
+        <br/>
+        birthdate:<input {...born} />
+        <br />
+        height:<input {...height} />
+      </form>
+      <div>
+        {name.value} {born.value} {height.value}
+      </div>
+    </div>
+  )
+}
+```
+
+c More about styles
+
+d Webpack
+
+
+
+e Class components, Miscellaneous
+
+f Exercises: extending the bloglist
