@@ -1,13 +1,17 @@
 import { useDispatch } from 'react-redux'
 import { createNote } from '../reducers/noteReducer'
+import noteService from '../services/notes'
 
 const NewNote = () => {
   const dispatch = useDispatch()
 
-  const addNote = (event) => {
+  const addNote = async (event) => {
     event.preventDefault()
     const content = event.target.note.value
     event.target.note.value = ''
+    // 新增数据保存到数据库
+    // const newNote = await noteService.createNew(content)
+    // noteReducer的createNote方法会发送请求
     dispatch(createNote(content))
   }
 

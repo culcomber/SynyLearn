@@ -88,6 +88,8 @@
 
 ### b 再来点 reducers
 
+**1 Getting data from the backend**
+
 1. Combined reducers
 
    ```js
@@ -99,18 +101,103 @@
    const store = createStore(reducer)
    ```
 
-2. Finishing the filters
-
-3. Redux Toolkit
-
-4. Redux DevTools
-
-5. Exercises 6.9.-6.12.
-
 ### c 在Redux应用中与后端通信
 
-1. Asynchronous actions and redux thunk
-2. Exercises 6.15.-6.18.
+1. *package.json*添加脚本
+
+   ```json
+   "scripts": {
+     "server": "json-server -p3001 --watch db.json",
+   }
+   ```
+
+2. 根目录创建*db.json*
+
+   `npm install json-server --save-dev`
+
+   ```json
+   {
+     "notes": [
+       {
+         "content": "the app state is in redux store",
+         "important": true,
+         "id": 1
+       },
+       {
+         "content": "state changes are made with actions",
+         "important": false,
+         "id": 2
+       }
+     ]
+   }
+   ```
+
+3. 创建请求*services/notes.js*
+
+   ```js
+   // npm install axios
+   import axios from 'axios'
+   const baseUrl = 'http://localhost:3001/notes'
+   const getAll = async () => {
+     const response = await axios.get(baseUrl)
+     return response.data
+   }
+   export default { getAll }
+   ```
+
+4. *noteReducer.js*
+
+   ```js
+   const noteSlice = createSlice({
+     name: 'notes',
+     initialState: [], // 使用后台数据
+     reducers: {
+         appendNote(state, action) {
+           state.push(action.payload);
+         },
+         setNotes(state, action) {
+           return action.payload;
+         }, // 一次性设置store
+     },
+   })
+   
+   export const { createNote, toggleImportanceOf, appendNote } = noteSlice.actions
+   ```
+
+5. *App.js*
+
+   ```jsx
+   // react-redux提供useDispatch HOOK
+   const App = () => {
+     const dispatch = useDispatch()
+     useEffect(() => {
+       // 请求后台，并把数据保存到store
+       noteService.getAll().then(notes => dispatch(setNotes(notes)))
+     }, [dispatch]) // dispatch存储在redux，这个useEffect只会在开始时运行一次
+   }
+   ```
+
+**2 Sending data to the backend**
+
+1. services/notes.js增加请求方法
+2. NewNote组件调用notes.js方法，并把数据处理传递到noteReducer.js
+3. noteReducer修改新增方法
+
+**3 Asynchronous actions and Redux thunk**
+
+App.js组件不应该处理请求，把请求放在noteReducer更加合适，`npm install redux-thunk`
+
+```js
+import noteService from '../services/notes'
+export const initializeNotes = () => {
+  return async dispatch => {
+    const notes = await noteService.getAll()
+    dispatch(setNotes(notes))
+  }
+}
+```
+
+
 
 ### d React Query, useReducer and the context
 
