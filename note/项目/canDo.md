@@ -1,5 +1,7 @@
 ## build-your-own-x
 
+https://github.com/codecrafters-io/build-your-own-x
+
 区块链/加密货币
 
 - [**JavaScript**: *A cryptocurrency implementation in less than 1500 lines of code*](https://github.com/conradoqg/naivecoin)
@@ -129,6 +131,8 @@ other
 - [**Node.js**: *Build a DNS Server in Node.js*](https://engineerhead.github.io/dns-server/)
 
 ## project-based-learning
+
+https://github.com/practical-tutorials/project-based-learning
 
 JavaScript:
 
@@ -263,6 +267,14 @@ D3.js
 [在线用 SSH 连接服务器的 Web 应用](https://github.com/huashengdun/webssh)zhu
 
 ## `github`
+
+https://github.com/GitHubDaily/GitHubDaily#%E5%89%8D%E7%AB%AF
+
+https://hellogithub.com/?sort_by=hot&tid=x3YH09wlKN
+
+https://github.com/FrontEndGitHub/FrontEndGitHub#%E8%B0%83%E8%AF%95%E6%8A%93%E5%8C%85
+
+https://bestofjs.org/
 
 ### 应用
 
@@ -477,7 +489,7 @@ https://github.com/verekia/js-stack-from-scratch
 
 
 
-聊天服务器
+### 聊天服务器
 
 - 每个客户端可以用使用telnet ip:port的方式连接到服务器上。
 - 新连接需要用用户名和密码登录，如果没有，则需要注册一个。

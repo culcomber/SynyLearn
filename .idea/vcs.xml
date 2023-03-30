@@ -2,6 +2,8 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/code/full-stack-open-pokedex" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/code/fullstackopen/NodeServer" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/code/fullstackopen/full-stack-open-pokedex" vcs="Git" />
   </component>
 </project>

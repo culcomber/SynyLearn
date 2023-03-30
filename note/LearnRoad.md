@@ -39,11 +39,115 @@
 
 ------
 
-3 浏览器/HTML/`CSS`
+# 1 基础知识
+
+## 1.1 浏览器
+
+### 知识点
+
+- 1
+
+  基础：计算机原理、编译原理、数据结构、算法、设计模式、编程范式等基本知识了解
+
+  网络：HTTP、TCP、`UDP`、`WebSocket`、Cookie、Session、跨域、缓存、协议的了解
+
+- 2
+
+- 编译原理
+
+  1.理解代码到底是什么，计算机如何将代码转换为可以运行的目标程序
+
+  2.正则表达式的匹配原理和性能优化
+
+  3.如何将JavaScript代码解析成抽象语法树(AST)
+
+  4.`base64`的编码原理
+
+  5.几种进制的相互转换计算方法，在JavaScript中如何表示和转换
+
+- 网络协议
+
+  1.理解什么是协议，了解TCP/IP网络协议族的构成，每层协议在应用程序中发挥的作用
+
+  2.三次握手和四次挥手详细原理，为什么要使用这种机制
+
+  3.有哪些协议是可靠，TCP有哪些手段保证可靠交付
+
+  4.`DNS`的作用、`DNS`解析的详细过程，`DNS`优化原理
+
+  5.`CDN`的作用和原理
+
+  6.HTTP请求报文和响应报文的具体组成，能理解常见请求头的含义，有几种请求方式，区别是什么
+
+  7.HTTP所有状态码的具体含义，看到异常状态码能快速定位问题
+
+  8.HTTP1.1、HTTP2.0带来的改变
+
+  9.HTTPS的加密原理，如何开启HTTPS，如何劫持HTTPS请求
+
+  10.理解WebSocket协议的底层原理、与HTTP的区别
+
+- 设计模式
+
+  1.熟练使用前端常用的设计模式编写代码，如单例模式、装饰器模式、代理模式等
+
+  2.发布订阅模式和观察者模式的异同以及实际应用
+
+  3.可以说出几种设计模式在开发中的实际应用，理解框架源码中对设计模式的应用
+
+- 浏览器API
+
+  1.浏览器提供的符合W3C标准的DOM操作API、浏览器差异、兼容性
+
+  2.浏览器提供的浏览器对象模型 (BOM)提供的所有全局API、浏览器差异、兼容性
+
+  3.大量DOM操作、海量数据的性能优化(合并操作、Diff、requestAnimationFrame等)
+
+  4.浏览器海量数据存储、操作性能优化
+
+  5.`DOM`事件流的具体实现机制、不同浏览器的差异、事件代理
+
+  6.前端发起网络请求的几种方式及其底层实现、可以手写原生ajax、fetch、可以熟练使用第三方库
+
+  7.浏览器的同源策略，如何避免同源策略，几种方式的异同点以及如何选型
+
+  8.浏览器提供的几种存储机制、优缺点、开发中正确的选择
+
+  9.浏览器跨标签通信
+
+- 浏览器原理
+
+  1.各浏览器使用的JavaScript引擎以及它们的异同点、如何在代码中进行区分
+
+  2.请求数据到请求结束与服务器进行了几次交互
+
+  3.可详细描述浏览器从输入URL到页面展现的详细过程
+
+  4.浏览器解析HTML代码的原理，以及构建DOM树的流程
+
+  5.浏览器如何解析CSS规则，并将其应用到DOM树上
+
+  6.浏览器如何将解析好的带有样式的DOM树进行绘制
+
+  7.浏览器的运行机制，如何配置资源异步同步加载
+
+  8.浏览器回流与重绘的底层原理，引发原因，如何有效避免
+
+  9.浏览器的垃圾回收机制，如何避免内存泄漏
+
+  10.浏览器采用的缓存方案，如何选择和控制合适的缓存方案
+
+- 前端安全
+
+  1.`XSS`攻击的原理、分类、具体案例，前端如何防御
+
+  2.`CSRF`攻击的原理、具体案例，前端如何防御
+
+  3.`HTTP`劫持、页面劫持的原理、防御措施
+
+### mini project
 
 [全栈公开课 2022](https://fullstackopen.com/zh/)
-
-[**`CSS`**: *A search engine in `CSS`*](https://stories.algolia.com/a-search-engine-in-css-b5ec4e902e97)
 
 [**`Node.js`**: *Write your own `bittorrent` client*](https://allenkim67.github.io/programming/2016/05/04/how-to-make-your-own-bittorrent-client.html)
 
@@ -53,21 +157,138 @@
 
 [**`Node.js`**: *How to create a real-world Node `CLI app` with Node*](https://medium.freecodecamp.org/how-to-create-a-real-world-node-cli-app-with-node-391b727bbed3)
 
+## 1.2 HTML/`CSS`
+
+### 知识点
+
+- 掌握图形学，webgl或熟练使用threejs框架，熟练canvas相关渲染及动画操作的优先。
+
+  - 学习过图形学相关知识，知道矩阵等数学原理在动画中的作用，知道三维场景需要的最基础的构成，能用threejs搭3d场景，知道webgl和threejs的关系。
+  - 知道canvas是干嘛的，聊到旋转能说出canvas的api。
+  - 知道css动画，css动画属性知道关键字和用法(换句话说，电话面试会当场出题要求口喷css动画，至少能说对大概，而不是回答百度一下就会用)。
+  - 知道js动画，能说出1~2个社区js动画库，知道js动画和css动画优缺点以及适用场景。
+  - 知道raf和其他达到60fps的方法。
+
+- 熟悉各种Web前端技术，包括HTML/XML/CSS等，有基于Ajax的前端应用开发经验。
+
+  - HTML方面包括但不限于：语义化标签，history api，storage，ajax2.0等。
+  - CSS方面包括但不限于：文档流，重绘重排，flex，BFC，IFC，before/after，动画，keyframe，画三角，优先级矩阵等。
+  - 知道axios或同级别网络请求库，知道axios的核心功能。
+  - 能口喷xhr用法，知道网络请求相关技术和技术底层，包括但不限于：content-type，不同type的作用；restful设计理念；cors处理方案，以及浏览器和服务端执行流程；口喷文件上传实现；
+  - 知道如何完成登陆模块，包括但不限于：登陆表单如何实现；cookie登录态维护方案；token base登录态方案；session概念；
+
+- 2
+
+- HTML
+
+  1.从规范的角度理解HTML，从分类和语义的角度使用标签
+
+  2.常用页面标签的默认样式、自带属性、不同浏览器的差异、处理浏览器兼容问题的方式
+
+  3.元信息类标签(head、title、meta)的使用目的和配置方法
+
+  4.`HTML5`离线缓存原理
+
+  5.可以使用Canvas API、SVG等绘制高性能的动画
+
+- CSS
+
+  1.`CSS`盒模型，在不同浏览器的差异
+
+  2.`CSS`所有选择器及其优先级、使用场景，哪些可以继承，如何运用at规则
+
+  3.`CSS`伪类和伪元素有哪些，它们的区别和实际应用
+
+  4.`HTML`文档流的排版规则，`CSS`几种定位的规则、定位参照物、对文档流的影响，如何选择最好的定位方式，雪碧图实现原理
+
+  5.水平垂直居中的方案、可以实现6种以上并对比它们的优缺点
+
+  6.BFC实现原理，可以解决的问题，如何创建BFC
+
+  7.可使用`CSS`函数复用代码，实现特殊效果
+
+  8.PostCSS、Sass、Less的异同，以及使用配置，至少掌握一种
+
+  9.CSS模块化方案、如何配置按需加载、如何防止CSS阻塞渲染
+
+  10.熟练使用`CSS`实现常见动画，如渐变、移动、旋转、缩放等等
+
+  11.`CSS`浏览器兼容性写法，了解不同`API`在不同浏览器下的兼容性情况
+
+  12.掌握一套完整的响应式布局方案
+
+- 手写
+
+  1.手写图片瀑布流效果
+
+  2.使用`CSS`绘制几何图形（圆形、三角形、扇形、菱形等）
+
+  3.使用纯`CSS`实现曲线运动（贝塞尔曲线）
+
+  4.实现常用布局（三栏、圣杯、双飞翼、吸顶），可是说出多种方式并理解其优缺点
+
+### mini project
+
+[**`CSS`**: *A search engine in `CSS`*](https://stories.algolia.com/a-search-engine-in-css-b5ec4e902e97)
+
 [响应式布局万圣节网站](https://github.com/bedimcode/responsive-halloween-website) 
 
 [手绘组件库](https://chr15m.github.io/DoodleCSS/) 
 
-4 `JS`
+## 1.3 `JS`
 
-other
+### 知识点
 
-- [**JavaScript**: *Build Your Own Module Bundler - `Minipack`*](https://github.com/ronami/minipack)
-- [**`TypeScript`**: *Tiny Package Manager: Learns how `npm` or Yarn works*](https://github.com/g-plane/tiny-package-manager)
-- [**`Node.js`**: *Build a static site generator in 40 lines with `Node.js`*](https://www.webdevdrops.com/en/build-static-site-generator-nodejs-8969ebe34b22/)
-- [Build a Jupyter Notebook Extension](https://link.medium.com/wWUO7TN8SS)
-- [**JavaScript**: *Learn JavaScript Promises by Building a Promise from Scratch*](https://levelup.gitconnected.com/understand-javascript-promises-by-building-a-promise-from-scratch-84c0fd855720)
-- [**JavaScript**: *Implementing promises from scratch (TDD way)*](https://www.mauriciopoppe.com/notes/computer-science/computation/promises/)
-- [**JavaScript**: *Implement your own — call(), apply() and bind() method in JavaScript*](https://blog.usejournal.com/implement-your-own-call-apply-and-bind-method-in-javascript-42cc85dba1b)
+- JavaScript各种概念都得了解，《JavaScript语言精粹》这本书的目录都得有概念，并且这些核心点都能脱口而出是什么。这里列举一些做参考：
+
+  - 知道组合寄生继承，知道class继承。
+
+  - 知道怎么创建类function + class。
+
+  - 知道闭包在实际场景中怎么用，常见的坑。
+
+  - 知道模块是什么，怎么用。
+
+  - 知道[event loop](https://www.zhihu.com/search?q=event loop&search_source=Entity&hybrid_search_source=Entity&hybrid_search_extra={"sourceType"%3A"answer"%2C"sourceId"%3A2671717786})是什么，能举例说明event loop怎么影响平时的编码。
+
+  - 掌握基础数据结构，比如堆、栈、树，并了解这些数据结构计算机基础中的作用。
+
+  - 知道`ES6`数组相关方法，比如`forEach`，map，reduce。
+
+- 1
+
+  语法：JavaScript、`ECMAScript`、`CSS`、`TypeScript`、HTML、`Node.js` 等语法的了解和使用
+
+- 2
+
+- JavaScript基础
+
+  - 变量和类型
+  - 原型和原型链
+  - 作用域和闭包
+  - 执行机制
+  - 语法和API
+
+- 数据结构和算法
+
+  - JavaScript编码能力
+  - 手动实现前端轮子
+  - 数据结构
+  - 算法
+
+- TypeScript
+
+  1.理解泛型、接口等面向对象的相关概念，`TypeScript`对面向对象理念的实现
+
+  2.理解使用`TypeScript`的好处，掌握`TypeScript`基础语法
+
+  3.`TypeScript`的规则检测原理
+
+  4.可以在React、`Vue`等框架中使用`TypeScript`进行开发
+  
+- [事件循环](https://www.youtube.com/watch?v=8aGhZQkoFbQ)   [`EventLoop`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/EventLoop)
+
+### mini project
 
 Template Engine
 
@@ -82,6 +303,14 @@ Template Engine
 
 other
 
+- [**JavaScript**: *Build Your Own Module Bundler - `Minipack`*](https://github.com/ronami/minipack)
+- [**`TypeScript`**: *Tiny Package Manager: Learns how `npm` or Yarn works*](https://github.com/g-plane/tiny-package-manager)
+- [**`Node.js`**: *Build a static site generator in 40 lines with `Node.js`*](https://www.webdevdrops.com/en/build-static-site-generator-nodejs-8969ebe34b22/)
+- [Build a Jupyter Notebook Extension](https://link.medium.com/wWUO7TN8SS)
+- [**JavaScript**: *Learn JavaScript Promises by Building a Promise from Scratch*](https://levelup.gitconnected.com/understand-javascript-promises-by-building-a-promise-from-scratch-84c0fd855720)
+- [**JavaScript**: *Implementing promises from scratch (TDD way)*](https://www.mauriciopoppe.com/notes/computer-science/computation/promises/)
+- [**JavaScript**: *Implement your own — call(), apply() and bind() method in JavaScript*](https://blog.usejournal.com/implement-your-own-call-apply-and-bind-method-in-javascript-42cc85dba1b)
+
 - Build a Progressive Web Application (`PWA`)
   - [Part 1](https://bitsofco.de/bitsofcode-pwa-part-1-offline-first-with-service-worker/)
   - [Part 2](https://bitsofco.de/bitsofcode-pwa-part-2-instant-loading-with-indexeddb/)
@@ -90,29 +319,79 @@ other
 - Build a Powerful API with NodeJs,GraphQL and Hapi
   - [Part I](https://medium.com/@wesharehoodies/how-to-setup-a-powerful-api-with-nodejs-graphql-mongodb-hapi-and-swagger-e251ac189649)
 
-5  `Node` 
+# 2 工程化
 
-`Web Server`
+## 2.1 前端框架
 
-- [**`Node.js`**: *Let's code a web server from scratch with `NodeJS` Streams*](https://www.codementor.io/ziad-saab/let-s-code-a-web-server-from-scratch-with-nodejs-streams-h4uc9utji)
-- [**`Node.js`**: *lets-build-express*](https://github.com/antoaravinth/lets-build-express)
-- [**`Node.js`**: *Building A Simple Single Sign On(`SSO`) Server And Solution From Scratch In `Node.js`.*](https://codeburst.io/building-a-simple-single-sign-on-sso-server-and-solution-from-scratch-in-node-js-ea6ee5fdf340)
+### 知识点
 
-other
+- 熟练掌握React前端框架，了解技术底层。同时了解vue以及angular等其他框架者优先。
 
-- [Build a real-time Markdown Editor with NodeJS](https://scotch.io/tutorials/building-a-real-time-markdown-viewer)
-- [Test-Driven Development with Node, Postgres and Knex](http://mherman.org/blog/2016/04/28/test-driven-development-with-node/)
-- Write a Twitter Bot in Node.js
-  - [Part 1](https://codeburst.io/build-a-simple-twitter-bot-with-node-js-in-just-38-lines-of-code-ed92db9eb078)
-  - [Part 2](https://codeburst.io/build-a-simple-twitter-bot-with-node-js-part-2-do-more-2ef1e039715d)
-- [Build A Simple Search Bot in 30 minutes](https://medium.freecodecamp.org/how-to-build-a-simple-search-bot-in-30-minutes-eb56fcedcdb1)
-- [Build A Job Scraping Web App](https://medium.freecodecamp.org/how-i-built-a-job-scraping-web-app-using-node-js-and-indreed-7fbba124bbdc)
-- [Building a GitHub App](https://blog.scottlogic.com/2017/05/22/gifbot-github-integration.html)
-- How to build your own Uber-for-X App using JavaScript, Node.JS, MongoDB and Web Sockets
-  - [Part 1](https://www.ashwinhariharan.tech/blog/how-to-build-your-own-uber-for-x-app/)
-  - [Part 2](https://www.ashwinhariharan.tech/blog/how-to-build-your-own-uber-for-x-app-part-2/)
+  - 知道react常见优化方案，脱口而出常用生命周期，知道他们是干什么的。
+  - 知道react大致实现思路，能对比react和js控制原生dom的差异，能口喷一个简化版的react。
+  - 知道diff算法大致实现思路。
+  - 对state和props有自己的使用心得，结合受控组件、hoc等特性描述，需要说明各种方案的适用场景。
 
-6 React 
+- 熟练掌握react生态常用工具，redux/react-router等。
+
+  - 知道react-router，redux，[redux-thunk](https://www.zhihu.com/search?q=redux-thunk&search_source=Entity&hybrid_search_source=Entity&hybrid_search_extra={"sourceType"%3A"answer"%2C"sourceId"%3A2671717786})，react-redux，immutable，antd或同级别社区组件库。
+  - 知道vue和angular对应全家桶分别有哪些。
+  - 知道浏览器react相关插件有什么，怎么用。
+  - 知道react-router v3/v4的差异。
+  - 知道`antd`组件化设计思路。
+  - 知道thunk干嘛用的，怎么实现的。
+
+- 1
+
+  框架：React、`Vue`、Egg、`Koa`、Express、`Webpack` 等原理的了解和使用
+
+- 2
+
+- React
+
+  1.`React`和`vue` 选型和优缺点、核心架构的区别
+
+  2.`React`中`setState`的执行机制，如何有效的管理状态
+
+  3.`React`的事件底层实现机制
+
+  4.`React`的虚拟DOM和`Diff`算法的内部实现
+
+  5.`React`的Fiber工作原理，解决了什么问题
+
+  6.React Router和Vue Router的底层实现原理、动态加载实现原理
+
+  7.可熟练应用React API、生命周期等，可应用HOC、render props、Hooks等高阶用法解决问题
+
+  8.基于React的特性和原理，可以手动实现一个简单的React
+
+- Vue
+
+  1.熟练使用Vue的API、生命周期、钩子函数
+
+  2.`MVVM`框架设计理念
+
+  3.`Vue`双向绑定实现原理、`Diff`算法的内部实现
+
+  4.`Vue`的事件机制
+
+  5.从template转换成真实DOM的实现机制
+
+- 数据流管理
+
+  1.掌握React和Vue传统的跨组件通信方案，对比采用数据流管理框架的异同
+
+  2.熟练使用`Redux`管理数据流，并理解其实现原理，中间件实现原理
+
+  3.熟练使用`Mobx`管理数据流，并理解其实现原理，相比`Redux`有什么优势
+
+  4.熟练使用`Vuex`管理数据流，并理解其实现原理
+
+  5.以上数据流方案的异同和优缺点，不情况下的技术选型
+
+### React 
+
+**mini project**
 
 [**JavaScript**: *Build a ride hailing `app` with React Native*](https://pusher.com/tutorials/ride-hailing-react-native)
 
@@ -147,7 +426,7 @@ other
   - [Part 7](https://www.youtube.com/watch?v=M_hFfrN8_PQ)
 - [React Phone E-Commerce Project(video)](https://www.youtube.com/watch?v=-edmQKcOW8s)
 
-7 `Vue`/Angular 
+### `Vue`/Angular 
 
 - [Vue 2 + Firebase: How to build a Vue app with Firebase authentication system in 15 minutes](https://medium.com/@anas.mammeri/vue-2-firebase-how-to-build-a-vue-app-with-firebase-authentication-system-in-15-minutes-fdce6f289c3c)
 - [Vue.js Application Tutorial – Creating a Simple Budgeting App with Vue](https://matthiashager.com/complete-vuejs-application-tutorial/)
@@ -158,227 +437,330 @@ other
 - [Vue.js To-Do List Tutorial (video)](https://www.youtube.com/watch?v=78tNYZUS-ps)
 - [Vue 2 + Pub/Sub: Build a peer to peer multi-user platform for games](https://www.ably.io/tutorials/peer-to-peer-vue)
 
-------
+## 2.2 多端
 
-## 1 底层基础
+### 知识点
 
-- 浏览器
+- 知道TS是什么，为什么要用TS，有TS工程化实践经验。
 
-- 网络
-- 安全
+- 知道移动端前端常见问题，包括但不限于：`rem + 1px`方案；预加载；`jsbridge`原理等。
 
-## 2 三件套
+- 能说出大概的服务端技术，包括但不限于：docker；k8s；rpc原理；中后台架构分层；缓存处理；分布式；响应式编程等。
 
-- JavaScript 核心 
-- 设计模式  
-  - **76 |** **程序员练级攻略：软件设计**
-- 函数式编程 
-- `CSS`/HTML
-  - Canvas（位图）
-  - SVG（矢量图） 
-  - WebGL（3D 图）
+- 1
 
-5.熟悉各种Web前端技术，包括HTML/XML/CSS等，有基于Ajax的前端应用开发经验。  
+  后端：`Redis `缓存、数据库、`Graphql`、`SSR`、模板引擎等了解和使用
 
-初级：
+- 2
 
-- HTML方面包括但不限于：语义化标签，history api，storage，ajax2.0等。
-- CSS方面包括但不限于：文档流，重绘重排，flex，BFC，IFC，before/after，动画，keyframe，画三角，优先级矩阵等。
-- 知道axios或同级别网络请求库，知道axios的核心功能。
-- 能口喷xhr用法，知道网络请求相关技术和技术底层，包括但不限于：content-type，不同type的作用；restful设计理念；cors处理方案，以及浏览器和服务端执行流程；口喷文件上传实现；
-- 知道如何完成登陆模块，包括但不限于：登陆表单如何实现；cookie登录态维护方案；token base登录态方案；session概念；
+- node
 
-0.掌握图形学，webgl或熟练使用threejs框架，熟练canvas相关渲染及动画操作的优先。
+  1.理解`Node`在应用程序中的作用，可以使用`Node`搭建前端运行环境、使用`Node`操作文件、操作数据库等等
 
-初级：
+  2.掌握一种`Node`开发框架，如`Express`，`Express`和`Koa`的区别
 
-- 学习过图形学相关知识，知道矩阵等数学原理在动画中的作用，知道三维场景需要的最基础的构成，能用threejs搭3d场景，知道webgl和threejs的关系。
-- 知道canvas是干嘛的，聊到旋转能说出canvas的api。
-- 知道css动画，css动画属性知道关键字和用法(换句话说，电话面试会当场出题要求口喷css动画，至少能说对大概，而不是回答百度一下就会用)。
-- 知道js动画，能说出1~2个社区js动画库，知道js动画和css动画优缺点以及适用场景。
-- 知道raf和其他达到60fps的方法。
+  3.熟练使用`Node`提供的`API`如`Path`、`Http`、`Child Process`等并理解其实现原理
 
-1.熟练掌握JavaScript。
+  4.`Node`的底层运行原理、和浏览器的异同
 
-初级：
+  5.`Node`事件驱动、非阻塞机制的实现原理
 
-- JavaScript各种概念都得了解，《JavaScript语言精粹》这本书的目录都得有概念，并且这些核心点都能脱口而出是什么。这里列举一些做参考：
-- 知道组合寄生继承，知道class继承。
-- 知道怎么创建类function + class。
-- 知道闭包在实际场景中怎么用，常见的坑。
-- 知道模块是什么，怎么用。
-- 知道[event loop](https://www.zhihu.com/search?q=event loop&search_source=Entity&hybrid_search_source=Entity&hybrid_search_extra={"sourceType"%3A"answer"%2C"sourceId"%3A2671717786})是什么，能举例说明event loop怎么影响平时的编码。
-- 掌握基础数据结构，比如堆、栈、树，并了解这些数据结构[计算机基础](https://www.zhihu.com/search?q=计算机基础&search_source=Entity&hybrid_search_source=Entity&hybrid_search_extra={"sourceType"%3A"answer"%2C"sourceId"%3A2671717786})中的作用。
-- 知道ES6数组相关方法，比如forEach，map，reduce。
+- 多端开发
 
-3.26
+  1.单页面应用（SPA）的原理和优缺点，掌握一种快速开发SPA的方案
 
-## 3 常用框架
+  2.理解Viewport、em、rem的原理和用法，分辨率、px、ppi、dpi、dp的区别和实际应用
 
-- React  
+  3.移动端页面适配解决方案、不同机型适配方案
 
-- `Vue `
+  4.掌握一种JavaScript移动客户端开发技术，如React Native：可以搭建React Native开发环境，熟练进行开发，可理解React Native的运作原理，不同端适配
 
-- Node
-  - [Node.js 最佳实践](https://github.com/goldbergyoni/nodebestpractices/blob/master/README.chinese.md)
-  
+  5.掌握一种JavaScript PC客户端开发技术，如Electron：可搭建Electron开发环境，熟练进行开发，可理解Electron的运作原理
 
-3.熟练掌握React前端框架，了解技术底层。同时了解vue以及angular等其他框架者优先。
+  6.掌握一种小程序开发框架或原生小程序开发
 
-初级：
+  7.理解多端框架的内部实现原理，至少了解一个多端框架的使用
 
-- 知道react常见优化方案，脱口而出常用生命周期，知道他们是干什么的。
-- 知道react大致实现思路，能对比react和js控制原生dom的差异，能口喷一个简化版的react。
-- 知道[diff算法](https://www.zhihu.com/search?q=diff算法&search_source=Entity&hybrid_search_source=Entity&hybrid_search_extra={"sourceType"%3A"answer"%2C"sourceId"%3A2671717786})大致实现思路。
-- 对state和props有自己的使用心得，结合受控组件、hoc等特性描述，需要说明各种方案的适用场景。
-- 以上几点react替换为vue或angular同样适用。
+- 后端技能
+  1.了解后端的开发方式，在应用程序中的作用，至少会使用一种后端语言
 
-4.熟练掌握[react生态](https://www.zhihu.com/search?q=react生态&search_source=Entity&hybrid_search_source=Entity&hybrid_search_extra={"sourceType"%3A"answer"%2C"sourceId"%3A2671717786})常用工具，redux/react-router等。
+  2.掌握数据最终在数据库中是如何落地存储的，能看懂表结构设计、表之间的关联，至少会使用一种数据库
 
-初级：
+- Web Components
 
-- 知道react-router，redux，redux-thunk，react-redux，immutable，antd或同级别社区组件库。
-- 知道vue和angular对应全家桶分别有哪些。
-- 知道浏览器react相关插件有什么，怎么用。
-- 知道react-router v3/v4的差异。
-- 知道antd组件化设计思路。
-- 知道thunk干嘛用的，怎么实现的。
+- SPA单页应用
 
-## 4 构建工具链
+- Progressive Web `Apps`
 
-2.熟悉常用工程化工具，掌握模块化思想和技术实现方案。
+- Server-side rendering
 
-初级：
+- Static Site Generators
 
-- 知道[webpack](https://www.zhihu.com/search?q=webpack&search_source=Entity&hybrid_search_source=Entity&hybrid_search_extra={"sourceType"%3A"answer"%2C"sourceId"%3A2671717786})，rollup以及他们适用的场景。
-- 知道webpack v4和v3的区别。
-- 脱口而出webpack基础配置。
-- 知道webpack打包结果的代码结构和执行流程，知道index.js，runtime.js是干嘛的。
-- 知道amd，cmd，commonjs，es module分别是什么。
-- 知道所有模块化标准定义一个模块怎么写。给出2个文件，能口喷一段代码完成模块打包和执行的核心逻辑。
+- `Graphql`
+
+- Mobile applications
+
+- Desktop Applications in JavaScript
+
+###  `Node` 
+
+`Web Server`
+
+- [**`Node.js`**: *Let's code a web server from scratch with `NodeJS` Streams*](https://www.codementor.io/ziad-saab/let-s-code-a-web-server-from-scratch-with-nodejs-streams-h4uc9utji)
+- [**`Node.js`**: *lets-build-express*](https://github.com/antoaravinth/lets-build-express)
+- [**`Node.js`**: *Building A Simple Single Sign On(`SSO`) Server And Solution From Scratch In `Node.js`.*](https://codeburst.io/building-a-simple-single-sign-on-sso-server-and-solution-from-scratch-in-node-js-ea6ee5fdf340)
+
+other
+
+- [Build a real-time Markdown Editor with NodeJS](https://scotch.io/tutorials/building-a-real-time-markdown-viewer)
+- [Test-Driven Development with Node, Postgres and Knex](http://mherman.org/blog/2016/04/28/test-driven-development-with-node/)
+- Write a Twitter Bot in Node.js
+  - [Part 1](https://codeburst.io/build-a-simple-twitter-bot-with-node-js-in-just-38-lines-of-code-ed92db9eb078)
+  - [Part 2](https://codeburst.io/build-a-simple-twitter-bot-with-node-js-part-2-do-more-2ef1e039715d)
+- [Build A Simple Search Bot in 30 minutes](https://medium.freecodecamp.org/how-to-build-a-simple-search-bot-in-30-minutes-eb56fcedcdb1)
+- [Build A Job Scraping Web App](https://medium.freecodecamp.org/how-i-built-a-job-scraping-web-app-using-node-js-and-indreed-7fbba124bbdc)
+- [Building a GitHub App](https://blog.scottlogic.com/2017/05/22/gifbot-github-integration.html)
+- How to build your own Uber-for-X App using JavaScript, Node.JS, MongoDB and Web Sockets
+  - [Part 1](https://www.ashwinhariharan.tech/blog/how-to-build-your-own-uber-for-x-app/)
+  - [Part 2](https://www.ashwinhariharan.tech/blog/how-to-build-your-own-uber-for-x-app-part-2/)
+
+## 2.3 工程化
+
+### 知识点
+
+- 熟悉常用工程化工具，掌握模块化思想和技术实现方案。
+
+  - 知道[`webpack`](https://www.zhihu.com/search?q=webpack&search_source=Entity&hybrid_search_source=Entity&hybrid_search_extra={"sourceType"%3A"answer"%2C"sourceId"%3A2671717786})，`rollup`以及他们适用的场景。
+  - 知道[`webpack v4`](https://www.zhihu.com/search?q=webpack v4&search_source=Entity&hybrid_search_source=Entity&hybrid_search_extra={"sourceType"%3A"answer"%2C"sourceId"%3A2671717786})和`v3`的区别。
+  - 脱口而出`webpack`基础配置。
+  - 知道`webpack`打包结果的代码结构和执行流程，知道`index.js`，`runtime.js`是干嘛的。
+  - 知道`amd`，`cmd`，[`commonjs`](https://www.zhihu.com/search?q=commonjs&search_source=Entity&hybrid_search_source=Entity&hybrid_search_extra={"sourceType"%3A"answer"%2C"sourceId"%3A2671717786})，es module分别是什么。
+  - 知道所有模块化标准定义一个模块怎么写。给出2个文件，能口喷一段代码完成模块打包和执行的核心逻辑。
+  - 知道`eslint`，以及如何与工程配合使用。
+
+- 1
+
+  工程：编译工具、格式工具、Git、`NPM`、单元测试、`Nginx`、`PM2`、CI / CD 了解和使用
+
+- 业务思考
+  - 工程化：代码部署、CI / CD 流程设计、Jenkins、Gitlab、Docker 等
+  - 通用性：脚手架、SDK、组件库等框架设计
+  - 应用框架：Hybrid 混合、微前端、BFF、Monorepo
+  - 可视化：
+  - 低代码：通用表单设计、通用布局设计、通用页面设计、`JSON` Schema 协议设计等
+  - 测试：`E2E` 测试、单元测试、测试覆盖率、测试报告等
+  - 业务：数据、体验、复杂度、监控
+
+- 2
+
+- 实用库
+
+  1.至少掌握一种`UI`组件框架，如`antd` design，理解其设计理念、底层实现
+
+  2.掌握一种图表绘制框架，如`Echart`，理解其设计理念、底层实现，可以自己实现图表
+
+  3.掌握一种GIS开发框架，如百度地图API
+
+  4.掌握一种可视化开发框架，如`Three.js`、`D3`
+
+  5.工具函数库，如lodash、underscore、moment等，理解使用的工具类或工具函数的具体实现原理
+
+- 开发和调试
+
+  1.熟练使用各浏览器提供的调试工具
+
+  2.熟练使用一种代理工具实现请求代理、抓包，如charls
+
+  3.可以使用Android、IOS模拟器进行调试，并掌握一种真机调试方案
+
+  4.了解Vue、React等框架调试工具的使用
+
+- 项目构建
+
+  1.理解npm、yarn依赖包管理的原理，两者的区别
+
+  2.可以使用npm运行自定义脚本
+
+  3.理解Babel、ESLint、webpack等工具在项目中承担的作用
+
+  4.`ESLint`规则检测原理，常用的`ESLint`配置
+
+  5.`Babel`的核心原理，可以自己编写一个Babel插件
+
+  6.可以配置一种前端代码兼容方案，如Polyfill
+
+  7.Webpack的编译原理、构建流程、热更新原理，chunk、bundle和module的区别和应用
+
+  8.可熟练配置已有的loaders和plugins解决问题，可以自己编写loaders和plugins
+
+- nginx
+
+  1.正向代理与反向代理的特点和实例
+
+  2.可手动搭建一个简单的nginx服务器、
+
+  3.熟练应用常用的nginx内置变量，掌握常用的匹配规则写法
+
+  4.可以用nginx实现请求过滤、配置gzip、负载均衡等，并能解释其内部原理
+
+- 开发提速
+
+  1.熟练掌握一种接口管理、接口mock工具的使用，如yapi
+
+  2.掌握一种高效的日志埋点方案，可快速使用日志查询工具定位线上问题
+
+  3.理解TDD与BDD模式，至少会使用一种前端单元测试框架
+
+- 版本控制
+
+  1.理解Git的核心原理、工作流程、和SVN的区别
+
+  2.熟练使用常规的Git命令、git rebase、git stash等进阶命令
+
+  3.可以快速解决线上分支回滚、线上分支错误合并等复杂问题
+
+- 持续集成
+
+  1.理解CI/CD技术的意义，至少熟练掌握一种CI/CD工具的使用，如Jenkins
+
+  2.可以独自完成架构设计、技术选型、环境搭建、全流程开发、部署上线等一套完整的开发流程（包括Web应用、移动客户端应用、PC客户端应用、小程序、H5等等）
 
 [带你入门前端工程](https://woai3c.github.io/introduction-to-front-end-engineering/)
 
 [系统设计入门](https://github.com/xitu/system-design-primer/blob/translation/README-zh-Hans.md)
 
-- 项目构建
-- `nginx`
-- 开发提速
-- 版本控制
-- 持续集成
 - 测试
   - [JUnit User Guide](https://junit.org/junit5/docs/current/user-guide/)
   - [You Still Don’t Know How to Do Unit Testing](https://stackify.com/unit-testing-basics-best-practices/)
   - [Unit Testing Best Practices: JUnit Reference Guide](https://dzone.com/articles/unit-testing-best-practices)
   - [JUnit Best Practices](http://www.kyleblaney.com/junit-best-practices/)
-
-- 性能优化
-  - 骨架屏（按需）、图片懒加载、图片预加载、防抖节流、长列表*滚动*到可视区域动态加载
-
-  - 小程序代码瘦身
-
-  - 图片、字体等静态资源压缩
-
 - 添加埋点：曝光上报、点击上报、呼吸上报
-- 监控上报、测试上报、badjs上报
+- 监控上报、测试上报、`badjs`上报
 - 容灾演习
-- Git 版本管理
-  - https://backlog.com/git-tutorial/cn/
-  - https://www.jianshu.com/p/1b65ed31da97
-
-- 代码规范
-- 包管理
-- 编译构建
-- 小程序工程化
-  - https://mp.weixin.qq.com/s/tJN3Yz6usSt9LG37_pN7dw
-  - https://mp.weixin.qq.com/s/_NSJTQ-4-8gTnwTVK-tn0A
-
 - Code Review 
   - [Code Review Best Practices](https://blog.palantir.com/code-review-best-practices-19e02780015f?gi=cfb2fccae145)
   - [How Google Does Code Review](https://dzone.com/articles/how-google-does-code-review)
   - [LinkedIn’s Tips for Highly Effective Code Review](https://thenewstack.io/linkedin-code-review/)
 
+## 2.4 性能
 
-## 5 框架和类库
+### 知识点
 
-- `TypeScript`
-- 多端开发  多端自适应布局 屏幕适配
-- 数据流管理
-- 实用库
-- 开发和调试
-- Web Components
-- SPA单页应用
-- Progressive Web `Apps`
-- Server-side rendering
-- Static Site Generators
-- `Graphql`
-- Mobile applications
-- Desktop Applications in JavaScript
+- 1
 
-1、页面开发框架：
+- 性能：编译性能、监控、白屏检测、SEO、Service Worker 等了解
 
-（1）多端页面：（小程序原生页面、H5）
+- 2
 
-- [Taro 框架](https://taro-docs.jd.com/)（基于 React技术栈）
+- 1.了解前端性能衡量指标、性能监控要点，掌握一种前端性能监控方案
 
-注2：有些业务，一开始只做H5，后来迭代时，要求做小程序原生页面。这一点也要纳入需求评估。
+  2.了解常见的Web、App性能优化方案
 
-（2）H5页面：[Vue.js](https://v3.cn.vuejs.org/guide/introduction.html) 框架、React 框架
+  3.`SEO`排名规则、`SEO`优化方案、前后端分离的`SEO`
 
-（3）App端：
+  4.`SSR`实现方案、优缺点、及其性能优化
 
-- Android端开发语言：Kotlin（新）、Java（老）
-- iOS端开发语言：Swift（新）、Objective-C（老）
+  5.`Webpack`的性能优化方案
 
-（4）B端开发，UI框架：
+  6.`Canvas`性能优化方案
 
-- React 技术栈：[Ant Design](https://ant.design/index-cn)（简称Antd）
-- Vue 技术栈：[Element](https://element.eleme.cn/#/zh-CN)、[Ant Design Vue](https://antdv.com/components/overview-cn)
-- 较简单的CSS响应式框架：[Bootstrap](https://www.bootcss.com/)
+  7.`React`、`Vue`等框架使用性能优化方案
 
-（5）Node.js后端开发框架：
+- 3
 
-- Koa：新一代 Node.js 框架。
-- [Egg.js](https://eggjs.github.io/zh/)：Egg 是在Koa基础上进一步封装的企业级Web开发框架。
-- Express：比较老的Node.js 框架。
+  性能分析工具
 
-2、CSS预处理器：SASS
+  - 控制台的瀑布图 Waterfall
+  - 控制台的 performance工具：日常开发过程中观察分析运行时的性能表现
+  - 控制台的 LightHouse ：跑分、输出性能报告，分析性能
+  - [WebPageTest](https://www.webpagetest.org/)网站：评估网站性能
+  - Performance 这个API：实时动态测量性能
 
-3、复杂图形、动画的实现难度和实现方式，技术评估：
+  性能参数
 
-- gif 动图：尽量不用。因为文件太大，且效果模糊。
-- CSS3 动画：适合简单的、有规律的动画。举例：[摆动的鱼](https://www.cnblogs.com/qianguyihao/p/8435182.html)、[京喜工厂](https://mp.weixin.qq.com/s/u5GHsA0vHz8A_MmGslRw2g)
-- [Canvas](https://www.liaoxuefeng.com/wiki/1022910821149312/1023022423592576)：Canvas 动画、小程序分享图采用 Canvas 绘制
-- 3D动画：[WebGL](https://www.zoo.team/article/webglabout)（[Three.js](http://www.webgl3d.cn/Three.js/) 是 WebGL 的综合库）常见案例：太阳系
-- 游戏框架：Cocos 引擎
+  - 首屏时间 = 白屏时间 + 渲染时间。预解析、预加载、预渲染、懒加载、懒执行。
+  - FPS帧率
+  - 性能的测量标准：RAIL 模型
+  - 弱网环境，耗时对比
 
-## 6 综合
+  浏览器渲染优化
 
-- 业务-项目和代发知识
+  - 了解渲染过程、关键渲染路径
+  - 减少重排和重绘
+  - 用户从输入url到页面加载显示完成，经历了哪些过程
 
-- 面试技巧
+  JavaScript 优化
 
-- 个人项目
+  - JS资源优化：按需加载、编译打包、解析执行、异步加载
+  - V8引擎工作原理、性能优化原理
+  - 防抖和节流
+  - 无限滚动列表：做节点回收
+  - 骨架屏 skeleton：减少布局移动
+  - 时间分片：把一个运行时间比较长的任务分解成一块一块比较小的任务，分块去执行，减少用户的卡顿感
+  - JS内存管理
+
+  资源优化
+
+  - 资源的压缩与合并：减少http请求数量；减少请求资源的大小；使用 http缓存
+  - HTML优化：减少iframe的使用；避免节点的深层次嵌套；避免使用table布局
+  - CSS优化：降低CSS对页面渲染的阻塞，尽早加载CSS；利用GPU渲染CSS动画；使用 contain属性，减少布局和绘制的消耗时间
+  - 图片优化：使用CSS3、SVG、IconFont代替图像；图片懒加载 lazy loading；图片的预加载；渐进式图片；响应式图片；使用 base64 代替小于8kb的图。
+  - 字体优化：字体闪动问题；使用特殊字体时，建议动态加载网络字体
+  - 异步加载第三方资源：第三方资源不可控会影响页面的加载和显示
+
+  构建优化
+
+  - tree shaking、代码拆分（Code Splitting）
+  - 代码压缩混淆
+  - 打包时，避免对不变的库重复构建。
+
+  网络传输优化
+
+  - 启用Gzip对资源进行压缩
+  - CDN传输：静态资源全部放CDN上，使用户可就近获取所需内容，大幅减小光纤传输距离。
+  - 避免重定向：301、302 重定向会降低响应速度
+  - dns预解析：使用dns-prefetch 提前解析域名，提高资源加载速度。在访问以图片为主的网站时，DNS预解析可以让加载时间减少5%左右。
+  - PWA，Service worker
+  - SSR 服务端渲染/Node直出
+
+## 2.5 业务
 
 
+- 2
 
-**系统底层相关**。 主要是以 Linux 系统为主，其中有大量的文章可以让你学习到 Linux 内核，以及内存、网络、异步 I/O 模型、Lock-free 的无锁编程，还有其它和系统底层相关的东西。注意，系统底层要是深下去是可以完全不见底的。而且内存方面的知识也是比较多的，所以，这里还是主要给出一些非常有价值的基础性的知识和技术。学好这些东西，你会对系统有很深的理解，而且可以把这些知识反哺到架构设计上来。
 
-**数据库相关**。数据库方面主要是 MySQL 和各种开源 NoSQL 的一些相关的有价值的文章和导读，主要是让你对这些数据库的内在有一定的了解，但又不会太深。真正的深入是需要扎入到源代码中的。需要说明的是，这块技术不是我的长项，但又是每个架构师需要知道的，所以，我在这里给的学习资源可能会比较浅，这点还希望你来补充和指正。
+  - 1.能理解所开发项目的整体业务形态、业务目标、业务架构，可以快速定位线上业务问题
+  - 2.能理解所开发项目整体的技术架构、能快读的根据新需求进行开发规划、能快速根据业务报警、线上日志等定位并解决线上技术问题
+  - 3.可以将自己的想法或新技术在业务中落地实践，尽量在团队中拥有一定的不可替代性
 
-**分布式架构**。这一部分是最长最多的。其中有架构入门、分布式理论中各种非常有价值的经典论文，然后是一些分布式工程设计方面的文章，其中包括设计模式和工程应用，最后还有各大公司的架构供参考。
+- 开户重构 2021.12--2022.3
 
-**微服务**。有了分布式架构理论和工程的基础，接下来是对微服务的学习。在这部分内容中，我会罗列几个介绍微服务架构非常系统的文章，然后比较一下微服务和 SOA 的差别，最后则是一些工程实践和最佳实践。
+  存单 2022.--2022.10
 
-**容器化和自动化运维**。在容器化和自动化运维中，主要是学习 Docker 和 Kubernetes 这两个自动化运维的杀手型技术。而不是 Salt、Puppet、Chef 和 Ansible 这样比较传统的工具。原因很简单，因为自动化部署根本不够，还需要对环境和运行时的管理和运维才
+  表单（设置）
 
-够，而只有 Docker 和 Kubernetes 才是未来。所以，这里重点让你学习这两个技术，其中有很多文章需要一些系统底层的知识。
+  发文件上传 
 
-**机器学习和人工智能**。机器学习和人工智能，也不是我的长项，我也只是一个入门者。这里，我主要给了一些基础性的知识，其中包括基本原理、图书、课程、文章和相关的算法。你顺着我画的这路走，不能说能成为一个人工智能专家，但成为一个机器学习的高级工程师甚至准专家还是可能的。
+  表格/弹窗拖动 
 
-**前端开发**。这里的前端主要是 HTML 5 的前端了，这一节会带你学习一下前端开发所需要知道的基础知识，尤其是对前端开发语言 JavaScript 的学习，我花费了相当的篇幅列出了很多很经典的学习资料，必定会让你成为一个 JavaScript 高手。然后你还需要了解浏览器是怎样工作的，还有相关的网络协议和一些性能优化的技巧。最后则是JavaScript 框架的学习，这里我只给了 React.js 和 Vue.js，并通过 React.js 带出来**函数式编程**的学习。
+  网点数
 
-**信息源**。最后，则是一些信息源，其中包括各大公司的技术 Blog，还有相关的论文集散地。
+  审批（付款）
+
+  冻结
+
+  预填单 2022.11--2022.12
+
+
+------
+
+**微服务**。有了分布式架构理论和工程的基础，接下来是对微服务的学习。在这部分内容中，我会罗列几个介绍微服务架构非常系统的文章，然后比较一下微服务和 `SOA` 的差别，最后则是一些工程实践和最佳实践。
+
+**容器化和自动化运维**。在容器化和自动化运维中，主要是学习 Docker 和 `Kubernetes` 这两个自动化运维的杀手型技术。而不是 Salt、Puppet、Chef 和 `Ansible` 这样比较传统的工具。原因很简单，因为自动化部署根本不够，还需要对环境和运行时的管理和运维才
+
+够，而只有 Docker 和 `Kubernetes` 才是未来。所以，这里重点让你学习这两个技术，其中有很多文章需要一些系统底层的知识。
+
+**前端开发**。这里的前端主要是 HTML 5 的前端了，这一节会带你学习一下前端开发所需要知道的基础知识，尤其是对前端开发语言 JavaScript 的学习，我花费了相当的篇幅列出了很多很经典的学习资料，必定会让你成为一个 JavaScript 高手。然后你还需要了解浏览器是怎样工作的，还有相关的网络协议和一些性能优化的技巧。最后则是JavaScript 框架的学习，这里我只给了 `React.js` 和 `Vue.js`，并通过 `React.js` 带出来**函数式编程**的学习。
 
 
 
