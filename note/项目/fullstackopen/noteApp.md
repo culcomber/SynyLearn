@@ -1241,7 +1241,7 @@ ESlint有大量的[规则](https://eslint.org/docs/rules/)，通过编辑*.eslin
 
     用*describe*块来分组相关的测试，测试的可读性会得到改善。
 
-### c 用户管理y
+### c 用户管理
 
 1. References across collections
 
