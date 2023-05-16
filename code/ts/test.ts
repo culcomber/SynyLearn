@@ -247,18 +247,121 @@ function initialize() {
   x1 = 10;
 }
 
+// ----------------------------Interfaces----------------------------
+interface Person {
+    readonly name: string; // 只读属性
+    age?: number; // 可选，这里真实的类型应该为：number | undefined
+    [propName: string]: string | number | undefined; // 任意属性，确定属性和可选属性的类型都必须是它的类型的子集
+}
 
+// 类型断言
+interface Props { 
+    name: string; 
+    age: number; 
+    money?: number;
+}
+let p: Props = {
+    name: "兔神",
+    age: 25,
+    money: -100000,
+    girl: false
+} as Props; // OK，本来定义的变量比接口少了一些属性是不允许的，多一些属性也是不允许的
 
+// ----------------------------Type----------------------------
+interface Point1 {
+    x: number;
+    y: number;
+}
+interface SetPoint1 {
+    (x: number, y: number): void;
+}
 
+type Point = {
+    x: number;
+    y: number;
+};
+type SetPoint = (x: number, y: number) => void;
+  
+// primitive
+type Name = string;
 
+// object
+type PartialPointX = { x: number; };
+type PartialPointY = { y: number; };
 
+// union
+type PartialPoint = PartialPointX | PartialPointY;
 
+// tuple
+type Data = [number, string];
 
+// dom
+let div = document.createElement('div');
+type B1 = typeof div;
 
+// 接口可以定义多次，会被自动合并为单个接口
+interface Point2a { x: number; }
+interface Point2a { y: number; }
+const point2: Point = { x: 1, y: 2 };
 
+// 扩展
+// 接口扩展接口
+interface PointX1 {
+    x: number
+}
+interface Point1 extends PointX1 {
+    y: number
+}
+// 类型扩展类型
+type PointX2 = {
+    x: number
+}
+type Point2 = PointX2 & {
+    y: number
+}
+// 接口扩展类型
+type PointX3 = {
+    x: number
+}
+interface Point3 extends PointX3 {
+    y: number
+}
+// 类型扩展接口
+interface PointX4 {
+    x: number
+}
+type Point4 = PointX4 & {
+    y: number
+}
 
+// ----------------------------泛型----------------------------
+// T（Type）：表示抽象类型，只有在调用的时候才确定它的值；
+// K（Key）：表示对象中的键类型；
+// V（Value）：表示对象中的值类型；
+// E（Element）：表示元素类型。
+// 函数 identity，函数的参数可以是任何值，返回值就是将参数原样返回
+function identity<T>(arg: T): T {
+  return arg;
+}
 
+function identity1 <T, U>(value: T, message: U) : T {
+    console.log(message);
+    return value;
+}
+console.log(identity1<Number, string>(68, "Semlinker"));
 
+// typeof 的主要用途是在类型上下文中获取变量或者属性的类型
+interface Person1 {
+  name: string;
+  age: number;
+}
+const sem: Person = { name: "semlinker", age: 30 };
+type Sem = typeof sem; // type Sem = Person
+
+// 用于获取某种类型的所有键，其返回类型是联合类型
+function prop<T extends object, K extends keyof T>(obj: T, key: K) {
+  return obj[key];
+}
 
 
 
