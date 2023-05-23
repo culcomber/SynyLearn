@@ -1,3 +1,8 @@
+/* 装饰者模式和代理模式
+代理模式通常只有一层代理对本体的引用，而装饰者模式经常会形成一条长长的装饰链。
+装饰者模式是实实在在的为对象增加新的职责和行为，而代理做的事情还是跟本体一样，最终都是设置 src。
+但代理可以加入一些“聪明”的功能，比如在图片真正加载好之前，先使用一张占位的 loading 图片反馈给客户。*/
+
 // 一开始这些飞机只能发射普通的子弹，升到第二级时可以发射导弹，升到第三级时可以发射原子弹。
 const Plane = function(){}
 Plane.prototype.fire = function(){
@@ -60,3 +65,43 @@ ajax = ajax.before(function( type, url, param ){
 ajax( 'get', 'http://xxx.com/userinfo', { name: 'sven' } );
 
 // 用AOP验证表单
+/*<body>
+ 用户名：<input id="username" type="text"/>
+ 密码： <input id="password" type="password"/>
+ <input id="submitBtn" type="button" value="提交">
+</body>*/
+const username = document.getElementById( 'username' ),
+    password = document.getElementById( 'password' ),
+    submitBtn = document.getElementById( 'submitBtn' );
+Function.prototype.before = function( beforefn ){
+    const __self = this;
+    return function(){
+        if ( beforefn.apply( this, arguments ) === false ){
+            // beforefn 返回 false 的情况直接 return，不再执行后面的原函数
+            return;
+        }
+        return __self.apply( this, arguments );
+    }
+}
+const validate = function(){
+    if ( username.value === '' ){
+        alert ( '用户名不能为空' );
+        return false;
+    }
+    if ( password.value === '' ){
+        alert ( '密码不能为空' );
+        return false;
+    }
+}
+let formSubmit = function(){
+    const param = {
+        username: username.value,
+        password: password.value
+    }
+    ajax( 'http://xxx.com/login', param );
+}
+// 把校验规则动态接在 formSubmit 函数之前，validate 成为一个即插即用的函数
+formSubmit = formSubmit.before( validate ); // .before返回函数
+submitBtn.onclick = function(){
+    formSubmit(); // 运行.before函数
+}
