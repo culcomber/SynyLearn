@@ -49,3 +49,14 @@ const test = function(origin){
     console.log(3, after);
 }, 'after');
 test('origin');
+
+// 用AOP动态改变函数的参数
+const getToken = function(){
+    return 'Token';
+}
+ajax = ajax.before(function( type, url, param ){
+    param.Token = getToken(); // 给param增加参数
+});
+ajax( 'get', 'http://xxx.com/userinfo', { name: 'sven' } );
+
+// 用AOP验证表单
