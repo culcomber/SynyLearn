@@ -20,7 +20,7 @@ const search = function(nums, target) {
 console.log('search');
 console.log(search([1, 2, 3, 4, 5, 6], 3));
 
-// Order-agnostic Binary Search (easy)\
+// 2 Order-agnostic Binary Search (easy)
 /* 找到有序（升序or降序）数组中值等于key的index
 Example 1:
 Input: [4, 6, 10], key = 10
@@ -68,7 +68,7 @@ console.log(binary_search([1, 2, 3, 4, 5, 6, 7], 5));
 console.log(binary_search([10, 6, 4], 10));
 console.log(binary_search([10, 6, 4], 4));
 
-// Ceiling of a Number (medium)
+// 3 Ceiling of a Number (medium)
 /* 找到升序数组中大于等于给定key的index
 Example 1:
 Input: [4, 6, 10], key = 6
@@ -160,7 +160,7 @@ console.log(search_floor_of_a_number([1, 3, 8, 10, 15], 12));
 console.log(search_floor_of_a_number([4, 6, 10], 17));
 console.log(search_floor_of_a_number([4, 6, 10], -1));
 
-// Next Letter (medium)
+// 4 Next Letter (medium)
 /* 找到有序数组中大于给定key的值，没有等于，等于后循环要走下去，如果没有就返回数组第一个值
 Example 1:
 Input: ['a', 'c', 'f', 'h'], key = 'f'
@@ -187,13 +187,14 @@ Explanation: As the array is assumed to be circular, the smallest letter greater
 找小于，循环往左走，start=0 end=1 mid=0 --> start=1 end=1 mid=1 --> start=2 end=1 end1刚好大于key2*/
 function search_next_letter(letters, key) {
     const n = letters.length;
+    // 给定key小于第一个字母，返回第一个字母 || key大于最后一个字母，根据循环返回第一个字母
     if (key < letters[0] || key >= letters[n - 1]) {
         return letters[0];
     }
     let start = 0, end = n - 1, mid;
     while (start <= end) {
         mid = Math.floor((end - start) / 2 + start);
-        if (key >= letters[mid]) {
+        if (key >= letters[mid]) { // 找刚好大于key的位置，key大于等于mid时，start都要增加
             start = mid + 1;
         } else {
             end = end - 1;
@@ -211,14 +212,14 @@ console.log(search_next_letter(['a', 'c', 'f', 'h'], 'm'));
 // 找到有序数组中小于给定key的值，没有等于，等于后循环要走下去，如果没有就返回数组第一个值
 function search_before_letter(letters, key) {
     const n = letters.length;
-    if (key <= letters[0] || key > letters[n - 1]) {
+    // 给定key大于最后字母，最后字母就是小于key || key小于第一个字母，根据循环返回最后一个字母
+    if (key > letters[n - 1] || key <= letters[0]) {
         return letters[n - 1]
     }
-
     let start = 0, end = n - 1, mid;
     while (start <= end) {
         mid = Math.floor((end - start) / 2 + start);
-        if (key <= letters[mid]) {
+        if (key <= letters[mid]) { // 找刚好小于key的位置，key小于等于mid时，end都要减少
             end = mid - 1;
         } else {
             start = mid + 1;
@@ -231,7 +232,7 @@ console.log(search_before_letter(['a', 'c', 'f', 'h'], 'f'));
 console.log(search_before_letter(['a', 'c', 'f', 'h'], 'b'));
 console.log(search_before_letter(['a', 'c', 'f', 'h'], 'm'));
 
-// Number Range (medium)
+// 5 Number Range (medium)
 // 数组里面有重复，找到重复的范围
 /*Example 1:
 Input: [4, 6, 6, 6, 9], key = 6
@@ -282,7 +283,76 @@ console.log(find_range([4, 6, 6, 6, 9], 6));
 console.log(find_range([1, 3, 8, 10, 15], 10));
 console.log(find_range([1, 3, 8, 10, 15], 12));
 
-// Search in a Sorted Infinite Array (medium)
+// 6 Search in a Sorted Infinite Array (medium)
+/* 数组长度无限制
+Example 1:
+Input: [4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30], key = 16
+Output: 6
+Explanation: The key is present at index '6' in the array.
+
+Example 2:
+Input: [4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30], key = 11
+Output: -1
+Explanation: The key is not present in the array.
+
+Example 3:
+Input: [1, 3, 8, 10, 15], key = 15
+Output: 4
+Explanation: The key is present at index '4' in the array.
+
+Example 4:
+Input: [1, 3, 8, 10, 15], key = 200
+Output: -1
+Explanation: The key is not present in the array.*/
+
+class ArrayReader {
+    constructor(arr) {
+        this.arr = arr;
+    }
+
+    get(index) {
+        if (index >= this.arr.length) return Number.MAX_SAFE_INTEGER
+        return this.arr[index]
+    }
+}
+
+const search_in_infinite_array = function (reader, key) {
+    // 先找到合适的边界
+    let start = 0, end = 1, newStart;
+    while (reader.get(end) < key) {
+        newStart = end + 1;
+        end += (end - start + 1) * 2;
+        // 逐渐增大边界
+        start = newStart;
+    }
+    return binary_search_infinite(reader, key, start, end);
+}
+
+function binary_search_infinite(reader, key, start, end) {
+    console.log('start', start, '  end', end);
+    let mid;
+    while (start <= end) {
+        mid = Math.floor((end - start) / 2 + start);
+        if (key < reader.get(mid)) {
+            end = mid - 1;
+        } else if (key > reader.get(mid)) {
+            start = mid + 1;
+        } else {
+            return mid;
+        }
+    }
+    return -1;
+}
+
+let reader = new ArrayReader([4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30]);
+console.log('search_in_infinite_array');
+console.log(search_in_infinite_array(reader, 16));
+console.log(search_in_infinite_array(reader, 11));
+reader = new ArrayReader([1, 3, 8, 10, 15]);
+console.log(search_in_infinite_array(reader, 15));
+console.log(search_in_infinite_array(reader, 200));
+console.log(2 < Number.MAX_SAFE_INTEGER) // true
+console.log(2 > Number.MAX_SAFE_INTEGER) // false
 
 
 
