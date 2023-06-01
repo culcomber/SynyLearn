@@ -20,9 +20,26 @@ const search = function(nums, target) {
 console.log('search');
 console.log(search([1, 2, 3, 4, 5, 6], 3));
 
-// Order-agnostic Binary Search (easy)
+// Order-agnostic Binary Search (easy)\
+/* 找到有序（升序or降序）数组中值等于key的index
+Example 1:
+Input: [4, 6, 10], key = 10
+Output: 2
+
+Example 2:
+Input: [1, 2, 3, 4, 5, 6, 7], key = 5
+Output: 4
+
+Example 3:
+Input: [10, 6, 4], key = 10
+Output: 0
+
+Example 4:
+Input: [10, 6, 4], key = 4
+Output: 2*/
 function binary_search(arr, key) {
     let start = 0, end = arr.length - 1, mid;
+    // 是否是升序
     let isAscending = arr[start] < arr[end];
     while (start <= end) {
         mid = Math.floor((end - start) / 2 + start);
@@ -52,11 +69,31 @@ console.log(binary_search([10, 6, 4], 10));
 console.log(binary_search([10, 6, 4], 4));
 
 // Ceiling of a Number (medium)
-// start会比key大，end会比key小
-// 找到有序数组中大于等于给定key的index
+/* 找到升序数组中大于等于给定key的index
+Example 1:
+Input: [4, 6, 10], key = 6
+Output: 1
+Explanation: The smallest number greater than or equal to '6' is '6' having index '1'.
+
+Example 2:
+Input: [1, 3, 8, 10, 15], key = 12
+Output: 4
+Explanation: The smallest number greater than or equal to '12' is '15' having index '4'.
+
+Example 3:
+Input: [4, 6, 10], key = 17
+Output: -1
+Explanation: There is no number greater than or equal to '17' in the given array.
+
+Example 4:
+Input: [4, 6, 10], key = -1
+Output: 0
+Explanation: The smallest number greater than or equal to '-1' is '4' having index '0'.*/
+
+// 如果数组没有等于key的值，start的值会大于key
 function search_ceiling_of_a_number(arr, key) {
     const n = arr.length;
-    if (key > arr[n - 1]) {
+    if (key > arr[n - 1]) { // key比最后一位还大，数组中没有大于等于key的值
         return -1;
     } // 情况一：没有符合
     let start = 0, end = n -1, mid;
@@ -78,7 +115,28 @@ console.log(search_ceiling_of_a_number([1, 3, 8, 10, 15], 12));
 console.log(search_ceiling_of_a_number([4, 6, 10], 17));
 console.log(search_ceiling_of_a_number([4, 6, 10], -1));
 
-// 找到有序数组中小于给定key的index
+/* 找到有序数组中小于给定key的index
+Example 1:
+Input: [4, 6, 10], key = 6
+Output: 1
+Explanation: The biggest number smaller than or equal to '6' is '6' having index '1'.
+
+Example 2:
+Input: [1, 3, 8, 10, 15], key = 12
+Output: 3
+Explanation: The biggest number smaller than or equal to '12' is '10' having index '3'.
+
+Example 3:
+Input: [4, 6, 10], key = 17
+Output: 2
+Explanation: The biggest number smaller than or equal to '17' is '10' having index '2'.
+
+Example 4:
+Input: [4, 6, 10], key = -1
+Output: -1
+Explanation: There is no number smaller than or equal to '-1' in the given array.*/
+
+// 如果数组等于key的值，end的值会小于key
 function search_floor_of_a_number(arr, key) {
     if (key < arr[0]) {
         return -1;
@@ -103,7 +161,8 @@ console.log(search_floor_of_a_number([4, 6, 10], 17));
 console.log(search_floor_of_a_number([4, 6, 10], -1));
 
 // Next Letter (medium)
-/*Example 1:
+/* 找到有序数组中大于给定key的值，没有等于，等于后循环要走下去，如果没有就返回数组第一个值
+Example 1:
 Input: ['a', 'c', 'f', 'h'], key = 'f'
 Output: 'h'
 Explanation: The smallest letter greater than 'f' is 'h' in the given array.
@@ -126,8 +185,6 @@ Explanation: As the array is assumed to be circular, the smallest letter greater
 /*[0, 1, 2, 3, 4] start=0 end=4 mid=2 key=2
 找大于，循环往右走，start=3 end=4 mid=3 --> start=3 end=2 start3刚好大于key2
 找小于，循环往左走，start=0 end=1 mid=0 --> start=1 end=1 mid=1 --> start=2 end=1 end1刚好大于key2*/
-
-// 找到有序数组中大于给定key的值，没有等于，等于后循环要走下去，如果没有就返回数组第一个值
 function search_next_letter(letters, key) {
     const n = letters.length;
     if (key < letters[0] || key >= letters[n - 1]) {
