@@ -354,6 +354,98 @@ console.log(search_in_infinite_array(reader, 200));
 console.log(2 < Number.MAX_SAFE_INTEGER) // true
 console.log(2 > Number.MAX_SAFE_INTEGER) // false
 
+// 7 Minimum Difference Element (medium)
+/* 有序数组中找到与key差值最小的值
+Example 1:
+Input: [4, 6, 10], key = 7
+Output: 6
+Explanation: The difference between the key '7' and '6' is minimum than any other number in the array
+
+Example 2:
+Input: [4, 6, 10], key = 4
+Output: 4
+
+Example 3:
+Input: [1, 3, 8, 10, 15], key = 12
+Output: 10
+
+Example 4:
+Input: [4, 6, 10], key = 17
+Output: 10*/
+function search_min_diff_element(arr, key) {
+    if (key <= arr[0]) {
+        return arr[0];
+    }
+    const n = arr.length;
+    if (key >= arr[n - 1]) {
+        return arr[n - 1];
+    }
+    let start = 0, end = n -1, mid;
+    while (start <= end) {
+        mid = Math.floor((end - start) / 2 + start);
+        if (key < arr[mid]) {
+            end = end - 1;
+        } else if (key > arr[mid]) {
+            start = start + 1;
+        } else {
+            return arr[mid];
+        }
+    }
+    // 没有找到与key相等的mid，end<key<start，比较哪边差值比较少
+    if ((arr[start] - key) < (key - arr[end])) {
+        return arr[start];
+    }
+    return arr[end]
+}
+
+console.log('search_min_diff_element');
+console.log(search_min_diff_element([4, 6, 10], 7));
+console.log(search_min_diff_element([4, 6, 10], 4));
+console.log(search_min_diff_element([1, 3, 8, 10, 15], 12));
+console.log(search_min_diff_element([4, 6, 10], 17));
+
+// 8 Bitonic Array Maximum (easy)
+/* 单调递增数组增到最大值后然后单调递减，找到最大值
+Example 1:
+Input: [1, 3, 8, 12, 4, 2]
+Output: 12
+
+Example 2:
+Input: [3, 8, 3, 1]
+Output: 8
+
+Example 3:
+Input: [1, 3, 8, 12]
+Output: 12
+
+Example 4:
+Input: [10, 9, 8]
+Output: 10*/
+const find_max_in_bitonic_array = function (arr) {
+    let start = 0, end = arr.length - 1, mid;
+    while (start <= end) {
+        mid = Math.floor((end - start) / 2 + start);
+        if (arr[mid] > arr[mid + 1]) { // 处于第二段
+            end = mid;
+        } else { // 处于第一段
+            start = mid + 1;
+        }
+    }
+    return arr[start];
+}
+console.log('find_max_in_bitonic_array');
+console.log(find_max_in_bitonic_array([1, 3, 8, 12, 4, 2]));
+console.log(find_max_in_bitonic_array([3, 8, 3, 1]));
+console.log(find_max_in_bitonic_array([1, 3, 8, 12]));
+console.log(find_max_in_bitonic_array([10, 9, 8]));
+
+// 9 Search Bitonic Array (medium)
+
+
+// 10 Search in Rotated Array (medium)
+
+
+// 11 Rotation Count (medium)
 
 
 
