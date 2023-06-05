@@ -115,7 +115,7 @@ console.log(search_ceiling_of_a_number([1, 3, 8, 10, 15], 12));
 console.log(search_ceiling_of_a_number([4, 6, 10], 17));
 console.log(search_ceiling_of_a_number([4, 6, 10], -1));
 
-/* 找到有序数组中小于给定key的index
+/* 找到有序数组中小于等于给定key的index
 Example 1:
 Input: [4, 6, 10], key = 6
 Output: 1
@@ -423,7 +423,7 @@ Input: [10, 9, 8]
 Output: 10*/
 const find_max_in_bitonic_array = function (arr) {
     let start = 0, end = arr.length - 1, mid;
-    while (start <= end) {
+    while (start < end) { // start === end 两者斗收缩到最大值
         mid = Math.floor((end - start) / 2 + start);
         if (arr[mid] > arr[mid + 1]) { // 处于第二段
             end = mid;
@@ -440,9 +440,86 @@ console.log(find_max_in_bitonic_array([1, 3, 8, 12]));
 console.log(find_max_in_bitonic_array([10, 9, 8]));
 
 // 9 Search Bitonic Array (medium)
+/* Bitonic Array中找key
+Example 1:
+Input: [1, 3, 8, 4, 3], key=4
+Output: 3
 
+Example 2:
+Input: [3, 8, 3, 1], key=8
+Output: 1
+
+Example 3:
+Input: [1, 3, 8, 12], key=12
+Output: 3
+
+Example 4:
+Input: [10, 9, 8], key=10
+Output: 0*/
+// 先找到最大值，然后把数组分成两部分
+function search_bitonic_array(arr, key) {
+    const maxIndex = find_max(arr);
+    const keyIndex = binary_search_bitonic(arr, key, 0, maxIndex);
+    if (keyIndex !== -1) {
+        return keyIndex;
+    }
+    return binary_search_bitonic(arr, key, maxIndex + 1, arr.length - 1);
+}
+// 找到数组最大值下标
+function find_max(arr) {
+    let start = 0, end = arr.length - 1, mid;
+    while (start < end) {
+        const mid = Math.floor((end - start) / 2 + start);
+        if (arr[mid] <= arr[mid + 1]) { // mid+1是更大值
+            start = mid + 1;
+        } else { // 有可能mid是最大值
+            end = mid;
+        }
+    }
+    return start;
+}
+// 查找key
+function binary_search_bitonic(arr, key, start, end) {
+    let mid;
+    while (start <= end) {
+        mid = Math.floor((end - start) / 2 + start);
+        if (key === arr[mid]) {
+            return mid;
+        }
+        // 分前后两部分
+        if (arr[start] < arr[end]) { // 升序
+            if (key < arr[mid]) {
+                end = mid - 1;
+            } else {
+                start = mid + 1;
+            }
+        } else {
+            if (key > arr[mid]) {
+                end = mid - 1;
+            } else {
+                start = mid + 1;
+            }
+        }
+    }
+    return -1;
+}
+console.log('search_bitonic_array');
+console.log(search_bitonic_array([1, 3, 8, 4, 3], 4));
+console.log(search_bitonic_array([3, 8, 3, 1], 8));
+console.log(search_bitonic_array([1, 3, 8, 12], 12));
+console.log(search_bitonic_array([10, 9, 8], 10));
 
 // 10 Search in Rotated Array (medium)
+/* 在旋转数组（递增数组任意值翻转）中找到key
+Example 1:
+Input: [10, 15, 1, 3, 8], key = 15
+Output: 1
+Explanation: '15' is present in the array at index '1'.
+
+Example 2:
+Input: [4, 5, 7, 9, 10, -1, 2], key = 10
+Output: 4
+Explanation: '10' is present in the array at index '4'.*/
 
 
 // 11 Rotation Count (medium)
