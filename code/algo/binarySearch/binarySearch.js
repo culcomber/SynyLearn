@@ -272,7 +272,7 @@ function binary_search_range(arr, key, findMaxIndex) {
                 start = mid + 1;
             } else {
                 // search behind to find the first index of 'key'
-                end = end - 1;
+                end = mid - 1;
             }
         }
     }
