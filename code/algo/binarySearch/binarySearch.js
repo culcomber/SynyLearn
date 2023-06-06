@@ -520,10 +520,141 @@ Example 2:
 Input: [4, 5, 7, 9, 10, -1, 2], key = 10
 Output: 4
 Explanation: '10' is present in the array at index '4'.*/
+function search_rotated_array(arr, key) {
+    let start = 0, end = arr.length - 1, mid;
+    while (start <= end) {
+        mid = Math.floor((end - start) / 2 + start);
+        if (key === arr[mid]) {
+            return mid;
+        }
+        // 分前后两部分，总有一侧是排序的
+        if (arr[start] < arr[mid]) {
+            if (key >= arr[start] && key < arr[mid]) {
+                end = mid - 1;
+            } else {
+                start = mid + 1;
+            }
+        } else {
+            if (key <= arr[end] && key > arr[mid]) {
+                start = mid + 1;
+            } else {
+                end = mid - 1;
+            }
+        }
+    }
+    return -1;
+}
+console.log('search_rotated_array');
+console.log(search_rotated_array([10, 15, 1, 3, 8], 15));
+console.log(search_rotated_array([4, 5, 7, 9, 10, -1, 2], 10));
 
+// 数组存在重复
+function search_rotated_with_duplicates(arr, key) {
+    let start = 0, end = arr.length - 1, mid;
+    while (start <= end) {
+        mid = Math.floor((end - start) / 2 + start);
+        if (key === arr[mid]) {
+            return mid;
+        }
+        // 如果存在重复，缩小范围
+        if (arr[start] === arr[mid] && arr[mid === arr[end]]) {
+            start += 1;
+            end -= 1;
+        } else if (arr[start] < arr[mid]) { // 分前后两部分，总有一侧是排序的
+            if (key >= arr[start] && key < arr[mid]) {
+                end = mid - 1;
+            } else {
+                start = mid + 1;
+            }
+        } else {
+            if (key <= arr[end] && key > arr[mid]) {
+                start = mid + 1;
+            } else {
+                end = mid - 1;
+            }
+        }
+    }
+    return -1;
+}
+console.log('search_rotated_with_duplicates');
+console.log(search_rotated_with_duplicates([3, 7, 3, 3, 3], 7));
 
 // 11 Rotation Count (medium)
+/* 在旋转数组中找到旋转点
+Example 1:
+Input: [10, 15, 1, 3, 8]
+Output: 2
+Explanation: The array has been rotated 2 times.
 
+Example 2:
+Input: [4, 5, 7, 9, 10, -1, 2]
+Output: 5
+Explanation: The array has been rotated 5 times.
+
+Example 3:
+Input: [1, 3, 8, 10]
+Output: 0
+Explanation: The array has not been rotated.*/
+
+// 找到旋转数组中最小值，数组中唯一比前面的值小
+function count_rotations(arr) {
+    let start = 0, end = arr.length - 1, mid;
+    while (start < end) {
+        mid = Math.floor((end - start) / 2 + start);
+        // 情况1：mid>mid+1
+        if (mid < end && arr[mid] > arr[mid + 1]) {
+            return mid + 1;
+        }
+        // 情况2：mid-1>mid
+        if (mid > start && arr[mid] < arr[mid - 1]) {
+            return mid;
+        }
+        // 移动start or end
+        if (arr[start] < arr[mid]) {
+            start = mid + 1;
+        } else {
+            end = mid - 1;
+        }
+    }
+    return 0;
+}
+console.log('count_rotations');
+console.log(count_rotations([10, 15, 1, 3, 8]));
+console.log(count_rotations([4, 5, 7, 9, 10, -1, 2]));
+console.log(count_rotations([1, 3, 8, 10]));
+
+// 数组存在重复项
+function count_rotations_with_diplicates(arr) {
+    let start = 0, end = arr.length - 1, mid;
+    while (start < end) {
+        mid = Math.floor((end - start) / 2 + start);
+        // 情况1：mid>mid+1
+        if (mid < end && arr[mid] > arr[mid + 1]) {
+            return mid + 1;
+        }
+        // 情况2：mid-1>mid
+        if (mid > start && arr[mid] < arr[mid - 1]) {
+            return mid;
+        }
+        if (arr[start] === arr[mid] && arr[mid] === arr[end]) {
+            if (arr [start] > arr[start + 1]) {
+                return start + 1;
+            }
+            start +=1;
+            if (arr[end -1] > arr[end]) {
+                return end;
+            }
+            end -= 1;
+        } else if (arr[start] < arr[mid] || (arr[start] === arr[mid] && arr[mid] > arr[end])) {
+            start = mid + 1;
+        } else {
+            end = mid - 1;
+        }
+    }
+    return 0;
+}
+console.log('count_rotations_with_diplicates');
+console.log(count_rotations_with_diplicates([3, 3, 7, 3]));
 
 
 
