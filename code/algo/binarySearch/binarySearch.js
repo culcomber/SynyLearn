@@ -636,6 +636,7 @@ function count_rotations_with_diplicates(arr) {
         if (mid > start && arr[mid] < arr[mid - 1]) {
             return mid;
         }
+        // 处理相同
         if (arr[start] === arr[mid] && arr[mid] === arr[end]) {
             if (arr [start] > arr[start + 1]) {
                 return start + 1;
@@ -646,6 +647,7 @@ function count_rotations_with_diplicates(arr) {
             }
             end -= 1;
         } else if (arr[start] < arr[mid] || (arr[start] === arr[mid] && arr[mid] > arr[end])) {
+            // 增加判断
             start = mid + 1;
         } else {
             end = mid - 1;
