@@ -11,7 +11,7 @@
  */
 var findMin = function(nums) {
     let start = 0, end = nums.length - 1, mid;
-    while (start < end) {
+    while (start <= end) {
         mid = Math.floor((end - start) / 2 + start);
         // 返回——最小值是唯一比前面数值小的
         if (mid < end && nums[mid] > nums[mid + 1]) {
