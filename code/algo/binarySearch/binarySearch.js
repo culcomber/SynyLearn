@@ -96,7 +96,7 @@ function search_ceiling_of_a_number(arr, key) {
     if (key > arr[n - 1]) { // key比最后一位还大，数组中没有大于等于key的值
         return -1;
     } // 情况一：没有符合
-    let start = 0, end = n -1, mid;
+    let start = 0, end = n - 1, mid;
     while (start <= end) {
         mid = Math.floor((end - start) / 2 + start)
         if (key < arr[mid]) {
