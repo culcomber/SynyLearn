@@ -1,2 +1,6 @@
-console.log(1 % 2);
-console.log(0 % 2);
+console.log(Number());
+if (Number()) {
+    console.log(true);
+} else {
+    console.log(false);
+}
