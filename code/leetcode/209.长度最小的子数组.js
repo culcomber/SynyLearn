@@ -14,7 +14,7 @@ var minSubArrayLen = function(target, nums) {
     let result = Infinity, sum = 0, start = 0, end = 0;
     while (end < nums.length) {
         sum += nums[end];
-        while (sum >= target) {
+        while (sum >= target) { // 有可能end远大于start的值，start要移动很多位
             result = Math.min(result, end - start + 1);
             sum -= nums[start++];
         }
