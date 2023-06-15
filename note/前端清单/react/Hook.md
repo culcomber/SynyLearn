@@ -6,7 +6,7 @@
 
 通过 `JSX` 语法，用声明式的方式来描述数据（`state`）和 `UI` 之间的关系。
 
-<img src="C:\Users\SamTL\AppData\Roaming\Typora\typora-user-images\image-20230427100431552.png" alt="image-20230427100431552" style="zoom:47%;" />
+<img src="../../assets/image-20230427100431552.png" alt="image-20230427100431552" style="zoom:47%;" />
 
 **1.2 基本概念**
 
@@ -90,11 +90,11 @@
 
 把一个外部的数据绑定到函数的执行。当数据变化时，函数能够自动重新执行，这个机制就是 **`Hooks`**。
 
-<img src="C:\Users\SamTL\AppData\Roaming\Typora\typora-user-images\image-20230427102941021.png" alt="image-20230427102941021" style="zoom:30%;" />
+<img src="../../assets/image-20230427102941021.png" alt="image-20230427102941021" style="zoom:30%;" />
 
 Hooks 就是**把某个目标结果（Result）钩到某个可能会变化的数据源或者事件源（State、URL、窗口大小）上，那么当被钩到的数据或事件发生变化时，产生这个目标结果的代码（Execution）会重新执行，产生更新后的结果**。
 
-<img src="C:\Users\SamTL\AppData\Roaming\Typora\typora-user-images\image-20230427103858808.png" alt="image-20230427103858808" style="zoom:40%;" />
+<img src="../../assets/image-20230427103858808.png" alt="image-20230427103858808" style="zoom:40%;" />
 
 **逻辑复用**
 
@@ -257,7 +257,7 @@ function Counter() {
 
 Redux 用全局唯一的 Store 维护了整个应用程序的状态。对于页面的多个组件，都是从这个 Store 来获取状态的，保证组件之间能够共享状态。
 
-<img src="C:\Users\SamTL\AppData\Roaming\Typora\typora-user-images\image-20230428103128109.png" alt="image-20230428103128109" style="zoom:50%;" />
+<img src="../../assets/image-20230428103128109.png" alt="image-20230428103128109" style="zoom:50%;" />
 
 **Redux Store 特点**
 
@@ -277,9 +277,9 @@ Redux 用全局唯一的 Store 维护了整个应用程序的状态。对于页�
 - Action 也是一个 Object，用于描述发生的动作。
 - Reducer 则是一个函数，接收 Action 和 State 并作为参数，通过计算得到新的Store。
 
-<img src="C:\Users\SamTL\AppData\Roaming\Typora\typora-user-images\image-20230428103500655.png" alt="image-20230428103500655" style="zoom:33%;" />
+<img src="../../assets/image-20230428103500655.png" alt="image-20230428103500655" style="zoom:33%;" />
 
-<img src="C:\Users\SamTL\AppData\Roaming\Typora\typora-user-images\image-20230428103703201.png" alt="image-20230428103703201" style="zoom:33%;" />
+<img src="../../assets/image-20230428103703201.png" alt="image-20230428103703201" style="zoom:33%;" />
 
 所有对于 Store 的修改都必须通过这样一个公式去完成，即通过 Reducer
 

@@ -317,8 +317,6 @@ otherHomework.topic; // "Math"
 homework.topic; // "JS" -- not "Math"
 ```
 
-![image-20221103130653566](C:\Users\sam\AppData\Roaming\Typora\typora-user-images\image-20221103130653566.png)
-
 `Object.create(null)` creates an object that is not prototype linked anywhere, so it's purely just a standalone object.
 
 ## Appendix A: Exploring Further
