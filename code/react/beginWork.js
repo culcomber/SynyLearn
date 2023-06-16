@@ -217,7 +217,7 @@ function beginWork(
             if ((current.effectTag & ForceUpdateForLegacySuspense) !== NoEffect) {
                 // This is a special case that only exists for legacy mode.
                 // See https://github.com/facebook/react/pull/19216.
-                didReceiveUpdate = true;
+                didReceive166Update = true;
             } else {
                 // An update was scheduled on this fiber, but there are no new props
                 // nor legacy context. Set this to false. If an update queue or context
