@@ -198,20 +198,12 @@ function performUnitOfWork(fiber) {
   /*element（通过 createElement创建的 react element）
   DOM node（最终生成对应的 DOM 节点）
   fiber node（从element 到 DOM 节点的中间产物，用于时间切片）*/
-
-  // 1 add dom node
-  if (!fiber.dom) {
-    fiber.dom = createDom(fiber);
+  const isFunctionComponent = fiber.type instanceof Function;
+  if (isFunctionComponent) {
+    updateFunctionComponent(fiber)
+  } else {
+    updateHostComponent(fiber)
   }
-  // 在完成整棵树的渲染前，浏览器还要中途阻断这个过程。 那么用户就有可能看到渲染未完全的 UI
-  /*if (fiber.parent) {
-    fiber.parent.dom.appendChild(fiber.dom);
-  }*/
-  // 把修改DOM的内容记录在 wipRoot（work in progress root）上，通过追踪这颗树来收集所有 DOM 节点的修改
-
-  // 2 create new fibers
-  const elements = fiber.props.children;
-  reconcileChildren(fiber, elements);
 
   // 3 return next unit of work
   // 找到下一个工作单元。 先试试 child 节点，再试试 sibling 节点，再试试 “uncle” 节点
@@ -225,6 +217,27 @@ function performUnitOfWork(fiber) {
     }
     nextFiber = nextFiber.parent;
   }
+}
+
+function updateFunctionComponent(fuber) {
+  const children = [fiber.type(fiber.props)];
+  reconcileChildren(fiber, children);
+}
+
+function updateHostComponent(fiber) {
+  // 1 add dom node
+  if (!fiber.dom) {
+    fiber.dom = createDom(fiber);
+  }
+  // 在完成整棵树的渲染前，浏览器还要中途阻断这个过程。 那么用户就有可能看到渲染未完全的 UI
+  /*if (fiber.parent) {
+    fiber.parent.dom.appendChild(fiber.dom);
+  }*/
+  // 把修改DOM的内容记录在 wipRoot（work in progress root）上，通过追踪这颗树来收集所有 DOM 节点的修改
+
+  // 2 create new fibers
+  const elements = fiber.props.children;
+  reconcileChildren(fiber, elements);
 }
 
 // reconcile 旧的fiber节点 和 新的 react elements来创建新 fiber 节点的代码
