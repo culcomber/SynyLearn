@@ -193,7 +193,7 @@ function workLoop(deadline) {
   requestIdleCallback(workLoop);
 }
 
-// 可以类比成 setTimeout，浏览器来决定什么时候运行回调函数，而不是 settimeout 里通过我们指定的一个时间
+// 可以类比成 setTimeout，浏览器来决定什么时候运行回调函数，而不是 setTimeout 里通过我们指定的一个时间
 // React 并不是用 requestIdleCallback 的，使用自己编写的 scheduler package。 但两者概念上是相同的
 requestIdleCallback(workLoop);
 
@@ -275,8 +275,8 @@ function useState(initial) {
       props: currentRoot.props,
       alternate: currentRoot,
     }
-    nextUnitOfWork = wipRoot
-    deletions = []
+    nextUnitOfWork = wipRoot;
+    deletions = [];
   };
 
   wipFiber.hooks.push(hook);
