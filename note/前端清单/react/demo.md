@@ -334,5 +334,7 @@ requestIdleCallback --> workLoop --> performUnitOfWork
 - 函数组件的 fiber 没有 DOM 节点
 - 并且子节点由函数运行得来而不是直接从 `props` 属性中获取
 
+<img src="../../assets/image-20230619212428337.png" alt="image-20230619212428337" style="zoom:50%;" />
+
 ## Step VIII: Hooks
 
