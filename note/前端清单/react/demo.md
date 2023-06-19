@@ -336,5 +336,36 @@ requestIdleCallback --> workLoop --> performUnitOfWork
 
 <img src="../../assets/image-20230619212428337.png" alt="image-20230619212428337" style="zoom:50%;" />
 
+```js
+function App(props) {
+  return Didact.createElement(
+    "h1",
+    null,
+    "Hi ",
+    props.name
+  )
+}
+const element = Didact.createElement(App, {
+  name: "foo",
+})
+```
+
+
+
 ## Step VIII: Hooks
+
+```js
+/** @jsx Didact.createElement */
+function Counter() {
+  const [state, setState] = Didact.useState(1)
+  return (
+    <h1 onClick={() => setState(c => c + 1)}>
+      Count: {state}
+    </h1>
+  )
+}
+const element = <Counter />
+const container = document.getElementById("root")
+Didact.render(element, container)
+```
 

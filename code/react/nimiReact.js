@@ -118,19 +118,33 @@ function commitWork(fiber) {
   if (!fiber) {
     return;
   }
-  const domParent = fiber.parent.dom;
-  domParent.appendChild(fiber.dom);
+  let domParentFiber = fiber.parent;
+  // 函数组件没有 DOM 节点，在实际的 DOM 寻找父子节点等操作中需要被跳过
+  while (!domParentFiber.dom) {
+    domParentFiber = domParentFiber.parent;
+  }
+  const domParent = domParentFiber.dom;
+
   if (fiber.effectTag === "PLACEMENT" && fiber.dom != null) {
-    //  add this node
+    // add this node
     domParent.appendChild(fiber.dom);
   } else if (fiber.effectTag === "UPDATE" && fiber.dom != null) {
     // 需要更新已经存在的旧 DOM 节点的属性值
     updateDom(fiber.dom, fiber.alternate.props, fiber.props);
   } else if (fiber.effectTag === "DELETION") {
-    domParent.removeChild(fiber.dom);
+    // domParent.removeChild(fiber.dom);
+    commitDeletion(fiber, domParent)
   }
   commitWork(fiber.child);
   commitWork(fiber.sibling);
+}
+
+function commitDeletion(fiber, domParent) {
+  if (fiber.dom) {
+    domParent.removeChild(fiber.dom)
+  } else {
+    commitDeletion(fiber.child, domParent)
+  }
 }
 
 function render(element, container) {
@@ -219,9 +233,55 @@ function performUnitOfWork(fiber) {
   }
 }
 
-function updateFunctionComponent(fuber) {
+
+let wipFiber = null;
+let hookIndex = null;
+function updateFunctionComponent(fiber) {
+  /*function App(props) {
+    return Didact.createElement(
+      "h1",
+      null,
+      "Hi ",
+      props.name
+    )
+  }
+  const element = Didact.createElement(App, {
+    name: "foo",
+  })*/
+  wipFiber = fiber;
+  hookIndex = 0;
+  // 在对应的 fiber 上加上 hooks 数组以支持我们在同一个函数组件中多次调用 useState。然后我们记录当前 hook 的序号
+  wipFiber.hooks = [];
+  // fiber.type 是 App 函数
   const children = [fiber.type(fiber.props)];
   reconcileChildren(fiber, children);
+}
+
+function useState(initial) {
+  const oldHook = wipFiber.alternate && wipFiber.alternate.hooks && wipFiber.alternate.hooks[hookIndex];
+
+  const hook = {
+    state: oldHook ? oldHook.state : initial,
+    queue: [],
+  };
+  const actions = oldHook ? oldHook.queue : [];
+  actions.forEach(action => {
+    hook.state = action(hook.state)
+  });
+  const setState = action => {
+    hook.queue.push(action)
+    wipRoot = {
+      dom: currentRoot.dom,
+      props: currentRoot.props,
+      alternate: currentRoot,
+    }
+    nextUnitOfWork = wipRoot
+    deletions = []
+  };
+
+  wipFiber.hooks.push(hook);
+  hookIndex++;
+  return [hook.state, setState];
 }
 
 function updateHostComponent(fiber) {
@@ -310,6 +370,7 @@ function reconcileChildren(wipFiber, elements) {
 const Didact = {
   createElement, // 解析JSX
   render, // 渲染函数
+  useState,
 }
 
 // 这样注释一下，babel 会将 JSX 编译成我们需要的函数
@@ -322,3 +383,24 @@ const element = (
 )
 const container = document.getElementById("root")
 Didact.render(element, container)
+
+/** @jsx Didact.createElement */
+/*function App(props) {
+  return <h1>Hi {props.name}</h1>
+}
+const element = <App name="foo" />
+const container = document.getElementById("root")
+Didact.render(element, container)*/
+
+/** @jsx Didact.createElement */
+/*function Counter() {
+  const [state, setState] = Didact.useState(1)
+  return (
+      <h1 onClick={() => setState(c => c + 1)}>
+        Count: {state}
+      </h1>
+  )
+}
+const element = <Counter />
+const container = document.getElementById("root")
+Didact.render(element, container)*/
