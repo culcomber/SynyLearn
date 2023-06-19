@@ -134,86 +134,205 @@ const Didact = {
 }
 ```
 
-Step III: Concurrent Mode
+## Step III: Concurrent Mode
 
-```jsx
-function createElement(type, props, ...children) {
-  return {
-    type,
-    props: {
-      ...props,
-      children: children.map(child =>
-        typeof child === "object"
-          ? child
-          : createTextElement(child)
-      ),
-    },
-  }
-}
-
-function createTextElement(text) {
-  return {
-    type: "TEXT_ELEMENT",
-    props: {
-      nodeValue: text,
-      children: [],
-    },
-  }
-}
-
+```js
 function render(element, container) {
-  const dom =
-    element.type == "TEXT_ELEMENT"
-      ? document.createTextNode("")
-      : document.createElement(element.type)
-
-  const isProperty = key => key !== "children"
-  Object.keys(element.props)
-    .filter(isProperty)
-    .forEach(name => {
-      dom[name] = element.props[name]
-    })
-
+  // 递归不能停止
   element.props.children.forEach(child =>
     render(child, dom)
   )
-
-  container.appendChild(dom)
 }
 
-const Didact = {
-  createElement,
-  render,
+// 通过fiber改造递归——fiber保存dom节点信息和操作信息
+function render(element, container) {
+  nextUnitOfWork = {
+    dom: container,
+    props: {
+      children: [element],
+    },
+  }
 }
-
-/** @jsx Didact.createElement */
-const element = (
-  <div id="foo">
-    <a>bar</a>
-    <b />
-  </div>
-)
-const container = document.getElementById("root")
-Didact.render(element, container
+// requestIdleCallback可以类比成 setTimeout，浏览器来决定什么时候运行回调函数，而不是 settimeout 里通过我们指定的一个时间
+requestIdleCallback(workLoop);
+function workLoop(deadline) {
+  let shouldYield = false
+  while (nextUnitOfWork && !shouldYield) { // 当前帧还有剩余时间
+    // 完成传入的任务并返回下一个任务，下一个任务在下一次执行，这样就可以不断遍历任务 
+    nextUnitOfWork = performUnitOfWork(
+      nextUnitOfWork
+    )
+    // timeRemaining获取到当前帧剩余时间
+    shouldYield = deadline.timeRemaining() < 1
+  }
+  requestIdleCallback(workLoop)
+}
 ```
 
+创建根`fiber`，将其设为`nextUnitOfWork`作为第一个任务单元，剩下的任务单元会通过`performUnitOfWork`函数完成并返回
 
+`performUnitOfWork`函数根据浏览器是否空闲`deadline.timeRemaining`，有时间遍历任务，没有时间则终止
 
-Step IV: Fibers
+`performUnitOfWork`在`workLoop`内，`requestIdleCallback(workLoop)`，当浏览器有空闲时，会调用`workLoop`
 
+## Step IV: Fibers
 
+```jsx
+Didact.render(
+  <div>
+    <h1>
+      <p />
+      <a />
+    </h1>
+    <h2 />
+  </div>,
+  container
+)
+```
 
-Step V: Render and Commit Phases
+<img src="../../assets/image-20230619140916483.png" alt="image-20230619140916483" style="zoom:50%;" />
 
+```js
+function performUnitOfWork(fiber) {
+  /*element（通过 createElement创建的 react element）
+  DOM node（最终生成对应的 DOM 节点）
+  fiber node（从element 到 DOM 节点的中间产物，用于时间切片）*/
+  // 1 add dom node
+  if (!fiber.dom) {
+    fiber.dom = createDom(fiber);
+  }
+  if (fiber.parent) {
+    fiber.parent.dom.appendChild(fiber.dom);
+  }
 
+  // 2 create new fibers
+  const elements = fiber.props.children
+  let index = 0
+  let prevSibling = null
 
-Step VI: Reconciliation
+  while (index < elements.length) {
+    const element = elements[index]
 
+    const newFiber = {
+      type: element.type,
+      props: element.props,
+      parent: fiber,
+      dom: null,
+    }
+    // 根据是否是第一个子节点，来设置父节点的 child 属性的指向，或者上一个节点的 sibling 属性的指向
+    if (index === 0) {
+      fiber.child = newFiber
+    } else {
+      prevSibling.sibling = newFiber
+    }
 
+    prevSibling = newFiber
+    index++
+  }
 
-Step VII: Function Components
+  // 3 return next unit of work
+  // 找到下一个工作单元。 先试试 child 节点，再试试 sibling 节点，再试试 “uncle” 节点
+  if (fiber.child) {
+    return fiber.child
+  }
+  let nextFiber = fiber
+  while (nextFiber) {
+    if (nextFiber.sibling) {
+      return nextFiber.sibling
+    }
+    nextFiber = nextFiber.parent
+  }
+}
+```
 
+## Step V: Render and Commit Phases
 
+```js
+// 在完成整棵树的渲染前，浏览器还要中途阻断这个过程。 那么用户就有可能看到渲染未完全的 UI
+function performUnitOfWork(fiber) {
+  if (fiber.parent) {
+    fiber.parent.dom.appendChild(fiber.dom)
+  }
+}
+```
 
-Step VIII: Hooks
+我们把修改 DOM 这部分内容记录在 fiber tree 上，通过追踪这颗树来收集所有 DOM 节点的修改，这棵树叫做 `wipRoot`（work in progress root）
+
+```js
+function render(element, container) {
+  wipRoot = {
+    dom: container,
+    props: {
+      children: [element],
+    },
+  }
+  nextUnitOfWork = wipRoot
+}
+
+let nextUnitOfWork = null
+let wipRoot = null
+
+function workLoop(deadline) {
+ // next unit of work 为 undefined，把整颗树的变更提交（commit）到实际的 DOM 上
+  if (!nextUnitOfWork && wipRoot) {
+    commitRoot()
+  }
+}
+
+function commitRoot() {
+  commitWork(wipRoot.child)
+  wipRoot = null
+}
+
+function commitWork(fiber) {
+  if (!fiber) {
+    return
+  }
+  const domParent = fiber.parent.dom
+  domParent.appendChild(fiber.dom)
+  commitWork(fiber.child)
+  commitWork(fiber.sibling)
+}
+```
+
+## Step VI: Reconciliation
+
+更新和删除 node 节点
+
+currentRoot：当前页面渲染的fiber树
+
+```js
+let currentRoot = null
+
+function commitRoot() {
+  commitWork(wipRoot.child)
+  currentRoot = wipRoot // 渲染染完，渲染树变成当下页面展示的树
+  wipRoot = null
+}
+
+function render(element, container) {
+  wipRoot = {
+    dom: container,
+    props: {
+      children: [element],
+    },
+    alternate: currentRoot, // 用于记录旧 fiber 节点（上一个 commit 阶段使用的 fiber 节点）的引用
+  }
+  nextUnitOfWork = wipRoot
+}
+
+```
+
+requestIdleCallback --> workLoop --> performUnitOfWork
+
+## Step VII: Function Components
+
+支持函数组件
+
+函数组件的不同点在于：
+
+- 函数组件的 fiber 没有 DOM 节点
+- 并且子节点由函数运行得来而不是直接从 `props` 属性中获取
+
+## Step VIII: Hooks
 
