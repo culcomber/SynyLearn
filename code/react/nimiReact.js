@@ -161,7 +161,7 @@ function render(element, container) {
   performUnitOfWork在workLoop内，requestIdleCallback(workLoop)，当浏览器有空闲时，会调用 workLoop
   */
   wipRoot = {
-    dom: container,
+    dom: container, // container才有dom，element没有dom
     props: {
       children: [element],
     },
