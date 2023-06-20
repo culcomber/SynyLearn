@@ -243,14 +243,10 @@ function updateHostComponent(fiber) {
 
 function reconcileChildren(wipFiber, elements) {
   let index = 0
-  let oldFiber =
-    wipFiber.alternate && wipFiber.alternate.child
+  let oldFiber = wipFiber.alternate && wipFiber.alternate.child
   let prevSibling = null
 
-  while (
-    index < elements.length ||
-    oldFiber != null
-    ) {
+  while (index < elements.length || oldFiber != null) {
     const element = elements[index]
     let newFiber = null
 
@@ -284,6 +280,7 @@ function reconcileChildren(wipFiber, elements) {
       deletions.push(oldFiber)
     }
 
+    // 遍历兄弟节点
     if (oldFiber) {
       oldFiber = oldFiber.sibling
     }
