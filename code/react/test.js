@@ -139,7 +139,7 @@ function commitDeletion(fiber, domParent) {
 
 function render(element, container) {
   wipRoot = {
-    dom: container,
+    dom: container, // container才有dom，element没有dom
     props: {
       children: [element],
     },
@@ -197,7 +197,7 @@ let hookIndex = null
 
 function updateFunctionComponent(fiber) {
   wipFiber = fiber
-  hookIndex = 0
+  hookIndex = 0 // 重置hookIndex
   wipFiber.hooks = []
   const children = [fiber.type(fiber.props)]
   reconcileChildren(fiber, children)

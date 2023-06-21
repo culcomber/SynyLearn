@@ -249,7 +249,7 @@ function updateFunctionComponent(fiber) {
     name: "foo",
   })*/
   wipFiber = fiber;
-  hookIndex = 0;
+  hookIndex = 0; // 重置hookIndex
   // 在对应的 fiber 上加上 hooks 数组以支持我们在同一个函数组件中多次调用 useState。然后我们记录当前 hook 的序号
   wipFiber.hooks = [];
   // fiber.type 是 App 函数
@@ -350,6 +350,7 @@ function reconcileChildren(wipFiber, elements) {
       oldFiber.effectTag = "DELETION"
       deletions.push(oldFiber)
     }
+    // 遍历兄弟节点
     if (oldFiber) {
       oldFiber = oldFiber.sibling
     }
