@@ -451,19 +451,19 @@ function performUnitOfWork(fiber) {
 
 - “递”阶段
 
-  - 首先从`rootFiber`开始向下深度优先遍历。为遍历到的每个`Fiber节点`调用[beginWork方法 (opens new window)](https://github.com/facebook/react/blob/970fa122d8188bafa600e9b5214833487fbf1092/packages/react-reconciler/src/ReactFiberBeginWork.new.js#L3058)。
+  1. 首先从`rootFiber`开始向下深度优先遍历。为遍历到的每个`Fiber节点`调用[beginWork方法 (opens new window)](https://github.com/facebook/react/blob/970fa122d8188bafa600e9b5214833487fbf1092/packages/react-reconciler/src/ReactFiberBeginWork.new.js#L3058)。
 
-  - 该方法会根据传入的`Fiber节点`创建`子Fiber节点`，并将这两个`Fiber节点`连接起来。
+  2. 该方法会根据传入的`Fiber节点`创建`子Fiber节点`，并将这两个`Fiber节点`连接起来。
 
-  - 当遍历到叶子节点（即没有子组件的组件）时就会进入“归”阶段。
+  3. 当遍历到叶子节点（即没有子组件的组件）时就会进入“归”阶段。
 
 - “归”阶段
 
-  - 在“归”阶段会调用[completeWork (opens new window)](https://github.com/facebook/react/blob/970fa122d8188bafa600e9b5214833487fbf1092/packages/react-reconciler/src/ReactFiberCompleteWork.new.js#L652)处理`Fiber节点`。
+  1. 在“归”阶段会调用[completeWork (opens new window)](https://github.com/facebook/react/blob/970fa122d8188bafa600e9b5214833487fbf1092/packages/react-reconciler/src/ReactFiberCompleteWork.new.js#L652)处理`Fiber节点`。
 
-  - 当某个`Fiber节点`执行完`completeWork`，如果其存在`兄弟Fiber节点`（即`fiber.sibling !== null`），会进入其`兄弟Fiber`的“递”阶段。
+  2. 当某个`Fiber节点`执行完`completeWork`，如果其存在`兄弟Fiber节点`（即`fiber.sibling !== null`），会进入其`兄弟Fiber`的“递”阶段。
 
-  - 如果不存在`兄弟Fiber`，会进入`父级Fiber`的“归”阶段。
+  3. 如果不存在`兄弟Fiber`，会进入`父级Fiber`的“归”阶段。
 
 - “递”和“归”阶段会交错执行直到“归”到`rootFiber`。至此，`render阶段`的工作就结束了。
 
@@ -497,65 +497,18 @@ ReactDOM.render(<App />, document.getElementById("root"));
 ```
 
 ### 2.2  beginWork
-`beginWork`的工作是传入当前`Fiber`节点，创建子`Fiber`节点
+`beginWork`的工作是传入当前`Fiber`节点，**创建子`Fiber`节点**
 
 `beginWork`的工作可以分为两部分：
 
-- `update`时：如果`current`存在，在满足一定条件时可以复用`current`节点，这样就能克隆`current.child`作为`workInProgress.child`，而不需要新建`workInProgress.child`。
+- `update`时：`oldProps === newProps && workInProgress.type === current.type`，**即`props`与`fiber.type`不变时，可以复用`current`节点**，克隆`current.child`作为`workInProgress.child`，而不需要新建`workInProgress.child`。
 - `mount`时：除`fiberRootNode`以外，`current === null`。会根据`fiber.tag`不同，创建不同类型的`子Fiber节点`
 
-```jsx
-function beginWork(
-  current: Fiber | null,
-  workInProgress: Fiber,
-  renderLanes: Lanes
-): Fiber | null {
+**reconcileChildren**——创建新的`子Fiber节点`
 
-  // update时：如果current存在可能存在优化路径，可以复用current（即上一次更新的Fiber节点）
-  if (current !== null) {
-    const oldProps = current.memoizedProps;
-    const newProps = workInProgress.pendingProps;
-    if (
-      oldProps !== newProps ||
-      hasLegacyContextChanged() ||
-      (__DEV__ ? workInProgress.type !== current.type : false)
-    ) {
-      didReceiveUpdate = true;
-    } else if (!includesSomeLane(renderLanes, updateLanes)) {
-      didReceiveUpdate = false;
-      switch (workInProgress.tag) {
-        // 省略处理
-      }
-      return bailoutOnAlreadyFinishedWork(
-        current,
-        workInProgress,
-        renderLanes,
-      );
-    } else {
-      didReceiveUpdate = false;
-    }
-  } else {
-    didReceiveUpdate = false;
-  }
-
-  // mount时：根据tag不同，创建不同的子Fiber节点
-  switch (workInProgress.tag) {
-    case IndeterminateComponent: 
-      // ...省略
-  }
-}
-
-// didReceiveUpdate === false（即可以直接复用前一次更新的子Fiber，不需要新建子Fiber）
-// didReceiveUpdate = true 新建子fiber，reconcileChildren
-```
-
-**reconcileChildren**
-
-从该函数名就能看出这是`Reconciler`模块的核心部分。那么他究竟做了什么呢？
-
-- 对于`mount`的组件，他会创建新的`子Fiber节点`，只有`rootFiber`会赋值`Placement effectTag`，在`commit阶段`只会执行一次插入操作
-- 对于`update`的组件，他会将当前组件与该组件在上次更新时对应的`Fiber节点`比较（也就是俗称的`Diff`算法），将比较的结果生成新`Fiber节点`
-- 最终会生成新的子`Fiber节点`并赋值给`workInProgress.child`，作为本次`beginWork`[返回值 (opens new window)](https://github.com/facebook/react/blob/1fb18e22ae66fdb1dc127347e169e73948778e5a/packages/react-reconciler/src/ReactFiberBeginWork.new.js#L1158)，并作为下次`performUnitOfWork`执行时`workInProgress`的[传参](https://github.com/facebook/react/blob/1fb18e22ae66fdb1dc127347e169e73948778e5a/packages/react-reconciler/src/ReactFiberWorkLoop.new.js#L1702)
+- 对于`mount`的组件，创建新的`子Fiber节点`
+- 对于`update`的组件，会将当前组件与该组件在上次更新时对应的`Fiber节点`比较（也就是俗称的`Diff`算法），将比较的结果生成新`Fiber节点`
+- 最终会生成新的子`Fiber节点`并赋值给`workInProgress.child`，作为本次`beginWork`[返回值 ](https://github.com/facebook/react/blob/1fb18e22ae66fdb1dc127347e169e73948778e5a/packages/react-reconciler/src/ReactFiberBeginWork.new.js#L1158)，并作为下次`performUnitOfWork`执行时`workInProgress`的[传参](https://github.com/facebook/react/blob/1fb18e22ae66fdb1dc127347e169e73948778e5a/packages/react-reconciler/src/ReactFiberWorkLoop.new.js#L1702)
 
 ```js
 export function reconcileChildren(
@@ -565,7 +518,7 @@ export function reconcileChildren(
   renderLanes: Lanes
 ) {
   if (current === null) {
-    // 对于mount的组件
+    // 对于mount的组件，只有rootFiber（<App/>）会赋值’Placement‘的effectTag，在commit阶段只会执行一次插入操作
     workInProgress.child = mountChildFibers(
       workInProgress,
       null,
@@ -573,7 +526,7 @@ export function reconcileChildren(
       renderLanes,
     );
   } else {
-    // 对于update的组件
+    // 对于update的组件，为生成的Fiber节点带上effectTag属性
     workInProgress.child = reconcileChildFibers(
       workInProgress,
       current.child,
@@ -627,6 +580,19 @@ function completeWork(
     }
   // ...省略
 ```
+
+**update**
+
+- `onClick`、`onChange`等回调函数的注册
+- 处理`style prop`
+- 处理`DANGEROUSLY_SET_INNER_HTML prop`
+- 处理`children prop`
+
+**mount**
+
+- 为`Fiber节点`生成对应的`DOM节点`
+- 将子孙`DOM节点`插入刚生成的`DOM节点`中
+- 与`update`逻辑中的`updateHostComponent`类似的处理`props`的过程
 
 ![img](../../assets/completeWork.png)
 

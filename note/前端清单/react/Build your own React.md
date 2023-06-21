@@ -1,5 +1,9 @@
 ## 零: 概览
 
+不使用 React 的情况下，渲染JSX 通过构建工具 Babel 转换成 JS，将标签中的代码替换成 createElement，并把标签名、参数和子节点作
+
+为参数传入React.createElement 验证入参并生成了一个对象
+
 用 “element” 来代指 React Element， 用 “node” 来代指 DOM Element
 
 ```jsx
@@ -7,9 +11,6 @@ const element = <h1 title="foo">Hello</h1>
 const container = document.getElementById("root")
 ReactDOM.render(element, container)
 
-// 不使用 React 的情况下，渲染
-// JSX 通过构建工具 Babel 转换成 JS，将标签中的代码替换成 createElement，并把标签名、参数和子节点作为参数传入
-// React.createElement 验证入参并生成了一个对象
 const element = React.createElement(
   "h1",
   { title: "foo" },
@@ -95,6 +96,8 @@ const element = Didact.createElement(
 
 ## Step II: The render Function
 
+在页面上渲染内容
+
 暂时只关心如何在 DOM 上添加东西，之后再考虑 更新 和 删除
 
 ```jsx
@@ -135,6 +138,8 @@ const Didact = {
 ```
 
 ## Step III: Concurrent Mode
+
+递归改成requestIdleCallback浏览器空闲调用
 
 ```js
 function render(element, container) {
@@ -247,6 +252,8 @@ function performUnitOfWork(fiber) {
 
 ## Step V: Render and Commit Phases
 
+增加删除和修改，diff
+
 ```js
 // 在完成整棵树的渲染前，浏览器还要中途阻断这个过程。 那么用户就有可能看到渲染未完全的 UI
 function performUnitOfWork(fiber) {
@@ -327,16 +334,20 @@ requestIdleCallback --> workLoop --> performUnitOfWork
 
 ## Step VII: Function Components
 
-支持函数组件
-
-函数组件的不同点在于：
+支持函数组件，函数组件的不同点在于：
 
 - 函数组件的 fiber 没有 DOM 节点
 - 并且子节点由函数运行得来而不是直接从 `props` 属性中获取
 
-<img src="../../assets/image-20230619212428337.png" alt="image-20230619212428337" style="zoom:50%;" />
+```jsx
+/** @jsx Didact.createElement */
+function App(props) {
+  return <h1>Hi {props.name}</h1>
+}
+const element = <App name="foo" />
+const container = document.getElementById("root")
+Didact.render(element, container)
 
-```js
 function App(props) {
   return Didact.createElement(
     "h1",
@@ -350,11 +361,52 @@ const element = Didact.createElement(App, {
 })
 ```
 
+当 fiber 类型为函数时，我们使用不同的函数来进行 diff
 
+```js
+function performUnitOfWork(fiber) {
+  const isFunctionComponent =
+    fiber.type instanceof Function
+  if (isFunctionComponent) {
+    updateFunctionComponent(fiber)
+  } else {
+    updateHostComponent(fiber)
+  }
+}
+
+function updateFunctionComponent(fiber) {
+  const children = [fiber.type(fiber.props)]
+  reconcileChildren(fiber, children)
+}
+```
+
+需要修改 `commitWork` 函数， fiber 没有 DOM 
+
+```js
+function commitWork(fiber) {
+  let domParentFiber = fiber.parent
+  while (!domParentFiber.dom) {
+    domParentFiber = domParentFiber.parent
+  }
+  const domParent = domParentFiber.dom
+}
+```
+
+移除节点也同样需要找到该 fiber 下第一个有 DOM 节点的 fiber 节点
+
+```js
+function commitDeletion(fiber, domParent) {
+  if (fiber.dom) {
+    domParent.removeChild(fiber.dom)
+  } else {
+    commitDeletion(fiber.child, domParent)
+  }
+}
+```
 
 ## Step VIII: Hooks
 
-```js
+```jsx
 /** @jsx Didact.createElement */
 function Counter() {
   const [state, setState] = Didact.useState(1)
@@ -369,3 +421,46 @@ const container = document.getElementById("root")
 Didact.render(element, container)
 ```
 
+在对应的 fiber 上加上 `hooks` 数组以支持我们在同一个函数组件中多次调用 `useState`
+
+```js
+let wipFiber = null
+let hookIndex = null
+
+function updateFunctionComponent(fiber) {
+  wipFiber = fiber
+  hookIndex = 0 // 重置hookIndex
+  wipFiber.hooks = []
+  const children = [fiber.type(fiber.props)]
+  reconcileChildren(fiber, children)
+}
+
+function useState(initial) {
+  const oldHook = wipFiber.alternate && wipFiber.alternate.hooks && wipFiber.alternate.hooks[hookIndex];
+
+  const hook = {
+    state: oldHook ? oldHook.state : initial,
+    queue: [],
+  };
+  const actions = oldHook ? oldHook.queue : [];
+  actions.forEach(action => {
+    hook.state = action(hook.state)
+  });
+  const setState = action => {
+    hook.queue.push(action)
+    wipRoot = {
+      dom: currentRoot.dom,
+      props: currentRoot.props,
+      alternate: currentRoot,
+    }
+    nextUnitOfWork = wipRoot;
+    deletions = [];
+  };
+
+  wipFiber.hooks.push(hook);
+  hookIndex++;
+  return [hook.state, setState];
+}
+```
+
+![03686586b744e045169e0bb456302f6](../../assets/03686586b744e045169e0bb456302f6.png)
