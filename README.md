@@ -10,6 +10,7 @@ todo
 - https://github.com/dennis-jiang/Front-End-Knowledges
 - 字母的大小比较
 - webstrom控制滑轮
+- https://medium.com/@ryardley/react-hooks-not-magic-just-arrays-cd4f1857236e
 - 
 
 ## [Recommended Reading](https://julesblom.com/writing/react-hook-component-timeline#recommended-reading)
