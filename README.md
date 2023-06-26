@@ -11,7 +11,8 @@ todo
 - 字母的大小比较
 - webstrom控制滑轮
 - https://medium.com/@ryardley/react-hooks-not-magic-just-arrays-cd4f1857236e
-- 
+- https://overreacted.io/react-as-a-ui-runtime/
+  https://blog.isquaredsoftware.com/2020/05/blogged-answers-a-mostly-complete-guide-to-react-rendering-behavior/
 
 ## [Recommended Reading](https://julesblom.com/writing/react-hook-component-timeline#recommended-reading)
 
