@@ -672,6 +672,102 @@ If you’ve exhausted all other options and can’t find the right event handler
 
 ## 3 Adding Interactivity
 
+### 3.1 Responding to Events
+
+```jsx
+export default function Button() {
+  function handleClick() {
+    alert('You clicked me!');
+  }
+
+  return (
+    <button onClick={handleClick}>
+      Click me
+    </button>
+  );
+}
+
+<button onClick={function handleClick() {
+  alert('You clicked me!');
+}}>
+
+<button onClick={() => {
+  alert('You clicked me!');
+}}>
+```
+
+All events propagate in React except `onScroll`, which only works on the JSX tag you attach it to
+
+点击按钮会触发`div`的`onClick`方法
+
+```jsx
+export default function Toolbar() {
+  return (
+    <div className="Toolbar" onClick={() => {
+      alert('You clicked on the toolbar!');
+    }}>
+      <button onClick={() => alert('Playing!')}>
+        Play Movie
+      </button>
+      <button onClick={() => alert('Uploading!')}>
+        Upload Image
+      </button>
+    </div>
+  );
+}
+
+// 阻止冒泡
+// Event handlers receive an event object as their only argument 事件处理函数接受event object作为参数
+function Button({ onClick, children }) {
+  return (
+    <button onClick={e => {
+      e.stopPropagation();
+      onClick();
+    }}>
+      {children}
+    </button>
+  );
+}
+
+export default function Toolbar() {
+  return (
+    <div className="Toolbar" onClick={() => {
+      alert('You clicked on the toolbar!');
+    }}>
+      <Button onClick={() => alert('Playing!')}>
+        Play Movie
+      </Button>
+      <Button onClick={() => alert('Uploading!')}>
+        Upload Image
+      </Button>
+    </div>
+  );
+}
+
+```
+
+捕捉调用
+
+Each event propagates in three phases:
+
+1. It travels down, calling all `onClickCapture` handlers.
+2. It runs the clicked element’s `onClick` handler.
+3. It travels upwards, calling all `onClick` handlers.
+
+```jsx
+<div onClickCapture={() => { /* this runs first */ }}>
+  <button onClick={e => e.stopPropagation()} />
+  <button onClick={e => e.stopPropagation()} />
+</div>
+```
+
+- [`e.stopPropagation()`](https://developer.mozilla.org/docs/Web/API/Event/stopPropagation) stops the event handlers attached to the tags above from firing. 阻止冒泡
+- [`e.preventDefault()` ](https://developer.mozilla.org/docs/Web/API/Event/preventDefault)prevents the default browser behavior for the few events that have it. 阻止浏览器默认行为
+
+Unlike rendering functions, event handlers don’t need to be [pure](https://react.dev/learn/keeping-components-pure), so it’s a great place to *change* something
+
+### 3.2 State: A Component's Memory
+
 The [`useState`](https://react.dev/reference/react/useState) Hook provides those two things:
 
 1. A **state variable** to retain the data between renders.
@@ -684,9 +780,99 @@ happens in action
 3. **Your component’s second render.** React still sees `useState(0)`, but because React *remembers* that you set `index` to `1`, it returns `[1, setIndex]` instead.
 4. And so on!
 
-State is not tied to a particular function call or a place in the code, but it’s “local” to the specific place on the screen. 
+State is isolated and private 
 
-state is fully private to the component declaring it.
+- State is not tied to a particular function call or a place in the code, but it’s “local” to the specific place on the screen. 
+
+- state is fully private to the component declaring it. state是私有的，父组件不能影响
+
+**Hooks—functions starting with `use`—can only be called at the top level of your components or [your own Hooks.](https://react.dev/learn/reusing-logic-with-custom-hooks)**
+
+在顶层调用hook
+
+### 3.3 Render and Commit
+
+This process of requesting and serving UI has three steps:
+
+1. **Triggering** a render (delivering the guest’s order to the kitchen)
+2. **Rendering** the component (preparing the order in the kitchen)
+3. **Committing** to the DOM (placing the order on the table)
+
+<img src="../../assets/image-20230626191352836.png" alt="image-20230626191352836" style="zoom:40%;" />
+
+**Step 1: ReactTrigger a render**
+
+There are two reasons for a component to render:
+
+1. It’s the component’s **initial render.**
+2. The component’s (or one of its ancestors’) **state has been updated.** Updating your component’s state automatically queues a render.
+
+**Step 2: React renders your components**
+
+**“Rendering” is React calling your components.** This process is ==recursive==: if the updated component returns some other component, React will render *that* component next.
+
+- **On initial render,** React will call the root component.
+- **For subsequent renders,** React will call the function component whose state update triggered the render.
+
+Rendering就是react调用触发更新的组件，然后渲染到屏幕。这个过程是递归的，触发更新的组件返回子组件，子组件也会被调用。
+
+**Step 3: Committing**
+
+React will modify the DOM.
+
+- **For the initial render,** React will use the [`appendChild()`](https://developer.mozilla.org/docs/Web/API/Node/appendChild) DOM API to put all the DOM nodes it has created on screen.
+- **For re-renders,** React will apply the minimal necessary operations (calculated while rendering!) to make the DOM match the latest rendering output.
+
+**React does not touch the DOM if the rendering result is the same as last time**
+
+React only updates the content of `<h1>` with the new `time`. It sees that the `<input>` appears in the JSX in the same place as last time, so React doesn’t touch the `<input>`—or its `value`!
+
+如果节点没有改变，react不会改变真实dom
+
+```jsx
+export default function Clock({ time }) {
+  return (
+    <>
+      <h1>{time}</h1>
+      <input />
+    </>
+  );
+}
+```
+
+**Step 4: Browser paint** 
+
+<img src="../../assets/image-20230626192921591.png" alt="image-20230626192921591" style="zoom:33%;" />
+
+### 3.4 State as a Snapshot
+
+Setting it does not change the state variable you already have, but instead triggers a re-render.
+
+改变state不是立刻起效的，在页面重新渲染后起效
+
+When React re-renders a component:
+
+1. React calls your function again.
+2. Your function returns a new JSX snapshot.
+3. React then updates the screen to match the snapshot you’ve returned.
+
+<img src="../../assets/image-20230626200628492.png" alt="image-20230626200628492" style="zoom:33%;" />
+
+State actually “lives” in React itself—as if on a shelf!—outside of your function.
+
+<img src="../../assets/image-20230626201045756.png" alt="image-20230626201045756" style="zoom:40%;" />
+
+### 3.5 Queueing a Series of State Updates
+
+
+
+### 3.6 Updating Objects in State
+
+
+
+### 3.7 Updating Arrays in State
+
+
 
 ## 4 Managing State
 
