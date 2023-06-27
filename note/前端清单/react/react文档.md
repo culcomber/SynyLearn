@@ -846,68 +846,342 @@ export default function Clock({ time }) {
 
 ### 3.4 State as a Snapshot
 
-Setting it does not change the state variable you already have, but instead triggers a re-render.
+Setting state requests a new render
+
+改变state会触发渲染
+
+When you call `useState`, React gives you a snapshot of the state *for that render*
+
+使用useState，react返回state快照，即setState(state+ 1)，state就是一个快照，state不会立刻改变
+
+Setting it does not change the state variable you already have, but instead triggers a re-render
 
 改变state不是立刻起效的，在页面重新渲染后起效
 
 When React re-renders a component:
 
-1. React calls your function again.
-2. Your function returns a new JSX snapshot.
-3. React then updates the screen to match the snapshot you’ve returned.
+1. React calls your function again
+2. Your function returns a new JSX snapshot （调用函数组件，此时state使用setState后更新的值）
+3. React then updates the screen to match the snapshot you’ve returned
 
 <img src="../../assets/image-20230626200628492.png" alt="image-20230626200628492" style="zoom:33%;" />
 
-State actually “lives” in React itself—as if on a shelf!—outside of your function.
+State actually “lives” in React itself—as if on a shelf—**outside of your function**
+
+state独立于函数式组件，由react负责更新，更新完之后传递给函数式组件
 
 <img src="../../assets/image-20230626201045756.png" alt="image-20230626201045756" style="zoom:40%;" />
 
+Setting state only changes it for the next render
+
+```jsx
+<button onClick={() => {
+  // in this render’s event handler number is always 0
+  setNumber(number + 1); // number is 0 so setNumber(0 + 1)
+  setNumber(number + 1); // number is 0 so setNumber(0 + 1)
+  setNumber(number + 1);b // number is 0 so setNumber(0 + 1)
+}}>+3</button>
+```
+
+The state stored in React may have changed by the time the alert runs, but it was scheduled using a snapshot of the state at the time the user interacted with it
+
+setTimeout等异步调用中使用旧的state
+
+Variables and event handlers don’t “survive” re-renders. Every render has its own event handlers. Every render (and functions inside it) will always “see” the snapshot of the state that React gave to *that* render. Event handlers created in the past have the state values from the render in which they were created
+
+state改变触发更新，调用事件处理函数，setTimeout放入事件循环队列，使用旧state，直到事件处理函数调用完毕，进行render，**render过程中更新state**，react将更新后的值渲染到页面，函数组件才可以拿到最新的state
+
+```jsx
+export default function Counter() {
+  const [number, setNumber] = useState(0);
+  return (
+    <>
+      <h1>{number}</h1>
+      <button onClick={() => {
+        setNumber(number + 5); // setNumber(0 + 5);
+        setTimeout(() => {
+          alert(number); // alert(0);
+        }, 3000);
+      }}>+5</button>
+    </>
+  )
+}
+```
+
 ### 3.5 Queueing a Series of State Updates
 
+This lets you update multiple state variables—even from multiple components—without triggering too many [re-renders](https://react.dev/learn/render-and-commit#re-renders-when-state-updates)
 
+在一次事件处理函数中调用多次setState，react最终会更新最后一次setState
+
+<img src="../../assets/image-20230627100859649.png" alt="image-20230627100859649" style="zoom:33%;" />
+
+**React does not batch across *multiple* intentional events like clicks**—each click is handled separately
+
+点击两次按钮，react会依次处理，如果第一次提交禁用表单后，第二次就不会再提交了
+
+instead of passing the *next state value* like `setNumber(number + 1)`, you can pass a *function* that calculates the next state based on the previous one in the queue, like `setNumber(n => n + 1)`. It is a way to tell React to “do something with the state value” instead of just replacing it
+
+如果想在处理函数中多次更新state，可以传递函数而不是值，这样可以告诉react处理，而不仅仅是替换
+
+```jsx
+<button onClick={() => {
+    setNumber(n => n + 1); // n => n + 1 is called an updater function
+    setNumber(n => n + 1);
+    setNumber(n => n + 1);
+}}>+3</button>
+
+export function getFinalState(baseState, queue) {
+  let finalState = baseState;
+  for (let update of queue) {
+    if (typeof update === 'function') {
+      // Apply the updater function.
+      finalState = update(finalState);
+    } else {
+      // Replace the next state.
+      finalState = update;
+    }
+  }
+  return finalState;
+}
+```
+
+passing to the `setNumber` state setter:
+
+- **An updater function** (e.g. `n => n + 1`) gets added to the queue.
+- **Any other value** (e.g. number `5`) adds “replace with `5`” to the queue, **ignoring what’s already queued.**
+
+```jsx
+<button onClick={() => {
+    setNumber(number + 5);
+    setNumber(n => n + 1);
+    setNumber(42);
+  }}>Increase the number</button>
+</>
+```
+
+<img src="../../assets/image-20230627105255282.png" alt="image-20230627105255282" style="zoom:40%;" />
+
+After the event handler completes, React will trigger a re-render. During the re-render, React will process the queue. **Updater functions run during rendering**, so **updater functions must be [pure](https://react.dev/learn/keeping-components-pure)** and only *return* the result
+
+传递给setState的函数必须是纯函数
+
+```js
+ async function handleClick() {
+    setPending(p => p + 1); // 会触发更新页面
+    await delay(3000);
+    setPending(p => p - 1); // 第二次更新页面
+    setCompleted(c => c + 1);
+}
+```
 
 ### 3.6 Updating Objects in State
 
+Treat state as read-only 
 
+Copying objects with the spread syntax
+
+```js
+setPerson({
+  ...person, // Copy the old fields
+  firstName: e.target.value // But override this one
+});
+```
+
+Updating a nested object 
+
+```js
+const [person, setPerson] = useState({
+  name: 'Niki de Saint Phalle',
+  artwork: {
+    title: 'Blue Nana',
+    city: 'Hamburg',
+    image: 'https://i.imgur.com/Sd1AgUOm.jpg',
+  }
+});
+
+setPerson({
+  ...person, // Copy other fields
+  artwork: { // but replace the artwork
+    ...person.artwork, // with the same one
+    city: 'New Delhi' // but in New Delhi!
+  }
+});
+
+const nextArtwork = { ...person.artwork, city: 'New Delhi' };
+const nextPerson = { ...person, artwork: nextArtwork };
+setPerson(nextPerson);
+```
+
+there is no such thing as a “nested” object. You are really looking at two different objects
+
+```js
+let obj = {
+  name: 'Niki de Saint Phalle',
+  artwork: {
+    title: 'Blue Nana',
+    city: 'Hamburg',
+    image: 'https://i.imgur.com/Sd1AgUOm.jpg',
+  }
+};
+
+// 其实是两个对象
+let obj1 = {
+  title: 'Blue Nana',
+  city: 'Hamburg',
+  image: 'https://i.imgur.com/Sd1AgUOm.jpg',
+};
+
+let obj2 = {
+  name: 'Niki de Saint Phalle',
+  artwork: obj1
+};
+
+// If you were to mutate obj3.artwork.city, it would affect both obj2.artwork.city and obj1.city. This is because obj3.artwork, obj2.artwork, and obj1 are the same object
+let obj3 = {
+  name: 'Copycat',
+  artwork: obj1
+};
+```
+
+Write concise update logic with Immer 
+
+```jsx
+import { useImmer } from 'use-immer';
+
+export default function Form() {
+  const [person, updatePerson] = useImmer({
+    name: 'Niki de Saint Phalle',
+    artwork: {
+      title: 'Blue Nana',
+      city: 'Hamburg',
+      image: 'https://i.imgur.com/Sd1AgUOm.jpg',
+    }
+  });
+
+  function handleNameChange(e) {
+    updatePerson(draft => {
+      draft.name = e.target.value;
+    });
+  }
+
+  return (<label>
+    Name:
+    <input
+      value={person.name}
+      onChange={handleNameChange}
+    />
+  </label>);
+}
+```
 
 ### 3.7 Updating Arrays in State
 
+<img src="../../assets/image-20230627144628380.png" alt="image-20230627144628380" style="zoom:40%;" />
 
+Updating objects inside arrays 
+
+```jsx
+const initialList = [
+  { id: 0, title: 'Big Bellies', seen: false },
+  { id: 1, title: 'Lunar Landscape', seen: false },
+];
+const [myList, setMyList] = useState(initialList);
+function handleToggleMyList(artworkId, nextSeen) {
+    const myNextList = [...myList];
+    const artwork = myNextList.find(
+      a => a.id === artworkId
+    );
+    artwork.seen = nextSeen; // Problem: mutates an existing item
+    setMyList(myNextList);
+}
+
+//使用map新建数组
+setMyList(myList.map(artwork => {
+  if (artwork.id === artworkId) {
+    // Create a *new* object with changes
+    return { ...artwork, seen: nextSeen };
+  } else {
+    // No changes
+    return artwork;
+  }
+}));
+
+// 使用Immer
+const [myList, updateMyList] = useImmer(initialList);
+function handleToggleMyList(id, nextSeen) {
+    updateMyList(draft => {
+      const artwork = draft.find(a =>
+        a.id === id
+      );
+      artwork.seen = nextSeen;
+    });
+}
+```
 
 ## 4 Managing State
+
+### 4.1 Reacting to Input with State
+
+
+
+### 4.2 Reacting to Input with State
+
+
+
+### 4.3 Choosing the State Structure
+
+
+
+### 4.4 Sharing State Between Components
+
+
+
+### 4.5 Preserving and Resetting State
+
+
+
+### 4.6 Extracting State Logic into a Reducer
+
+
+
+### 4.7 Passing Data Deeply with Context
+
+
+
+### 4.8 Scaling Up with Reducer and Context
 
 
 
 ## 5 Escape Hatches
 
-
-
-## 6 Built-in React Hooks
-
-State Hooks 
-
-- [`useState`](https://react.dev/reference/react/useState) declares a state variable that you can update directly.
-
-- [`useReducer`](https://react.dev/reference/react/useReducer) declares a state variable with the update logic inside a [reducer function.](https://react.dev/learn/extracting-state-logic-into-a-reducer)
-
-Context Hooks 
+### 5.1 Referencing Values with Refs
 
 
 
-Ref Hooks 
+### 5.2 Manipulating the DOM with Refs
 
 
 
-Effect Hooks 
+### 5.3 Synchronizing with Effects
 
 
 
-Performance Hooks 
+### 5.4 You Might Not Need an Effect
 
 
 
-Other Hooks 
+### 5.5 Lifecycle of Reactive Effects
 
 
 
-Your own Hooks 
+### 5.6 Separating Events from Effects
+
+
+
+### 5.7 Removing Effect Dependencies
+
+
+
+### 5.8 Reusing Logic with Custom Hooks
+
