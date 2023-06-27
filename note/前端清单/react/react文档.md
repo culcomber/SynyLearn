@@ -1123,7 +1123,144 @@ function handleToggleMyList(id, nextSeen) {
 
 ### 4.1 Reacting to Input with State
 
+describe the different states that your component can be in, and switch between them in response to the user input
 
+不是在不同情况下直接操控dom，用state描述不同情况下的表现
+
+Declarative programming means describing the UI for each visual state rather than micromanaging the UI (imperative).
+
+1. **Identify** your component’s different visual states
+
+   you need to visualize all the different “states” of the UI the user might see:
+
+   - **Empty**: Form has a disabled “Submit” button.
+   - **Typing**: Form has an enabled “Submit” button.
+   - **Submitting**: Form is completely disabled. Spinner is shown.
+   - **Success**: “Thank you” message is shown instead of a form.
+   - **Error**: Same as Typing state, but with an extra error message.
+
+   ```jsx
+   export default function Form({ status }) {
+     if (status === 'success') {
+       return <h1>That's right!</h1>
+     }
+     return (
+       <form>
+         <textarea disabled={
+           status === 'submitting'
+         } />
+         <br />
+         <button disabled={
+           status === 'empty' ||
+           status === 'submitting'
+         }>
+           Submit
+         </button>
+         {status === 'error' &&
+           <p className="Error">
+             Good guess but a wrong answer. Try again!
+           </p>
+         }
+       </form>
+     );
+   }
+   ```
+
+   <img src="../../assets/image-20230627191526600.png" alt="image-20230627191526600" style="zoom:45%;" /><img src="../../assets/image-20230627191552299.png" alt="image-20230627191552299" style="zoom:40%;" />
+
+2. **Determine** what triggers those state changes
+
+   You can trigger state updates in response to two kinds of inputs:
+
+   - **Human inputs,** like clicking a button, typing in a field, navigating a link. human inputs often require [event handlers](https://react.dev/learn/responding-to-events)!
+   - **Computer inputs,** like a network response arriving, a timeout completing, an image loading.
+
+   In both cases, **you must set [state variables](https://react.dev/learn/state-a-components-memory#anatomy-of-usestate) to update the UI.** For the form you’re developing, you will need to change state in response to a few different inputs:
+
+   - **Changing the text input** (human) should switch it from the *Empty* state to the *Typing* state or back, depending on whether the text box is empty or not.
+   - **Clicking the Submit button** (human) should switch it to the *Submitting* state.
+   - **Successful network response** (computer) should switch it to the *Success* state.
+   - **Failed network response** (computer) should switch it to the *Error* state with the matching error message.
+
+   To help visualize this flow, try drawing each state on paper as a labeled circle, and each change between two states as an arrow. 
+
+   箭头是触发事件，圆圈是state
+
+   <img src="../../assets/image-20230627191904799.png" alt="image-20230627191904799" style="zoom:40%;" />
+
+3. **Represent** the state in memory using `useState`
+
+   ```js
+   // absolutely must
+   const [answer, setAnswer] = useState(''); // input
+   const [error, setError] = useState(null); // last error
+   
+   const [isEmpty, setIsEmpty] = useState(true);``
+   const [isTyping, setIsTyping] = useState(false);
+   const [isSubmitting, setIsSubmitting] = useState(false);
+   const [isSuccess, setIsSuccess] = useState(false);
+   const [isError, setIsError] = useState(false);
+   ```
+
+4. **Remove** any non-essential state variables
+
+   Here are some questions you can ask about your state variables:
+
+   - **Does this state cause a paradox** 
+
+      `isTyping` and `isSubmitting` can’t both be `true`. A paradox usually means that **the state is not constrained enough**. There are four possible combinations of two booleans, but only three correspond to valid states. To remove the “impossible” state, you **can combine these into a `status`** that must be one of three values: `'typing'`, `'submitting'`, or `'success'`.
+
+   - **Is the same information available in another state variable already** 
+
+     `isEmpty` and `isTyping` can’t be `true` at the same time. By making them separate state variables, you risk them going out of sync and causing bugs. Fortunately, you can remove `isEmpty` and instead check `answer.length === 0`.
+
+   - **Can you get the same information from the inverse of another state variable** 
+
+     `isError` is not needed because you can check `error !== null` instead.
+
+   ```js
+   const [answer, setAnswer] = useState('');
+   const [error, setError] = useState(null);
+   const [status, setStatus] = useState('typing'); // 'typing', 'submitting', or 'success'
+   ```
+
+5. **Connect** the event handlers to set the state
+
+   ```jsx
+   function handleTextareaChange(e) {
+   	setAnswer(e.target.value);
+   }
+   
+   async function handleSubmit(e) {
+       e.preventDefault();
+       setStatus('submitting');
+       try {
+         await submitForm(answer);
+         setStatus('success');
+       } catch (err) {
+         setStatus('typing');
+         setError(err);
+       }
+   }
+   
+   function submitForm(answer) {
+     // Pretend it's hitting the network.
+     return new Promise((resolve, reject) => {
+       setTimeout(() => {
+         let shouldError = answer.toLowerCase() !== 'lima'
+         if (shouldError) {
+           reject(new Error('Good guess but a wrong answer. Try again!'));
+         } else {
+           resolve();
+         }
+       }, 1500);
+     });
+   }
+   ```
+
+好处
+
+Expressing all interactions as state changes lets you later introduce new visual states without breaking existing ones. It also lets you change what should be displayed in each state without changing the logic of the interaction itself.
 
 ### 4.2 Reacting to Input with State
 
