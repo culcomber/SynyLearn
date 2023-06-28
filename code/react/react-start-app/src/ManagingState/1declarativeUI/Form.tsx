@@ -27,7 +27,7 @@ export default function Form() {
 
     return (
         <>
-            <h2>City quiz</h2>
+            <h4 className={'title-color'}>City quiz</h4>
             <p>
                 In which city is there a billboard that turns air into drinkable water?
             </p>

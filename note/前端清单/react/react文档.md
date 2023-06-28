@@ -1264,7 +1264,60 @@ Expressing all interactions as state changes lets you later introduce new visual
 
 ### 4.2 Reacting to Input with State
 
+**“Make your state as simple as it can be—but no simpler.”**
 
+1. **Group related state.** If you always update two or more state variables at the same time, consider merging them into a single state variable.
+
+   ```jsx
+   const [x, setX] = useState(0);
+   const [y, setY] = useState(0);
+   
+   // x和y是同时变化的，可以合并两个状态
+   const [position, setPosition] = useState({ x: 0, y: 0 });
+   ```
+
+2. **Avoid contradictions in state.** When the state is structured in a way that several pieces of state may contradict and “disagree” with each other, you leave room for mistakes. Try to avoid this.
+
+   ```js
+   const [isSending, setIsSending] = useState(false);
+   const [isSent, setIsSent] = useState(false);
+   
+   // isSent和isSending不可能同时为true，可以合并
+   const [status, setStatus] = useState('typing');
+   const isSending = status === 'sending';
+   const isSent = status === 'sent';
+   ```
+
+3. **Avoid redundant state.** If you can calculate some information from the component’s props or its existing state variables during rendering, you should not put that information into that component’s state.
+
+   ```js
+   const [firstName, setFirstName] = useState('');
+   const [lastName, setLastName] = useState('');
+   const [fullName, setFullName] = useState('');
+   
+   // 不需要fullNamestate，可以使用已有内容推算出
+   //  the change handlers don’t need to do anything special to update it. When you call setFirstName or setLastName, you trigger a re-render, and then the next fullName will be calculated from the fresh data.
+   const fullName = firstName + ' ' + lastName;
+   ```
+
+4. **Avoid duplication in state.** When the same data is duplicated between multiple state variables, or within nested objects, it is difficult to keep them in sync. Reduce duplication when you can.
+
+   ```js
+   const [items, setItems] = useState(initialItems);
+   const [selectedItem, setSelectedItem] = useState(items[0]);
+   
+   // selectedItem数据已经保存在items
+   const [selectedId, setSelectedId] = useState(0);
+   const selectedItem = items.find(item =>
+   	item.id === selectedId
+   );
+   ```
+
+5. **Avoid deeply nested state.** Deeply hierarchical state is not very convenient to update. When possible, prefer to structure state in a flat way.
+
+   ```js
+   
+   ```
 
 ### 4.3 Choosing the State Structure
 
