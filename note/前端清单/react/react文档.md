@@ -1393,7 +1393,7 @@ The final `Panel` component with the `isActive` prop is controlled by the `Accor
 
 React associates each piece of state it’s holding with the correct component by where that component sits in the UI tree.
 
-**State is tied to a position in the tree** —— 在不同地方渲染两次
+**A State is tied to a position in the tree** —— 在不同地方渲染两次
 
 **These are two separate counters because each is rendered at its own position in the tree.**
 
@@ -1444,7 +1444,7 @@ export default function App() {
 
 <img src="../../assets/image-20230628232747662.png" alt="image-20230628232747662" style="zoom:80%;" />
 
-**Same component at the same position preserves state** —— 在同一地方渲染
+**B Same component at the same position preserves state** —— 在同一地方渲染
 
 It’s the same component at the same position, so from React’s perspective, it’s the same counter.
 
@@ -1492,7 +1492,7 @@ export default function App() {
 
 <img src="../../assets/image-20230628235017331.png" alt="image-20230628235017331" style="zoom:50%;" /><img src="../../assets/image-20230628234251863.png" alt="image-20230628234251863" style="zoom:50%;" />
 
-**Different components at the same position reset state**——不同组件在同一个地方渲染
+**C Different components at the same position reset state**——不同组件在同一个地方渲染
 
 **when you render a different component in the same position, it resets the state of its entire subtree.**
 
@@ -1531,7 +1531,7 @@ export default function App() {
 
 <img src="../../assets/image-20230629000445182.png" alt="image-20230629000445182" style="zoom:80%;" />
 
-**Resetting state at the same position**
+**D Resetting state at the same position**
 
 ```jsx
 export default function Scoreboard() {
@@ -1606,7 +1606,7 @@ There are two ways to reset state when switching between them:
    }
    ```
 
-**the state “alive” for a component that’s no longer visible**
+**E the state “alive” for a component that’s no longer visible**
 
 - You could **render *all* chats** instead of just the current one, but **hide all the others with CSS**. The chats would not get removed from the tree, so their local state would be preserved. This solution works great for **simple UIs**. But it can get very slow if the hidden trees are large and contain a lot of DOM nodes.
 - You could [lift the state up](https://react.dev/learn/sharing-state-between-components) and hold the pending message for each recipient in the parent component. This way, when the child components get removed, it doesn’t matter, because it’s the **parent that keeps the important information**. This is the most common solution.
