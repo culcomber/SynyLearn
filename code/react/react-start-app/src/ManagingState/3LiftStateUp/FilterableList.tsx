@@ -4,6 +4,7 @@ import {useState} from 'react';
 
 export default function FilterableList() {
     const [query, setQuery] = useState('');
+    // 每次render都可以刷新值
     const results = filterItems(foods, query); // 传入List的值改变
 
     function handleChange(e) {

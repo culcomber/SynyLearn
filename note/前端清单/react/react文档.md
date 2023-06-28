@@ -55,7 +55,9 @@ If you render the same component multiple times, each will get its own state
 
 在父组件中使用两次子组件，每个子组件状态state是独立的
 
-<img src="../../assets/imageurl=%2Fimages%2Fdocs%2Fdiagrams%2Fsharing_data_child.png" alt="Diagram showing a tree of three components, one parent labeled MyApp and two children labeled MyButton. Both MyButton components contain a count with value zero." style="zoom:33%;" />
+<img src="../../assets/image-20230628232825453.png" alt="image-20230628232825453" style="zoom:50%;" />![image-20230628232842619](../../assets/image-20230628232842619.png)
+
+![image-20230628232842619](../../assets/image-20230628232842619.png)
 
 ```jsx
 import { useState } from 'react';
@@ -1387,7 +1389,228 @@ The final `Panel` component with the `isActive` prop is controlled by the `Accor
 
 ### 4.4 Preserving and Resetting State
 
+<img src="../../assets/image-20230628232715323.png" alt="image-20230628232715323" style="zoom:80%;" />
 
+React associates each piece of state it’s holding with the correct component by where that component sits in the UI tree.
+
+**State is tied to a position in the tree** —— 在不同地方渲染两次
+
+**These are two separate counters because each is rendered at its own position in the tree.**
+
+两次渲染是没有关系的，state是独立的
+
+```jsx
+export default function App() {
+  const counter = <Counter />;
+  return (
+    <div>
+      {counter}
+      {counter}
+    </div>
+  );
+}
+```
+
+<img src="../../assets/image-20230628232736072.png" alt="image-20230628232736072" style="zoom:80%;" />
+
+**React preserves a component’s state for as long as it’s being rendered at its position in the UI tree.** If it gets removed, or a different component gets rendered at the same position, React discards its state.
+
+只要组件还在页面上，react保存组件的state，如果组件被移开，state才会清空
+
+- Notice how the moment you stop rendering the second counter, its state disappears completely. That’s because when React **removes a component, it destroys its state**.
+- When you tick “Render the second counter”, a second `Counter` and its state are **initialized** from scratch (`score = 0`) and added to the DOM.
+
+```jsx
+export default function App() {
+  const [showB, setShowB] = useState(true);
+  return (
+    <div>
+      <Counter />
+      {showB && <Counter />} 
+      <label>
+        <input
+          type="checkbox"
+          checked={showB}
+          onChange={e => {
+            setShowB(e.target.checked)
+          }}
+        />
+        Render the second counter
+      </label>
+    </div>
+  );
+}
+```
+
+<img src="../../assets/image-20230628232747662.png" alt="image-20230628232747662" style="zoom:80%;" />
+
+**Same component at the same position preserves state** —— 在同一地方渲染
+
+It’s the same component at the same position, so from React’s perspective, it’s the same counter.
+
+React doesn’t know where you place the conditions in your function. All it “sees” is the tree you return.
+
+即使条件语句控制传递不同的值，但是在同一个地方同一个组件，react认为两者是一样的
+
+```jsx
+export default function App() {
+  const [isFancy, setIsFancy] = useState(false);
+  if (isFancy) {
+    return (
+      <div>
+        <Counter isFancy={true} />
+        <label>
+          <input
+            type="checkbox"
+            checked={isFancy}
+            onChange={e => {
+              setIsFancy(e.target.checked)
+            }}
+          />
+          Use fancy styling
+        </label>
+      </div>
+    );
+  }
+  return (
+    <div>
+      <Counter isFancy={false} />
+      <label>
+        <input
+          type="checkbox"
+          checked={isFancy}
+          onChange={e => {
+            setIsFancy(e.target.checked)
+          }}
+        />
+        Use fancy styling
+      </label>
+    </div>
+  );
+}
+```
+
+<img src="../../assets/image-20230628235017331.png" alt="image-20230628235017331" style="zoom:50%;" /><img src="../../assets/image-20230628234251863.png" alt="image-20230628234251863" style="zoom:50%;" />
+
+**Different components at the same position reset state**——不同组件在同一个地方渲染
+
+**when you render a different component in the same position, it resets the state of its entire subtree.**
+
+**if you want to preserve the state between re-renders, the structure of your tree needs to “match up”** from one render to another. If the structure is different, the state gets destroyed because React destroys state when it removes a component from the tree.
+
+父节点不匹配，父节点和其下面子节点都会重新渲染
+
+```jsx
+export default function App() {
+  const [isFancy, setIsFancy] = useState(false);
+  return (
+    <div>
+      {isFancy ? (
+        <div>
+          <Counter isFancy={true} /> 
+        </div>
+      ) : (
+        <section>
+          <Counter isFancy={false} />
+        </section>
+      )}
+      <label>
+        <input
+          type="checkbox"
+          checked={isFancy}
+          onChange={e => {
+            setIsFancy(e.target.checked)
+          }}
+        />
+        Use fancy styling
+      </label>
+    </div>
+  );
+}
+```
+
+<img src="../../assets/image-20230629000445182.png" alt="image-20230629000445182" style="zoom:80%;" />
+
+**Resetting state at the same position**
+
+```jsx
+export default function Scoreboard() {
+  const [isPlayerA, setIsPlayerA] = useState(true);
+  return (
+    <div>
+      {isPlayerA ? (
+        <Counter person="Taylor" />
+      ) : (
+        <Counter person="Sarah" />
+      )}
+      <button onClick={() => {
+        setIsPlayerA(!isPlayerA);
+      }}>
+        Next player!
+      </button>
+    </div>
+  );
+}
+```
+
+There are two ways to reset state when switching between them:
+
+1. Render components in different positions
+
+   <img src="../../assets/image-20230629001815758.png" alt="image-20230629001815758" style="zoom:80%;" />
+
+   ```jsx
+   export default function Scoreboard() {
+     const [isPlayerA, setIsPlayerA] = useState(true);
+     return (
+       <div>
+         {isPlayerA &&
+           <Counter person="Taylor" />
+         }
+         {!isPlayerA &&
+           <Counter person="Sarah" />
+         }
+         <button onClick={() => {
+           setIsPlayerA(!isPlayerA);
+         }}>
+           Next player!
+         </button>
+       </div>
+     );
+   }
+   ```
+
+2. Give each component an explicit identity with `key`
+
+   You can use keys to make React distinguish between any components. By default, React uses order within the parent (“first counter”, “second counter”) to discern between components. But keys let you tell React that this is not just a *first* counter, or a *second* counter, but a specific counter—for example, *Taylor’s* counter. This way, **React will know *Taylor’s* counter wherever it appears in the tree!**
+
+   Remember that keys are **not globally unique**. They only specify the position *within the parent*.
+
+   ```jsx
+   export default function Scoreboard() {
+     const [isPlayerA, setIsPlayerA] = useState(true);
+     return (
+       <div>
+         {isPlayerA ? (
+           <Counter key="Taylor" person="Taylor" />
+         ) : (
+           <Counter key="Sarah" person="Sarah" />
+         )}
+         <button onClick={() => {
+           setIsPlayerA(!isPlayerA);
+         }}>
+           Next player!
+         </button>
+       </div>
+     );
+   }
+   ```
+
+**the state “alive” for a component that’s no longer visible**
+
+- You could **render *all* chats** instead of just the current one, but **hide all the others with CSS**. The chats would not get removed from the tree, so their local state would be preserved. This solution works great for **simple UIs**. But it can get very slow if the hidden trees are large and contain a lot of DOM nodes.
+- You could [lift the state up](https://react.dev/learn/sharing-state-between-components) and hold the pending message for each recipient in the parent component. This way, when the child components get removed, it doesn’t matter, because it’s the **parent that keeps the important information**. This is the most common solution.
+- You might also use a different source in addition to React state. For example, you probably want a message draft to persist even if the user accidentally closes the page. To implement this, you could have the `Chat` component initialize its state by reading from the [`localStorage`](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage), and save the drafts there too.
 
 ### 4.5 Extracting State Logic into a Reducer
 
