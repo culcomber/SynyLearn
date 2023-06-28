@@ -1262,7 +1262,7 @@ Declarative programming means describing the UI for each visual state rather tha
 
 Expressing all interactions as state changes lets you later introduce new visual states without breaking existing ones. It also lets you change what should be displayed in each state without changing the logic of the interaction itself.
 
-### 4.2 Reacting to Input with State
+### 4.2 Choosing the State Structure
 
 **“Make your state as simple as it can be—but no simpler.”**
 
@@ -1315,31 +1315,89 @@ Expressing all interactions as state changes lets you later introduce new visual
 
 5. **Avoid deeply nested state.** Deeply hierarchical state is not very convenient to update. When possible, prefer to structure state in a flat way.
 
-   ```js
-   
-   ```
+### 4.3 Sharing State Between Components
 
-### 4.3 Choosing the State Structure
+To coordinate these two panels, you need to “lift their state up” to a parent component in three steps:
+
+1. **Remove** state from the child components.
+2. **Pass** hardcoded data from the common parent.
+3. **Add** state to the common parent and pass it down together with the event handlers.
+
+```jsx
+// 不受控
+function Panel({ title, children }) {
+  const [isActive, setIsActive] = useState(false);
+  return (
+    <section className="panel">
+      <h3>{title}</h3>
+      {isActive ? (
+        <p>{children}</p>
+      ) : (
+        <button onClick={() => setIsActive(true)}>
+          Show
+        </button>
+      )}
+    </section>
+  );
+}
+
+// 把isActive提升
+export default function Accordion() {
+  const [activeIndex, setActiveIndex] = useState(0);
+  return (
+    <>
+      <h2>Almaty, Kazakhstan</h2>
+      <Panel
+        title="About"
+        isActive={activeIndex === 0}
+        onShow={() => setActiveIndex(0)}
+      >
+        With a population of about 2 million, Almaty is Kazakhstan's largest city. 
+      </Panel>
+      <Panel
+        title="Etymology"
+        isActive={activeIndex === 1}
+        onShow={() => setActiveIndex(1)}
+      >
+        The name comes from, the Kazakh word for "apple" and is often translated as "full of apples".
+      </Panel>
+    </>
+  );
+}
+// 受控
+function Panel({title,children,isActive,onShow}) {
+  return (
+    <section className="panel">
+      <h3>{title}</h3>
+      {isActive ? (
+        <p>{children}</p>
+      ) : (
+        <button onClick={onShow}>
+          Show
+        </button>
+      )}
+    </section>
+  );
+}
+```
+
+In contrast, you might say a component is “controlled” when the important information in it is driven by props rather than its own local state. 
+
+The final `Panel` component with the `isActive` prop is controlled by the `Accordion` component.
+
+### 4.4 Preserving and Resetting State
 
 
 
-### 4.4 Sharing State Between Components
+### 4.5 Extracting State Logic into a Reducer
 
 
 
-### 4.5 Preserving and Resetting State
+### 4.6 Passing Data Deeply with Context
 
 
 
-### 4.6 Extracting State Logic into a Reducer
-
-
-
-### 4.7 Passing Data Deeply with Context
-
-
-
-### 4.8 Scaling Up with Reducer and Context
+### 4.7 Scaling Up with Reducer and Context
 
 
 
