@@ -24,6 +24,8 @@ import ContactList from "./3LiftStateUp/ContactList.tsx";
 import TaskApp from "./4ExtractingStateReducer/TaskApp.tsx";
 // @ts-ignore
 import Messenger from "./4ExtractingStateReducer/Messenger.tsx";
+// @ts-ignore
+import Page from "./5PassingDataContext/Page.tsx";
 
 let statuses = [
     'empty',
@@ -86,6 +88,10 @@ export default function ManagingState() {
                 <TaskApp/>
                 <br/>
                 <Messenger/>
+            </DisplayPart>
+            <DisplayPart title='4.5 Extracting State Logic into a Reducer'>
+                <Page/>
+                <br/>
             </DisplayPart>
         </div>
     );
