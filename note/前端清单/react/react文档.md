@@ -1,3 +1,11 @@
+```
+jsx标签内使用 `<br />` 换行
+使用{`{}`} 显示 {}
+使用 &lt;&gt; 或者 {`<>`} 显示 <>
+```
+
+<img src="../../assets/image-20230629095133923.png" alt="image-20230629095133923" style="zoom:50%;" />
+
 ## 1 Quick Start
 
 A component can be as small as a button, or as large as an entire page

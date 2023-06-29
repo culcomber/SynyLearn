@@ -10,6 +10,16 @@ import TravelPlan from "./2StateStructure/TravelPlan.tsx";
 import MailClient from "./2StateStructure/MailClient.tsx";
 // @ts-ignore
 import FilterableList from "./3LiftStateUp/FilterableList.tsx";
+// @ts-ignore
+import DisappearingInputText from "./3LiftStateUp/DisappearingInputText.tsx";
+// @ts-ignore
+import SwapTwoFormFields from "./3LiftStateUp/SwapTwoFormFields.tsx";
+// @ts-ignore
+import ContactManager from "./3LiftStateUp/ContactManager.tsx";
+// @ts-ignore
+import Gallery from "./3LiftStateUp/Gallery.tsx";
+// @ts-ignore
+import ContactList from "./3LiftStateUp/ContactList.tsx";
 
 let statuses = [
     'empty',
@@ -19,12 +29,12 @@ let statuses = [
     'error',
 ];
 
-function DisplayPart ({title, children}) {
+function DisplayPart({title, children}) {
     return (
         <>
             <h2 className={'part-color'}>{title}</h2>
             {children}
-            <hr />
+            <hr/>
         </>
     );
 }
@@ -36,19 +46,35 @@ export default function ManagingState() {
                 {statuses.map(status => (
                     <section key={status}>
                         <h4 className={'title-color'}>Form ({status}):</h4>
-                        <FormState status={status} />
+                        <FormState status={status}/>
                     </section>
                 ))}
-                <Form></Form>
+                <Form/>
                 <br/>
-                <EditProfile></EditProfile>
+                <EditProfile/>
             </DisplayPart>
             <DisplayPart title='4.2 Reacting to Input with State'>
-                <TravelPlan></TravelPlan>
-                <MailClient></MailClient>
+                <TravelPlan/>
+                <MailClient/>
             </DisplayPart>
             <DisplayPart title='4.3 Sharing State Between Components'>
-                <FilterableList></FilterableList>
+                <FilterableList/>
+                <br/>
+                <h4 className={'title-color'}>1. Fix disappearing input text</h4>
+                <DisappearingInputText/>
+                <br/>
+                <h4 className={'title-color'}>2. Swap two form fields</h4>
+                <SwapTwoFormFields/>
+                <br/>
+                <h4 className={'title-color'}>3. Reset a detail form</h4>
+                <ContactManager/>
+                <br/>
+                <h4 className={'title-color'}>4. Clear an image while it’s loading</h4>
+                <Gallery/>
+                <br/>
+                <h4 className={'title-color'}>5. Fix misplaced state in the list</h4>
+                <ContactList/>
+                <br/>
             </DisplayPart>
         </div>
     );
