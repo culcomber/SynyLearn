@@ -20,6 +20,10 @@ import ContactManager from "./3LiftStateUp/ContactManager.tsx";
 import Gallery from "./3LiftStateUp/Gallery.tsx";
 // @ts-ignore
 import ContactList from "./3LiftStateUp/ContactList.tsx";
+// @ts-ignore
+import TaskApp from "./4ExtractingStateReducer/TaskApp.tsx";
+// @ts-ignore
+import Messenger from "./4ExtractingStateReducer/Messenger.tsx";
 
 let statuses = [
     'empty',
@@ -59,6 +63,8 @@ export default function ManagingState() {
             </DisplayPart>
             <DisplayPart title='4.3 Sharing State Between Components'>
                 <FilterableList/>
+            </DisplayPart>
+            <DisplayPart title='4.4 Preserving and Resetting State'>
                 <br/>
                 <h4 className={'title-color'}>1. Fix disappearing input text</h4>
                 <DisappearingInputText/>
@@ -75,6 +81,11 @@ export default function ManagingState() {
                 <h4 className={'title-color'}>5. Fix misplaced state in the list</h4>
                 <ContactList/>
                 <br/>
+            </DisplayPart>
+            <DisplayPart title='4.5 Extracting State Logic into a Reducer'>
+                <TaskApp/>
+                <br/>
+                <Messenger/>
             </DisplayPart>
         </div>
     );

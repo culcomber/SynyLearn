@@ -1622,7 +1622,80 @@ There are two ways to reset state when switching between them:
 
 ### 4.5 Extracting State Logic into a Reducer
 
+Managing state with reducers is slightly different from directly setting state. Instead of telling React “what to do” by setting state, you specify “what the user just did” by dispatching “actions” from your event handle(The state update logic will live elsewhere!) So instead of “setting `tasks`” via an event handler, you’re dispatching an “added/changed/deleted a task” action. This is more descriptive of the user’s intent.rs. 
 
+Reducers are a different way to handle state. You can migrate from `useState` to `useReducer` in three steps:
+
+1. **Move** from setting state to dispatching actions.
+2. **Write** a reducer function.
+3. **Use** the reducer from your component.
+
+**Comparing useState and useReducer** 
+
+Reducers require you to write a bit more code, but they help with debugging and testing
+
+We recommend using a reducer if you often encounter bugs due to incorrect state updates in some component, and want to introduce more structure to its code. You don’t have to use reducers for everything: feel free to mix and match! You can even `useState` and `useReducer` in the same component.
+
+**Keep these two tips in mind when writing reducers:**
+
+- **Reducers must be pure.** Similar to [state updater functions](https://react.dev/learn/queueing-a-series-of-state-updates), reducers run during rendering! (Actions are queued until the next render). They should **not send requests, schedule timeouts, or perform any side effects** (operations that impact things outside the component). 
+
+- **Each action describes a single user interaction, even if that leads to multiple changes in the data.** 
+
+  ```jsx
+  case 'edited_message': {
+      // 不要改变state
+      // should update objects without mutations
+      return {
+          ...state,
+          message: action.message,
+      };
+  }
+  case 'sent_message': {
+      return {
+          ...state,
+          message: '',
+      };
+  }
+  // 虽然sent_message可以复用edited_message，传递空串，但是action应该去描述动作，而不仅仅是改变state
+  // action types should ideally describe “what the user did” rather than “how you want the state to change”
+  <button
+      onClick={() => {
+        // reducer是纯函数只负责计算state
+        // The reducer should be a pure function—it should only calculate the next state. 
+        alert(`Sending "${message}" to ${contact.email}`);
+        dispatch({
+          type: 'edited_message',
+          message: '',
+        });
+      }}>
+      Send to {contact.email}
+  </button>
+  
+  <button onClick={() => {
+      alert(`Sending "${message}" to ${contact.email}`);
+      dispatch({
+          type: 'sent_message',
+      });
+  }}>Send to {contact.email}</button>
+  ```
+
+实现*useReducer*
+
+```jsx
+import { useState } from 'react';
+
+export function useReducer(reducer, initialState) {
+  const [state, setState] = useState(initialState);
+
+  function dispatch(action) {
+    const nextState = reducer(state, action);
+    setState(nextState);
+  }
+
+  return [state, dispatch];
+}
+```
 
 ### 4.6 Passing Data Deeply with Context
 
