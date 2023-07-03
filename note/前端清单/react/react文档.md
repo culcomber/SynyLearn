@@ -2019,13 +2019,39 @@ If you do modify DOM nodes managed by React, modify parts that React has no reas
 
 **declare an Effect in your component**
 
+1. **Declare an Effect.** 
 
+   **useEffect “delays” a piece of code from running until that render is reflected on the screen**
 
-**skip re-running an Effect unnecessarily**
+   
 
+   
 
+2. **Specify the Effect dependencies.** 
+
+   
+
+3. **Add cleanup if needed.** 
+
+   
+
+4. 1
 
 **Effects run twice in development and how to fix them**
+
+Controlling non-React widgets
+
+Subscribing to events
+
+Triggering animations
+
+Fetching data
+
+Sending analytics
+
+Not an Effect: Initializing the application
+
+Not an Effect: Buying a product
 
 
 
