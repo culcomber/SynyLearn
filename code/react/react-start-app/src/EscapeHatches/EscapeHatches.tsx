@@ -8,6 +8,10 @@ import ChatRef from "./1ValuesRefs/ChatRef.tsx";
 import DomRefs from "./2DOMwithRefs/DomRefs.tsx";
 // @ts-ignore
 import TodoListRef from "./2DOMwithRefs/TodoListRef.tsx";
+// @ts-ignore
+import VideoPlayer from "./2DOMwithRefs/VideoPlayer.tsx";
+// @ts-ignore
+import CatFriends from "./2DOMwithRefs/CatFriends.tsx";
 
 function DisplayPart({title, children}) {
     return (
@@ -34,6 +38,9 @@ export default function EscapeHatches() {
                 <DomRefs/>
                 <br/><br/>
                 <TodoListRef/>
+                <VideoPlayer/>
+                <br/><br/>
+                <CatFriends/>
                 <br/><br/>
             </DisplayPart>
             <DisplayPart title='5.3 Synchronizing with Effects'>

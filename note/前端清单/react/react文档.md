@@ -666,6 +666,10 @@ export default function StoryTray({ stories }) {
 }
 ```
 
+Event handlers contain [“side effects”](https://en.wikipedia.org/wiki/Side_effect_(computer_science)) (they change the program’s state) caused by a specific user action (for example, a button click or typing).
+
+事件处理程序包含由特定用户行为（例如，点击按钮或打字）引起的 "副作用"（它们改变程序的状态）。
+
 In React, **side effects usually belong inside [event handlers.](https://react.dev/learn/responding-to-events)** Event handlers are functions that React runs when you perform some action—for example, when you click a button. Even though event handlers are defined *inside* your component, they don’t run *during* rendering! **So event handlers don’t need to be pure.**
 
 事件处理函数不在render时候运行，不是纯函数不影响
@@ -1613,7 +1617,7 @@ There are two ways to reset state when switching between them:
    }
    ```
 
-**E the state “alive” for a component that’s no longer visible**
+**the state “alive” for a component that’s no longer visible**
 
 - You could **render *all* chats** instead of just the current one, but **hide all the others with CSS**. The chats would not get removed from the tree, so their local state would be preserved. This solution works great for **simple UIs**. But it can get very slow if the hidden trees are large and contain a lot of DOM nodes.
 - You could [lift the state up](https://react.dev/learn/sharing-state-between-components) and hold the pending message for each recipient in the parent component. This way, when the child components get removed, it doesn’t matter, because it’s the **parent that keeps the important information**. This is the most common solution.
@@ -1933,13 +1937,97 @@ React sets `ref.current` during the commit. Before updating the DOM, React sets 
 
 render阶段ref为null，commit成功后ref为DOM nodes或设置的值
 
+```jsx
+// setTodos和current不是同步改变的，setTodos在current后面更新
+function handleAdd() {
+    const newTodo = { id: nextId++, text: text };
+    setTodos([ ...todos, newTodo]);
+    listRef.current.lastChild.scrollIntoView({
+      behavior: 'smooth',
+      block: 'nearest'
+    });
+}
 
+// flushSync让setTodos立即同步更新到dom
+// This will instruct React to update the DOM synchronously right after the code wrapped in flushSync executes
+function handleAdd() {
+    const newTodo = { id: nextId++, text: text };
+    flushSync(() => {
+        setTodos([ ...todos, newTodo]);      
+    });
+    listRef.current.lastChild.scrollIntoView({
+        behavior: 'smooth',
+        block: 'nearest'
+    });
+}
+```
 
-**modify the DOM managed by React**
+**Best practices for DOM manipulation with refs**
 
+managing focus, scroll position, or calling browser APIs
 
+Usually, you will use refs for non-destructive actions like focusing, scrolling, or measuring DOM elements. However, if you try to **modify** the DOM manually, you can risk conflicting with the changes React is making.
+
+不修改dom，只是聚焦，这种情况下使用ref是安全的
+
+```jsx
+import { useState, useRef } from 'react';
+
+export default function Counter() {
+  const [show, setShow] = useState(true);
+  const ref = useRef(null);
+
+  return (
+    <div>
+      <button
+        onClick={() => {
+          setShow(!show);
+        }}>
+        Toggle with setState
+      </button>
+      <button
+        onClick={() => {
+          ref.current.remove();
+        }}>
+        Remove from the DOM
+      </button>
+      {show && <p ref={ref}>Hello world</p>}
+    </div>
+  );
+}
+```
+
+After you’ve manually removed the DOM element, trying to use `setState` to show it again will lead to a crash. **Avoid changing DOM nodes managed by React.** 
+
+If you do modify DOM nodes managed by React, modify parts that React has no reason to update.
+
+点击第二个按钮ref删除dom，再点击第一个按钮会报错，ref不触发render所以react不知道什么时候dom被修改了
+
+<img src="../../assets/image-20230703233258546.png" alt="image-20230703233258546" style="zoom:50%;" />
 
 ### 5.3 Synchronizing with Effects
+
+**Effects are different from events**
+
+- Event handlers contain [“side effects”](https://en.wikipedia.org/wiki/Side_effect_(computer_science)) (they change the program’s state) caused by a specific user action (for example, a button click or typing).  事件处理函数是用户行为触发的副作用
+
+- Effects let you specify side effects that are caused by rendering itself, rather than by a particular event.    Effects是render触发的副作用
+
+- Effects run **at the end of a [commit](https://react.dev/learn/render-and-commit) after the screen updates**. This is a good time to synchronize the React components with some external system (like network or a third-party library).  Effects是在commit结束，dom更新后，执行的
+
+- Keep in mind that Effects are typically used to “step out” of your React code and synchronize with some *external* system. This includes browser APIs, third-party widgets, network, and so on.   Effects通常用于 "走出 "你的React代码并与一些外部系统同步
+
+**declare an Effect in your component**
+
+
+
+**skip re-running an Effect unnecessarily**
+
+
+
+**Effects run twice in development and how to fix them**
+
+
 
 
 
