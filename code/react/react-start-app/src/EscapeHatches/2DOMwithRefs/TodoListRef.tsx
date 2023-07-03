@@ -1,4 +1,5 @@
 import { useState, useRef } from 'react';
+import {flushSync} from "react-dom";
 
 export default function TodoListRef() {
     const listRef = useRef(null);
@@ -9,8 +10,14 @@ export default function TodoListRef() {
 
     function handleAdd() {
         const newTodo = { id: nextId++, text: text };
-        setText('');
-        setTodos([ ...todos, newTodo]);
+        // setTodos does not immediately update the DOM
+        /*setText('');
+        setTodos([ ...todos, newTodo]);*/
+        // React to update the DOM synchronously right after the code wrapped in flushSync executes
+        flushSync(() => {
+            setText('');
+            setTodos([ ...todos, newTodo]);
+        });
         listRef.current.lastChild.scrollIntoView({
             behavior: 'smooth',
             block: 'nearest'
