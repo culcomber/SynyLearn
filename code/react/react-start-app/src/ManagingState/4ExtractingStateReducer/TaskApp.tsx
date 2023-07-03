@@ -4,6 +4,7 @@ import AddTask from './AddTask.tsx';
 // @ts-ignore
 import TaskList from './TaskList.tsx';
 import tasksReducer from './tasksReducer.js';
+import { TasksContext, TasksDispatchContext } from './TasksContext.js';
 
 export default function TaskApp() {
     // const [tasks, setTasks] = useState(initialTasks);
@@ -54,13 +55,20 @@ export default function TaskApp() {
 
     return (
         <>
-            <h1>Prague itinerary</h1>
-            <AddTask onAddTask={handleAddTask} />
-            <TaskList
-                tasks={tasks}
-                onChangeTask={handleChangeTask}
-                onDeleteTask={handleDeleteTask}
-            />
+            <TasksContext.Provider value={tasks}>
+                <TasksDispatchContext.Provider value={dispatch}>
+                    <h1>Prague itinerary</h1>
+                    {/*<AddTask onAddTask={handleAddTask} />
+                    <TaskList
+                        tasks={tasks}
+                        onChangeTask={handleChangeTask}
+                        onDeleteTask={handleDeleteTask}
+                    />*/}
+                    <AddTask />
+                    <TaskList />
+                </TasksDispatchContext.Provider>
+            </TasksContext.Provider>/
+
         </>
     );
 }

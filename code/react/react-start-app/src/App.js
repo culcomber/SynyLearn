@@ -8,6 +8,9 @@ function App() {
           <li>
             <a href={`/managing-state`}>ManagingState</a>
           </li>
+          <li>
+            <a href={`/escape-hatches`}>EscapeHatches</a>
+          </li>
         </ul>
       </nav>
     </>

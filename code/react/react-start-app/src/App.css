@@ -26,6 +26,7 @@ h3 {
 h4 {
   margin-top: 0;
   font-size: 16px;
+  color: #5290f9;
 }
 
 h5 {
@@ -46,6 +47,10 @@ ul {
   padding-left: 20px;
 }
 
+button {
+  margin: .25rem;
+}
+
 .Error { color: red; }
 
 .title-color {
@@ -53,7 +58,7 @@ ul {
 }
 
 .part-color {
-  color: #e1ce26;
+  color: #489983;
 }
 
 .section {
@@ -61,4 +66,8 @@ ul {
   margin: 5px;
   border-radius: 5px;
   border: 1px solid #aaa;
+}
+
+.fancy {
+  border: 4px dashed pink;
 }

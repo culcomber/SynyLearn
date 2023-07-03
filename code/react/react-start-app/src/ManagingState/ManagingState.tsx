@@ -25,7 +25,9 @@ import TaskApp from "./4ExtractingStateReducer/TaskApp.tsx";
 // @ts-ignore
 import Messenger from "./4ExtractingStateReducer/Messenger.tsx";
 // @ts-ignore
-import Page from "./5PassingDataContext/Page.tsx";
+import ProfilePage from "./5PassingDataContext/ProfilePage.tsx";
+// @ts-ignore
+import TaskReducerContext from "./4ExtractingStateReducer/TaskReducerContext.tsx";
 
 let statuses = [
     'empty',
@@ -90,7 +92,11 @@ export default function ManagingState() {
                 <Messenger/>
             </DisplayPart>
             <DisplayPart title='4.5 Extracting State Logic into a Reducer'>
-                <Page/>
+                <ProfilePage/>
+                <br/>
+            </DisplayPart>
+            <DisplayPart title='4.6 Passing Data Deeply with Context'>
+                <TaskReducerContext />
                 <br/>
             </DisplayPart>
         </div>

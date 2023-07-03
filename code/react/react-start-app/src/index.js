@@ -5,6 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {createBrowserRouter, RouterProvider} from 'react-router-dom';
 import ManagingState from "./ManagingState/ManagingState.tsx";
+import EscapeHatches from "./EscapeHatches/EscapeHatches.tsx";
 
 const router = createBrowserRouter([
   {
@@ -14,6 +15,10 @@ const router = createBrowserRouter([
   {
     path: 'managing-state',
     element: <ManagingState />,
+  },
+  {
+    path: 'escape-hatches',
+    element: <EscapeHatches />,
   },
 ]);
 

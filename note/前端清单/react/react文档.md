@@ -1,7 +1,6 @@
 ```
 jsx标签内使用 `<br />` 换行
-使用{`{}`} 显示 {}
-使用 &lt;&gt; 或者 {`<>`} 显示 <>
+模板字符串：使用{`{}`} 显示 {}，使用 &lt;&gt; 或者 {`<>`} 显示 <>，js可以使用\n换行，jsx会处理\n变成空格
 ```
 
 <img src="../../assets/image-20230629095133923.png" alt="image-20230629095133923" style="zoom:50%;" />
@@ -1699,19 +1698,244 @@ export function useReducer(reducer, initialState) {
 
 ### 4.6 Passing Data Deeply with Context
 
+You can’t do it with props alone. This is where context comes into play. You will do it in three steps:
 
+1. **Create** a context. (You can call it `LevelContext`, since it’s for the heading level.
+
+   If you don’t provide the context, React will use the default value.
+
+   ```js
+   // LevelContext.js
+   import { createContext } from 'react';
+   export const LevelContext = createContext(1); // 1 default value
+   ```
+
+2. **Use** that context from the component that needs the data. 
+
+   **`useContext` tells React that the `Heading` component wants to read the `LevelContext`.**
+
+   子孙使用useContext获取数据
+
+   ```jsx
+   <Section>
+     <Heading level={4}>Sub-sub-heading</Heading>
+   </Section>
+   export default function Heading({ level, children }) {
+     // ...
+   }
+   
+   // 不再从prop读取数据，从context获取
+   <Section level={4}>
+     <Heading>Sub-sub-heading</Heading>
+   </Section>
+   import { useContext } from 'react';
+   import { LevelContext } from './LevelContext.js';
+   export default function Heading({ children }) {
+     const level = useContext(LevelContext);
+     // ...
+   }
+   ```
+
+3. **Provide** that context from the component that specifies the data. (`Section` will provide `LevelContext`.)
+
+   父级使用LevelContext标签传递数据
+
+   if any component inside this <Section> asks for LevelContext, give them this level.
+
+    The component will use the value of the nearest `<LevelContext.Provider>` in the UI tree above it.
+
+   ```jsx
+   import { LevelContext } from './LevelContext.js';
+   
+   export default function Section({ level, children }) {
+     return (
+       <section className="section">
+         <LevelContext.Provider value={level}>
+           {children}
+         </LevelContext.Provider>
+       </section>
+     );
+   }
+   ```
+
+   - You pass a `level` prop to the `<Section>`.
+   - `Section` wraps its children into `<LevelContext.Provider value={level}>`.
+   - `Heading` asks the closest value of `LevelContext` above with `useContext(LevelContext)`.
+
+**Before you use context** 
+
+Just because you need to pass some props several levels deep doesn’t mean you should put that information into context.
+
+1. Start by passing props.  可以帮助理解数据流传递
+
+2. Extract components and pass JSX as children to them. 
+
+   ```jsx
+   <Layout posts={posts} />
+   
+   <Layout><Posts posts={posts} /></Layout>
+   ```
+
+**Use cases for context** 
+
+- Theming
+- Current account
+- Routing
+- Managing state
 
 ### 4.7 Scaling Up with Reducer and Context
 
+Reducers let you consolidate a component’s state update logic. Context lets you pass information deep down to other components. You can combine reducers and context together to manage state of a complex screen.
 
+combine a reducer with context:
+
+1. **Create** the context.
+
+   ```js
+   // TasksContext.js
+   import { createContext } from 'react';
+   
+   // The actual values will be provided by the TaskApp component.
+   export const TasksContext = createContext(null); // the current list of tasks
+   export const TasksDispatchContext = createContext(null); // the function that lets components dispatch actions
+   ```
+
+2. **Put** state and dispatch into context.
+
+   父组件构建reducer，通过provider传递reducer生成的数据
+
+   <img src="../../assets/image-20230703160254106.png" alt="image-20230703160254106" style="zoom:50%;" />
+
+3. **Use** context anywhere in the tree.
+
+   **The state still “lives” in the top-level `TaskApp` component, managed with `useReducer`.** But its `tasks` and `dispatch` are now available to every component below in the tree by importing and using these contexts.
+
+   父组件删除props，子组件使用useContext获取数据
+
+   AddTask之前onClick里面调用props传递过来的函数，那个函数调用dispatch，现在直接调用dispatch
+
+   TaskList之前用props传递过来的tasks，现在直接用useContext
+
+   <img src="../../assets/image-20230703160715683.png" alt="image-20230703160715683" style="zoom:50%;" />
+
+4. You can further declutter the components by moving all wiring into one file.
+
+   - You can export a component like `TasksProvider` that provides context.
+   - You can also export custom Hooks like `useTasks` and `useTasksDispatch` to read it.
+
+
+
+好处
+
+This is a powerful way to scale your app and [lift state up](https://react.dev/learn/sharing-state-between-components) without too much work whenever you want to access the data deep in the tree.
 
 ## 5 Escape Hatches
 
 ### 5.1 Referencing Values with Refs
 
+When you want a component to “remember” some information, but you don’t want that information to [trigger new renders](https://react.dev/learn/render-and-commit), you can use a *ref*.
 
+想要记住组件的部分信息，但是不希望这部分信息导致页面的重新渲染
+
+**add a ref to your component**
+
+ref is a plain JavaScript object with the `current` property that you can read and modify
+
+Like state, refs are retained by React between re-renders
+
+就像state，react会保存ref的值，但是ref更新不会导致渲染，对待ref等同于一个有current属性的对象
+
+```jsx
+export default function ValuesRefs() {
+    let ref = useRef(0);
+    const [count, setCount] = useState(0); // useRef returns an object like this: { current: 0 }
+    function handleClickRef() {  // 多次点击不会更新到页面，只有重新render，ui才会更新
+        ref.current = ref.current + 1; // 立即生效，不会导致渲染
+        console.log('ref ' + ref.current);
+    }
+    function handleClickState() {
+        setCount(count + 1); // 导致render，render后更新
+        console.log('state ' + count);
+    }
+    // render后重新执行函数，会执行下面语句
+    console.log('render ' + ' ref:' + ref.current + ' state:' + count);
+    return (<>
+        <button onClick={handleClickRef}>Click me! {ref.current}</button>
+        <button onClick={handleClickState}>Click me! {count}</button>
+    </>);
+}
+```
+
+**Differences between refs and state**
+
+state：information is used for **rendering**
+
+ref：information is only needed by **event handlers** and changing it doesn’t require a re-render
+
+**use refs safely**
+
+use a ref when your component needs to **“step outside” React** and communicate with external APIs—often a browser API that won’t impact the appearance of the component
+
+- Storing [timeout IDs](https://developer.mozilla.org/docs/Web/API/setTimeout)
+- Storing and manipulating [DOM elements](https://developer.mozilla.org/docs/Web/API/Element)
+- Storing other objects that aren’t necessary to calculate the JSX
+
+make components more predictable:
+
+- **Treat refs as an escape hatch.** Refs are useful when you work with external systems or browser APIs.
+- **Don’t read or write `ref.current` during rendering.** If some information is needed during rendering, use [state](https://react.dev/learn/state-a-components-memory) instead. 
 
 ### 5.2 Manipulating the DOM with Refs
+
+sometimes you might need access to the DOM elements managed by React （react接管dom会根据state变化自动更新ui）
+
+**access a DOM node**
+
+```jsx
+export default function Form() {
+  const inputRef = useRef(null);
+  function handleClick() {
+    inputRef.current.focus();
+  }
+  return (<>
+      <input ref={inputRef} />
+      <button onClick={handleClick}>Focus the input</button>
+    </>);
+}
+```
+
+**pass a function to the `ref` attribute**
+
+React will call your ref callback with the DOM node when it’s time to set the ref, and with `null` when it’s time to clear it. 
+
+**access another component’s DOM node**
+
+只允许在原生dom节点上挂在ref属性，如果需要在函数组件上挂在ref需要借助forwardRef
+
+```jsx
+<MyInput ref={inputComRef} />
+
+const MyInput = forwardRef((props, ref) => {
+    return <input {...props} ref={ref} />;
+});
+```
+
+In design systems, it is a common pattern for **low-level components** like buttons, inputs, and so on, to **forward their refs** to their DOM nodes. On the other hand, **high-level components** like forms, lists, or page sections usually **won’t expose** their DOM nodes to avoid accidental dependencies on the DOM structure.
+
+**React attaches the refs**
+
+In React, every update is split in [two phases](https://react.dev/learn/render-and-commit#step-3-react-commits-changes-to-the-dom):
+
+- During **render,** React ==calls your components== to figure out what should be on the screen.
+- During **commit,** React applies changes to the DOM.
+
+React sets `ref.current` during the commit. Before updating the DOM, React sets the affected `ref.current` values to `null`. After updating the DOM, React immediately sets them to the corresponding DOM nodes.
+
+render阶段ref为null，commit成功后ref为DOM nodes或设置的值
+
+
+
+**modify the DOM managed by React**
 
 
 
