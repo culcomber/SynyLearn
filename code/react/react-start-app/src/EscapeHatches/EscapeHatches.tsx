@@ -12,6 +12,8 @@ import TodoListRef from "./2DOMwithRefs/TodoListRef.tsx";
 import VideoPlayer from "./2DOMwithRefs/VideoPlayer.tsx";
 // @ts-ignore
 import CatFriends from "./2DOMwithRefs/CatFriends.tsx";
+// @ts-ignore
+import FetchingIinside from "./3SynchronizingEffects/FetchingIinside.tsx";
 
 function DisplayPart({title, children}) {
     return (
@@ -44,7 +46,7 @@ export default function EscapeHatches() {
                 <br/><br/>
             </DisplayPart>
             <DisplayPart title='5.3 Synchronizing with Effects'>
-
+                <FetchingIinside />
                 <br/><br/>
             </DisplayPart>
             <DisplayPart title='5.4 You Might Not Need an Effect'>

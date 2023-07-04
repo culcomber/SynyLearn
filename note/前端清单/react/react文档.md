@@ -2023,55 +2023,108 @@ If you do modify DOM nodes managed by React, modify parts that React has no reas
 
    **useEffect “delays” a piece of code from running until that render is reflected on the screen**
 
-   
+   rendering should be a pure calculation of JSX and should not contain side effects like modifying the DOM. React doesn’t know what DOM to create until you return the JSX. wrap the side effect with useEffect to move it out of the rendering calculation
 
-   
+   在事件处理函数中调用ref是可以的，此时已经渲染好dom。但是如果在渲染过程中（在函数内直接使用判断语句）调用ref是会报错的（函数组件必须是纯函数计算JSX，不应该有操作dom的副作用，因为此时还没有返回jsx，react不清楚该操作什么dom），此时需要把渲染过程中的操作放在useEeffect中（useEeffect在完成dom渲染后才会执行）
+
+   <img src="../../assets/image-20230704091425468.png" alt="image-20230704091425468" style="zoom:80%;" />
+
+   First, React will update the screen, ensuring the `<video>` tag is in the DOM with the right props.  渲染dom
+
+   Then React will run your Effect.   执行useEeffect
+
+   Finally, your Effect will call play() or pause() depending on the value of isPlaying.  控制ref播放/暂停
 
 2. **Specify the Effect dependencies.** 
 
-   
+   <img src="../../assets/image-20230704131449179.png" alt="image-20230704131449179" style="zoom:50%;" />
 
 3. **Add cleanup if needed.** 
 
-   
+   React will call your cleanup function before the Effect runs next time, and during the unmount.
 
-4. 1
+   有依赖，依赖改变后，会执行清理函数
+
+   <img src="../../assets/image-20230704131549985.png" alt="image-20230704131549985" style="zoom:50%;" />
 
 **Effects run twice in development and how to fix them**
 
-Controlling non-React widgets
+In Strict Mode, React mounts components twice (in development only!) to stress-test your Effects.
 
-Subscribing to events
+React intentionally remounts your components in development to find bugs. **The right question isn’t “how to run an Effect once”, but “how to fix my Effect so that it works after remounting”.**
 
-Triggering animations
+The rule of thumb is that the user shouldn’t be able to distinguish between the Effect running once (as in production) and a *setup → cleanup → setup* sequence (as you’d see in development).
 
-Fetching data
+开发模式下react会执行两次useEffect，防止出现bug
 
-Sending analytics
+连接-->断开-->连接，并不会影响界面显示，只是多一次连接；但是如果是购买商品，就会有问题，所以购买商品不适合放在useEeffect
 
-Not an Effect: Initializing the application
+<img src="../../assets/image-20230704170528524.png" alt="image-20230704170528524" style="zoom:50%;" />
 
-Not an Effect: Buying a product
-
-
-
-
+<img src="../../assets/image-20230704170822142.png" alt="image-20230704170822142" style="zoom:50%;" />
 
 ### 5.4 You Might Not Need an Effect
 
+- If you can calculate something during render, you don’t need an Effect.
+- To cache expensive calculations, add `useMemo` instead of `useEffect`.
+- To reset the state of an entire component tree, pass a different `key` to it.
+- To reset a particular bit of state in response to a prop change, set it during rendering.
+- Code that runs because a component was *displayed* should be in Effects, the rest should be in events.
+- If you need to update the state of several components, it’s better to do it during a single event.
+- Whenever you try to synchronize state variables in different components, consider lifting state up.
+- You can fetch data with Effects, but you need to implement cleanup to avoid race conditions.
 
+
+
+- Why and how to remove unnecessary Effects from your components
+- How to cache expensive computations without Effects
+- How to reset and adjust component state without Effects
+- How to share logic between event handlers
+- Which logic should be moved to event handlers
+- How to notify parent components about changes
 
 ### 5.5 Lifecycle of Reactive Effects
 
-
+- Components can mount, update, and unmount.
+- Each Effect has a separate lifecycle from the surrounding component.
+- Each Effect describes a separate synchronization process that can *start* and *stop*.
+- When you write and read Effects, think from each individual Effect’s perspective (how to start and stop synchronization) rather than from the component’s perspective (how it mounts, updates, or unmounts).
+- Values declared inside the component body are “reactive”.
+- Reactive values should re-synchronize the Effect because they can change over time.
+- The linter verifies that all reactive values used inside the Effect are specified as dependencies.
+- All errors flagged by the linter are legitimate. There’s always a way to fix the code to not break the rules.
 
 ### 5.6 Separating Events from Effects
 
-
+- Event handlers run in response to specific interactions.
+- Effects run whenever synchronization is needed.
+- Logic inside event handlers is not reactive.
+- Logic inside Effects is reactive.
+- You can move non-reactive logic from Effects into Effect Events.
+- Only call Effect Events from inside Effects.
+- Don’t pass Effect Events to other components or Hooks.
 
 ### 5.7 Removing Effect Dependencies
 
-
+- Dependencies should always match the code.
+- When you’re not happy with your dependencies, what you need to edit is the code.
+- Suppressing the linter leads to very confusing bugs, and you should always avoid it.
+- To remove a dependency, you need to “prove” to the linter that it’s not necessary.
+- If some code should run in response to a specific interaction, move that code to an event handler.
+- If different parts of your Effect should re-run for different reasons, split it into several Effects.
+- If you want to update some state based on the previous state, pass an updater function.
+- If you want to read the latest value without “reacting” it, extract an Effect Event from your Effect.
+- In JavaScript, objects and functions are considered different if they were created at different times.
+- Try to avoid object and function dependencies. Move them outside the component or inside the Effect.
 
 ### 5.8 Reusing Logic with Custom Hooks
 
+- Custom Hooks let you share logic between components.
+- Custom Hooks must be named starting with `use` followed by a capital letter.
+- Custom Hooks only share stateful logic, not state itself.
+- You can pass reactive values from one Hook to another, and they stay up-to-date.
+- All Hooks re-run every time your component re-renders.
+- The code of your custom Hooks should be pure, like your component’s code.
+- Wrap event handlers received by custom Hooks into Effect Events.
+- Don’t create custom Hooks like `useMount`. Keep their purpose specific.
+- It’s up to you how and where to choose the boundaries of your code.
