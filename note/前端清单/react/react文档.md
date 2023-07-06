@@ -2094,6 +2094,87 @@ The rule of thumb is that the user shouldn’t be able to distinguish between th
 - The linter verifies that all reactive values used inside the Effect are specified as dependencies.
 - All errors flagged by the linter are legitimate. There’s always a way to fix the code to not break the rules.
 
+
+
+**Effect’s lifecycle is different from a component’s lifecycle**
+
+the `ChatRoom` **component’s** perspective:
+
+1. `ChatRoom` mounted with `roomId` set to `"general"`
+2. `ChatRoom` updated with `roomId` set to `"travel"`
+3. `ChatRoom` updated with `roomId` set to `"music"`
+4. `ChatRoom` unmounted
+
+During each of these points in the component’s lifecycle, **Effect** did different things:
+
+1. Your Effect connected to the `"general"` room
+2. Your Effect disconnected from the `"general"` room and connected to the `"travel"` room
+3. Your Effect disconnected from the `"travel"` room and connected to the `"music"` room
+4. Your Effect disconnected from the `"music"` room
+
+```jsx
+useEffect(() => {
+    // Your Effect connected to the room specified with roomId...
+    const connection = createConnection(serverUrl, roomId);
+    connection.connect();
+    return () => {
+      // ...until it disconnected
+      connection.disconnect();
+    };
+}, [roomId]);
+```
+
+synchronization may need to happen more than once
+
+Instead, always focus on a single start/stop cycle at a time. It shouldn’t matter whether a component is mounting, updating, or unmounting. All you need to do is to describe how to start synchronization and how to stop it. If you do it well, your Effect will be resilient to being started and stopped as many times as it’s needed.
+
+Effect和组件生命周期有区别，在组件生命周期内Effect可以开启-->暂停同步多次
+
+**Effect’s dependencies are determined**
+
+Each Effect in your code should represent a separate and independent synchronization process.
+
+```jsx
+function ChatRoom({ roomId }) {
+  useEffect(() => {
+    logVisit(roomId);
+    const connection = createConnection(serverUrl, roomId);
+    connection.connect();
+    return () => {
+      connection.disconnect();
+    };
+  }, [roomId]);
+}
+
+// connection和logVisit是两个独立事件
+function ChatRoom({ roomId }) {
+  useEffect(() => {
+    logVisit(roomId);
+  }, [roomId]);
+  useEffect(() => {
+    const connection = createConnection(serverUrl, roomId); // serverUrl never changes due to a re-render
+  }, [roomId]);
+}
+```
+
+**All variables declared in the component body are reactive** 
+
+All values inside the component (including props, state, and variables in your component’s body) are reactive. Any reactive value can change on a re-render, so you need to include reactive values as Effect’s dependencies.
+
+<img src="../../assets/image-20230706114036571.png" alt="image-20230706114036571" style="zoom:50%;" />
+
+Mutable values (including global variables) aren’t reactive
+
+- A mutable value like [`location.pathname`](https://developer.mozilla.org/en-US/docs/Web/API/Location/pathname) can’t be a dependency
+
+- A mutable value like ref.current or things you read from it also can’t be a dependency.
+
+Don’t fix these problems by suppressing the linter! Here’s what to try instead
+
+- Check that your Effect represents an independent synchronization process
+- If you want to read the latest value of props or state without “reacting” to it and re-synchronizing the Effect
+- Avoid relying on objects and functions as dependencies.
+
 ### 5.6 Separating Events from Effects
 
 - Event handlers run in response to specific interactions.
@@ -2103,6 +2184,18 @@ The rule of thumb is that the user shouldn’t be able to distinguish between th
 - You can move non-reactive logic from Effects into Effect Events.
 - Only call Effect Events from inside Effects.
 - Don’t pass Effect Events to other components or Hooks.
+
+
+
+choose between an event handler and an Effect
+
+Effects are reactive, and event handlers are not
+
+What to do when you want a part of your Effect’s code to not be reactive
+
+What Effect Events are, and how to extract them from your Effects
+
+How to read the latest props and state from Effects using Effect Events
 
 ### 5.7 Removing Effect Dependencies
 
