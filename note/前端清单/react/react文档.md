@@ -2221,3 +2221,63 @@ How to read the latest props and state from Effects using Effect Events
 - Wrap event handlers received by custom Hooks into Effect Events.
 - Don’t create custom Hooks like `useMount`. Keep their purpose specific.
 - It’s up to you how and where to choose the boundaries of your code.
+
+
+
+Custom Hooks: Sharing logic between components 
+
+```jsx
+function StatusBar() {
+  const isOnline = useOnlineStatus();
+  return <h1>{isOnline ? '✅ Online' : '❌ Disconnected'}</h1>;
+}
+
+function SaveButton() {
+  const isOnline = useOnlineStatus();
+
+  function handleSaveClick() {
+    console.log('✅ Progress saved');
+  }
+
+  return (
+    <button disabled={!isOnline} onClick={handleSaveClick}>
+      {isOnline ? 'Save progress' : 'Reconnecting...'}
+    </button>
+  );
+}
+
+function useOnlineStatus() {
+  const [isOnline, setIsOnline] = useState(true);
+  useEffect(() => {
+    function handleOnline() {
+      setIsOnline(true);
+    }
+    function handleOffline() {
+      setIsOnline(false);
+    }
+    window.addEventListener('online', handleOnline);
+    window.addEventListener('offline', handleOffline);
+    return () => {
+      window.removeEventListener('online', handleOnline);
+      window.removeEventListener('offline', handleOffline);
+    };
+  }, []);
+  return isOnline;
+}
+```
+
+When you extract logic into custom Hooks, you can hide the gnarly details of how you deal with some external system or a browser API. The code of your components expresses your intent, not the implementation.
+
+自定义hook实现逻辑，组件调用
+
+**Custom Hooks let you share stateful logic, not state itself** 
+
+Custom Hooks let you share stateful logic but not state itself. Each call to a Hook is completely independent from every other call to the same Hook. 
+
+每个调用自定义hook的组件都有一个自己的state
+
+**Passing reactive values between Hooks** 
+
+custom Hooks re-render together with component
+
+调用自定义hook组件重新渲染，自定义hook也会重新调用

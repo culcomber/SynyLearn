@@ -44,3 +44,8 @@ Didact.render(element, container)
 
 ```
 
+函数之外的语句什么时候执行，父组件更新会执行吗
+
+render时，调用函数时，是否更新了state
+
+state改变后怎么渲染组件  setState改变state，独立于组件的state由react更新，react重新运行组件，组件重新执行uesState，此时react返回最新值，组件返回的JSX也使用最新值，render，commit，改变视图
