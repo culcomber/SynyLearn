@@ -348,16 +348,70 @@ These “call tree” frames *are* destroyed along with their local state and ho
 
 Fibers are where the local state actually lives. When the state is updated, React marks the Fibers below as needing reconciliation, and calls those components.
 
+ “call tree” frames 是Fibers，保存着state，当state更新时，子组件会重新渲染
+
 ### Context
 
+Context is essentially like [dynamic scoping](http://wiki.c2.com/?DynamicScoping) for components. It’s like a wormhole that lets you put something on the top, and have every child at the bottom be able to read it and re-render when it changes.
 
+Context就像组件的动态范围 ，能从顶层传递数据，并让每个子组件在底部能够读取该值
+
+In practice, React maintains a **context stack** while it renders
+
+```JSX
+const ThemeContext = React.createContext(
+  'light' // 如果没有 ThemeContext.Provider 存在就会使用默认值
+);
+
+function DarkApp() {
+  return (
+    <ThemeContext.Provider value="dark">
+      <MyComponents />
+    </ThemeContext.Provider>
+  );
+}
+
+function SomeDeeplyNestedChild() {
+  // 寻找树中最近的 <ThemeContext.Provider> ，并且使用它的 value 
+  const theme = useContext(ThemeContext);
+}
+```
 
 ### Effects
 
+React defers executing effects until after the browser re-paints the screen.
 
+直到浏览器重新绘制屏幕，react才会执行`useEffect`
 
 ### Custom Hooks
 
+Note that the *state itself* is not shared. Each call to a Hook declares its own isolated state.
 
+状态本身是不共享的。每次调用 Hook 都只声明了其自身的独立状态。
 
 ### Static Use Order
+
+Hooks are implemented as [linked lists](https://dev.to/aspittel/thank-u-next-an-introduction-to-linked-lists-4pph). When you call `useState`, we move the pointer to the next item. When we exit the component’s [“call tree” frame](https://overreacted.io/react-as-a-ui-runtime/#call-tree), we save the resulting list there until the next render.
+
+```js
+// 伪代码
+let hooks, i;
+function useState() {
+  i++;
+  if (hooks[i]) {
+    // 再次渲染时
+    return hooks[i];
+  }
+  // 第一次渲染
+  hooks.push(...);
+}
+
+// 准备渲染
+i = -1;
+hooks = fiber.hooks || [];
+// 调用组件
+YourComponent();
+// 缓存 Hooks 的状态
+fiber.hooks = hooks;
+```
+
