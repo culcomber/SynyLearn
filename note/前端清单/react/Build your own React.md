@@ -1,3 +1,7 @@
+setState改变state，把传入setState的函数保存在当前fiber节点的hooks属性，从头开始重新render，到函数组件，重新调用useState，返回最新值，函数组件返回的JSX也更新到最新值，commit，渲染到页面
+
+<img src="../../assets/image-20230717194014586.png" alt="image-20230717194014586" style="zoom:67%;" />
+
 ## 零: 概览
 
 不使用 React 的情况下，渲染JSX 通过构建工具 Babel 转换成 JS，将标签中的代码替换成 createElement，并把标签名、参数和子节点作
@@ -465,4 +469,4 @@ function useState(initial) {
 
 <img src="../../assets/image-20230704001824045.png" alt="image-20230704001824045" style="zoom:80%;" />
 
-![03686586b744e045169e0bb456302f6](../../assets/03686586b744e045169e0bb456302f6.png)
+<img src="../../assets/QQ图片20230717212118.png" alt="QQ图片20230717212118" style="zoom:67%;" />

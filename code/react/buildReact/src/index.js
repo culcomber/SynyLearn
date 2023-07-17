@@ -153,7 +153,6 @@ function updateFunctionComponent(fiber) {
 function useState(initial) {
   // render的时候函数所在jsx会赋值给wipFiber
   const oldHook = wipFiber.alternate && wipFiber.alternate.hooks && wipFiber.alternate.hooks[hookIndex];
-
   // 执行setState
   const hook = {
     state: oldHook ? oldHook.state : initial,
