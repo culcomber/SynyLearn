@@ -28,7 +28,7 @@ export default function FetchingIinside() {
                 <option value="Taylor">Taylor</option>
             </select>
             <hr />
-            <p><i>{bio ?? 'Loading...'}</i></p>
+            <p><i>{bio && 'Loading...'}</i></p>
         </>
     );
 }
