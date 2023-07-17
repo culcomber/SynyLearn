@@ -1,3 +1,5 @@
+参考：https://overreacted.io/react-as-a-ui-runtime/
+
 ### Host Tree
 
 React want to represent some UI with different Host Tree, such as a [DOM tree](https://www.npmjs.com/package/react-dom), an [iOS hierarchy](https://developer.apple.com/library/archive/documentation/General/Conceptual/Devpedia-CocoaApp/View Hierarchy.html).
