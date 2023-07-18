@@ -111,7 +111,13 @@ export type Fiber = {
 
 During a rendering pass, React will iterate over this tree of fiber objects, and construct an updated tree as it calculates the new rendering results.
 
-渲染过程中
+渲染过程中，react会遍历fiber，计算新的值，并更新到fiber
+
+Note that these **"fiber" objects store the real component props and state values**. When you use props and state in your components, React is actually giving you access to the values that were stored on the fiber objects.
+
+fiber存储了props and state，在组建中使用props and state是引用了fiber中的值
+
+
 
 ### Component Types and Reconciliation
 
