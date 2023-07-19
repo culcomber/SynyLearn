@@ -117,9 +117,15 @@ Note that these **"fiber" objects store the real component props and state value
 
 fiber存储了props and state，在组建中使用props and state是引用了fiber中的值
 
+Similarly, React hooks work because React stores all of the hooks for a component as a linked list attached to that component's fiber object. When React renders a function component, it gets that linked list of hook description entries from the fiber, and every time you call another hook, it returns the appropriate values that were stored in the hook description object (like the state and dispatch values for `useReducer`.
 
+hook也存储在fiber
 
-### Component Types and Reconciliation
+When a parent component renders a given child component for the first time, React creates a fiber object to track that "instance" of a component. 
+
+初始化时，react创建fiber保存页面宿主实例
+
+### Component Types and `Reconciliatio`
 
 
 
@@ -131,7 +137,7 @@ fiber存储了props and state，在组建中使用props and state是引用了fib
 
 
 
-### Async Rendering, Closures, and State Snapshots
+### `Async` Rendering, Closures, and State Snapshots
 
 
 
@@ -143,25 +149,45 @@ fiber存储了props and state，在组建中使用props and state是引用了fib
 
 ### Component Render Optimization Techniques
 
+
+
 ### How New Props References Affect Render Optimizations
+
+
 
 ### Optimizing Props References
 
+
+
 ### Memoize Everything?
+
+
 
 ### Immutability and Rerendering
 
+
+
 ### Measuring React Component Rendering Performance
+
+
 
 ## 4、Context and Rendering Behavior
 
 ### Context Basics
 
+
+
 ### Updating Context Values
+
+
 
 ### State Updates, Context, and Re-Renders
 
+
+
 ### Context Updates and Render Optimizations
+
+
 
 ## 5、React-Redux and Rendering Behavior
 
