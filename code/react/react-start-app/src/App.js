@@ -11,6 +11,9 @@ function App() {
           <li>
             <a href={`/escape-hatches`}>EscapeHatches</a>
           </li>
+          <li>
+            <a href={`/agent`}>Agent</a>
+          </li>
         </ul>
       </nav>
     </>
