@@ -7,7 +7,7 @@ export default function useIntervalAsync <R = unknown>(fn: () => Promise<R>, ms:
     const mountedRef = useRef(false);
 
     const counter = useRef(1);
-    const startTime = useRef<number>();
+    const startTime = useRef<number>(0);
 
     const next = useCallback(
         (handler: TimerHandler) => {
@@ -21,7 +21,6 @@ export default function useIntervalAsync <R = unknown>(fn: () => Promise<R>, ms:
         [ms],
     );
 
-    // @ts-ignore
     const run = useCallback(async () => {
         runningCount.current += 1;
         await fn();

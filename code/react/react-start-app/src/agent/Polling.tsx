@@ -4,10 +4,10 @@ import {useRef} from "react";
 function Polling () {
     const timeRef = useRef(1);
     const doRequest = () => {
-        // @ts-ignore
         return new Promise((resolve, reject) => {
             console.log('doRequest', timeRef.current)
             if (timeRef.current <= 5) {
+                // @ts-ignore
                 setTimeout(() => resolve(), 500);
             } else {
                 setTimeout(() => reject(), 500);

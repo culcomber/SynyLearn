@@ -1,33 +1,18 @@
-// @ts-ignore
-import FormState from "./1declarativeUI/FormState.tsx";
-// @ts-ignore
-import Form from "./1declarativeUI/Form.tsx";
-// @ts-ignore
-import EditProfile from "./1declarativeUI/EditProfile.tsx";
-// @ts-ignore
-import TravelPlan from "./2StateStructure/TravelPlan.tsx";
-// @ts-ignore
-import MailClient from "./2StateStructure/MailClient.tsx";
-// @ts-ignore
-import FilterableList from "./3LiftStateUp/FilterableList.tsx";
-// @ts-ignore
-import DisappearingInputText from "./3LiftStateUp/DisappearingInputText.tsx";
-// @ts-ignore
-import SwapTwoFormFields from "./3LiftStateUp/SwapTwoFormFields.tsx";
-// @ts-ignore
-import ContactManager from "./3LiftStateUp/ContactManager.tsx";
-// @ts-ignore
-import Gallery from "./3LiftStateUp/Gallery.tsx";
-// @ts-ignore
-import ContactList from "./3LiftStateUp/ContactList.tsx";
-// @ts-ignore
-import TaskApp from "./4ExtractingStateReducer/TaskApp.tsx";
-// @ts-ignore
-import Messenger from "./4ExtractingStateReducer/Messenger.tsx";
-// @ts-ignore
-import ProfilePage from "./5PassingDataContext/ProfilePage.tsx";
-// @ts-ignore
-import TaskReducerContext from "./4ExtractingStateReducer/TaskReducerContext.tsx";
+import FormState from "./1declarativeUI/FormState";
+import Form from "./1declarativeUI/Form";
+import EditProfile from "./1declarativeUI/EditProfile";
+import TravelPlan from "./2StateStructure/TravelPlan";
+import MailClient from "./2StateStructure/MailClient";
+import FilterableList from "./3LiftStateUp/FilterableList";
+import DisappearingInputText from "./3LiftStateUp/DisappearingInputText";
+import SwapTwoFormFields from "./3LiftStateUp/SwapTwoFormFields";
+import ContactManager from "./3LiftStateUp/ContactManager";
+import Gallery from "./3LiftStateUp/Gallery";
+import ContactList from "./3LiftStateUp/ContactList";
+import TaskApp from "./4ExtractingStateReducer/TaskApp";
+import Messenger from "./4ExtractingStateReducer/Messenger";
+import ProfilePage from "./5PassingDataContext/ProfilePage";
+import TaskReducerContext from "./4ExtractingStateReducer/TaskReducerContext";
 
 let statuses = [
     'empty',
@@ -96,7 +81,7 @@ export default function ManagingState() {
                 <br/>
             </DisplayPart>
             <DisplayPart title='4.6 Passing Data Deeply with Context'>
-                <TaskReducerContext />
+                <TaskReducerContext/>
                 <br/>
             </DisplayPart>
         </div>

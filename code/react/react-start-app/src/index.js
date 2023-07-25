@@ -4,8 +4,8 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {createBrowserRouter, RouterProvider} from 'react-router-dom';
-import ManagingState from "./ManagingState/ManagingState.tsx";
-import EscapeHatches from "./EscapeHatches/EscapeHatches.tsx";
+import ManagingState from "./ManagingState/ManagingState";
+import EscapeHatches from "./EscapeHatches/EscapeHatches";
 import Polling from "./agent/Polling";
 
 const router = createBrowserRouter([

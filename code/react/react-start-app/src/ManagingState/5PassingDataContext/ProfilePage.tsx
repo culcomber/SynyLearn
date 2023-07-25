@@ -1,11 +1,10 @@
-// @ts-ignore
-import Heading from './Heading.tsx';
-// @ts-ignore
-import Section from './Section.tsx';
+import Heading from './Heading';
+import Section from './Section';
 
 export default function ProfilePage() {
     return (
         <>
+            {/*@ts-ignore*/}
             <Section>
                 <Heading>My Profile</Heading>
                 <Post
@@ -38,26 +37,33 @@ export default function ProfilePage() {
 
 function AllPosts() {
     return (
-        <Section>
-            <Heading>Posts</Heading>
-            <RecentPosts/>
-        </Section>
+        <>
+            {/*@ts-ignore*/}
+            <Section>
+                <Heading>Posts</Heading>
+                <RecentPosts/>
+            </Section>
+        </>
+
     );
 }
 
 function RecentPosts() {
     return (
-        <Section>
-            <Heading>Recent Posts</Heading>
-            <Post
-                title="Flavors of Lisbon"
-                body="...those pastéis de nata!"
-            />
-            <Post
-                title="Buenos Aires in the rhythm of tango"
-                body="I loved it!"
-            />
-        </Section>
+        <>
+            {/*@ts-ignore*/}
+            <Section>
+                <Heading>Recent Posts</Heading>
+                <Post
+                    title="Flavors of Lisbon"
+                    body="...those pastéis de nata!"
+                />
+                <Post
+                    title="Buenos Aires in the rhythm of tango"
+                    body="I loved it!"
+                />
+            </Section>
+        </>
     );
 }
 

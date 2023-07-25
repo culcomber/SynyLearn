@@ -1,19 +1,11 @@
-// @ts-ignore
-import ValuesRefs from "./1ValuesRefs/ValuesRefs.tsx";
-// @ts-ignore
-import Stopwatch from "./1ValuesRefs/Stopwatch.tsx";
-// @ts-ignore
-import ChatRef from "./1ValuesRefs/ChatRef.tsx";
-// @ts-ignore
-import DomRefs from "./2DOMwithRefs/DomRefs.tsx";
-// @ts-ignore
-import TodoListRef from "./2DOMwithRefs/TodoListRef.tsx";
-// @ts-ignore
-import VideoPlayer from "./2DOMwithRefs/VideoPlayer.tsx";
-// @ts-ignore
-import CatFriends from "./2DOMwithRefs/CatFriends.tsx";
-// @ts-ignore
-import FetchingIinside from "./3SynchronizingEffects/FetchingIinside.tsx";
+import ValuesRefs from "./1ValuesRefs/ValuesRefs";
+import Stopwatch from "./1ValuesRefs/Stopwatch";
+import ChatRef from "./1ValuesRefs/ChatRef";
+import DomRefs from "./2DOMwithRefs/DomRefs";
+import TodoListRef from "./2DOMwithRefs/TodoListRef";
+import VideoPlayer from "./2DOMwithRefs/VideoPlayer";
+import CatFriends from "./2DOMwithRefs/CatFriends";
+import FetchingIinside from "./3SynchronizingEffects/FetchingIinside";
 
 function DisplayPart({title, children}) {
     return (
