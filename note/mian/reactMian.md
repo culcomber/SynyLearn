@@ -81,7 +81,6 @@ ReactDOM.render(
   }
   ```
 
-  
 
 参考：
 
@@ -334,7 +333,7 @@ Fibers are where the local state actually lives. When the state is updated, Reac
 
 参考：
 
-[走进React Fiber的世界]([走进React Fiber的世界 - 掘金 (juejin.cn)](https://juejin.cn/post/6943896410987659277?searchId=20230726114754248F3A8A5FB482796FC4#heading-6))
+[走进React Fiber的世界](https://juejin.cn/post/6943896410987659277?searchId=20230726114754248F3A8A5FB482796FC4#heading-6)
 
 [这可能是最通俗的 React Fiber(时间分片) 打开方式](https://juejin.cn/post/6844903975112671239?searchId=202307261148228C79FF235265F97984BA#heading-7)
 
@@ -434,4 +433,13 @@ React 的提交阶段也需要做两件事。 **1、将调和阶段记录的更�
 
 [浅谈React性能优化的方向](https://juejin.cn/post/6844903865926549511?searchId=2023072616381215225DAEA46FEA116C88#heading-15)
 
-https://legacy.reactjs.org/docs/optimizing-performance.html
+[Optimizing Performance(https://legacy.reactjs.org/docs/optimizing-performance.html)
+
+### 5、Portals 
+
+Portal 提供了一种将子节点渲染到存在于父组件以外的 DOM 节点
+
+```jsx
+createPortal(children, domNode, key?)
+```
+
