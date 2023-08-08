@@ -114,9 +114,9 @@ React16架构可以分为三层：
 
 红框中的工作都在内存中进行，不会更新页面上的DOM，所以即使反复中断，用户也不会看见更新不完全的DOM
 
-<img src="../../assets/image-20230614105754188.png" alt="image-20230614105754188" style="zoom:40%;" />
+<img src="../assets/image-20230614105754188.png" alt="image-20230614105754188" style="zoom:40%;" />
 
-<img src="../../assets/240487936f31fcaecbc23fa29ca309e.png" alt="240487936f31fcaecbc23fa29ca309e" style="zoom:50%;" />
+<img src="../assets/240487936f31fcaecbc23fa29ca309e.png" alt="240487936f31fcaecbc23fa29ca309e" style="zoom:50%;" />
 
 ### 1.4 `Fiber`
 
@@ -299,7 +299,7 @@ try {
    }
    ```
 
-   <img src="../../assets/image-20230615100342591.png" alt="image-20230615100342591" style="zoom:40%;" />
+   <img src="../assets/image-20230615100342591.png" alt="image-20230615100342591" style="zoom:40%;" />
 
 2. 作为静态的数据结构来说，保存了组件相关的信息，**每个`Fiber节点`对应一个`React element`**，保存了该组件的类型（函数组件/类组件/原生组件...）、对应的DOM节点等信息。
 
@@ -351,11 +351,11 @@ ReactDOM.render(<App/>, document.getElementById('root'));
   - `fiberRootNode`的`current`会指向当前页面上已渲染内容对应`Fiber`树，即`current Fiber`树
 - 在构建`workInProgress Fiber树`时会尝试复用`current Fiber树`中已有的`Fiber节点`内的属性
 
-<center><img src="../../assets/image-20230615101138339.png" alt="image-20230615101138339" style="zoom:20%;" /><img src="../../assets/image-20230615101211041.png" alt="image-20230615101211041" style="zoom:30%;" /><img src="../../assets/image-20230615101240727.png" alt="image-20230615101240727" style="zoom:30%;" /></center>
+<center><img src="../assets/image-20230615101138339.png" alt="image-20230615101138339" style="zoom:20%;" /><img src="../assets/image-20230615101211041.png" alt="image-20230615101211041" style="zoom:30%;" /><img src="../assets/image-20230615101240727.png" alt="image-20230615101240727" style="zoom:30%;" /></center>
 
 **update**
 
-<img src="../../assets/image-20230615101409580.png" alt="image-20230615101409580" style="zoom:30%;" /><img src="../../assets/image-20230615101430078.png" alt="image-20230615101430078" style="zoom:30%;" />
+<img src="../assets/image-20230615101409580.png" alt="image-20230615101409580" style="zoom:30%;" /><img src="../assets/image-20230615101430078.png" alt="image-20230615101430078" style="zoom:30%;" />
 
 ### 1.5 深入理解JSX
 
@@ -478,7 +478,7 @@ function App() {
 ReactDOM.render(<App />, document.getElementById("root"));
 ```
 
-<img src="../../assets/image-20230615102948741.png" alt="image-20230615102948741" style="zoom:30%;" />
+<img src="../assets/image-20230615102948741.png" alt="image-20230615102948741" style="zoom:30%;" />
 
 ```
 // render阶段会依次执行：
@@ -535,9 +535,9 @@ export function reconcileChildren(
 }
 ```
 
-![image-20230615111100824](../../assets/image-20230615111100824.png)
+![image-20230615111100824](../assets/image-20230615111100824.png)
 
-<img src="../../assets/image-20230615111030874.png" alt="image-20230615111030874" style="zoom:50%;" />
+<img src="../assets/image-20230615111030874.png" alt="image-20230615111030874" style="zoom:50%;" />
 
 ###  2.3 completeWork
 
@@ -559,13 +559,13 @@ export function reconcileChildren(
 
 在`completeWork`的上层函数`completeUnitOfWork`中，每个执行完`completeWork`且存在`effectTag`的`Fiber节点`会被保存在一条被称为`effectList`的单向链表中。在`commit阶段`只需要遍历`effectList`就能执行所有`effect`。
 
-![img](../../assets/completeWork.png)
+![img](../assets/completeWork.png)
 
-<img src="../../assets/image-20230615151153581.png" alt="image-20230615151153581" style="zoom:50%;" />
+<img src="../assets/image-20230615151153581.png" alt="image-20230615151153581" style="zoom:50%;" />
 
 ## 3、架构篇——commit阶段 
 
-<img src="../../assets/image-20230625110655168.png" alt="image-20230625110655168" style="zoom:50%;" />
+<img src="../assets/image-20230625110655168.png" alt="image-20230625110655168" style="zoom:50%;" />
 
 ### 3.1 流程概览
 
@@ -660,7 +660,7 @@ const parentStateNode = parentFiber.stateNode;
    
    - 由于`Fiber节点`不只包括`HostComponent`，所以`Fiber树`和渲染的`DOM树`节点并不是一一对应的。要从`Fiber节点`找到`DOM节点`很可能跨层级遍历
    
-   <img src="../../assets/image-20230615154214150.png" alt="image-20230615154214150" style="zoom:50%;" />
+   <img src="../assets/image-20230615154214150.png" alt="image-20230615154214150" style="zoom:50%;" />
 
 ```js
 const before = getHostSibling(finishedWork);
@@ -758,7 +758,7 @@ if (isContainer) {
 
 ### 4.2 单节点Diff
 
-<img src="../../assets/diff.png" alt="diff" style="zoom:30%;" />
+<img src="../assets/diff.png" alt="diff" style="zoom:30%;" />
 
 判断DOM节点是否可以复用：`key`相同，`type`相同
 
@@ -971,7 +971,7 @@ const queue: UpdateQueue<State> = {
 
 对于更新来讲，传递的`回调函数`一般为[状态更新流程概览一节](https://react.iamkasong.com/state/prepare.html#render阶段的开始)讲到的`render阶段的入口函数`。
 
-![优先级如何决定更新的顺序](../../assets/update-process.png)
+![优先级如何决定更新的顺序](../assets/update-process.png)
 
 ### 5.5 ReactDOM.render
 

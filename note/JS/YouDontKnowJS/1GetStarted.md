@@ -20,11 +20,11 @@ js三大支柱
 
 ### 1.1 JS is it an interpreted script or a compiled program?
 
-![image-20221105150424494](../assets/image-20221105150424494.png)
+![image-20221105150424494](../../assets/image-20221105150424494.png)
 
 JS is a parsed language, but is it compiled
 
-![image-20221105150445022](../assets/image-20221105150445022.png)
+![image-20221105150445022](../../assets/image-20221105150445022.png)
 
 1. After a program leaves a developer's editor, it gets transpiled by Babel, then packed by `Webpack` (and perhaps half a dozen other build processes), then it gets delivered in that very different form to a `JS` engine.
 2. The `JS` engine parses the code to an `AST`.

@@ -254,7 +254,7 @@ Note that there are common performance issues that even fine-grained subscriptio
 
 `td`会在第一和第三阶段被触发
 
-<img src="../../assets/image-20230713192717788.png" alt="image-20230713192717788" style="zoom:50%;" />
+<img src="../assets/image-20230713192717788.png" alt="image-20230713192717788" style="zoom:50%;" />
 
 冒泡事件从目标元素开始向上冒泡。通常，它会一直上升到 `<html>`，然后再到 `document` 对象，有些事件甚至会到达 `window`，它们会调用路径上所有的处理程序。
 

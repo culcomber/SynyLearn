@@ -1,4 +1,4 @@
-![Scope&Closures](../assets/Scope&Closures.png)
+![Scope&Closures](../../assets/Scope&Closures.png)
 
 ## Chapter 1: What's the Scope?
 
@@ -88,7 +88,7 @@ console.log(a); // 2
 
 变量都会有一个作用域，作用域的确定在编译时就确定，作用域方便代码执行时查找变量
 
-<img src="../assets/image-20221105180112209.png" style="zoom:50%;" />
+<img src="../../assets/image-20221105180112209.png" style="zoom:50%;" />
 
 1. **Bubble 1** (RED) encompasses the global scope, which holds three identifiers/variables: ==students(line 1), getStudentName (line 8), and nextStudent (line 16)==.
 2. **Bubble 2** (BLUE) encompasses the scope of the function `getStudentName(..)` (line 8), which holds just one identifier/variable: the parameter ==studentID (line 8)==.
@@ -731,9 +731,9 @@ add10To(15);    // 25
 add42To(9);     // 51
 ```
 
-![image-20221108103705148](../assets/image-20221108103705148.png)
+![image-20221108103705148](../../assets/image-20221108103705148.png)
 
-![image-20221212155254994](../assets/image-20221212155254994.png)
+![image-20221212155254994](../../assets/image-20221212155254994.png)
 
 num1作用域是adder，num2作用域是addTo，addTo作用域是全局
 

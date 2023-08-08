@@ -40,7 +40,7 @@ Ajax：`Asynchronous JavaScript + XML` ，异步JavaScript和XML。Ajax 是一�
 
 Fetch：提供了许多与 `XMLHttpRequest` 相同的功能，但被设计成**更具可扩展性和高效性**。
 
-<img src="../assets/image-20230220221259343.png" alt="image-20230220221259343" style="zoom:45%;" />
+<img src="../../assets/image-20230220221259343.png" alt="image-20230220221259343" style="zoom:45%;" />
 
 - Ajax 是一种代表异步 JavaScript + XML 的模型（技术合集），所以 Fetch 也是 Ajax 的一个子集
 
