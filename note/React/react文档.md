@@ -3,7 +3,7 @@ jsx标签内使用 `<br />` 换行
 模板字符串：使用{`{}`} 显示 {}，使用 &lt;&gt; 或者 {`<>`} 显示 <>，js可以使用\n换行，jsx会处理\n变成空格
 ```
 
-<img src="../../assets/image-20230629095133923.png" alt="image-20230629095133923" style="zoom:50%;" />
+<img src="../assets/image-20230629095133923.png" alt="image-20230629095133923" style="zoom:50%;" />
 
 ## 1 Quick Start
 
@@ -62,9 +62,9 @@ If you render the same component multiple times, each will get its own state
 
 在父组件中使用两次子组件，每个子组件状态state是独立的
 
-<img src="../../assets/image-20230628232825453.png" alt="image-20230628232825453" style="zoom:50%;" />![image-20230628232842619](../../assets/image-20230628232842619.png)
+<img src="../assets/image-20230628232825453.png" alt="image-20230628232825453" style="zoom:50%;" />![image-20230628232842619](../assets/image-20230628232842619.png)
 
-![image-20230628232842619](../../assets/image-20230628232842619.png)
+![image-20230628232842619](../assets/image-20230628232842619.png)
 
 ```jsx
 import { useState } from 'react';
@@ -98,7 +98,7 @@ The information you pass down like this is called *props*. This is called “lif
 
 如果想要两个子组件状态state是同步的，需要把状态提升到父组件
 
-<img src="../../assets/imageurl=%2Fimages%2Fdocs%2Fdiagrams%2Fsharing_data_parent.png" alt="Diagram showing a tree of three components, one parent labeled MyApp and two children labeled MyButton. MyApp contains a count value of zero which is passed down to both of the MyButton components, which also show value zero." style="zoom:33%;" /><img src="../../assets/imageurl=%2Fimages%2Fdocs%2Fdiagrams%2Fsharing_data_parent_clicked.png" alt="The same diagram as the previous, with the count of the parent MyApp component highlighted indicating a click with the value incremented to one. The flow to both of the children MyButton components is also highlighted, and the count value in each child is set to one indicating the value was passed down." style="zoom:33%;" />
+<img src="../assets/imageurl=%2Fimages%2Fdocs%2Fdiagrams%2Fsharing_data_parent.png" alt="Diagram showing a tree of three components, one parent labeled MyApp and two children labeled MyButton. MyApp contains a count value of zero which is passed down to both of the MyButton components, which also show value zero." style="zoom:33%;" /><img src="../assets/imageurl=%2Fimages%2Fdocs%2Fdiagrams%2Fsharing_data_parent_clicked.png" alt="The same diagram as the previous, with the count of the parent MyApp component highlighted indicating a click with the value incremented to one. The flow to both of the children MyButton components is also highlighted, and the count value in each child is set to one indicating the value was passed down." style="zoom:33%;" />
 
 ```jsx
 import { useState } from 'react';
@@ -188,9 +188,9 @@ A file can have no more than one default export, but it can have as many named e
 
 一个文件中只能由一个default export，可以有多个export
 
-<img src="../../assets/image-20230626112442934.png" alt="image-20230626112442934" style="zoom:50%;" />
+<img src="../assets/image-20230626112442934.png" alt="image-20230626112442934" style="zoom:50%;" />
 
-<img src="../../assets/image-20230626112530625.png" alt="image-20230626112530625" style="zoom:40%;" />
+<img src="../assets/image-20230626112530625.png" alt="image-20230626112530625" style="zoom:40%;" />
 
 People often use default exports if the file exports only one component, and use named exports if it exports multiple components and values
 
@@ -355,7 +355,7 @@ export default function Profile() {
 }
 ```
 
-<img src="../../assets/image-20230626143114054.png" alt="image-20230626143114054" style="zoom:30%;" />
+<img src="../assets/image-20230626143114054.png" alt="image-20230626143114054" style="zoom:30%;" />
 
 
 
@@ -561,7 +561,7 @@ export default function Poem() {
 }
 ```
 
-<img src="../../assets/image-20230626153640379.png" alt="image-20230626153640379" style="zoom:50%;" />
+<img src="../assets/image-20230626153640379.png" alt="image-20230626153640379" style="zoom:50%;" />
 
 ### 2.8 Keeping Components Pure
 
@@ -811,7 +811,7 @@ This process of requesting and serving UI has three steps:
 2. **Rendering** the component (preparing the order in the kitchen)
 3. **Committing** to the DOM (placing the order on the table)
 
-<img src="../../assets/image-20230626191352836.png" alt="image-20230626191352836" style="zoom:40%;" />
+<img src="../assets/image-20230626191352836.png" alt="image-20230626191352836" style="zoom:40%;" />
 
 **Step 1: ReactTrigger a render**
 
@@ -855,7 +855,7 @@ export default function Clock({ time }) {
 
 **Step 4: Browser paint** 
 
-<img src="../../assets/image-20230626192921591.png" alt="image-20230626192921591" style="zoom:33%;" />
+<img src="../assets/image-20230626192921591.png" alt="image-20230626192921591" style="zoom:33%;" />
 
 ### 3.4 State as a Snapshot
 
@@ -877,13 +877,13 @@ When React re-renders a component:
 2. Your function returns a new JSX snapshot （调用函数组件，此时state使用setState后更新的值）
 3. React then updates the screen to match the snapshot you’ve returned
 
-<img src="../../assets/image-20230626200628492.png" alt="image-20230626200628492" style="zoom:33%;" />
+<img src="../assets/image-20230626200628492.png" alt="image-20230626200628492" style="zoom:33%;" />
 
 State actually “lives” in React itself—as if on a shelf—**outside of your function**
 
 state独立于函数式组件，由react负责更新，更新完之后传递给函数式组件
 
-<img src="../../assets/image-20230626201045756.png" alt="image-20230626201045756" style="zoom:40%;" />
+<img src="../assets/image-20230626201045756.png" alt="image-20230626201045756" style="zoom:40%;" />
 
 Setting state only changes it for the next render
 
@@ -927,7 +927,7 @@ This lets you update multiple state variables—even from multiple components—
 
 在一次事件处理函数中调用多次setState，react最终会更新最后一次setState
 
-<img src="../../assets/image-20230627100859649.png" alt="image-20230627100859649" style="zoom:33%;" />
+<img src="../assets/image-20230627100859649.png" alt="image-20230627100859649" style="zoom:33%;" />
 
 **React does not batch across *multiple* intentional events like clicks**—each click is handled separately
 
@@ -973,7 +973,7 @@ passing to the `setNumber` state setter:
 </>
 ```
 
-<img src="../../assets/image-20230627105255282.png" alt="image-20230627105255282" style="zoom:40%;" />
+<img src="../assets/image-20230627105255282.png" alt="image-20230627105255282" style="zoom:40%;" />
 
 After the event handler completes, React will trigger a re-render. During the re-render, React will process the queue. **Updater functions run during rendering**, so **updater functions must be [pure](https://react.dev/learn/keeping-components-pure)** and only *return* the result
 
@@ -1090,7 +1090,7 @@ export default function Form() {
 
 ### 3.7 Updating Arrays in State
 
-<img src="../../assets/image-20230627144628380.png" alt="image-20230627144628380" style="zoom:40%;" />
+<img src="../assets/image-20230627144628380.png" alt="image-20230627144628380" style="zoom:40%;" />
 
 Updating objects inside arrays 
 
@@ -1179,7 +1179,7 @@ Declarative programming means describing the UI for each visual state rather tha
    }
    ```
 
-   <img src="../../assets/image-20230627191526600.png" alt="image-20230627191526600" style="zoom:45%;" /><img src="../../assets/image-20230627191552299.png" alt="image-20230627191552299" style="zoom:40%;" />
+   <img src="../assets/image-20230627191526600.png" alt="image-20230627191526600" style="zoom:45%;" /><img src="../assets/image-20230627191552299.png" alt="image-20230627191552299" style="zoom:40%;" />
 
 2. **Determine** what triggers those state changes
 
@@ -1199,7 +1199,7 @@ Declarative programming means describing the UI for each visual state rather tha
 
    箭头是触发事件，圆圈是state
 
-   <img src="../../assets/image-20230627191904799.png" alt="image-20230627191904799" style="zoom:40%;" />
+   <img src="../assets/image-20230627191904799.png" alt="image-20230627191904799" style="zoom:40%;" />
 
 3. **Represent** the state in memory using `useState`
 
@@ -1400,7 +1400,7 @@ The final `Panel` component with the `isActive` prop is controlled by the `Accor
 
 ### 4.4 Preserving and Resetting State
 
-<img src="../../assets/image-20230628232715323.png" alt="image-20230628232715323" style="zoom:80%;" />
+<img src="../assets/image-20230628232715323.png" alt="image-20230628232715323" style="zoom:80%;" />
 
 React associates each piece of state it’s holding with the correct component by where that component sits in the UI tree.
 
@@ -1422,7 +1422,7 @@ export default function App() {
 }
 ```
 
-<img src="../../assets/image-20230628232736072.png" alt="image-20230628232736072" style="zoom:80%;" />
+<img src="../assets/image-20230628232736072.png" alt="image-20230628232736072" style="zoom:80%;" />
 
 **React preserves a component’s state for as long as it’s being rendered at its position in the UI tree.** If it gets removed, or a different component gets rendered at the same position, React discards its state.
 
@@ -1453,7 +1453,7 @@ export default function App() {
 }
 ```
 
-<img src="../../assets/image-20230628232747662.png" alt="image-20230628232747662" style="zoom:80%;" />
+<img src="../assets/image-20230628232747662.png" alt="image-20230628232747662" style="zoom:80%;" />
 
 **B Same component at the same position preserves state** —— 在同一地方渲染
 
@@ -1501,7 +1501,7 @@ export default function App() {
 }
 ```
 
-<img src="../../assets/image-20230628235017331.png" alt="image-20230628235017331" style="zoom:50%;" /><img src="../../assets/image-20230628234251863.png" alt="image-20230628234251863" style="zoom:50%;" />
+<img src="../assets/image-20230628235017331.png" alt="image-20230628235017331" style="zoom:50%;" /><img src="../assets/image-20230628234251863.png" alt="image-20230628234251863" style="zoom:50%;" />
 
 **C Different components at the same position reset state**——不同组件在同一个地方渲染
 
@@ -1540,7 +1540,7 @@ export default function App() {
 }
 ```
 
-<img src="../../assets/image-20230629000445182.png" alt="image-20230629000445182" style="zoom:80%;" />
+<img src="../assets/image-20230629000445182.png" alt="image-20230629000445182" style="zoom:80%;" />
 
 **D Resetting state at the same position**
 
@@ -1568,7 +1568,7 @@ There are two ways to reset state when switching between them:
 
 1. Render components in different positions
 
-   <img src="../../assets/image-20230629001815758.png" alt="image-20230629001815758" style="zoom:80%;" />
+   <img src="../assets/image-20230629001815758.png" alt="image-20230629001815758" style="zoom:80%;" />
 
    ```jsx
    export default function Scoreboard() {
@@ -1808,7 +1808,7 @@ combine a reducer with context:
 
    父组件构建reducer，通过provider传递reducer生成的数据
 
-   <img src="../../assets/image-20230703160254106.png" alt="image-20230703160254106" style="zoom:50%;" />
+   <img src="../assets/image-20230703160254106.png" alt="image-20230703160254106" style="zoom:50%;" />
 
 3. **Use** context anywhere in the tree.
 
@@ -1820,7 +1820,7 @@ combine a reducer with context:
 
    TaskList之前用props传递过来的tasks，现在直接用useContext
 
-   <img src="../../assets/image-20230703160715683.png" alt="image-20230703160715683" style="zoom:50%;" />
+   <img src="../assets/image-20230703160715683.png" alt="image-20230703160715683" style="zoom:50%;" />
 
 4. You can further declutter the components by moving all wiring into one file.
 
@@ -2003,7 +2003,7 @@ If you do modify DOM nodes managed by React, modify parts that React has no reas
 
 点击第二个按钮ref删除dom，再点击第一个按钮会报错，ref不触发render所以react不知道什么时候dom被修改了
 
-<img src="../../assets/image-20230703233258546.png" alt="image-20230703233258546" style="zoom:50%;" />
+<img src="../assets/image-20230703233258546.png" alt="image-20230703233258546" style="zoom:50%;" />
 
 ### 5.3 Synchronizing with Effects
 
@@ -2027,7 +2027,7 @@ If you do modify DOM nodes managed by React, modify parts that React has no reas
 
    在事件处理函数中调用ref是可以的，此时已经渲染好dom。但是如果在渲染过程中（在函数内直接使用判断语句）调用ref是会报错的（函数组件必须是纯函数计算JSX，不应该有操作dom的副作用，因为此时还没有返回jsx，react不清楚该操作什么dom），此时需要把渲染过程中的操作放在useEeffect中（useEeffect在完成dom渲染后才会执行）
 
-   <img src="../../assets/image-20230704091425468.png" alt="image-20230704091425468" style="zoom:80%;" />
+   <img src="../assets/image-20230704091425468.png" alt="image-20230704091425468" style="zoom:80%;" />
 
    First, React will update the screen, ensuring the `<video>` tag is in the DOM with the right props.  渲染dom
 
@@ -2037,7 +2037,7 @@ If you do modify DOM nodes managed by React, modify parts that React has no reas
 
 2. **Specify the Effect dependencies.** 
 
-   <img src="../../assets/image-20230704131449179.png" alt="image-20230704131449179" style="zoom:50%;" />
+   <img src="../assets/image-20230704131449179.png" alt="image-20230704131449179" style="zoom:50%;" />
 
 3. **Add cleanup if needed.** 
 
@@ -2045,7 +2045,7 @@ If you do modify DOM nodes managed by React, modify parts that React has no reas
 
    有依赖，依赖改变后，会执行清理函数
 
-   <img src="../../assets/image-20230704131549985.png" alt="image-20230704131549985" style="zoom:50%;" />
+   <img src="../assets/image-20230704131549985.png" alt="image-20230704131549985" style="zoom:50%;" />
 
 **Effects run twice in development and how to fix them**
 
@@ -2059,9 +2059,9 @@ The rule of thumb is that the user shouldn’t be able to distinguish between th
 
 连接-->断开-->连接，并不会影响界面显示，只是多一次连接；但是如果是购买商品，就会有问题，所以购买商品不适合放在useEeffect
 
-<img src="../../assets/image-20230704170528524.png" alt="image-20230704170528524" style="zoom:50%;" />
+<img src="../assets/image-20230704170528524.png" alt="image-20230704170528524" style="zoom:50%;" />
 
-<img src="../../assets/image-20230704170822142.png" alt="image-20230704170822142" style="zoom:50%;" />
+<img src="../assets/image-20230704170822142.png" alt="image-20230704170822142" style="zoom:50%;" />
 
 ### 5.4 You Might Not Need an Effect
 
@@ -2161,7 +2161,7 @@ function ChatRoom({ roomId }) {
 
 All values inside the component (including props, state, and variables in your component’s body) are reactive. Any reactive value can change on a re-render, so you need to include reactive values as Effect’s dependencies.
 
-<img src="../../assets/image-20230706114036571.png" alt="image-20230706114036571" style="zoom:50%;" />
+<img src="../assets/image-20230706114036571.png" alt="image-20230706114036571" style="zoom:50%;" />
 
 Mutable values (including global variables) aren’t reactive
 

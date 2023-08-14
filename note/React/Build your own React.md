@@ -1,6 +1,6 @@
 setState改变state，把传入setState的函数保存在当前fiber节点的hooks属性，从头开始重新render，到函数组件，重新调用useState，返回最新值，函数组件返回的JSX也更新到最新值，commit，渲染到页面
 
-<img src="../../assets/image-20230717194014586.png" alt="image-20230717194014586" style="zoom:67%;" />
+<img src="../assets/image-20230717194014586.png" alt="image-20230717194014586" style="zoom:67%;" />
 
 ## 零: 概览
 
@@ -199,7 +199,7 @@ Didact.render(
 )
 ```
 
-<img src="../../assets/image-20230619140916483.png" alt="image-20230619140916483" style="zoom:50%;" />
+<img src="../assets/image-20230619140916483.png" alt="image-20230619140916483" style="zoom:50%;" />
 
 ```js
 function performUnitOfWork(fiber) {
@@ -467,6 +467,6 @@ function useState(initial) {
 }
 ```
 
-<img src="../../assets/image-20230704001824045.png" alt="image-20230704001824045" style="zoom:80%;" />
+<img src="../assets/image-20230704001824045.png" alt="image-20230704001824045" style="zoom:80%;" />
 
-<img src="../../assets/QQ图片20230717212118.png" alt="QQ图片20230717212118" style="zoom:67%;" />
+<img src="../assets/QQ图片20230717212118.png" alt="QQ图片20230717212118" style="zoom:67%;" />

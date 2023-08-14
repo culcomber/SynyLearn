@@ -1,6 +1,6 @@
 ##  01 Expanding Cards
 
-<img src="../assets/image-20230220201826095.png" alt="image-20230220201826095" style="zoom:20%;" />
+<img src="../../assets/image-20230220201826095.png" alt="image-20230220201826095" style="zoom:20%;" />
 
 `html`
 
@@ -26,7 +26,7 @@
 
 ##  02 Progress Steps
 
-<img src="../assets/image-20230220201810394.png" alt="image-20230220201810394" style="zoom:50%;" />
+<img src="../../assets/image-20230220201810394.png" alt="image-20230220201810394" style="zoom:50%;" />
 
 `html`
 
@@ -46,7 +46,7 @@
 
 ##  03 Rotating Navigation Animation
 
-<img src="../assets/image-20230220201904199.png" alt="image-20230220201904199" style="zoom:20%;" />
+<img src="../../assets/image-20230220201904199.png" alt="image-20230220201904199" style="zoom:20%;" />
 
 `html`
 
@@ -58,7 +58,7 @@
 
 - 左上角按钮，`.show-nav`旋转`-70deg`，`container`整体旋转了20°了
 
-  <img src="../assets/image-20230220205120276.png" alt="image-20230220205120276" style="zoom:50%;" />
+  <img src="../../assets/image-20230220205120276.png" alt="image-20230220205120276" style="zoom:50%;" />
 
 - 导航，`fixed`定位，`transform: translateX(-100%);` 隐藏 ，展示时设置为`0%`；递进效果通过`margin-left`（`translateX`便宜多点隐藏）
 
@@ -68,7 +68,7 @@
 
 ## 04 Hidden Search Widget
 
-<img src="../assets/image-20230220201929052.png" alt="image-20230220201929052" style="zoom:50%;" />
+<img src="../../assets/image-20230220201929052.png" alt="image-20230220201929052" style="zoom:50%;" />
 
 `html`
 
@@ -85,7 +85,7 @@
 
 ## 05 Blurry Loading
 
-<img src="../assets/image-20230220201949315.png" alt="image-20230220201949315" style="zoom:30%;" />
+<img src="../../assets/image-20230220201949315.png" alt="image-20230220201949315" style="zoom:30%;" />
 
 `html`
 
@@ -111,7 +111,7 @@ const scale = (num, in_min, in_max, out_min, out_max) => {
 
 ## 06 Scroll Animation
 
-<img src="../assets/image-20230220202035293.png" alt="image-20230220202035293" style="zoom:25%;" />
+<img src="../../assets/image-20230220202035293.png" alt="image-20230220202035293" style="zoom:25%;" />
 
 `html`
 
@@ -128,7 +128,7 @@ const scale = (num, in_min, in_max, out_min, out_max) => {
 
 ## 07 Split Landing Page
 
-<img src="../assets/image-20230220202103311.png" alt="image-20230220202103311" style="zoom:25%;" />
+<img src="../../assets/image-20230220202103311.png" alt="image-20230220202103311" style="zoom:25%;" />
 
 `html`
 
@@ -146,7 +146,7 @@ const scale = (num, in_min, in_max, out_min, out_max) => {
 
 ## 08 Form Wave
 
-<img src="../assets/image-20230220202130309.png" alt="image-20230220202130309" style="zoom:50%;" />
+<img src="../../assets/image-20230220202130309.png" alt="image-20230220202130309" style="zoom:50%;" />
 
 `html`
 
@@ -162,7 +162,7 @@ const scale = (num, in_min, in_max, out_min, out_max) => {
 
 ## 09 Sound Board
 
-<img src="../assets/image-20230220202148830.png" alt="image-20230220202148830" style="zoom:50%;" />
+<img src="../../assets/image-20230220202148830.png" alt="image-20230220202148830" style="zoom:50%;" />
 
 `html`
 
@@ -178,7 +178,7 @@ const scale = (num, in_min, in_max, out_min, out_max) => {
 
 ## 10 Dad Jokes
 
-<img src="../assets/image-20230220202201286.png" alt="image-20230220202201286" style="zoom:30%;" />
+<img src="../../assets/image-20230220202201286.png" alt="image-20230220202201286" style="zoom:30%;" />
 
 `css`
 
@@ -190,7 +190,7 @@ const scale = (num, in_min, in_max, out_min, out_max) => {
 
 ## 11 Event `Keycodes`
 
-<img src="../assets/image-20230220202218510.png" alt="image-20230220202218510" style="zoom:50%;" />
+<img src="../../assets/image-20230220202218510.png" alt="image-20230220202218510" style="zoom:50%;" />
 
 `css`
 
@@ -202,7 +202,7 @@ const scale = (num, in_min, in_max, out_min, out_max) => {
 
 ## 12 `Faq` Collapse
 
-<img src="../assets/image-20230220202250431.png" alt="image-20230220202250431" style="zoom:30%;" />
+<img src="../../assets/image-20230220202250431.png" alt="image-20230220202250431" style="zoom:30%;" />
 
 `html`
 
@@ -218,7 +218,7 @@ const scale = (num, in_min, in_max, out_min, out_max) => {
 
 ## 13 Random Choice Picker
 
-<img src="../assets/image-20230220221453326.png" alt="image-20230220221453326" style="zoom:50%;" />
+<img src="../../assets/image-20230220221453326.png" alt="image-20230220221453326" style="zoom:50%;" />
 
 `html`
 
@@ -234,7 +234,7 @@ const scale = (num, in_min, in_max, out_min, out_max) => {
 
 ## 14 Animated Navigation
 
-<img src="../assets/image-20230220221737089.png" alt="image-20230220221737089" style="zoom:50%;" />
+<img src="../../assets/image-20230220221737089.png" alt="image-20230220221737089" style="zoom:50%;" />
 
 `html`
 
@@ -250,7 +250,7 @@ const scale = (num, in_min, in_max, out_min, out_max) => {
 
 ## 15 Incrementing Counter
 
-<img src="../assets/image-20230220221752307.png" alt="image-20230220221752307" style="zoom:33%;" />
+<img src="../../assets/image-20230220221752307.png" alt="image-20230220221752307" style="zoom:33%;" />
 
 `html`
 
@@ -266,7 +266,7 @@ const scale = (num, in_min, in_max, out_min, out_max) => {
 
 ## 16 Drink Water
 
-<img src="../assets/image-20230220221834570.png" alt="image-20230220221834570" style="zoom:30%;" />
+<img src="../../assets/image-20230220221834570.png" alt="image-20230220221834570" style="zoom:30%;" />
 
 `html`
 
@@ -282,7 +282,7 @@ const scale = (num, in_min, in_max, out_min, out_max) => {
 
 ## 17 Movie `App`
 
-<img src="../assets/image-20230220221902375.png" alt="image-20230220221902375" style="zoom:33%;" />
+<img src="../../assets/image-20230220221902375.png" alt="image-20230220221902375" style="zoom:33%;" />
 
 `html`
 
@@ -298,7 +298,7 @@ const scale = (num, in_min, in_max, out_min, out_max) => {
 
 ## 18 Background Slider
 
-<img src="../assets/image-20230220221929517.png" alt="image-20230220221929517" style="zoom:33%;" />
+<img src="../../assets/image-20230220221929517.png" alt="image-20230220221929517" style="zoom:33%;" />
 
 `html`
 
