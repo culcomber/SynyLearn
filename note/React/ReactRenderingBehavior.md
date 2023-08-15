@@ -2,7 +2,7 @@
 
 **Rendering** is the process of React asking your components to describe what they want their section of the UI to look like, now, based on the current combination of props and state.
 
-根据组件（基于props and state）去展示UI
+根据组件（基于props and state）去展示`UI`
 
 ### 1.1 Rendering Process Overview
 
