@@ -1,4 +1,6 @@
 import './App.css';
+import React from 'react';
+import Performance from "./page/Performance/Performance";
 
 function App() {
   return (
@@ -13,6 +15,9 @@ function App() {
           </li>
           <li>
             <a href={`/agent`}>Agent</a>
+          </li>
+          <li>
+            <a href={`/performance`}>Performance</a>
           </li>
         </ul>
       </nav>

@@ -1796,7 +1796,7 @@ combine a reducer with context:
 1. **Create** the context.
 
    ```js
-   // TasksContext.js
+   // TasksContext
    import { createContext } from 'react';
    
    // The actual values will be provided by the TaskApp component.

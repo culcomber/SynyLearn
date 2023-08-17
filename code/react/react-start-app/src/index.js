@@ -4,9 +4,10 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {createBrowserRouter, RouterProvider} from 'react-router-dom';
-import ManagingState from "./ManagingState/ManagingState";
-import EscapeHatches from "./EscapeHatches/EscapeHatches";
-import Polling from "./agent/Polling";
+import ManagingState from "./page/ManagingState/ManagingState";
+import EscapeHatches from "./page/EscapeHatches/EscapeHatches";
+import Polling from "./page/agent/Polling";
+import Performance from "./page/Performance/Performance";
 
 const router = createBrowserRouter([
   {
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
   {
     path: 'agent',
     element: <Polling />,
+  },
+  {
+    path: 'performance',
+    element: <Performance />,
   },
 ]);
 
