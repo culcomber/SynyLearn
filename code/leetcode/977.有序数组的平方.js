@@ -24,7 +24,7 @@ var sortedSquares = function(nums) {
     }
     return arr; */
 
-    // 倒叙存放到新数组
+    /* // 倒叙存放到新数组
     let n = nums.length;
     let newArray = new Array(n);
     let left = 0, right = n - 1;
@@ -38,6 +38,24 @@ var sortedSquares = function(nums) {
             newArray[i] = nums[left] * nums[left];
             left++;
         }
+    }
+    return newArray; */
+
+    // 第一次 注意细节
+    // 两头中肯定有最大的，所以新数组从尾部开始 // i-- left++ right--
+    let n = nums.length;
+    let newArray = new Array(n);
+    let left = 0, right = n - 1;
+    // i--
+    for (let i = n - 1; i >= 0; i--) {
+        if(nums[left] * nums[left] >= nums[right] * nums[right]) {
+            newArray[i] = nums[left] * nums[left];
+            left++;
+        } else {
+            newArray[i] = nums[right] * nums[right];
+            right--;
+        }
+        
     }
     return newArray;
 };

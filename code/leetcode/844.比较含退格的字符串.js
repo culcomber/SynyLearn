@@ -15,21 +15,10 @@ var backspaceCompare = function(S, T) {
     因此当我们逆序地遍历字符串，就可以立即确定当前字符是否会被删掉。
     多个#收集，直到遇到字符 */
 
-    /* s = handleBackSpace(s);L
-    t = handleBackSpace(t);
-    // console.log(s, t);
-
-    if (s !== t) {
-        return false;
-    } else {
-        return true;
-    } */
-
-    let i = S.length - 1,
+    /* let i = S.length - 1,
     j = T.length - 1,
     skipS = 0,
     skipT = 0;
-
     // 大循环
     while(i >= 0 || j >= 0){
         // S 循环
@@ -55,11 +44,46 @@ var backspaceCompare = function(S, T) {
         }
 
         if(S[i] !== T[j]) return false;
-        
         i--;
         j--;
     }
-    return true;
+    return true; */
+
+    // 第一次 参考
+    // 从后面开始遍历，因为字母是否删除和后面的#相关，只有直到后面有多少#才知道前面有多少字母要删除
+    let i = S.length - 1,
+    j = T.length - 1,
+    skipS = 0, // 保存跳过#数量
+    skipT = 0;
+    while(j >= 0 || i >= 0) {
+        // S 循环
+        while(i >= 0){
+            if(S[i] === '#'){
+                skipS++;
+                i--;
+            } else if (skipS > 0){
+                skipS--;
+                i--;
+            } else break;
+        }
+
+        // T 循环
+        while(j >= 0) {
+            if(T[j] === '#') {
+                skipT++;
+                j--;
+            } else if(skipS > 0) {
+                skipT--;
+                i--;
+            } else break;
+        }
+
+        // 如果S和T相同，那么字串也是相同的
+        if(S[i] !== T[j]) return false;
+        i--;
+        j--;
+    }
+    return true; 
 };
 
 // js 不能修改字符串
