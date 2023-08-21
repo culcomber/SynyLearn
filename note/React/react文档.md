@@ -859,17 +859,15 @@ export default function Clock({ time }) {
 
 ### 3.4 State as a Snapshot
 
-Setting state requests a new render
+点击按钮，触发onSubmit事件处理函数，函数内用setState更新state
 
-改变state会触发渲染
+1. The `onSubmit` event handler executes.
+2. `setIsSent(true)` sets `isSent` to `true` and queues a new render.
+3. React re-renders the component according to the new `isSent` value.
 
-When you call `useState`, React gives you a snapshot of the state *for that render*
+[“Rendering”](https://react.dev/learn/render-and-commit#step-2-react-renders-your-components) means that React is calling your component, which is a function. The JSX you return from that function is like a snapshot of the UI in time. Its props, event handlers, and local variables were all calculated **using its state at the time of the render.**
 
-使用useState，react返回state快照，即setState(state+ 1)，state就是一个快照，state不会立刻改变
-
-Setting it does not change the state variable you already have, but instead triggers a re-render
-
-改变state不是立刻起效的，在页面重新渲染后起效
+第三步吃重新调用函数组件，Its props, event handlers, and local variables根据跟新的state计算出来
 
 When React re-renders a component:
 
@@ -879,9 +877,9 @@ When React re-renders a component:
 
 <img src="../assets/image-20230626200628492.png" alt="image-20230626200628492" style="zoom:33%;" />
 
-State actually “lives” in React itself—as if on a shelf—**outside of your function**
+State actually “lives” in React itself—as if on a shelf—**outside of your function**. When React calls your component, it gives you a snapshot of the state for that particular render. Your component returns **a snapshot of the UI with a fresh set of props and event handlers** in its JSX, all calculated **using the state values from that render!**
 
-state独立于函数式组件，由react负责更新，更新完之后传递给函数式组件
+state独立于函数式组件，由react负责更新，更新完之后传递给函数式组件。。当react调用函数组件，利用新state计算出事件处理函数的快照，更新到页面
 
 <img src="../assets/image-20230626201045756.png" alt="image-20230626201045756" style="zoom:40%;" />
 

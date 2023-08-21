@@ -1,6 +1,8 @@
-import React from 'react';
+import React, {memo} from 'react';
 import TestExample from "./TestExample";
 import List from "./List";
+import Greeting from "./Greeting";
+import Test1 from "./Test1";
 
 function DisplayPart({title, children}) {
     return (
@@ -20,6 +22,12 @@ export default function Performance() {
             </DisplayPart>
             <DisplayPart title='test'>
                 <TestExample />
+            </DisplayPart>
+            <DisplayPart title='test'>
+                <Test1 />
+            </DisplayPart>
+            <DisplayPart title='memo'>
+                <Greeting />
             </DisplayPart>
         </div>
     );
