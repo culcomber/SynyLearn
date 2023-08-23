@@ -51,7 +51,7 @@ var backspaceCompare = function(S, T) {
 
     // 第一次 参考
     // 从后面开始遍历，因为字母是否删除和后面的#相关，只有直到后面有多少#才知道前面有多少字母要删除
-    let i = S.length - 1,
+    /* let i = S.length - 1,
     j = T.length - 1,
     skipS = 0, // 保存跳过#数量
     skipT = 0;
@@ -83,8 +83,44 @@ var backspaceCompare = function(S, T) {
         i--;
         j--;
     }
-    return true; 
+    return true;  */
+
+    // 第二次
+    let skipS = 0, skipT = 0, i = S.length - 1, j = T.length - 1;
+    while(i >= 0 && j >= 0) {
+        // 处理#
+        while(skipS > 0 && i >= 0) {
+            if(S[i] === '#') {
+                skipS++;
+                i--;
+            } else {
+                skipS--;
+                i--;
+            }
+        }
+
+        while(skipT > 0 && j >= 0) {
+            if(T[j] === '#') {
+                skipT++;
+                j--;
+            } else {
+                skipT--;
+                j--;
+            }
+        }
+
+        // 要先处理#
+        console.log(S[i], T[j]);
+        if(S[i] !== T[j]) {
+            return false;
+        }
+        i--;
+        j--;
+    }
+    return true;
 };
+
+backspaceCompare('ab#c', 'ad#c')
 
 // js 不能修改字符串
 function handleBackSpace(str) {

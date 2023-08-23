@@ -1,8 +1,10 @@
-import React from "react";
+import React, {useContext} from "react";
+import {ThemeContext} from "./ThemeProvider";
 
 export default function ListItem() {
+    const theme = useContext(ThemeContext);
     return (
-        <li>
+        <li style={theme.theme}>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
             tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
             veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea

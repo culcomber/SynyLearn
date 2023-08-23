@@ -43,7 +43,7 @@ var sortedSquares = function(nums) {
 
     // 第一次 注意细节
     // 两头中肯定有最大的，所以新数组从尾部开始 // i-- left++ right--
-    let n = nums.length;
+    /* let n = nums.length;
     let newArray = new Array(n);
     let left = 0, right = n - 1;
     // i--
@@ -56,6 +56,20 @@ var sortedSquares = function(nums) {
             right--;
         }
         
+    }
+    return newArray; */
+
+    // 第二次
+    let newArray = new Array(nums.length),
+    left = 0, right = nums.length - 1;
+    for (let i = nums.length - 1; i >= 0; i--) {
+        if(nums[left] * nums[left] >= nums[right] * nums[right]) {
+            newArray[i] = nums[left] * nums[left];
+            left++;
+        } else {
+            newArray[i] = nums[right] * nums[right];
+            right--;
+        }
     }
     return newArray;
 };

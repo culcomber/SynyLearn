@@ -1,7 +1,6 @@
 import React, {useState} from "react";
-import "./styles.css";
 import Toggle from "./Toggle";
-import Boxes from "./Boxes";
+import List from "../../Performance/List";
 
 export const themes = {
     light: {
@@ -17,27 +16,33 @@ export const themes = {
 export const ThemeContext = React.createContext(
     {theme: {}, toggleTheme: ()=>{}});
 
-export default function ThemeProvider() {
+function ThemeProvider({ children }) {
     const [theme, setTheme] = useState("dark");
 
     function toggleTheme() {
         setTheme(theme === "light" ? "dark" : "light");
     }
 
-    /*.App.theme-light {
-        background-color: #fff;
-    }
-    .App.theme-dark {
-        background-color: #171717;
-    }*/
+    const providerValue = {
+        theme: themes[theme],
+        toggleTheme,
+    };
+
+    return (
+        <ThemeContext.Provider value={providerValue}>
+            {children}
+        </ThemeContext.Provider>
+    );
+}
+
+export default function ThemeHook() {
+    let theme;
     return (
         <div className={`App theme-${theme}`}>
-            <ThemeContext.Provider value={{ theme: themes[theme], toggleTheme }}>
-                <>
-                    <Toggle />
-                    <Boxes />
-                </>
-            </ThemeContext.Provider>
+            <ThemeProvider>
+                <Toggle />
+                <List />
+            </ThemeProvider>
         </div>
     );
 }
