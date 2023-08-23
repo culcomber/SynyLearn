@@ -1,5 +1,6 @@
 import React, {memo} from 'react';
 import SingletonPattern from "./Singleton/SingletonPattern";
+import ThemeProvider from "./ProviderPattern/ThemeProvider";
 
 function DisplayPart({title, children}) {
     return (
@@ -17,6 +18,10 @@ export default function Pattern() {
             <DisplayPart title='Singleton Pattern'>
                 <SingletonPattern />
             </DisplayPart>
+            {/*<DisplayPart title='Provider Pattern'>
+
+            </DisplayPart>*/}
+            <ThemeProvider />
         </div>
     );
 }
