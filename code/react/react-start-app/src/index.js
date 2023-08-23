@@ -8,6 +8,7 @@ import ManagingState from "./page/ManagingState/ManagingState";
 import EscapeHatches from "./page/EscapeHatches/EscapeHatches";
 import Polling from "./page/agent/Polling";
 import Performance from "./page/Performance/Performance";
+import Pattern from './page/Pattern/Pattern';
 
 const router = createBrowserRouter([
   {
@@ -29,6 +30,10 @@ const router = createBrowserRouter([
   {
     path: 'performance',
     element: <Performance />,
+  },
+  {
+    path: 'pattern',
+    element: <Pattern />,
   },
 ]);
 

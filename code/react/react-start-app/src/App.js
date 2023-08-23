@@ -19,6 +19,9 @@ function App() {
           <li>
             <a href={`/performance`}>Performance</a>
           </li>
+          <li>
+            <a href={`/pattern`}>Pattern</a>
+          </li>
         </ul>
       </nav>
     </>
