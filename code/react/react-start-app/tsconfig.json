@@ -1,6 +1,7 @@
 // https://zhuanlan.zhihu.com/p/145210784
 {
     "compilerOptions": { // 属性被忽略，则编译器会使用默认值
+        "allowSyntheticDefaultImports": true,
         "outDir": "./dist/", // 指定输出目录
         "sourceMap": true, // 生成目标文件的sourceMap文件
         "noImplicitAny": false, // 不允许隐式的any类型

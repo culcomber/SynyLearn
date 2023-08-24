@@ -38,7 +38,7 @@ function ThemeProvider({ children }) {
 export default function ThemeHook() {
     let theme;
     return (
-        <div className={`App theme-${theme}`}>
+        <div className={`AppProvider theme-${theme}`}>
             <ThemeProvider>
                 <Toggle />
                 <List />

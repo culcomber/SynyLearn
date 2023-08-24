@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import "./styles.css";
+import "./ThemeProvider.css";
 import Toggle from "./Toggle";
 import Boxes from "./Boxes";
 
@@ -31,7 +31,7 @@ export default function ThemeProvider() {
         background-color: #171717;
     }*/
     return (
-        <div className={`App theme-${theme}`}>
+        <div className={`AppProvider theme-${theme}`}>
             <ThemeContext.Provider value={{ theme: themes[theme], toggleTheme }}>
                 <>
                     <Toggle />
