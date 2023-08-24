@@ -2,6 +2,7 @@ import React, {memo} from 'react';
 import SingletonPattern from "./Singleton/SingletonPattern";
 import ThemeProvider from "./ProviderPattern/ThemeProvider";
 import DogDisplay from "./ContainerPresentationalPattern/DogDisplay";
+import ObserverPattern from "./Observer/ObserverPattern";
 
 function DisplayPart({title, children}) {
     return (
@@ -24,7 +25,10 @@ export default function Pattern() {
             </DisplayPart>*
             <DisplayPart title='Container/Presentational Pattern'>
                 <DogDisplay />
-            </DisplayPart>*
+            </DisplayPart>
+            <DisplayPart title='Observer Pattern'>
+                <ObserverPattern />
+            </DisplayPart>
         </div>
     );
 }
