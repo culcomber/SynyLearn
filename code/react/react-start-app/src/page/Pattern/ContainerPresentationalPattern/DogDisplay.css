@@ -1,15 +1,13 @@
-html,
-body {
-    margin: 0px;
-    /*background-color: #1e2027;*/
-}
-
 .DogDisplayApp {
     display: flex;
     flex-direction: column;
     align-items: center;
     font-family: "Avenir Next";
     font-weight: bold;
+}
+
+.AppTest {
+    color: indianred;
 }
 
 h1 {

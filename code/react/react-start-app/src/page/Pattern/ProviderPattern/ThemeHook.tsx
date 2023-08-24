@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import Toggle from "./Toggle";
+import "./ThemeProvider.css";
 import List from "../../Performance/List";
 
 export const themes = {

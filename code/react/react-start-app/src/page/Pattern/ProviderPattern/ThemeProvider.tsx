@@ -38,6 +38,8 @@ export default function ThemeProvider() {
                     <Boxes />
                 </>
             </ThemeContext.Provider>
+            <br/>
+            <div className={'AppTest'}>classname AppTest 在兄弟组件文件（Container/Presentational Pattern）中导入</div>
         </div>
     );
 }
