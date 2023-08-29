@@ -11,10 +11,6 @@
  * @return {boolean}
  */
 var backspaceCompare = function(S, T) {
-    /* 一个字符是否会被删掉，只取决于该字符后面的退格符，而与该字符前面的退格符无关。
-    因此当我们逆序地遍历字符串，就可以立即确定当前字符是否会被删掉。
-    多个#收集，直到遇到字符 */
-
     /* let i = S.length - 1,
     j = T.length - 1,
     skipS = 0,
