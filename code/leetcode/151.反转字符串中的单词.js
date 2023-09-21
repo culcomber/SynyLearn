@@ -9,25 +9,50 @@
  * @param {string} s
  * @return {string}
  */
-/* var reverseWords = function(s) {
-    // todo
-    let left = 0, right = s.length - 1, result = s.split(' ');
+var reverseWords = function(s) {
+    // 字符串转数组
+    const strArr = Array.from(s);
+    // 1 去除多余的空格和末尾的空格
+    removeExtraSpaces(strArr);
+    // 2 反转全部字母
+    reverseStr(strArr, 0, strArr.length - 1);
+    // 3 反转单词
+    let wordStart = 0;
+    for (let i = 0; i <= strArr.length; i++) {
+        // 最后单词处理
+        if (strArr[i] === ' ' || i === strArr.length) {
+            reverseStr(strArr, wordStart, i - 1);
+            wordStart = i + 1;
+        }
+    }
+    // 数组转字符串
+    return strArr.join('');
+};
+
+// 去除多余的空格和末尾的空格
+function removeExtraSpaces(strArr) {
+    let slow = 0; // 慢指针，保留最新非连续空格的值
+    for (let i = 0; i < strArr.length; i++) {
+        // 当前和前面都是空格，删除当前空格，当i=0，没有前面，特殊处理
+        if (!(strArr[i] === ' ' && (strArr[i - 1] === ' ' || i === 0))) {
+            strArr[slow++] = strArr[i];
+        }
+    }
+    // 去除尾部空格
+    strArr.length = strArr[slow - 1] === ' ' ? slow - 1 : slow;
+}
+
+// 反转字符串数组
+function reverseStr(strArr, start, end) {
+    let left = start, right = end;
     while (left < right) {
-        if (s[left] === '') {
-            left++;
-        }
-        if (s[right] === '') {
-            right--;
-        }
-        // todo
-        [result[left], result[right]] = [result[right], result[left]];
+        [strArr[left], strArr[right]] = [strArr[right], strArr[left]];
         left++;
         right--;
     }
-    // todo
-    return result.toString();
-}; */
-var reverseWords = function(s) {
+}
+
+/* var reverseWords = function(s) {
     // 字符串转数组
     const strArr = Array.from(s);
     // 移除多余空格
@@ -77,6 +102,6 @@ var reverseWords = function(s) {
      left++;
      right--;
    }
- }
+ } */
 // @lc code=end
 
