@@ -1,5 +1,3 @@
-
-
 ```js
 const shape = {
   radius: 10,

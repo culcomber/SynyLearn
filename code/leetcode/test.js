@@ -1,1 +1,4 @@
-console.log(JSON.stringify([1,2,3,4,5]));
+
+let {head, ...tail} = {tail: 'tail', a: 'a', b: 'b', c: 'c', head: 'head'}; 
+
+console.log(tail, head); // { tail: 'tail', a: 'a', b: 'b', c: 'c' } head
