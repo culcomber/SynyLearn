@@ -4,8 +4,6 @@
  * [209] 长度最小的子数组
  */
 
-const { log } = require("console");
-
 // @lc code=start
 /**
  * @param {number} target
@@ -22,7 +20,7 @@ var minSubArrayLen = function(target, nums) {
             minSubLen = Math.min(minSubLen, end - start + 1);
             // 移动窗口
             sum -= nums[start];
-            start++;
+            start++; // start是加加
         }
     }
     return minSubLen === Number.MAX_SAFE_INTEGER ? 0 : minSubLen;
