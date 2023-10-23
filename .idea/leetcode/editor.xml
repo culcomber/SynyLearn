@@ -47,6 +47,28 @@
             </LeetcodeEditor>
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/code/leetcode/leetcode/editor/cn/[338]比特位计数.js">
+          <value>
+            <LeetcodeEditor>
+              <option name="contentPath" value="$PROJECT_DIR$/code/leetcode/leetcode/editor/cn/doc/content/[338]比特位计数.md" />
+              <option name="frontendQuestionId" value="leetcode.cn338" />
+              <option name="host" value="leetcode.cn" />
+              <option name="path" value="$PROJECT_DIR$/code/leetcode/leetcode/editor/cn/[338]比特位计数.js" />
+              <option name="titleSlug" value="counting-bits" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/code/leetcode/leetcode/editor/cn/[3]无重复字符的最长子串.js">
+          <value>
+            <LeetcodeEditor>
+              <option name="contentPath" value="$PROJECT_DIR$/code/leetcode/leetcode/editor/cn/doc/content/[3]无重复字符的最长子串.md" />
+              <option name="frontendQuestionId" value="leetcode.cn3" />
+              <option name="host" value="leetcode.cn" />
+              <option name="path" value="$PROJECT_DIR$/code/leetcode/leetcode/editor/cn/[3]无重复字符的最长子串.js" />
+              <option name="titleSlug" value="longest-substring-without-repeating-characters" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/code/leetcode/leetcode/editor/cn/[558]四叉树交集.js">
           <value>
             <LeetcodeEditor>
@@ -55,6 +77,17 @@
               <option name="host" value="leetcode.cn" />
               <option name="path" value="$PROJECT_DIR$/code/leetcode/leetcode/editor/cn/[558]四叉树交集.js" />
               <option name="titleSlug" value="logical-or-of-two-binary-grids-represented-as-quad-trees" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/code/leetcode/leetcode/editor/cn/[904]水果成篮.js">
+          <value>
+            <LeetcodeEditor>
+              <option name="contentPath" value="$PROJECT_DIR$/code/leetcode/leetcode/editor/cn/doc/content/[904]水果成篮.md" />
+              <option name="frontendQuestionId" value="leetcode.cn904" />
+              <option name="host" value="leetcode.cn" />
+              <option name="path" value="$PROJECT_DIR$/code/leetcode/leetcode/editor/cn/[904]水果成篮.js" />
+              <option name="titleSlug" value="fruit-into-baskets" />
             </LeetcodeEditor>
           </value>
         </entry>
