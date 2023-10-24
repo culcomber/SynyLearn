@@ -14,6 +14,17 @@
             </LeetcodeEditor>
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/code/leetcode/leetcode/editor/cn/[1004]最大连续1的个数 III.js">
+          <value>
+            <LeetcodeEditor>
+              <option name="contentPath" value="$PROJECT_DIR$/code/leetcode/leetcode/editor/cn/doc/content/[1004]最大连续1的个数 III.md" />
+              <option name="frontendQuestionId" value="leetcode.cn1004" />
+              <option name="host" value="leetcode.cn" />
+              <option name="path" value="$PROJECT_DIR$/code/leetcode/leetcode/editor/cn/[1004]最大连续1的个数 III.js" />
+              <option name="titleSlug" value="max-consecutive-ones-iii" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/code/leetcode/leetcode/editor/cn/[206]反转链表.js">
           <value>
             <LeetcodeEditor>
@@ -58,6 +69,17 @@
             </LeetcodeEditor>
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/code/leetcode/leetcode/editor/cn/[370]区间加法.js">
+          <value>
+            <LeetcodeEditor>
+              <option name="contentPath" value="$PROJECT_DIR$/code/leetcode/leetcode/editor/cn/doc/content/[370]区间加法.md" />
+              <option name="frontendQuestionId" value="leetcode.cn370" />
+              <option name="host" value="leetcode.cn" />
+              <option name="path" value="$PROJECT_DIR$/code/leetcode/leetcode/editor/cn/[370]区间加法.js" />
+              <option name="titleSlug" value="range-addition" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/code/leetcode/leetcode/editor/cn/[3]无重复字符的最长子串.js">
           <value>
             <LeetcodeEditor>
@@ -66,6 +88,17 @@
               <option name="host" value="leetcode.cn" />
               <option name="path" value="$PROJECT_DIR$/code/leetcode/leetcode/editor/cn/[3]无重复字符的最长子串.js" />
               <option name="titleSlug" value="longest-substring-without-repeating-characters" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/code/leetcode/leetcode/editor/cn/[424]替换后的最长重复字符.js">
+          <value>
+            <LeetcodeEditor>
+              <option name="contentPath" value="$PROJECT_DIR$/code/leetcode/leetcode/editor/cn/doc/content/[424]替换后的最长重复字符.md" />
+              <option name="frontendQuestionId" value="leetcode.cn424" />
+              <option name="host" value="leetcode.cn" />
+              <option name="path" value="$PROJECT_DIR$/code/leetcode/leetcode/editor/cn/[424]替换后的最长重复字符.js" />
+              <option name="titleSlug" value="longest-repeating-character-replacement" />
             </LeetcodeEditor>
           </value>
         </entry>
