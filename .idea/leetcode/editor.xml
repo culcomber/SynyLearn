@@ -124,6 +124,17 @@
             </LeetcodeEditor>
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/code/leetcode/leetcode/editor/cn/[928]尽量减少恶意软件的传播 II.js">
+          <value>
+            <LeetcodeEditor>
+              <option name="contentPath" value="$PROJECT_DIR$/code/leetcode/leetcode/editor/cn/doc/content/[928]尽量减少恶意软件的传播 II.md" />
+              <option name="frontendQuestionId" value="leetcode.cn928" />
+              <option name="host" value="leetcode.cn" />
+              <option name="path" value="$PROJECT_DIR$/code/leetcode/leetcode/editor/cn/[928]尽量减少恶意软件的传播 II.js" />
+              <option name="titleSlug" value="minimize-malware-spread-ii" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
       </map>
     </option>
   </component>
