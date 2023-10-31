@@ -42,19 +42,31 @@ https://juejin.cn/post/7230366377705586748
 ```
 
 https://zhuanlan.zhihu.com/p/365275880
+
 https://legacy.reactjs.org/docs/optimizing-performance.html
+
 https://heapdump.cn/article/3587314
+
 https://judes.me/frontend/2019/09/17/infinite-table.html
+
 https://github.com/wubostc/virtualized-table-for-antd/issues
+
 https://juejin.cn/post/7063332320339099678
+
 https://github.com/ant-design/ant-design/issues/35241
 
 https://epicreact.dev/modules/react-performance/react-performance-welcome
+
 https://www.smashingmagazine.com/2020/07/methods-performance-react-apps/
+
 https://blog.devgenius.io/ant-design-component-customization-and-bundle-optimization-a1fa3253a175
+
 https://ant-design.antgroup.com/docs/blog/virtual-table-cn
+
 https://www.toptal.com/react/optimizing-react-performance
+
 https://zhuanlan.zhihu.com/p/48140299
+
 https://zhuanlan.zhihu.com/p/136665404
 
 ## 3、react
