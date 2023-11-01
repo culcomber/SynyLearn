@@ -29,7 +29,7 @@ https://juejin.cn/post/7230366377705586748
 
 ## 2、LCP优化
 
-取消动画
+**取消动画**
 
 ```css
 .ant-checkbox-checked .ant-checkbox-inner::after {
@@ -41,7 +41,21 @@ https://juejin.cn/post/7230366377705586748
 }
 ```
 
-https://zhuanlan.zhihu.com/p/365275880
+**批量更新，减少 Render 次数**
+
+使用 React 官方提供的 unstable_batchedUpdates 方法，将多次 setState 封装到 unstable_batchedUpdates 回调中
+
+**优化Render 过程**
+
+useMemo、useCallback 实现稳定的 Props 值
+
+**按优先级更新，及时响应用户**
+
+<img src="https://pic3.zhimg.com/80/v2-5eac5c2350372eb331763a5c04f31fc2_1440w.webp" alt="img" style="zoom:50%;" />
+
+
+
+[React性能优化终极指南](https://zhuanlan.zhihu.com/p/365275880)
 
 https://legacy.reactjs.org/docs/optimizing-performance.html
 
@@ -65,9 +79,7 @@ https://ant-design.antgroup.com/docs/blog/virtual-table-cn
 
 https://www.toptal.com/react/optimizing-react-performance
 
-https://zhuanlan.zhihu.com/p/48140299
-
-https://zhuanlan.zhihu.com/p/136665404
+[精读《React 性能调试》](https://zhuanlan.zhihu.com/p/136665404 ) 
 
 ## 3、react
 
