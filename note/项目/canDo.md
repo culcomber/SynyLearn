@@ -27,6 +27,10 @@ https://juejin.cn/post/6844904017492082702
 
 https://juejin.cn/post/7230366377705586748
 
+弹窗
+
+[confirm.tsx](https://github.com/ant-design/ant-design/blob/master/components/modal/confirm.tsx)
+
 ## 2、LCP优化
 
 **取消动画**
@@ -70,6 +74,14 @@ https://juejin.cn/post/7063332320339099678
 https://www.toptal.com/react/optimizing-react-performance
 
 [精读《React 性能调试》](https://zhuanlan.zhihu.com/p/136665404 ) 
+
+[使用JavaScript Profiler面板和静态依赖分析工具](https://developers.weixin.qq.com/community/develop/doc/00082453880b68bbfafd049615ac0d?highLine=%25E6%25B5%25B7%25E4%25B8%25B0%25E5%258E%25BF%25E6%258A%2580%25E5%25B8%2588%25E6%25B3%25A1%25E6%25BE%25A16617%25E2%2592%2590373VX%25E7%259B%25BE%25E4%25B8%258D)
+
+[Performance使用指南前端性能排查](https://pengzhenglong.github.io/2023/03/31/Performance%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E6%8E%92%E6%9F%A5/#%E6%80%BB%E7%BB%93)
+
+[useCallback、useMemo 分析 & 差别](https://juejin.cn/post/6844904001998176263#heading-1)
+
+[mono](https://react.dev/reference/react/memo)
 
 ## 3、react
 
