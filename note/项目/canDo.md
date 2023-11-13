@@ -23,13 +23,13 @@ export const MyTable = <RecordType extends object = any>(props: TableProps<Recor
 
 [usePagination](https://github.com/ant-design/ant-design/blob/master/components/table/hooks/usePagination.ts)
 
-https://juejin.cn/post/6844904017492082702
+[confirm.tsx 弹窗](https://github.com/ant-design/ant-design/blob/master/components/modal/confirm.tsx)
 
-https://juejin.cn/post/7230366377705586748
+[调试 Ant Design 源码](https://juejin.cn/post/7158430758070140942?searchId=20231113161149F4179B78B4926A350CA9)
 
-弹窗
+[组件库](https://juejin.cn/post/7120893568553582622?searchId=202311081139129063DD1F9A9B54975F95)
 
-[confirm.tsx](https://github.com/ant-design/ant-design/blob/master/components/modal/confirm.tsx)
+[学习arco table源码遇到的问题](https://juejin.cn/post/7184007462142345272)
 
 ## 2、LCP优化
 
@@ -99,6 +99,10 @@ https://www.toptal.com/react/optimizing-react-performance
 
 [Build an Appointment Scheduler Using React, Twilio and Cosmic JS](https://hackernoon.com/build-an-appointment-scheduler-using-react-twilio-and-cosmic-js-95377f6d1040)
 
+hook库开发 https://blog.csdn.net/PingMinWangZi/article/details/120237564
+
+ahooks 源码 https://gpingfeng.github.io/ahooks-analysis/hooks/scene/use-antd-table
+
 ## 4、UI/UX
 
 [UI / UX Design 专项课程](https://www.coursera.org/specializations/ui-ux-design?utm_source=gg&utm_medium=sem&utm_campaign=34-UI-UX-Design-US&utm_content=34-UI-UX-Design-US&campaignid=12471995734&adgroupid=119387383195&device=c&keyword=ux%20design%20course%20online&matchtype=b&network=g&devicemodel=&adpostion=&creativeid=502676126357&hide_mobile_promo&gclid=Cj0KCQjw5PGFBhC2ARIsAIFIMNeM4c4_BbPo7y9RXEo1Q9eIzs-wklg_9V7TzTich-K5atWWRUUr414aAjTKEALw_wcB)
@@ -127,3 +131,9 @@ https://www.udacity.com/course/product-design--ud509
 ## 5、webGL
 
 <img src="../assets/image-20231031162139328.png" alt="image-20231031162139328" style="zoom:50%;" />
+
+WebGL上车指南 https://juejin.cn/column/7228476145385439269
+
+## 6、CICD
+
+实战前端发布平台，打开CICD黑盒 https://juejin.cn/column/7139729877112422414
