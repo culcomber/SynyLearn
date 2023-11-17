@@ -19,6 +19,8 @@ export default Greeting;
 
 - 如果传递的props每次都不一样，不必使用memo进行优化。 `memo` is completely useless if the props passed to your component are *always different,* such as if you pass an object or a plain function defined during rendering.
 
+- 如果传递对象和函数，可以用`usememo`和`usecallback`缓存，防止父组件每次渲染，都是不同的值。
+
 **In practice, you can make a lot of memoization unnecessary by following a few principles:**
 
 1. When a component visually wraps other components, let it [accept JSX as children.](https://react.dev/learn/passing-props-to-a-component#passing-jsx-as-children) This way, when the wrapper component updates its own state, React knows that its children don’t need to re-render.  ==todo==
@@ -28,6 +30,12 @@ export default Greeting;
 5. Try to [remove unnecessary dependencies from your Effects.](https://react.dev/learn/removing-effect-dependencies) For example, instead of `memoization`, it’s often simpler to move some object or a function inside an Effect or outside the component. `useEffect`移除不必要依赖，可以把普通函数放在组件外，避免重新渲染。
 
 2、`useMemo`
+
+cache the result of a calculation between re-renders
+
+`useMemo(calculateValue, dependencies)` 
+
+
 
 
 
