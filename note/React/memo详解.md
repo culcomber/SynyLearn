@@ -1,4 +1,4 @@
-1、`memo`
+## 1、`memo`
 
 ```js
 const Greeting = memo(function Greeting({ name }) {
@@ -29,21 +29,23 @@ export default Greeting;
 4. Avoid [unnecessary Effects that update state.](https://react.dev/learn/you-might-not-need-an-effect) Most performance problems in React `apps` are caused by chains of updates originating from Effects that cause your components to render over and over. 在`useEffect`中正确更新state。
 5. Try to [remove unnecessary dependencies from your Effects.](https://react.dev/learn/removing-effect-dependencies) For example, instead of `memoization`, it’s often simpler to move some object or a function inside an Effect or outside the component. `useEffect`移除不必要依赖，可以把普通函数放在组件外，避免重新渲染。
 
-2、`useMemo`
+## 2、`useMemo`
 
 cache the result of a calculation between re-renders
 
 `useMemo(calculateValue, dependencies)` 
 
+`useMemo` caches a calculation result between re-renders until its dependencies change.
 
 
 
-
-3、`useCallback`
-
+## 3、`useCallback`
 
 
-4、`Should we use useCallback in every function handler in React Functional Components`
+
+4、ref
+
+5、`Should we use useCallback in every function handler in React Functional Components`
 
 声明式函数：函数会被变量提升
 
