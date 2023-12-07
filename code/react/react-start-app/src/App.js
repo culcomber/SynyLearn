@@ -22,6 +22,9 @@ function App() {
           <li>
             <a href={`/pattern`}>Pattern</a>
           </li>
+          <li>
+            <a href={`/test`}>Test</a>
+          </li>
         </ul>
       </nav>
     </>

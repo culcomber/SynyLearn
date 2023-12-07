@@ -9,6 +9,7 @@ import EscapeHatches from "./page/EscapeHatches/EscapeHatches";
 import Polling from "./page/agent/Polling";
 import Performance from "./page/Performance/Performance";
 import Pattern from './page/Pattern/Pattern';
+import Test from './page/test/Test';
 
 const router = createBrowserRouter([
   {
@@ -34,6 +35,10 @@ const router = createBrowserRouter([
   {
     path: 'pattern',
     element: <Pattern />,
+  },
+  {
+    path: 'test',
+    element: <Test />,
   },
 ]);
 
