@@ -1,3 +1,5 @@
+参考：https://react.iamkasong.com/#%E7%AB%A0%E8%8A%82%E5%88%97%E8%A1%A8
+
 ## 1、React理念
 
 ### 1.1 快速响应

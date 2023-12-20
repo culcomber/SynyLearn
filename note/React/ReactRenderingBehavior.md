@@ -1,3 +1,5 @@
+参考：https://blog.isquaredsoftware.com/2020/05/blogged-answers-a-mostly-complete-guide-to-react-rendering-behavior/
+
 ## 1、What is "Rendering"?
 
 **Rendering** is the process of React asking your components to describe what they want their section of the UI to look like, now, based on the current combination of props and state.
