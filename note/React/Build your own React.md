@@ -1,20 +1,22 @@
-setState改变state，把传入setState的函数保存在当前fiber节点的hooks属性，从头开始重新render，到函数组件，重新调用useState，返回最新值，函数组件返回的JSX也更新到最新值，commit，渲染到页面
+`setState` 更新流程
+
+`setState` 改变 `state`，把传入 `setState` 的函数保存在当前 `fiber` 节点的 `hooks` 属性，从头开始重新 `render`，到函数组件，重新调用 `useState`，返回最新值，函数组件返回的 `JSX` 也更新到最新值，`commit`，渲染到页面
 
 <img src="../assets/image-20230717194014586.png" alt="image-20230717194014586" style="zoom:67%;" />
 
 ## 零: 概览
 
-不使用 React 的情况下，渲染JSX 通过构建工具 Babel 转换成 JS，将标签中的代码替换成 createElement，并把标签名、参数和子节点作
+渲染 `JSX` 通过构建工具 `Babel` 转换成 `JS`，将标签中的代码替换成调用 `createElement`，把标签名、属性和子节点作
 
-为参数传入React.createElement 验证入参并生成了一个对象
-
-用 “element” 来代指 React Element， 用 “node” 来代指 DOM Element
+为参数传入 `React.createElement` 验证入参并生成了一个对象，用 “element” 来代指 `React Element`， 用 “node” 来代指 `DOM Element`。
 
 ```jsx
+// jsx
 const element = <h1 title="foo">Hello</h1>
 const container = document.getElementById("root")
 ReactDOM.render(element, container)
 
+//  Babel 转换成 JS，浏览器可以处理JS
 const element = React.createElement(
   "h1",
   { title: "foo" },
@@ -28,6 +30,7 @@ const element = {
   },
 }
 
+// 浏览器执行代码生成真实DOM
 const container = document.getElementById("root")
 
 const node = document.createElement(element.type)
@@ -54,13 +57,7 @@ const element = (
 const container = document.getElementById("root")
 ReactDOM.render(element, container)
 
-const element = React.createElement(
-  "div",
-  { id: "foo" },
-  React.createElement("a", null, "bar"),
-  React.createElement("b")
-)
-
+// createElement实现
 function createElement(type, props, ...children) {
   return {
     type,
@@ -75,7 +72,6 @@ function createElement(type, props, ...children) {
     },
   }
 }
-
 function createTextElement(text) {
   return {
     type: "TEXT_ELEMENT",
@@ -85,24 +81,16 @@ function createTextElement(text) {
     },
   }
 }
+
 // Didact 作为我们自己写的库名.
 const Didact = {
   createElement,
 }
-
-const element = Didact.createElement(
-  "div",
-  { id: "foo" },
-  Didact.createElement("a", null, "bar"),
-  Didact.createElement("b")
-)
 ```
 
-## Step II: The render Function
+## Step II: The render Function——递归生成DOM节点
 
-在页面上渲染内容
-
-暂时只关心如何在 DOM 上添加东西，之后再考虑 更新 和 删除
+暂时只关心如何在 `DOM` 上添加东西，之后再考虑 更新 和 删除，递归调用每个子组件
 
 ```jsx
 /** @jsx Didact.createElement */
@@ -141,20 +129,14 @@ const Didact = {
 }
 ```
 
-## Step III: Concurrent Mode
+## Step III: Concurrent Mode——通过`fiber`改造递归
 
-递归改成requestIdleCallback浏览器空闲调用
+递归改成 `requestIdleCallback`，浏览器空闲调用
 
 ```js
+// 通过fiber改造递归 —— fiber保存dom节点信息和操作信息
 function render(element, container) {
-  // 递归不能停止
-  element.props.children.forEach(child =>
-    render(child, dom)
-  )
-}
-
-// 通过fiber改造递归——fiber保存dom节点信息和操作信息
-function render(element, container) {
+  // 初次执行 performUnitOfWork 传入的 nextUnitOfWork
   nextUnitOfWork = {
     dom: container,
     props: {
@@ -162,8 +144,10 @@ function render(element, container) {
     },
   }
 }
+
 // requestIdleCallback可以类比成 setTimeout，浏览器来决定什么时候运行回调函数，而不是 settimeout 里通过我们指定的一个时间
 requestIdleCallback(workLoop);
+
 function workLoop(deadline) {
   let shouldYield = false
   while (nextUnitOfWork && !shouldYield) { // 当前帧还有剩余时间
@@ -178,13 +162,11 @@ function workLoop(deadline) {
 }
 ```
 
-创建根`fiber`，将其设为`nextUnitOfWork`作为第一个任务单元，剩下的任务单元会通过`performUnitOfWork`函数完成并返回
+`render` 创建`nextUnitOfWork`(根 `fiber`)，将其设为 `performUnitOfWork` 作为第一个任务单元，剩下的任务单元会通过 `performUnitOfWork` 函数完成并返回。
 
-`performUnitOfWork`函数根据浏览器是否空闲`deadline.timeRemaining`，有时间遍历任务，没有时间则终止
+`performUnitOfWork `在 `workLoop` 内，`requestIdleCallback(workLoop)`，当浏览器有空闲时，会调用 `workLoop`。
 
-`performUnitOfWork`在`workLoop`内，`requestIdleCallback(workLoop)`，当浏览器有空闲时，会调用`workLoop`
-
-## Step IV: Fibers
+## Step IV: Fibers——`performUnitOfWork`
 
 ```jsx
 Didact.render(
@@ -206,6 +188,7 @@ function performUnitOfWork(fiber) {
   /*element（通过 createElement创建的 react element）
   DOM node（最终生成对应的 DOM 节点）
   fiber node（从element 到 DOM 节点的中间产物，用于时间切片）*/
+
   // 1 add dom node
   if (!fiber.dom) {
     fiber.dom = createDom(fiber);
@@ -221,7 +204,6 @@ function performUnitOfWork(fiber) {
 
   while (index < elements.length) {
     const element = elements[index]
-
     const newFiber = {
       type: element.type,
       props: element.props,
@@ -234,7 +216,6 @@ function performUnitOfWork(fiber) {
     } else {
       prevSibling.sibling = newFiber
     }
-
     prevSibling = newFiber
     index++
   }
@@ -255,8 +236,6 @@ function performUnitOfWork(fiber) {
 ```
 
 ## Step V: Render and Commit Phases
-
-增加删除和修改，diff
 
 ```js
 // 在完成整棵树的渲染前，浏览器还要中途阻断这个过程。 那么用户就有可能看到渲染未完全的 UI
