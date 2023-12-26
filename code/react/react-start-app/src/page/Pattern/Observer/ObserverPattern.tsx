@@ -1,6 +1,6 @@
 import React from "react";
-import { Button, Switch, FormControlLabel } from "@mui/material";
-import { ToastContainer, toast } from "react-toastify";
+// import { Button, Switch, FormControlLabel } from '@mui/material';
+// import { ToastContainer, toast } from 'react-toastify';
 import observable from "./Observable";
 
 function handleClick() {
@@ -16,11 +16,11 @@ function logger(data) {
 }
 
 function toastify(data) {
-    toast(data, {
+    /*toast(data, {
         position: toast.POSITION.BOTTOM_RIGHT,
         closeButton: false,
         autoClose: 2000
-    });
+    });*/
 }
 
 observable.subscribe(logger);
@@ -29,14 +29,14 @@ observable.subscribe(toastify);
 export default function ObserverPattern() {
     return (
         <div className="AppObserver">
-            <Button variant="contained" onClick={handleClick}>
+            {/*<Button variant="contained" onClick={handleClick}>
                 Click me!
             </Button>
             <FormControlLabel
                 control={<Switch name="" onChange={handleToggle} />}
                 label="Toggle me!"
             />
-            <ToastContainer />
+            <ToastContainer />*/}
         </div>
     );
 }
