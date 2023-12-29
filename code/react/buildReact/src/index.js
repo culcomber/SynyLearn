@@ -1,7 +1,11 @@
+/*element（通过 createElement创建的 react element）
+DOM node（最终生成对应的 DOM 节点）
+fiber node（从element 到 DOM 节点的中间产物，用于时间切片）*/
+
 // ---------------------------------------createElement--------------------------------
-/*JSX 通过构建工具 Babel 转换成 JS，将标签中的代码替换成 createElement，并把标签名、参数和子节点作为参数传入
-createElement验证入参并生成了一个对象，element 是一个带有 type 和 props 的对象*/
-// 入参中的 children 使用 剩余参数 , 这样 children 参数永远是数组
+/*JSX 通过构建工具 Babel 转换成 JS，将标签中的代码替换成调用 createElement，并把标签名、参数和子节点作为参数传入
+createElement验证入参并生成了一个对象，element 是一个带有 type 和 props 的对象
+入参中的 children 使用 剩余参数 , 这样 children 参数永远是数组 */
 function createElement(type, props, ...children) {
   return {
     type, // h1
@@ -26,16 +30,15 @@ function createTextElement(text) {
     },
   };
 }
+
 // ---------------------------------------render--------------------------------
-let nextUnitOfWork = null; // 当前构建的fiber
-let wipRoot = null; // 正在渲染的fiber树
-let currentRoot = null; // 当前页面渲染的fiber树
-let deletions = null; // commitWork中删除真实dom，deletions保存要删除的fiber
+let nextUnitOfWork = null; // performUnitOfWork处理单元，JSX生成的element
+let wipRoot = null; // render过程中正在构建的fiber树
+let currentRoot = null; // 当前页面DOM结构对应的fiber树
+let deletions = null; // commitWork中删除真实dom
 
+// container页面上的元素，element：jsx
 function render(element, container) {
-  console.log("render", element)
-  // container页面上的元素，element：jsx
-
   /* 对每一个子节点递归地做相同的render处理，但是递归会造成阻塞
   const dom = createDom(element);
   element.props.children.forEach(child =>
@@ -43,13 +46,13 @@ function render(element, container) {
   )
   container.appendChild(dom);*/
 
-  /* 通过fiber改造递归——fiber保存dom节点信息和操作信息
+  /* 通过fiber改造递归——fiber保存dom节点信息和操作信息，fiber存放在新属性child commitWork(wipRoot.child)
   requestIdleCallback-->workLoop-->performUnitOfWork(nextUnitOfWork)
-  requestIdleCallback(workLoop)，当浏览器有空闲时，会调用 workLoop，即调用内部performUnitOfWork
+  当浏览器有空闲时，会调用requestIdleCallback 即调用workLoop，即调用内部performUnitOfWork
   创建根fiber--wipRoot，将其设为nextUnitOfWork作为第一个任务单元，剩下的任务单元会通过performUnitOfWork函数完成并返回*/
-
   wipRoot = {
-    dom: container, // container才有dom，element没有dom
+    // container才有dom，element没有dom
+    dom: container,
     props: {
       children: [element],
     },
@@ -94,7 +97,6 @@ requestIdleCallback(workLoop);
 3.挑出下一个任务单元
 */
 function performUnitOfWork(fiber) {
-  console.log('performUnitOfWork', fiber)
   /*  fiber
   nextUnitOfWork = {
     dom: container, // 根节点才有
@@ -103,10 +105,6 @@ function performUnitOfWork(fiber) {
     },
     alternate: currentRoot,
   }*/
-
-  /*element（通过 createElement创建的 react element）
-  DOM node（最终生成对应的 DOM 节点）
-  fiber node（从element 到 DOM 节点的中间产物，用于时间切片）*/
 
   const isFunctionComponent = fiber.type instanceof Function;
   if (isFunctionComponent) {
@@ -143,40 +141,12 @@ let hookIndex = null; // hook
 function updateFunctionComponent(fiber) {
   wipFiber = fiber;
   hookIndex = 0; // 重置hookIndex
-  // 在对应的 fiber 上加上 hooks 数组以支持我们在同一个函数组件中多次调用 useState。然后我们记录当前 hook 的序号
+  // 在对应的 fiber 上加上 hooks 数组以支持我们在同一个函数组件中多次调用 useState。
+  // 然后我们记录当前 hook 的序号
   wipFiber.hooks = [];
-  // fiber.type 是 App 函数，运行函数就会执行函数里面的useState
+  // fiber.type 是 App 函数，运行函数就会执行函数里面的useState我
   const children = [fiber.type(fiber.props)];
   reconcileChildren(fiber, children);
-}
-
-function useState(initial) {
-  // render的时候函数所在jsx会赋值给wipFiber
-  const oldHook = wipFiber.alternate && wipFiber.alternate.hooks && wipFiber.alternate.hooks[hookIndex];
-  // 执行setState
-  const hook = {
-    state: oldHook ? oldHook.state : initial,
-    queue: [],
-  };
-  const actions = oldHook ? oldHook.queue : []; // hook.queue.push(action)
-  actions.forEach(action => {
-    hook.state = action(hook.state) // state由传入函数运行得到
-  });
-
-  // 初始化setState，函数组件调用setState触发更新render-->updateFunctionComponent-->useState执行上面操作，返回新的state给组件
-  const setState = action => {
-    hook.queue.push(action) // 保存action
-    wipRoot = {
-      dom: currentRoot.dom,
-      props: currentRoot.props,
-      alternate: currentRoot,
-    }
-    nextUnitOfWork = wipRoot; // 重新render
-    deletions = [];
-  };
-  wipFiber.hooks.push(hook); // hook {state: initial，queue: []}
-  hookIndex++;
-  return [hook.state, setState]; // 返回值给函数组件
 }
 
 function updateHostComponent(fiber) {
@@ -232,6 +202,7 @@ function reconcileChildren(wipFiber, elements) {
   // element 是我们想要渲染到 DOM 上的东西，oldFiber 是我们上次渲染 fiber 树
   while (index < elements.length || oldFiber != null) {
     const element = elements[index];
+    console.log('element', element);
     let newFiber = null
     const sameType = oldFiber && element && element.type == oldFiber.type;
 
@@ -320,6 +291,7 @@ function commitWork(fiber) {
     domParentFiber = domParentFiber.parent;
   }
   const domParent = domParentFiber.dom;
+  console.log('commitWork', fiber, domParent);
 
   if (fiber.effectTag === "PLACEMENT" && fiber.dom != null) {
     // add this node
@@ -400,6 +372,35 @@ function updateDom(dom, prevProps, nextProps) {
     })
 }
 
+function useState(initial) {
+  // render的时候函数所在jsx会赋值给wipFiber
+  const oldHook = wipFiber.alternate && wipFiber.alternate.hooks && wipFiber.alternate.hooks[hookIndex];
+  // 执行setState
+  const hook = {
+    state: oldHook ? oldHook.state : initial,
+    queue: [],
+  };
+  const actions = oldHook ? oldHook.queue : []; // hook.queue.push(action)
+  actions.forEach(action => {
+    hook.state = action(hook.state) // state由传入函数运行得到
+  });
+  // 初始化setState，函数组件调用setState触发更新render-->updateFunctionComponent-->useState执行上面操作，
+  // 返回新的state给组件
+  const setState = action => {
+    hook.queue.push(action) // 保存action
+    wipRoot = {
+      dom: currentRoot.dom,
+      props: currentRoot.props,
+      alternate: currentRoot,
+    }
+    nextUnitOfWork = wipRoot; // 重新render
+    deletions = [];
+  };
+  wipFiber.hooks.push(hook); // hook {state: initial，queue: []}
+  hookIndex++;
+  return [hook.state, setState]; // 返回值给函数组件
+}
+
 // Didact 作为我们自己写的库名
 const Didact = {
   createElement, // 解析JSX
@@ -432,13 +433,44 @@ Didact.render(element, container)*/
 
 /** @jsx Didact.createElement */
 function Counter() {
-  const [state, setState] = Didact.useState(1);
+  // const [state, setState] = Didact.useState(1);
   return (
-    <h1 onClick={() => setState(c => c + 1)} style="user-select: none">
-      Count: {state}
-    </h1>
+    /*<div>
+      <Text1/>
+      <Text3/>
+      {/!*<h1 onClick={() => setState(c => c + 1)} style="user-select: none">
+        Count: {state}
+        <Text1/>
+      </h1>*!/}
+    </div>*/
+    <Text1/>
   );
 }
+function Text1(state) {
+  return (
+    <p>
+      Text1
+      <Text2/>
+    </p>
+  );
+}
+
+function Text2(state) {
+  return (
+    <p>
+      Text2
+    </p>
+  );
+}
+
+function Text3(state) {
+  return (
+    <p>
+      Text3
+    </p>
+  );
+}
+
 const element = <Counter />;
 const container = document.getElementById("root");
 Didact.render(element, container);
