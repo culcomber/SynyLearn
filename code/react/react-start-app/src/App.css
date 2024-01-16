@@ -71,3 +71,12 @@ button {
 .fancy {
   border: 4px dashed pink;
 }
+
+.nav-link {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.nav-link div {
+  padding: 10px;
+}

@@ -3,16 +3,7 @@ import SingletonPattern from "./Singleton/SingletonPattern";
 import ThemeProvider from "./ProviderPattern/ThemeProvider";
 import DogDisplay from "./ContainerPresentationalPattern/DogDisplay";
 import ObserverPattern from "./Observer/ObserverPattern";
-
-function DisplayPart({title, children}) {
-    return (
-        <>
-            <h2 className={'part-color'}>{title}</h2>
-            {children}
-            <hr/>
-        </>
-    );
-}
+import {DisplayPart} from "../../components/DisplayPart";
 
 export default function Pattern() {
     return (

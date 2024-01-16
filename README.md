@@ -1,7 +1,15 @@
 # SynyLearn
 同步学习笔记和学习资料
 
-- [事件循环的进一步探索 - Erin Zimmer - JSConf EU 2018 - YouTube](https://www.youtube.com/watch?v=u1kqx6AenYw&t=853s)
+- 谷歌插件 双语字幕
+
+- 命令行输出模板文件
+
+- react css   导入less命名配置
+
+- Array []  Object {}
+
+- react 中 ts 使用配置
 
   
 

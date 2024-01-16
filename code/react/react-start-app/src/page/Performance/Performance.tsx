@@ -3,16 +3,7 @@ import TestExample from "./TestExample";
 import List from "./List";
 import Greeting from "./Greeting";
 import Test1 from "./Test1";
-
-function DisplayPart({title, children}) {
-    return (
-        <>
-            <h2 className={'part-color'}>{title}</h2>
-            {children}
-            <hr/>
-        </>
-    );
-}
+import {DisplayPart} from "../../components/DisplayPart";
 
 export default function Performance() {
     return (

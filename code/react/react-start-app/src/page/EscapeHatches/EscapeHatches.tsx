@@ -7,16 +7,7 @@ import VideoPlayer from "./2DOMwithRefs/VideoPlayer";
 import CatFriends from "./2DOMwithRefs/CatFriends";
 import FetchingIinside from "./3SynchronizingEffects/FetchingIinside";
 import React from 'react';
-
-function DisplayPart({title, children}) {
-    return (
-        <>
-            <h2 className={'part-color'}>{title}</h2>
-            {children}
-            <hr/>
-        </>
-    );
-}
+import {DisplayPart} from "../../components/DisplayPart";
 
 export default function EscapeHatches() {
     return (

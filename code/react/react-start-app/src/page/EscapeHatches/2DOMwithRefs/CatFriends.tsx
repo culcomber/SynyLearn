@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react';
 import { flushSync } from 'react-dom';
-import './CatFriends.css'
 import React from 'react';
+import './CatFriends.css'
 
 export default function CatFriends() {
     const selectedRef = useRef(null);

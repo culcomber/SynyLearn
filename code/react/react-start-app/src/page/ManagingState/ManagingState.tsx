@@ -14,6 +14,7 @@ import Messenger from "./4ExtractingStateReducer/Messenger";
 import ProfilePage from "./5PassingDataContext/ProfilePage";
 import TaskReducerContext from "./4ExtractingStateReducer/TaskReducerContext";
 import React from 'react';
+import {DisplayPart} from "../../components/DisplayPart";
 
 let statuses = [
     'empty',
@@ -22,16 +23,6 @@ let statuses = [
     'success',
     'error',
 ];
-
-function DisplayPart({title, children}) {
-    return (
-        <>
-            <h2 className={'part-color'}>{title}</h2>
-            {children}
-            <hr/>
-        </>
-    );
-}
 
 export default function ManagingState() {
     return (

@@ -6,10 +6,10 @@ import reportWebVitals from './reportWebVitals';
 import {createBrowserRouter, RouterProvider} from 'react-router-dom';
 import ManagingState from "./page/ManagingState/ManagingState";
 import EscapeHatches from "./page/EscapeHatches/EscapeHatches";
-import Polling from "./page/agent/Polling";
 import Performance from "./page/Performance/Performance";
 import Pattern from './page/Pattern/Pattern';
 import Test from './page/test/Test';
+import CustomHooks from './page/CustomHooks/CustomHooks';
 
 const router = createBrowserRouter([
   {
@@ -25,16 +25,16 @@ const router = createBrowserRouter([
     element: <EscapeHatches />,
   },
   {
-    path: 'agent',
-    element: <Polling />,
-  },
-  {
     path: 'performance',
     element: <Performance />,
   },
   {
     path: 'pattern',
     element: <Pattern />,
+  },
+  {
+    path: 'custom-hooks',
+    element: <CustomHooks />,
   },
   {
     path: 'test',
