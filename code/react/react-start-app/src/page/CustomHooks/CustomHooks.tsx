@@ -5,6 +5,8 @@ import {UseUnmountExample} from "./UseUnmountExample/UseUnmountExample";
 import {UseUpdateEffectExample} from "./useUpdateEffectExample/UseUpdateEffectExample";
 import {UseDebounceExample} from "./UseDebounceExample/UseDebounceExample";
 import {UseThrottleExample} from "./UseThrottleExample/UseThrottleExample";
+import {UseDeepCompareExample} from "./UseDeepCompareExample/UseDeepCompareExample";
+import {UseSetStateExample} from "./UseSetStateExample/UseSetStateExample";
 
 export default function CustomHooks() {
     return (
@@ -23,6 +25,12 @@ export default function CustomHooks() {
             </DisplayPart>
             <DisplayPart title='useThrottleExample 节流'>
                 <UseThrottleExample />
+            </DisplayPart>
+            <DisplayPart title='UseDeepCompareExample 深拷贝'>
+                <UseDeepCompareExample />
+            </DisplayPart>
+            <DisplayPart title='UseSetStateExample 对象直接修改'>
+                <UseSetStateExample />
             </DisplayPart>
         </div>
     );
