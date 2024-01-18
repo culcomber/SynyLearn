@@ -18,7 +18,7 @@ function App() {
           <a href={`/pattern`}>Pattern</a>
         </div>
         <div>
-          <a href={`/custom-hooks`}>Pattern</a>
+          <a href={`/custom-hooks`}>Hooks</a>
         </div>
         <div>
           <a href={`/test`}>Test</a>

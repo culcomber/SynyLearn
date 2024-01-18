@@ -2,8 +2,9 @@ import React from 'react';
 import {DisplayPart} from "../../components/DisplayPart";
 import {UseMountExample} from "./UseMountExample/UseMountExample";
 import {UseUnmountExample} from "./UseUnmountExample/UseUnmountExample";
-import {UseUpdateEffectExample} from "./useUpdateEffectExample/useUpdateEffectExample";
-import {UseDebounceStateExample} from "./UseDebounceStateExample/UseDebounceStateExample";
+import {UseUpdateEffectExample} from "./useUpdateEffectExample/UseUpdateEffectExample";
+import {UseDebounceExample} from "./UseDebounceExample/UseDebounceExample";
+import {UseThrottleExample} from "./UseThrottleExample/UseThrottleExample";
 
 export default function CustomHooks() {
     return (
@@ -17,8 +18,11 @@ export default function CustomHooks() {
             <DisplayPart title='useUpdateEffectExample 在依赖项发生变化时去执行某些逻辑'>
                 <UseUpdateEffectExample />
             </DisplayPart>
-            <DisplayPart title='UseDebounceStateExample 防抖'>
-                <UseDebounceStateExample />
+            <DisplayPart title='UseDebounceExample 防抖'>
+                <UseDebounceExample />
+            </DisplayPart>
+            <DisplayPart title='useThrottleExample 节流'>
+                <UseThrottleExample />
             </DisplayPart>
         </div>
     );

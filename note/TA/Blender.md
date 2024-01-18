@@ -52,4 +52,30 @@ N唤出菜单，暂时跟随摄像机视角，此时摄影机是焦点
 
 **新建材质**
 
-<img src="../assets/image-20240116131132893.png" alt="image-20240116131132893" style="zoom:50%;" />
+<img src="../assets/image-20240116131132893.png" alt="image-20240116131132893" style="zoom:40%;" />
+
+2、面包圈
+
+新建物体后，快速编辑 F9
+
+分辨率太高对新手不友好，而且渲染时间很长
+
+<img src="../assets/image-20240118131935154.png" alt="image-20240118131935154" style="zoom:40%;" />
+
+减少锯齿感 右键--平滑着色 不会影响渲染时间但是看起来分辨率很高的样子
+
+恢复原状，平直着色
+
+<img src="../assets/image-20240118132900360.png" alt="image-20240118132900360" style="zoom:33%;" />
+
+外形锯齿感修改 表面细分，增加更多平面达到细节优化效果
+
+<img src="../assets/image-20240118132354789.png" alt="image-20240118132354789" style="zoom:20%;" />
+
+ctrl + 1
+
+<img src="../assets/image-20240118132515081.png" alt="image-20240118132515081" style="zoom:33%;" />
+
+视图层级--blender中看到  渲染--最后的成图
+
+<img src="../assets/image-20240118133224685.png" alt="image-20240118133224685" style="zoom:33%;" />
