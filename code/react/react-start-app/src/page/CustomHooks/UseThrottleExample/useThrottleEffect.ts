@@ -1,6 +1,6 @@
 import {useRef, useState} from "react";
 import {useUnmount} from "../UseUnmountExample/useUnmount";
-import {useUpdateEffect} from "../useUpdateEffectExample/useUpdateEffect";
+import {useUpdateEffect} from "../UseUpdateEffectExample/useUpdateEffect";
 
 export const useThrottleEffect = (fn: any, args: any, delay = 200) => {
     console.log('-----------useThrottleEffect-------------')

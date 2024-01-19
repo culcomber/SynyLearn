@@ -1,5 +1,5 @@
 import {useEffect, useRef, useState} from "react";
-import {useUpdateEffect} from "../useUpdateEffectExample/useUpdateEffect";
+import {useUpdateEffect} from "../UseUpdateEffectExample/useUpdateEffect";
 import {useUnmount} from "../UseUnmountExample/useUnmount";
 
 export const useThrottle = <T>(initialState: T, delay = 5000) => {
@@ -11,7 +11,7 @@ export const useThrottle = <T>(initialState: T, delay = 5000) => {
     const hasNextValue = useRef(false);
 
     // 不要使用useEffect，不然初始化后timeout.current有值，且不会被timeoutCallback清除
-    useEffect(() => {
+    useUpdateEffect(() => {
         console.log('==============useEffect============', timeout.current)
         // 倒计时还在，存储传入state
         if (timeout.current) {

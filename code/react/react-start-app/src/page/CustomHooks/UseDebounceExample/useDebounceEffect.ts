@@ -1,5 +1,5 @@
 import {DependencyList, EffectCallback, useEffect, useRef, useState} from "react";
-import {useUpdateEffect} from "../useUpdateEffectExample/useUpdateEffect";
+import {useUpdateEffect} from "../UseUpdateEffectExample/useUpdateEffect";
 import {useUnmount} from "../UseUnmountExample/useUnmount";
 
 export const useDebounceEffect = (effect: EffectCallback, deps: DependencyList, delay = 1000) => {

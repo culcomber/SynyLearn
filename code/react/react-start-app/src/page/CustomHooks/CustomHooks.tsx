@@ -2,7 +2,7 @@ import React from 'react';
 import {DisplayPart} from "../../components/DisplayPart";
 import {UseMountExample} from "./UseMountExample/UseMountExample";
 import {UseUnmountExample} from "./UseUnmountExample/UseUnmountExample";
-import {UseUpdateEffectExample} from "./useUpdateEffectExample/UseUpdateEffectExample";
+import {UseUpdateEffectExample} from "./UseUpdateEffectExample/UseUpdateEffectExample";
 import {UseDebounceExample} from "./UseDebounceExample/UseDebounceExample";
 import {UseThrottleExample} from "./UseThrottleExample/UseThrottleExample";
 import {UseDeepCompareExample} from "./UseDeepCompareExample/UseDeepCompareExample";
