@@ -1,5 +1,5 @@
 import 'dotenv/config';
-import testHello from "./testHello";
+import exportHello from "./just-js/exportHello.js";
 
-console.log(testHello);
+console.log(exportHello);
 console.log(process.env.MY_SECRET);

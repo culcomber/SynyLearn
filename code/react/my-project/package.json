@@ -6,7 +6,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "js-start": "nodemon src/hello.js",
+    "js-start": "nodemon src/just-js/justJS.js",
     "start": "nodemon --exec babel-node src/index.js"
   },
   "keywords": [],
