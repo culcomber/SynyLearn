@@ -3,22 +3,17 @@
 
 **今日**
 
-- 自定义Hooks
-- 22年react生态
-- 面试官
+- 
 
 **实践**
 
 - 命令行输出模板文件
-
 - react `css`   导入less命名配置
-
-- Array []  Object {}
-
-- react 中 ts 使用配置
+- react性
 
 **项目**
 
+- 配置  [脚手架](https://auth0.com/blog/how-to-configure-create-react-app/)--> 博客 部署 --> 组件库
 - 谷歌插件 双语字幕
 
 **复习路径**

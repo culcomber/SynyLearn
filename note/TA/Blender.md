@@ -6,13 +6,13 @@
 
 **添加物体** shift + A
 
-**旋转** 按住滚轮/按住鼠标左键拖动右上角圆圈/Alt + 按住鼠标左键
-
-<img src="../assets/image-20240112193013191.png" alt="image-20240112193013191" style="zoom:50%;" />
-
 **放大缩小** 滚动滑轮/平滑缩放 ctrl + 按住鼠标中键 + 前后滑动鼠标/按住放大键滑动鼠标
 
 <img src="../assets/image-20240112193100370.png" alt="image-20240112193100370" style="zoom:50%;" />
+
+**旋转** 按住滚轮/按住鼠标左键拖动右上角圆圈/Alt + 按住鼠标左键
+
+<img src="../assets/image-20240112193013191.png" alt="image-20240112193013191" style="zoom:50%;" />
 
 **非焦点平移** shift + 按住鼠标中键 + 前后滑动鼠标/左键按住小手滑动图标
 
@@ -79,3 +79,7 @@ ctrl + 1
 视图层级--blender中看到  渲染--最后的成图
 
 <img src="../assets/image-20240118133224685.png" alt="image-20240118133224685" style="zoom:33%;" />
+
+切换到编辑模式 Tab
+
+<img src="../assets/image-20240123132843893.png" alt="image-20240123132843893" style="zoom:50%;" />
