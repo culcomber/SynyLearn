@@ -62,7 +62,7 @@ node src/index.js
 
 ### 2.2 `Backend Setup`
 
-**使用 `Nodemon` 实现*热更新***
+**A 使用 `Nodemon` 实现*热更新***
 
 每次修改源代码时，都必须重新启动脚本。`nodemon` 将监视启动目录中的文件，如果有任何文件更改，`nodemon`将自动重新启动`node`应用程序。
 
@@ -75,7 +75,7 @@ npm install nodemon --save-dev
 # },
 ```
 
-**配置 `Node` 项目** 
+**B 配置 `Node` 项目** 
 
 `Babel` 能在项目中使用 `Node.js` 中尚未引入 `JavaScript` 最新语言功能，例如 `ES` 模块（`Node.js` 使用 `CommonJS` 标准来导入模块）。也可以在 `package.json` 配置 `"type" : "module"` 使用 `ES` 模块。
 
@@ -119,6 +119,8 @@ console.log(process.env.MY_SECRET);
 - Part 3: [How to set up Webpack 5 with Babel](https://www.robinwieruch.de/webpack-babel-setup-tutorial/)
 - Part 4: [How to React with Webpack 5](https://www.robinwieruch.de/minimal-react-webpack-babel-setup/)
 
+**A 创建基础结构**
+
 ```shell
 # dist、public或build
 mkdir dist
@@ -147,7 +149,7 @@ touch index.html
 </html>
 ```
 
-**`webpack` 配置**
+**B `webpack` 配置**
 
 ```shell
 npm install --save-dev webpack webpack-dev-server webpack-cli
@@ -169,7 +171,7 @@ module.exports = {
 # "start": "webpack serve --config ./webpack.config.js --mode development"
 ```
 
-**`babel` 配置**
+**C `babel` 配置**
 
 ```shell
 npm install --save-dev @babel/core @babel/preset-env
@@ -192,7 +194,7 @@ resolve: {
 },
 ```
 
-**`React` 配置**
+**D `React` 配置**
 
 ```shell
 npm install --save-dev @babel/preset-react
@@ -245,7 +247,7 @@ ReactDOM.render(
 </html>
 ```
 
-**局部热更新**
+**E 局部热更新**
 
 `webpack-dev-server` 的热加载是修改了代码，代码经过打包，重新刷新了整个页面。而 `react-hot-loader` 不会刷新整个页面，它只替换了修改的代码，做到了页面的局部刷新。但它需要依赖 `webpack` 的 `HotModuleReplacement` 热加载插件。
 
@@ -268,20 +270,39 @@ module.hot.accept();
 
 ### 2.4 `Fullstack Setup`
 
-- Part 2: [TypeScript with Node.js](https://www.robinwieruch.de/typescript-node/)
-- Part 3: [Fullstack TypeScript with tRPC and React](https://www.robinwieruch.de/react-trpc/)
+**A 创建目录**
 
-配置 `TS`
+```shell
+- my-project/
+--- client/
+--- server/
+```
+
+**B server**
+
+**（1）初始化结构目录**
+
+```shell
+npm init -y
+mkdir src
+cd src
+touch index.ts
+```
+
+**（2）配置 `TS`**
 
 ```shell
 npm install typescript
-# package.json
-"scripts": {
-  "tsc": "tsc",
-}
-
+npm install ts-node --save-dev
 # 创建 tsconfig.json
 npm run tsc -- --init
+
+# 使用 tsconfig.json 的配置，
+$ tsc
+# 只编译 index.ts
+$ tsc index.ts
+# 编译 src 目录的所有 .ts 文件
+$ tsc src/*.ts
 
 # 创建 index.ts
 const sayHello = (subject: string): void => {
@@ -289,7 +310,53 @@ const sayHello = (subject: string): void => {
 };
 sayHello('TypeScript');
 
-# ts 编译成 js
+# Node.js 的执行环境，在Node.js 环境中直接运行TypeScript 代码
 npm install ts-node --save-dev
+# package.json
+"start": "ts-node src/index.ts",
 ```
 
+(3) 文件配置
+
+```shell
+npm install @trpc/server
+npm install zod
+npm install express cors
+npm install @types/express @types/cors --save-dev
+
+# 构建目录
+- server/
+--- src/
+----- index.ts
+----- context.ts
+----- router.ts
+----- trpc.ts
+----- user/
+------- router.ts
+------- types.ts
+------- db.ts
+
+# src/user/types.ts
+export type User = {
+  id: string;
+  name: string;
+};
+
+# src/user/db.ts 
+
+# src/trpc.ts
+
+# src/context.ts
+
+# src/router.ts
+
+# src/index.ts
+```
+
+
+
+**C client**
+
+
+
+参考：[Fullstack TypeScript with tRPC and React](https://www.robinwieruch.de/react-trpc/)
