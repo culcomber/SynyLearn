@@ -80,6 +80,10 @@ ctrl + 1
 
 <img src="../assets/image-20240118133224685.png" alt="image-20240118133224685" style="zoom:33%;" />
 
+太光滑完美 进入编辑模式 Tab
+
+<img src="E:/SynyLearn/note/assets/image-20240118204112930.png" alt="image-20240118204112930" style="zoom:83%;" />
+
 切换到编辑模式 Tab
 
 <img src="../assets/image-20240123132843893.png" alt="image-20240123132843893" style="zoom:50%;" />
