@@ -297,7 +297,7 @@ npm install ts-node --save-dev
 # 创建 tsconfig.json
 npm run tsc -- --init
 
-# 使用 tsconfig.json 的配置，
+# 使用 tsconfig.json 的配置，把ts编译成js
 $ tsc
 # 只编译 index.ts
 $ tsc index.ts
@@ -353,10 +353,24 @@ export type User = {
 # src/index.ts
 ```
 
-
-
 **C client**
 
+```shell
+# 使用 Vite 创建一个带有 TypeScript 的 React 前端应用程序
+npm create vite@latest client -- --template react-ts
+cd client
+npm install
+npm run dev
+npm install @trpc/client @trpc/server
+npm install @tanstack/react-query @trpc/react-query
 
+# src/trpc.ts
+
+# src/App.tsx
+
+# src/main.tsx
+```
+
+<img src="../../assets/image-20240124172204855.png" alt="image-20240124172204855" style="zoom:50%;" />
 
 参考：[Fullstack TypeScript with tRPC and React](https://www.robinwieruch.de/react-trpc/)
