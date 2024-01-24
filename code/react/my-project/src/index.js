@@ -1,5 +1,3 @@
-import 'dotenv/config';
-import exportHello from "./just-js/exportHello.js";
-
-console.log(exportHello);
-console.log(process.env.MY_SECRET);
+import exportHello from './just-js/exportHello'
+console.log('Hello Webpack Project.111');
+console.log(exportHello)

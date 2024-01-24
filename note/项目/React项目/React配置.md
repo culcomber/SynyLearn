@@ -35,7 +35,7 @@ $ git remote add origin https://github.com/guyibang/TEST2.git
 
 ## 2、创建 `React + Webpack 5` 工程
 
-2.1 创建 `JS` 项目
+### 2.1 创建 `JS` 项目
 
 ```shell
 # 创建并初始化项目
@@ -60,7 +60,7 @@ node src/index.js
 # },
 ```
 
-2.2 `Backend Setup`
+### 2.2 `Backend Setup`
 
 **使用 `Nodemon` 实现*热更新***
 
@@ -77,16 +77,23 @@ npm install nodemon --save-dev
 
 **配置 `Node` 项目** 
 
-`Babel` 能在项目中使用 `Node.js` 中尚未引入 `JavaScript` 最新语言功能。
+`Babel` 能在项目中使用 `Node.js` 中尚未引入 `JavaScript` 最新语言功能，例如 `ES` 模块（`Node.js` 使用 `CommonJS` 标准来导入模块）。也可以在 `package.json` 配置 `"type" : "module"` 使用 `ES` 模块。
 
 ```shell
 npm install @babel/core @babel/node --save-dev
 npm install @babel/preset-env --save-dev
-# package.json 配置命令
+# package.json 配置启动命令
 # "scripts": {
 # 	  "start": "nodemon --exec babel-node src/index.js",
 # },
 
+# .babelrc 配置babel
+"babel": {
+  "presets": [
+    "@babel/preset-env"
+  ]
+},
+# or 单独把babel配置抽取出来
 touch .babelrc
 # {
 #   "presets": [
@@ -99,24 +106,190 @@ touch .env
 # MY_SECRET=mysupersecretpassword
 
 # index.js
-# import 'dotenv/config';
-# console.log('Hello Node.js project.');
-# console.log(process.env.MY_SECRET);
+import 'dotenv/config';
+console.log('Hello Node.js project.');
+console.log(process.env.MY_SECRET);
 ```
-
-
 
 参考：[The minimal Node.js with Babel Setup](https://www.robinwieruch.de/minimal-node-js-babel-setup/)
 
-2.3 `Frontend Setup`
+### 2.3 `Frontend Setup`
 
 - Part 2: [How to set up Webpack 5](https://www.robinwieruch.de/webpack-setup-tutorial/)
 - Part 3: [How to set up Webpack 5 with Babel](https://www.robinwieruch.de/webpack-babel-setup-tutorial/)
+- Part 4: [How to React with Webpack 5](https://www.robinwieruch.de/minimal-react-webpack-babel-setup/)
 
+```shell
+# dist、public或build
+mkdir dist
+cd dist
+touch index.html
 
+# src/index.js
+# console.log('Hello Webpack Project.');
+```
 
-2.4 `Fullstack Setup`
+`src` 目录下文件会被打包到 `dist` 目录下，生产使用 `dist`，开发使用 `src` 。
+
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Hello Webpack</title>
+  </head>
+  <body>
+    <div>
+      <h1>Hello Webpack</h1>
+    </div>
+    <!-- js入口 -->
+    <script src="./bundle.js"></script>
+  </body>
+</html>
+```
+
+**`webpack` 配置**
+
+```shell
+npm install --save-dev webpack webpack-dev-server webpack-cli
+touch webpack.config.js
+
+# webpack.config.js
+const path = require('path');
+module.exports = {
+  entry: path.resolve(__dirname, './src/index.js'),
+  output: {
+    path: path.resolve(__dirname, './dist'),
+    filename: 'bundle.js',
+  },
+  devServer: {
+    static: path.resolve(__dirname, './dist'),
+  },
+};
+
+# "start": "webpack serve --config ./webpack.config.js --mode development"
+```
+
+**`babel` 配置**
+
+```shell
+npm install --save-dev @babel/core @babel/preset-env
+npm install --save-dev babel-loader
+
+# .babelrc 或 package.json 配置 babel，webpack不用修改启动命令
+
+# webpack.config.js
+module: {
+  rules: [
+    {
+      test: /\.(js)$/,
+      exclude: /node_modules/,
+      use: ['babel-loader']
+    }
+  ]
+},
+resolve: {
+  extensions: ['*', '.js']
+},
+```
+
+**`React` 配置**
+
+```shell
+npm install --save-dev @babel/preset-react
+# 使用react
+npm install --save react react-dom
+
+# .babelrc
+{
+  "presets": [
+    "@babel/preset-env",
+    "@babel/preset-react"
+  ]
+}
+
+# webpack.config.js 增加 jsx文件支持
+module.exports = {
+  module: {
+    rules: [
+      {
+        test: /\.(js|jsx)$/,
+        exclude: /node_modules/,
+        use: ['babel-loader'],
+      },
+    ],
+  },
+  resolve: {
+    extensions: ['*', '.js', '.jsx'],
+  },
+}
+
+# src/index.js中，使用 React
+import React from 'react';
+import ReactDOM from 'react-dom';
+const title = 'React with Webpack and Babel';
+ReactDOM.render(
+  <div>{title}</div>,
+  document.getElementById('app')
+);
+
+# dist/index.html 添加挂载点 app
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Hello React</title>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script src="./bundle.js"></script>
+  </body>
+</html>
+```
+
+**局部热更新**
+
+`webpack-dev-server` 的热加载是修改了代码，代码经过打包，重新刷新了整个页面。而 `react-hot-loader` 不会刷新整个页面，它只替换了修改的代码，做到了页面的局部刷新。但它需要依赖 `webpack` 的 `HotModuleReplacement` 热加载插件。
+
+```shell
+npm install --save-dev react-hot-loader
+
+# webpack.config.js 
+const webpack = require('webpack');
+module.exports = {
+  plugins: [new webpack.HotModuleReplacementPlugin()],
+  devServer: {
+    static: path.resolve(__dirname, './dist'),
+    hot: true,
+  },
+};
+
+# src/index.js 最底部
+module.hot.accept();
+```
+
+### 2.4 `Fullstack Setup`
 
 - Part 2: [TypeScript with Node.js](https://www.robinwieruch.de/typescript-node/)
 - Part 3: [Fullstack TypeScript with tRPC and React](https://www.robinwieruch.de/react-trpc/)
+
+配置 `TS`
+
+```shell
+npm install typescript
+# package.json
+"scripts": {
+  "tsc": "tsc",
+}
+
+# 创建 tsconfig.json
+npm run tsc -- --init
+
+# 创建 index.ts
+const sayHello = (subject: string): void => {
+  console.log('Hello ' + subject);
+};
+sayHello('TypeScript');
+
+# ts 编译成 js
+npm install ts-node --save-dev
+```
 
