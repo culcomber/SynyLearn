@@ -87,3 +87,11 @@ ctrl + 1
 切换到编辑模式 Tab
 
 <img src="../assets/image-20240123132843893.png" alt="image-20240123132843893" style="zoom:50%;" />
+
+03
+
+复制物体 shift + D
+
+重命名 双击 / F2
+
+<img src="../assets/image-20240125130539278.png" alt="image-20240125130539278" style="zoom:50%;" />

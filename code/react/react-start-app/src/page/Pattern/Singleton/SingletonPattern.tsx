@@ -1,11 +1,10 @@
 import React from "react";
-import Counter from "./Counter";
-import "./SingletonPattern.less"
-import "./test.css"
+import {singletonCounter as Counter} from "./Counter";
+import style from "./SingletonPattern"
 
 export default function SingletonPattern() {
     return (
-        <div className='main'>
+        <div className={style.main}>
             <button id="red" onClick={() => {
                 Counter.increment();
                 console.log("Counter total: ", Counter.getCount());

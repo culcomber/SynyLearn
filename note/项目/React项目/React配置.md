@@ -294,6 +294,7 @@ touch index.ts
 ```shell
 npm install typescript
 npm install ts-node --save-dev
+# "tsc": "tsc",
 # 创建 tsconfig.json
 npm run tsc -- --init
 
@@ -316,7 +317,7 @@ npm install ts-node --save-dev
 "start": "ts-node src/index.ts",
 ```
 
-(3) 文件配置
+**(3) 文件配置**
 
 ```shell
 npm install @trpc/server
@@ -374,3 +375,57 @@ npm install @tanstack/react-query @trpc/react-query
 <img src="../../assets/image-20240124172204855.png" alt="image-20240124172204855" style="zoom:50%;" />
 
 参考：[Fullstack TypeScript with tRPC and React](https://www.robinwieruch.de/react-trpc/)
+
+3、`npx`项目配置
+
+使用`create-react-app` 创建的项目默认是无法修改其内部的`webpack`配置。
+
+```shell
+react-scripts start
+# 真正执行
+node node_modules/react-scripts/bin/react-scripts.js start
+```
+
+`CRACO` 全称 `Create React App Configuration Override`，取首字母即组成了工具名称，使用 `craco` 覆盖配置。详细配置请参考[官网文档](https://link.juejin.cn/?target=https%3A%2F%2Fgithub.com%2Fdilanx%2Fcraco%2Fblob%2Fmaster%2Fpackages%2Fcraco%2FREADME.md)。
+
+```shell
+npm install --save @craco/craco
+# 支持 TypeScript ，使用 CRACO 提供的类型包
+npm i -D @craco/types
+
+# package.json
+"scripts": {
+    "start": "craco start",
+    "build": "craco build",
+    "test": "craco test",
+}
+
+# craco.config.js 配置less
+npm install -D craco-less
+
+const path = require("path");
+const CracoLessPlugin = require("craco-less");
+const resolve = (pathname) => path.resolve(__dirname, pathname);
+module.exports = {
+  plugins: [
+    /* less */
+    {
+      plugin: CracoLessPlugin,
+    },
+  ],
+  webpack: {
+    /* 别名 */
+    alias: {
+      "@": resolve("src"),
+    },
+  },
+};
+
+# tsconfig.json 的 compilerOptions 添加配置
+"baseUrl": ".",
+"paths": {
+    "@/*": ["src/*"]
+}
+```
+
+[参考](https://juejin.cn/post/7068903019978424328)
