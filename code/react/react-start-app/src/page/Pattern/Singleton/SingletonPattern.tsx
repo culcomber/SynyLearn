@@ -3,7 +3,9 @@ import {singletonCounter as Counter} from "./Counter";
 import style from "./SingletonPattern"
 
 export default function SingletonPattern() {
+
     return (
+        // @ts-ignore
         <div className={style.main}>
             <button id="red" onClick={() => {
                 Counter.increment();

@@ -26,5 +26,4 @@ class Counter {
   }
 }
 
-const singletonCounter = Object.freeze(new Counter());
-export default singletonCounter;
+export const singletonCounter = Object.freeze(new Counter());
