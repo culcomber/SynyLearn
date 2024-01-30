@@ -3,6 +3,11 @@ import {singletonCounter as Counter} from "./Counter";
 import style from "./SingletonPattern"
 
 export default function SingletonPattern() {
+    function add(x, y) {
+        return x + y;
+    }
+
+    add(1, [1, 2, 3]) // 不报错
 
     return (
         // @ts-ignore
