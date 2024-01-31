@@ -249,24 +249,204 @@ type MyAge = typeof Age; // 报错
 
 ## 4、数组
 
-### 4.1 简介
+**4.1 简介**
 
-TypeScript 数组有一个根本特征：所有成员的类型必须相同，但是成员数量是不确定的，可以是无限数量的成员，也可以是零成员。
+TypeScript 数组有一个根本特征：**所有成员的类型必须相同**，但是成员数量是不确定的，可以是无限数量的成员，也可以是零成员。
 
 ```ts
+let arr:number[] = [1, 2, 3];
+let arr1:(number|string)[]; // 竖杠|的优先级低于[]
+let arr2:Array<number> = [1, 2, 3]; // 其他声明方式
+
+type Names = string[];
+type Name = Names[0]; // string
+// 由于数组成员的索引类型都是number，所以读取成员类型也可以写成下面这样。
+type Name = Names[number]; // string
 ```
 
+**4.2 数组的类型推断**
 
+```ts
+const arr = []; // 推断为 any[]
+arr.push(123); // 推断类型为 number[]
+arr.push('abc'); // 推断类型为 (string|number)[]
 
-### 4.2 数组的类型推断
+// 类型推断的自动更新只发生初始值为空数组的情况
+const arr = [123]; // 推断类型为 number[]
+arr.push('abc'); // 报错
+```
 
+**4.3 只读数组，const 断言**
 
+JavaScript 规定，`const`命令声明的数组变量是可以改变成员的。
 
-### 4.3 只读数组，const 断言
+```ts
+const arr = [0, 1];
+arr[0] = 2;
+```
 
+TypeScript 允许声明只读数组，方法是在数组类型前面加上`readonly`关键字。
 
+```ts
+const arr:readonly number[] = [0, 1];
+// 只读数组其他声明
+const a1:ReadonlyArray<number> = [0, 1];
+const a2:Readonly<number[]> = [0, 1];
+const a3 = [0, 1] as const;
 
-### 4.4 多维数组
+arr[1] = 2; // 报错
+arr.push(3); // 报错
+delete arr[0]; // 报错
+```
+
+子类型继承了父类型的所有特征，并加上了自己的特征，所以子类型`number[]`可以用于所有使用父类型的场合，反过来就不行。
+
+只读数组没有`pop()`、`push()`之类会改变原数组的方法，所以`number[]`的方法数量要多于`readonly number[]`，这意味着`number[]`其实是`readonly number[]`的子类型。
+
+```ts
+let a1:number[] = [0, 1];
+let a2:readonly number[] = a1; // 正确
+
+a1 = a2; // 报错
+a2 = a1; // 子可以赋值给父，子适用范围广
+```
+
+**4.4 多维数组**
+
+```ts
+var multi:number[][] = [[1,2,3], [23,24,25]];
+```
+
+## 5、元组类型
+
+**5.1 简介**
+
+元组（tuple）是 TypeScript 特有的数据类型，表示**成员类型可以自由设置的数组**，即数组的各个成员的类型可以不同。
+
+成员类型写在方括号里面的就是元组，写在外面的就是数组。
+
+```ts
+// 元组必须明确声明每个成员的类型。
+const s:[string, string, boolean] = ['a', 'b', true];
+// 否则 TypeScript 会把一个值自动推断为数组。
+let a = [1, true]; // a 的类型被推断为 (number | boolean)[]
+
+let a:number[] = [1]; // 数组
+let t:[number] = [1]; // 元组
+
+// 元组成员的类型可以添加问号后缀（?），表示该成员是可选的。
+let a:[number, number?] = [1];
+// 使用扩展运算符（...），用在元组的任意位置都可以，可以表示不限成员数量的元组。
+type NamedNums = [ string, ...number[] ];
+const a:NamedNums = ['A', 1, 2];
+
+// 元组可以通过方括号，读取成员类型。
+type Tuple = [string, number];
+type Age = Tuple[1]; // number
+type Tuple = [string, number, Date];
+type TupleEl = Tuple[number];  // string|number|Date
+```
+
+**5.2 只读元组**
+
+```ts
+type t = readonly [number, string] // 写法一
+type t = Readonly<[number, string]> // 写法二
+```
+
+**5.3 成员数量的推断**
+
+如果没有可选成员和扩展运算符，TypeScript 会推断出元组的成员数量（即元组长度）。
+
+```ts
+function f(point: [number, number]) {
+  if (point.length === 3) {  // 报错
+    // ...
+  }
+}
+```
+
+**5.4 扩展运算符与成员数量**
+
+扩展运算符（`...`）将数组（注意，不是元组）转换成一个逗号分隔的序列，这时 TypeScript 会认为这个序列的成员数量是不确定的，因为数组的成员数量是不确定的。
+
+```ts
+const arr = [1, 2];
+function add(x:number, y:number){
+  // ...
+}
+add(...arr) // 报错
+
+// 解决方案1
+const arr:[number, number] = [1, 2];
+
+// 解决方案2
+const arr = [1, 2] as const; // TypeScript 会认为arr的类型是readonly [1, 2]，这是一个只读的值类型，可以当作数组，也可以当作元组。
+```
+
+## 6、symbol
+
+**6.1 简介**
+
+```ts
+let x:symbol = Symbol();
+let y:symbol = Symbol();
+
+x === y // false
+```
+
+**6.2 unique symbol**
+
+`symbol`类型包含所有的 Symbol 值，但是无法表示某一个具体的 Symbol 值。
+
+TypeScript 设计了`symbol`的一个子类型`unique symbol`，它表示单个的、某个具体的 Symbol 值。
+
+```ts
+// unique symbol表示单个值，所以这个类型的变量是不能修改值的
+let y:unique symbol = Symbol(); // 报错
+const x:unique symbol = Symbol(); // 正确
+// 等同于
+const x = Symbol(); // const命令为变量赋值 Symbol 值时，变量类型默认就是unique symbol
+
+const a:unique symbol = Symbol();
+const b:typeof a = a; // 正确
+
+// 变量a和b是两个不同的值类型，但是它们的值其实是相等的
+const a:unique symbol = Symbol.for('foo');
+const b:unique symbol = Symbol.for('foo');
+
+// unique symbol 类型是 symbol 类型的子类型，所以可以将前者赋值给后者，但是反过来就不行。
+const a:unique symbol = Symbol();
+const b:symbol = a; // 正确
+const c:unique symbol = b; // 报错
+
+// unique symbol 类型的一个作用，就是用作属性名
+const x:unique symbol = Symbol();
+const y:symbol = Symbol();
+interface Foo {
+  [x]: string; // 正确
+  [y]: string; // 报错
+}
+// 赋值给类的readonly static属性。
+class C {
+  static readonly foo:unique symbol = Symbol();
+}
+```
+
+**6.3 类型推断**
+
+```ts
+// let命令声明的变量，推断类型为 symbol，类型为 symbol
+let x = Symbol();
+// const命令声明的变量，推断类型为 unique symbol，类型为 unique symbol
+const x = Symbol();
+
+let x = Symbol();
+const y = x; // y类型为 symbol
+
+const x = Symbol();
+let y = x; // y类型为 symbol
+```
 
 
 
