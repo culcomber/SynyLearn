@@ -568,54 +568,910 @@ const a:WithoutProperties = { prop: 1 };
 
 ## 3、interface 接口
 
+### 3.1 简介
 
-简介
+interface 可以表示对象的各种语法，它的成员有5种形式。
 
-interface 的继承
-interface 继承 interface
-interface 继承 type
-interface 继承 class
-接口合并
-interface 与 type 的异同
+- 对象属性
+- 对象的属性索引
+
+```ts
+// 对象属性
+interface Point {
+  x: number;
+  y: number;
+}
+
+// 对象的属性索引
+interface A {
+  [prop: number]: string;
+}
+```
+
+- 对象方法
+
+```ts
+// 写法一
+interface A {
+  f(x: boolean): string;
+}
+
+// 写法二
+interface B {
+  f: (x: boolean) => string;
+}
+
+// 写法三
+interface C {
+  f: { (x: boolean): string };
+}
+
+// 属性名可以采用表达式，所以下面的写法也是可以的。
+const f = 'f';
+interface A {
+  [f](x: boolean): string;
+}
+```
+
+- 函数
+- 构造函数：TypeScript 里面，构造函数特指具有`constructor`属性的类
+
+```ts
+// 函数
+interface Add {
+  (x:number, y:number): number;
+}
+const myAdd:Add = (x,y) => x + y;
+
+
+// 构造函数 使用new关键字
+interface ErrorConstructor {
+  new (message?: string): Error;
+}
+```
+
+### 3.2 interface 的继承
+
+**A interface 继承 interface**
+
+interface 可以使用`extends`关键字，继承其他 interface。
+
+如果子接口与父接口存在同名属性，那么子接口的属性会覆盖父接口的属性。注意，子接口与父接口的同名属性必须是类型兼容的，不能有冲突，否则会报错。
+
+多重继承时，如果多个父接口存在同名属性，那么这些同名属性不能有类型冲突，否则会报错。
+
+```TS
+interface Style {
+  color: string;
+}
+
+interface Shape {
+  name: string;
+}
+
+interface Circle extends Style, Shape {
+  radius: number;
+}
+```
+
+**B interface 继承 type**
+
+如果`type`命令定义的类型不是对象，interface 就无法继承。
+
+```TS
+type Country = {
+  name: string;
+  capital: string;
+}
+
+interface CountryWithPop extends Country {
+  population: number;
+}
+```
+
+**C interface 继承 class**
+
+某些类拥有私有成员和保护成员，interface 可以继承这样的类，但是意义不大。
+
+```TS
+class A {
+  private x: string = '';
+  protected y: string = '';
+}
+
+interface B extends A {
+  z: number
+}
+
+// 报错
+const b:B = { /* ... */ }
+
+// 报错
+class C implements B {
+  // ...
+}
+```
+
+### 3.3 接口合并
+
+多个同名接口会合并成一个接口。两个`Box`接口会合并成一个接口，同时有`height`、`width`和`length`三个属性。
+
+同名接口合并时，同一个属性如果有多个类型声明，彼此不能有类型冲突。
+
+```TS
+interface Box {
+  height: number;
+  width: number;
+}
+
+interface Box {
+  length: number;
+}
+```
+
+同名接口合并时，如果同名方法有不同的类型声明，那么会发生函数重载。而且，后面的定义比前面的定义具有更高的优先级。
+
+```TS
+interface Cloner {
+  clone(animal: Animal): Animal;
+}
+
+interface Cloner {
+  clone(animal: Sheep): Sheep;
+}
+
+// 等同于
+interface Cloner {
+  clone(animal: Dog): Dog;
+  clone(animal: Cat): Cat;
+}
+```
+
+例外：同名方法之中，如果有一个参数是字面量类型，字面量类型有更高的优先级。
+
+```ts
+interface A {
+  f(x:'foo'): boolean;
+}
+
+interface A {
+  f(x:any): void;
+}
+
+// 等同于
+interface A {
+  f(x:'foo'): boolean;
+  f(x:any): void;
+}
+```
+
+如果两个 interface 组成的联合类型存在同名属性，那么该属性的类型也是联合类型。
+
+```ts
+interface Circle {
+  area: bigint;
+}
+interface Rectangle {
+  area: number;
+}
+
+declare const s: Circle | Rectangle;
+s.area;   // bigint | number
+```
+
+### 3.4 interface 与 type 的异同
+
+几乎所有的 interface 命令都可以改写为 type 命令。
+
+`class`命令也有类似作用，通过定义一个类，同时定义一个对象类型。但是，它会创造一个值，编译后依然存在。如果只是单纯想要一个类型，应该使用`type`或`interface`。
+
+interface 与 type 的区别有下面几点。
+
+（1）`type`能够表示非对象类型，而`interface`只能表示对象类型（包括数组、函数等）。
+
+（2）`interface`可以继承其他类型，`type`不支持继承。`type`定义的对象类型如果想要添加属性，只能使用`&`运算符，重新定义一个类型。
+
+（3）同名`interface`会自动合并，同名`type`则会报错。
+
+（4）`interface`不能包含属性映射（mapping），`type`可以。
+
+（5）`this`关键字只能用于`interface`。
+
+（6）type 可以扩展原始数据类型，interface 不行。
+
+（7）`interface`无法表达某些复杂类型（比如交叉类型和联合类型），但是`type`可以。
+
+```ts
+// interface 可以继承 type。
+type Foo = { x: number; };
+interface Bar extends Foo {
+  y: number;
+}
+
+// type 也可以继承 interface。
+interface Foo {
+  x: number;
+}
+type Bar = Foo & { y: number; };
+
+// 属性映射
+interface Point {
+  x: number;
+  y: number;
+}
+// 正确
+type PointCopy1 = {
+  [Key in keyof Point]: Point[Key];
+};
+// 报错
+interface PointCopy2 {
+  [Key in keyof Point]: Point[Key];
+};
+
+// this
+// 正确
+interface Foo {
+  add(num:number): this;
+};
+// 报错
+type Foo = {
+  add(num:number): this;
+};
+
+// 扩展原始数据类型
+// 正确
+type MyStr = string & {
+  type: 'new'
+};
+// 报错
+interface MyStr extends string {
+  type: 'new'
+}
+
+// 复杂类型
+type A = { /* ... */ };
+type B = { /* ... */ };
+
+type AorB = A | B;
+type AorBwithName = AorB & {
+  name: string
+}
+```
 
 ## 4、class
 
+### 4.1 简介
 
-简介
+**A 属性的类型**
 
-属性的类型
-`readonly` 修饰符
-方法的类型
-存取器方法
-属性索引
-类的 interface 接口
-implements 关键字
-实现多个接口
-类与接口的合并
-Class 类型
-实例类型
-类的自身类型
-结构类型原则
-类的继承
-可访问性修饰符
-public
-private
-protected
-实例属性的简写形式
-静态成员
-泛型类
-抽象类，抽象成员
-this 问题
+类的属性可以在顶层声明，也可以在构造方法内部声明。
+
+`TypeScript` 有一个配置项`strictPropertyInitialization`，只要打开（默认是打开的），就会检查属性是否设置了初值，如果没有就报错。
+
+```TS
+// 打开 strictPropertyInitialization
+class Point {
+  x: number; // 报错
+  y: number; // 报错
+}
+// 如果不希望出现报错，可以使用非空断言。
+class Point {
+  x!: number;
+  y!: number;
+}
+```
+
+**B `readonly` 修饰符**
+
+属性名前面加上 `readonly` 修饰符，就表示该属性是只读的。实例对象不能修改这个属性。
+
+`readonly` 属性的初始值，可以写在顶层属性，也可以写在构造方法里面。如果两个地方都设置了只读属性的值，以构造方法为准。
+
+```TS
+class A {
+  readonly id = 'foo';
+  constructor() {
+    this.id = 'bar'; // 正确
+  }
+}
+
+const a = new A();
+a.id = 'bar'; // 报错
+```
+
+**C 方法的类型**
+
+构造方法不能声明返回值类型，否则报错，因为它总是返回实例对象
+
+```TS
+class Point {
+  x: number;
+  y: number;
+
+  constructor(x = 0, y = 0) {
+    this.x = x;
+    this.y = y;
+  }
+  add(point:Point) {
+    return new Point(
+      this.x + point.x,
+      this.y + point.y
+    );
+  }
+}
+```
+
+**D 存取器方法**
+
+（1）如果某个属性只有`get`方法，没有`set`方法，那么该属性自动成为只读属性。
+
+（2）`TypeScript` 5.1 版之前，`set`方法的参数类型，必须兼容`get`方法的返回值类型，否则报错。
+
+（3）`get`方法与`set`方法的可访问性必须一致，要么都为公开方法，要么都为私有方法。
+
+```TS
+class C {
+  _name = '';
+  get name():string {
+    return this._name;
+  }
+  set name(value:number|string) {
+    this._name = String(value);
+  }
+}
+```
+
+**E 属性索引**
+
+由于类的方法是一种特殊属性（属性值为函数的属性），所以属性索引的类型定义也涵盖了方法。如果一个对象同时定义了属性索引和方法，那么前者必须包含后者的类型。
+
+属性存取器视同属性。
+
+```TS
+class MyClass {
+  [s:string]: boolean;
+  f() { // 报错
+    return true;
+  }
+  get isInstance() {
+    return true;
+  }
+}
+
+class MyClass {
+  [s:string]: boolean | ((s:string) => boolean);
+
+  get(s:string) {
+    return this[s] as boolean;
+  }
+}
+```
+
+### 4.2 类的 interface 接口
+
+**A implements 关键字**
+
+类使用 implements 关键字，表示当前类满足这些外部类型条件的限制。
+
+`implements`关键字后面，不仅可以是接口，也可以是另一个类。这时，后面的类将被当作接口。
+
+interface 描述的是类的对外接口，也就是实例的公开属性和公开方法，不能定义私有的属性和方法。
+
+```ts
+class Car {
+  id:number = 1;
+  move():void {};
+}
+
+class MyCar implements Car {
+  id = 2; // 不可省略
+  move():void {};   // 不可省略
+}
+```
+
+**B 实现多个接口**
+
+```ts
+// SecretCar类继承了Car类，然后再实现Flyable和Swimmable两个接口
+class Car implements MotorVehicle {
+}
+
+class SecretCar extends Car implements Flyable, Swimmable {
+}
+```
+
+**C 类与接口的合并**
+
+`TypeScript `不允许两个同名的类，但是如果一个类和一个接口同名，那么接口会被合并进类。
+
+合并进类的非空属性（上例的`y`），如果在赋值之前读取，会返回`undefined`。
+
+```ts
+class A {
+  x:number = 1;
+}
+
+interface A {
+  y:number;
+}
+
+let a = new A();
+a.y // undefined
+```
+
+### 4.3 Class 类型
+
+**A 实例类型**
+
+类本身就是一种类型，但是它代表该类的实例类型，而不是 class 的自身类型。
+
+对于引用实例对象的变量来说，既可以声明类型为 Class，也可以声明类型为 Interface，因为两者都代表实例对象的类型。
+
+```ts
+interface MotorVehicle {
+}
+
+class Car implements MotorVehicle {
+}
+
+// 写法一
+const c1:Car = new Car();
+// 写法二
+const c2:MotorVehicle = new Car();
+```
+
+**B 类的自身类型**
+
+要获得一个类的自身类型，一个简便的方法就是使用 typeof 运算符。
+
+```ts
+interface PointConstructor {
+  new(x:number, y:number):Point;
+}
+
+function createPoint(
+  // PointClass:Point, // Point描述的是实例类型，而不是 Class 的自身类型
+  PointClass:typeof Point,
+  PointClass: new (x:number, y:number) => Point, // 类只是构造函数的一种语法糖，本质上是构造函数的另一种写法
+  PointClass: PointConstructor, // 构造函数也可以写成对象形式
+  x:number,
+  y:number
+):Point {
+  return new PointClass(x, y);
+}
+```
+
+**C 结构类型原则**
+
+如果两个类的实例结构相同，那么这两个类就是兼容的，可以用在对方的使用场合。
+
+一个对象只要满足 Class 的实例结构，就跟该 Class 属于同一个类型。
+
+确定两个类的兼容关系时，只检查实例成员，不考虑静态成员和构造方法。
+
+如果类中存在私有成员（private）或保护成员（protected），那么确定兼容关系时，TypeScript 要求私有成员和保护成员来自同一个类，这意味着两个类需要存在继承关系。
+
+```ts
+class Person {
+  name: string;
+  age: number;
+    
+}
+
+class Customer {
+  name: string;
+  static t: number;
+  constructor(x:number) {}
+}
+
+// 正确
+const cust:Customer = new Person();
+```
+
+### 4.4 类的继承
+
+类（这里又称“子类”）可以使用 extends 关键字继承另一个类（这里又称“基类”）的所有属性和方法。
+
+根据结构类型原则，子类也可以用于类型为基类的场合。
+
+子类可以覆盖基类的同名方法。但是，子类的同名方法不能与基类的类型定义相冲突。
+
+```ts
+class A {
+  greet() {
+    console.log('Hello, world!');
+  }
+}
+
+class B extends A {
+  // 报错
+  greet(name?:string) {
+    console.log(`Hello, ${name}`);
+  }
+}
+```
+
+如果基类包括保护成员（`protected`修饰符），子类可以将该成员的可访问性设置为公开（`public`修饰符），也可以保持保护成员不变，但是不能改用私有成员（`private`修饰符）。
+
+```ts
+class A {
+  protected x: string = '';
+  protected y: string = '';
+  protected z: string = '';
+}
+
+class B extends A {
+  public x:string = ''; // 正确
+  protected y:string = ''; // 正确
+  private z: string = ''; // 报错
+}
+```
+
+`extends`关键字后面不一定是类名，可以是一个表达式，只要它的类型是构造函数就可以了。
+
+```ts
+class MyArray extends Array<number> {}
+class MyError extends Error {}
+```
+
+### 4.5 可访问性修饰符
+
+**A public**
+
+`public`修饰符表示这是**公开**成员，外部可以自由访问。
+
+`public`修饰符是默认修饰符，如果省略不写，实际上就带有该修饰符。
+
+```ts
+class Greeter {
+  public greet() {
+    console.log("hi!");
+  }
+}
+
+const g = new Greeter();
+g.greet();
+```
+
+**B private**
+
+`private`修饰符表示私有成员，只能用在当前**类的内部**，类的实例和子类都不能使用该成员。
+
+子类不能定义父类私有成员的同名成员。
+
+```ts
+class A {
+  private x = 0;
+}
+
+class B extends A {
+  x = 1; // 报错
+}
+```
+
+ES2022 引入了自己的私有成员写法`#propName`。建议不使用`private`，改用 ES2022 的写法，获得真正意义的私有成员。
+
+```ts
+class A {
+  private x = 1;
+  #y = 1;
+}
+
+const a = new A();
+a['x'] // 1
+a['y'] // 报错
+```
+
+构造方法也可以是私有的，这就直接防止了使用`new`命令生成实例对象，只能在类的内部创建实例对象。
+
+这时一般会有一个静态方法，充当工厂函数，强制所有实例都通过该方法生成。
+
+```ts
+class Singleton {
+  private static instance?: Singleton;
+  private constructor() {}
+  static getInstance() {
+    if (!Singleton.instance) {
+      Singleton.instance = new Singleton();
+    }
+    return Singleton.instance;
+  }
+}
+
+const s = Singleton.getInstance();
+```
+
+**C protected**
+
+`protected`修饰符表示该成员是保护成员，只能在**类的内部**使用该成员，实例无法使用该成员，但是**子类内部**可以使用。
+
+子类不仅可以拿到父类的保护成员，还可以定义同名成员。
+
+```ts
+class A {
+  protected x = 1;
+  f(obj:A) {
+    console.log(obj.x);
+  }
+}
+
+const a = new A();
+a.x // 报错
+a.f(a) // 1
+```
+
+**D 实例属性的简写形式**
+
+实际开发中，很多实例属性的值，是通过构造方法传入的。
+
+构造方法的参数名只要有`public`、`private`、`protected`、`readonly`修饰符，都会自动声明对应修饰符的实例属性。
+
+```ts
+class Point {
+  x:number;
+  y:number;
+  constructor(x:number, y:number) {
+    this.x = x;
+    this.y = y;
+  }
+}
+
+// 简写形式
+class Point {
+  constructor(
+    public readonly x:number,
+    public y:number
+  ) {}
+}
+```
+
+**E 静态成员**
+
+类的内部可以使用`static`关键字，定义静态成员。
+
+静态成员是只能通过类本身使用的成员，不能通过实例对象使用。
+
+`static`关键字前面可以使用 public、private、protected 修饰符。
+
+`public`和`protected`的静态成员可以被继承。
+
+```TS
+class A {
+  public static x = 1;
+  protected static y = 1;
+}
+
+class B extends A {
+  static getY() {
+    return B.y;
+  }
+}
+
+B.x // 1
+B.getY() // 1
+```
+
+**F 泛型类**
+
+类也可以写成泛型，使用类型参数。
+
+注意，静态成员不能使用泛型的类型参数。
+
+```ts
+class Box<Type> {
+  contents: Type;
+  constructor(value:Type) {
+    this.contents = value;
+  }
+}
+
+const b:Box<string> = new Box('hello!');
+```
+
+**G 抽象类，抽象成员**
+
+`TypeScript` 允许在类的定义前面，加上关键字`abstract`，表示该类不能被实例化，只能当作其他类的模板。这种类就叫做“抽象类”（abstract class）。
+
+抽象类只能当作基类使用，用来在它的基础上定义子类。
+
+抽象类的子类也可以是抽象类，也就是说，抽象类可以继承其他抽象类。
+
+抽象类的内部可以有已经实现好的属性和方法，也可以有还未实现的属性和方法(抽象成员)。如果子类没有实现抽象成员，就会报错。
+
+```TS
+abstract class A {
+  abstract foo:string;
+  bar:string = '';
+}
+
+class B extends A {
+  foo = 'b';
+}
+```
+
+注意点。
+
+（1）抽象成员只能存在于抽象类，不能存在于普通类。
+
+（2）抽象成员不能有具体实现的代码。也就是说，已经实现好的成员前面不能加`abstract`关键字。
+
+（3）抽象成员前也不能有`private`修饰符，否则无法在子类中实现该成员。
+
+（4）一个子类最多只能继承一个抽象类。
+
+**H this 问题**
+
+```TS
+class A {
+  name = 'A';
+
+  getName() {
+    return this.name;
+  }
+}
+const a = new A();
+a.getName() // 'A'
+
+const b = {
+  name: 'b',
+  getName: a.getName
+};
+b.getName() // 'b'
+```
+
+`TypeScript` 允许函数增加一个名为`this`的参数，放在参数列表的第一位，用来描述函数内部的`this`关键字的类型。
+
+编译时，TypeScript 一旦发现函数的第一个参数名为`this`，则会去除这个参数，即编译结果不会带有该参数。
+
+```ts
+class A {
+  name = 'A';
+  getName(this: A) {
+    return this.name;
+  }
+}
+
+const a = new A();
+const b = a.getName;
+b() // 报错
+```
+
+`TypeScript` 提供了一个`noImplicitThis`编译选项。如果打开了这个设置项，如果`this`的值推断为`any`类型，就会报错。
+
+在类的内部，`this`本身也可以当作类型使用，表示当前类的实例对象。
+
+```ts
+class Box {
+  contents:string = '';
+  set(value:string):this {
+    this.contents = value;
+    return this;
+  }
+}
+```
+
+`this`类型不允许应用于静态成员。`this`类型表示实例对象，但是静态成员拿不到实例对象。
+
+有些方法返回一个布尔值，表示当前的`this`是否属于某种类型。这时，这些方法的返回值类型可以写成`this is Type`的形式，其中用到了`is`运算符。
+
+```ts
+class FileSystemObject {
+  isFile(): this is FileRep {
+    return this instanceof FileRep;
+  }
+  isDirectory(): this is Directory {
+    return this instanceof Directory;
+  }
+}
+```
 
 ## 5、泛型
 
-简介
-泛型的写法
-函数的泛型写法
-接口的泛型写法
-类的泛型写法
-类型别名的泛型写法
+### 5.1 简介
+
+函数`getFirst()`的参数类型是`T[]`，返回值类型是`T`，就清楚地表示了两者之间的关系。
+
+一般会使用`T`（type 的第一个字母）作为类型参数的名字。如果有多个类型参数，则使用 T 后面的 U、V 等字母命名，各个参数之间使用逗号（“,”）分隔。
+
+```TS
+function getFirst<T>(arr:T[]):T {
+  return arr[0];
+}
+
+// 函数调用时，需要提供类型参数
+getFirst<number>([1, 2, 3])
+
+// 为了方便，函数调用时，往往省略不写类型参数的值，让 TypeScript 自己推断
+getFirst([1, 2, 3])
+```
+
+### 5.2 泛型的写法
+
+**A 函数的泛型写法**
+
+变量形式定义的函数，泛型有下面两种写法。
+
+```TS
+function id<T>(arg:T):T {
+  return arg;
+}
+
+// 写法一
+let myId:<T>(arg:T) => T = id;
+
+// 写法二
+let myId:{ <T>(arg:T): T } = id;
+```
+
+**B 接口的泛型写法**
+
+```ts
+// 类型参数定义在整个接口，接口内部的所有属性和方法都可以使用该类型参数
+interface Comparator<T> {
+  compareTo(value:T): number;
+}
+class Rectangle implements Comparator<Rectangle> {
+  compareTo(value:Rectangle): number {ruan
+  }
+}
+
+// 类型参数定义在某个方法之中，其他属性和方法不能使用该类型参数
+interface Fn {
+  <Type>(arg:Type): Type;
+}
+function id<Type>(arg:Type): Type {
+  return arg;
+}
+let myId:Fn = id;
+```
+
+**C 类的泛型写法**
+
+TS
+
+**D 类型别名的泛型写法**
+
+
+
 类型参数的默认值
+
+
+
 数组的泛型表示
+
+
+
 类型参数的约束条件
+
+
+
 使用注意点
+
+## 6、`Enum` 类型
+
+`Enum` 是 `TypeScript` 新增的一种数据结构和类型，中文译为“枚举”。
+
+**6.1 简介**
+
+
+
+`Enum`  成员的值
+
+
+
+同名 `Enum` 的合并
+
+
+
+字符串 `Enum` 
+
+
+
+`keyof` 运算符
+
+
+
+反向映射
+
+
+

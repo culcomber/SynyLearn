@@ -249,7 +249,7 @@ type MyAge = typeof Age; // 报错
 
 ## 4、数组
 
-**4.1 简介**
+### 4.1 简介
 
 TypeScript 数组有一个根本特征：**所有成员的类型必须相同**，但是成员数量是不确定的，可以是无限数量的成员，也可以是零成员。
 
@@ -264,7 +264,7 @@ type Name = Names[0]; // string
 type Name = Names[number]; // string
 ```
 
-**4.2 数组的类型推断**
+### 4.2 数组的类型推断
 
 ```ts
 const arr = []; // 推断为 any[]
@@ -276,7 +276,7 @@ const arr = [123]; // 推断类型为 number[]
 arr.push('abc'); // 报错
 ```
 
-**4.3 只读数组，const 断言**
+### 4.3 只读数组，const 断言
 
 JavaScript 规定，`const`命令声明的数组变量是可以改变成员的。
 
@@ -311,7 +311,7 @@ a1 = a2; // 报错
 a2 = a1; // 子可以赋值给父，子适用范围广
 ```
 
-**4.4 多维数组**
+### 4.4 多维数组
 
 ```ts
 var multi:number[][] = [[1,2,3], [23,24,25]];
@@ -319,7 +319,7 @@ var multi:number[][] = [[1,2,3], [23,24,25]];
 
 ## 5、元组类型
 
-**5.1 简介**
+### 5.1 简介
 
 元组（tuple）是 TypeScript 特有的数据类型，表示**成员类型可以自由设置的数组**，即数组的各个成员的类型可以不同。
 
@@ -347,14 +347,14 @@ type Tuple = [string, number, Date];
 type TupleEl = Tuple[number];  // string|number|Date
 ```
 
-**5.2 只读元组**
+### 5.2 只读元组
 
 ```ts
 type t = readonly [number, string] // 写法一
 type t = Readonly<[number, string]> // 写法二
 ```
 
-**5.3 成员数量的推断**
+### 5.3 成员数量的推断
 
 如果没有可选成员和扩展运算符，TypeScript 会推断出元组的成员数量（即元组长度）。
 
@@ -366,7 +366,7 @@ function f(point: [number, number]) {
 }
 ```
 
-**5.4 扩展运算符与成员数量**
+### 5.4 扩展运算符与成员数量
 
 扩展运算符（`...`）将数组（注意，不是元组）转换成一个逗号分隔的序列，这时 TypeScript 会认为这个序列的成员数量是不确定的，因为数组的成员数量是不确定的。
 
@@ -386,7 +386,7 @@ const arr = [1, 2] as const; // TypeScript 会认为arr的类型是readonly [1, 
 
 ## 6、symbol
 
-**6.1 简介**
+### 6.1 简介
 
 ```ts
 let x:symbol = Symbol();
@@ -395,7 +395,7 @@ let y:symbol = Symbol();
 x === y // false
 ```
 
-**6.2 unique symbol**
+### 6.2 unique symbol
 
 `symbol`类型包含所有的 Symbol 值，但是无法表示某一个具体的 Symbol 值。
 
@@ -433,7 +433,7 @@ class C {
 }
 ```
 
-**6.3 类型推断**
+### 6.3 类型推断
 
 ```ts
 // let命令声明的变量，推断类型为 symbol，类型为 symbol
