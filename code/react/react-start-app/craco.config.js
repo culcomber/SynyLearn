@@ -1,3 +1,4 @@
+// @ts-ignore
 const CracoLessPlugin = require('craco-less');
 // @ts-ignore
 const {loaderByName} = require('@craco/craco');
