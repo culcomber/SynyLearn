@@ -85,6 +85,17 @@ https://www.toptal.com/react/optimizing-react-performance
 
 ## 3、react
 
+[日历](https://github.com/we-del/react-xiaomi-calendar)
+
+[typora](https://github.com/we-del/easy_typora-typora)  https://github.com/imzbf/md-editor-rt/blob/develop/README-CN.md
+
+| 项目名称                                                     | 简介                                 | 类型     |
+| ------------------------------------------------------------ | ------------------------------------ | -------- |
+| [Create Neat](https://github.com/xun082/create-neat)         | 一个开箱即用的前端脚手架工具         | 开源项目 |
+| [在线协同代码编辑器](https://github.com/xun082/online-cooperative-edit) | 一个基于 webrtc 实现的在线协同编辑器 | 开源项目 |
+
+[基于 React + Socket.io 实现简易在线文档协作编辑](https://juejin.cn/post/7218109174085173306)
+
 [**Create React App**](https://create-react-app.dev/) 介绍创建到发布reactApp的流程
 
 [Create Serverless React.js Apps](http://serverless-stack.com/)
@@ -137,3 +148,11 @@ WebGL上车指南 https://juejin.cn/column/7228476145385439269
 ## 6、CICD
 
 实战前端发布平台，打开CICD黑盒 https://juejin.cn/column/7139729877112422414
+
+
+
+微前端博客，可以在线用typore写协同文章
+
+博客系统的**[博客展示页面](https://github.com/lzxjack/react-blog)**，**后台管理页面**仓库见[「react-blog-admin」](https://github.com/lzxjack/react-blog-admin)。
+
+技术栈 Vue3 + ts + element-plus [前端](https://www.liuzepeng.com/) [](https://www.liuzepeng.com/)  [后台管理系统](https://www.liuzepeng.com/admin) 

@@ -99,10 +99,30 @@ ctrl + 1
 
 <img src="../assets/image-20240123132843893.png" alt="image-20240123132843893" style="zoom:50%;" />
 
-03 
+## 3、糖霜
 
 复制物体 shift + D
 
-重命名 双击 / F2
+重命名 双击名字 / F2
 
 <img src="../assets/image-20240125130539278.png" alt="image-20240125130539278" style="zoom:50%;" />
+
+删除下半部分 打开透视模式
+
+<img src="../assets/image-20240219132017064.png" alt="image-20240219132017064" style="zoom:33%;" />
+
+切换平面 点击 `XYZ` 或 网格
+
+<img src="../assets/image-20240219132207484.png" alt="image-20240219132207484" style="zoom:33%;" />
+
+点击delete会有选择菜单
+
+<img src="../assets/image-20240219132404534.png" alt="image-20240219132404534" style="zoom:33%;" />
+
+给糖霜增加厚度
+
+<img src="../assets/image-20240219132716672.png" alt="image-20240219132716672" style="zoom:33%;" />
+
+实体化修改器挡住视线
+
+<img src="../assets/image-20240219133158724.png" alt="image-20240219133158724" style="zoom:33%;" />
