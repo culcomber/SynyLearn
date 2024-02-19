@@ -156,3 +156,11 @@ WebGL上车指南 https://juejin.cn/column/7228476145385439269
 博客系统的**[博客展示页面](https://github.com/lzxjack/react-blog)**，**后台管理页面**仓库见[「react-blog-admin」](https://github.com/lzxjack/react-blog-admin)。
 
 技术栈 Vue3 + ts + element-plus [前端](https://www.liuzepeng.com/) [](https://www.liuzepeng.com/)  [后台管理系统](https://www.liuzepeng.com/admin) 
+
+7、资料
+
+外国资料
+
+- 学习 Three.js 的最佳课程 The ultimate Three.js course
+- 使用 Next.js、React 和 Strapi 构建全栈 WebApp Practical Next.js  React - Build a real WebApp with Next.js
+
