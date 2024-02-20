@@ -164,3 +164,21 @@ WebGL上车指南 https://juejin.cn/column/7228476145385439269
 - 学习 Three.js 的最佳课程 The ultimate Three.js course
 - 使用 Next.js、React 和 Strapi 构建全栈 WebApp Practical Next.js  React - Build a real WebApp with Next.js
 
+慕课网
+
+- 前端工程师 第31-32周React旅游网开发与工程化
+- 大前端2022版
+- React18+Next.js13+TS 仿问卷星 （偏前端）
+- React18+TS+NestJS+GraphQL 全栈开发在线教育平台
+- React18+TS 通用后台管理系统解决方案落地实战 （偏前端）
+- Next.js+React+Node系统实战，搞定SSR服务器渲染（偏后端）
+- TS+ React18高仿AntD从零到一打造组件库
+- WebGL+Three.js入门与实战，系统学习Web3D技术
+- 从0打造微前端框架，实战汽车资讯平台
+- 吃透前端工程化，大厂级实战项目以战带练
+- web前端架构师 
+
+珠峰
+
+- 21
+
