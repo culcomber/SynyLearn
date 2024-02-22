@@ -1,35 +1,18 @@
 ## 1、表格封装
 
-
-```tsx
-import React from 'react';
-import { Table } from 'antd';
-import { TableProps } from 'antd/lib/table';
-
-// 二次封装
-export const MyTable = <RecordType extends object = any>(props: TableProps<RecordType>) => {
-  const { ...allProps } = props;
-  return (
-    <Table<RecordType>
-      {...allProps}
-    />
-  );
-};
-```
-
 [插件机制](https://github.com/sl1673495/blogs/issues/78)
 
-[useAntdTable](https://github.com/alibaba/hooks/tree/master/packages/hooks/src/useAntdTable)
-
-[usePagination](https://github.com/ant-design/ant-design/blob/master/components/table/hooks/usePagination.ts)
+[useAntdTable](https://github.com/alibaba/hooks/tree/master/packages/hooks/src/useAntdTable)  [usePagination](https://github.com/ant-design/ant-design/blob/master/components/table/hooks/usePagination.ts)
 
 [confirm.tsx 弹窗](https://github.com/ant-design/ant-design/blob/master/components/modal/confirm.tsx)
 
 [调试 Ant Design 源码](https://juejin.cn/post/7158430758070140942?searchId=20231113161149F4179B78B4926A350CA9)
 
-[组件库](https://juejin.cn/post/7120893568553582622?searchId=202311081139129063DD1F9A9B54975F95)
-
 [学习arco table源码遇到的问题](https://juejin.cn/post/7184007462142345272)
+
+[组件原理教程](https://github.com/lio-mengxiang/mx-design/issues/15)
+
+[前端基建——实战组件库0-1建设](https://juejin.cn/column/7198041700555472951)
 
 ## 2、LCP优化
 
@@ -69,7 +52,7 @@ https://github.com/wubostc/virtualized-table-for-antd/issues
 
 https://juejin.cn/post/7063332320339099678
 
-[自定义antd组件库](https://blog.devgenius.io/ant-design-component-customization-and-bundle-optimization-a1fa3253a175)
+[优化antd组件库](https://blog.devgenius.io/ant-design-component-customization-and-bundle-optimization-a1fa3253a175)
 
 https://www.toptal.com/react/optimizing-react-performance
 
@@ -81,7 +64,7 @@ https://www.toptal.com/react/optimizing-react-performance
 
 [useCallback、useMemo 分析 & 差别](https://juejin.cn/post/6844904001998176263#heading-1)
 
-[mono](https://react.dev/reference/react/memo)
+[中高级前端工程师必备14种性能优化方案](https://juejin.cn/post/7326268947069534234)
 
 ## 3、react
 
@@ -149,15 +132,13 @@ WebGL上车指南 https://juejin.cn/column/7228476145385439269
 
 实战前端发布平台，打开CICD黑盒 https://juejin.cn/column/7139729877112422414
 
-
-
 微前端博客，可以在线用typore写协同文章
 
 博客系统的**[博客展示页面](https://github.com/lzxjack/react-blog)**，**后台管理页面**仓库见[「react-blog-admin」](https://github.com/lzxjack/react-blog-admin)。
 
 技术栈 Vue3 + ts + element-plus [前端](https://www.liuzepeng.com/) [](https://www.liuzepeng.com/)  [后台管理系统](https://www.liuzepeng.com/admin) 
 
-7、资料
+## 7、资料
 
 外国资料
 
