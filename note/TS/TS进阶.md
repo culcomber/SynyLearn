@@ -1367,6 +1367,8 @@ class FileSystemObject {
 
 ## 5、泛型
 
+泛型本质上是一个类型函数，通过输入参数，获得结果，两者是一一对应关系。
+
 ### 5.1 简介
 
 函数`getFirst()`的参数类型是`T[]`，返回值类型是`T`，就清楚地表示了两者之间的关系。
@@ -1426,52 +1428,249 @@ let myId:Fn = id;
 ```
 
 **C 类的泛型写法**
+泛型类描述的是类的实例，不包括静态属性和静态方法。
+```ts
+const Container = class<T> {
+  constructor(private readonly data:T) {}
+};
+// 新建实例时，需要同时给出类型参数T和类参数data的值
+const a = new Container<boolean>(true);
+const b = new Container<number>(0);
+```
+`JavaScript` 的类本质上是一个构造函数，因此也可以把泛型类写成构造函数。
+```ts
+type MyClass<T> = new (...args: any[]) => T;
+// 或者
+interface MyClass<T> {
+  new(...args: any[]): T;
+}
 
-TS
+// 用法实例
+function createInstance<T>(
+  AnyClass: MyClass<T>,
+  ...args: any[]
+):T {
+  return new AnyClass(...args);
+}
+```
+**D 类型别名`type`的泛型写法**
+```ts
+type Container<T> = { value: T };
+const a: Container<number> = { value: 0 };
+const b: Container<string> = { value: 'b' };
 
-**D 类型别名的泛型写法**
+// 定义树形结构
+type Tree<T> = {
+  value: T;
+  left: Tree<T> | null;
+  right: Tree<T> | null;
+};
+```
+**E 数组的泛型表示**
+数组类型的写法`number[]`、`string[]`，只是`Array<number>`、`Array<string>`的简写形式。`ReadonlyArray<T>`接口，表示只读数组。
+`Map`、`Set` 和 `Promise` 也是泛型接口，完整的写法是 `Map<K, V>`、`Set<T>` 和 `Promise<T>`。
+```ts
+interface Array<Type> {
+  length: number;
+  pop(): Type|undefined;
+  push(...items:Type[]): number;
+  // ...
+}
+```
+### 5.3 类型参数扩展
+**A 默认值**
+如果没有给出类型参数的值，就会使用默认值。
+`TypeScript` 会从实际参数推断出 `T` 的值，从而覆盖掉默认值。
+类型参数的默认值，往往用在类中。
+一旦类型参数有默认值，就表示它是可选参数。如果有多个类型参数，可选参数必须在必选参数之后。
+```ts
+class Generic<T = string> {
+  list:T[] = []
+  add(t:T) {
+    this.list.push(t)
+  }
+}
 
+const g = new Generic();
+g.add(4) // 报错
+g.add('hello') // 正确
+```
+**B 约束条件**
+类型参数的约束条件形式：`<TypeParameter extends ConstraintType>`。
+`TypeParameter` 表示类型参数， `extends` 是关键字，`ConstraintType` 表示类型参数要满足的条件，即`TypeParameter` 是 `ConstraintType` 的子类型。
+```ts
+function comp<T extends { length: number }>( a: T, b: T ) {
+  if (a.length >= b.length) {
+    return a;
+  }
+  return b;
+}
 
+comp([1, 2], [1, 2, 3]) // 正确
+comp('ab', 'abc') // 正确
+comp(1, 2) // 报错
+```
+如果有多个类型参数，一个类型参数的约束条件，可以引用其他参数。
+```ts
+<T, U extends T>
+// 或者
+<T extends U, U>
+```
+**C 使用注意点**
+（1）尽量少用泛型。
+（2）类型参数越少越好。
+```ts
+function filter<T, Fn extends (arg:T) => boolean>(arr:T[], func:Fn): T[] {
+  return arr.filter(func);
+}
+// good
+function filter<T>(arr:T[], func:(arg:T) => boolean): T[] {
+  return arr.filter(func);
+}
+```
+（3）类型参数需要出现两次。如果类型参数在定义后只出现一次，那么很可能是不必要的。
+（4）泛型可以嵌套。
+类型参数可以是另一个泛型。
+```ts
+type OrNull<Type> = Type|null;
+type OneOrMany<Type> = Type|Type[];
+type OneOrManyOrNull<Type> = OrNull<OneOrMany<Type>>;
+```
 
-类型参数的默认值
+## 6、枚举
+### 6.1 简介
+枚举可以将相关常量放在一个容器里面。
+建议谨慎使用 `Enum` 结构，因为它不仅仅是类型，还会为编译后的代码加入一个对象，所以不能有与它同名的变量（包括对象、函数、类等）。
+`Enum` 结构比较适合的场景是，成员的值不重要，名字更重要，从而增加代码的可读性和可维护性。
+```ts
+enum Color {
+  Red,     // 0
+  Green,   // 1
+  Blue     // 2
+}
+// 编译后
+let Color = {
+  Red: 0,
+  Green: 1,
+  Blue: 2
+};
 
+let c:Color = Color.Green; // 正确 Color类型的语义更好
+let c:number = Color.Green; // 正确
 
+// Enum 结构可以被对象的as const断言替代
+const Color = {
+  A: 0,
+  B: 1,
+  C: 2,
+} as const;
+```
+**A Enum 成员的值**
+`Enum` 成员默认不必赋值，系统会从零开始逐一递增，按照顺序为每个成员赋值。
+成员的值可以是任意数值，但不能是大整数（`Bigint`）。
+成员的值可以相同。
+如果只设定第一个成员的值，后面成员的值就会从这个值开始递增。
+`Enum` 成员的值也可以使用计算式。
+`Enum` 成员值都是只读的，不能重新赋值。为了让这一点更醒目，通常会在 `enum` 关键字前面加上 `const` 修饰，表示这是常量，不能再次赋值。编译为 `JavaScript` 代码后，代码中 `Enum` 成员会被替换成对应的值，这样能提高性能表现。
+```ts
+enum Color {
+  Red, // 0
+  Green = 7,
+  Blue, // 8
+  Yes = Math.random(),
+}
 
-数组的泛型表示
+// 由于 Enum 结构前面加了const关键字，所以编译产物里面就没有生成对应的对象，而是把所有 Enum 成员出现的场合，都替换成对应的常量
+const enum Color {
+  Red,
+  Green,
+  Blue
+}
+const x = Color.Red;
+const y = Color.Green;
+const z = Color.Blue;
+// 编译后
+const x = 0 /* Color.Red */;
+const y = 1 /* Color.Green */;
+const z = 2 /* Color.Blue */;
+```
+**B 字符串 `Enum`**
+字符串枚举的所有成员值，都必须显式设置。如果没有设置，成员值默认为数值，且位置必须在字符串成员之前。
+变量类型如果是字符串 `Enum`，就不能再赋值为字符串，这跟数值 `Enum` 不一样。字符串 `Enum` 作为一种类型，有限定函数参数的作用。
+字符串 `Enum` 可以使用联合类型（`union`）代替。
+字符串 `Enum` 的成员值，不能使用表达式赋值。
+```ts
+// Enum 成员可以是字符串和数值混合赋值
+enum Foo {
+  A, // 0
+  B = 'hello',
+  C // 报错
+}
 
+enum MyEnum {
+  One = 'One',
+  Two = 'Two',
+}
+function f(arg:MyEnum) {
+  return 'arg is ' + arg;
+}
+f('One') // 报错
+```
+**C `keyof` 运算符**
+`keyof` 运算符可以取出 `Enum` 结构的所有成员名，作为联合类型返回。
+`Enum` 作为类型，本质上属于 `number` 或 `string` 的一种变体，而 `typeof MyEnum` 会将 `MyEnum` 当作一个值处理，从而先其转为对象类型，就可以再用 `keyof` 运算符返回该对象的所有属性名。
+```ts
+enum MyEnum {
+  A = 'a',
+  B = 'b'
+}
+type Foo = keyof typeof MyEnum; // 'A'|'B'
+type Foo = { [key in MyEnum]: any }; // { a: any, b: any }
+```
+**D 反向映射**
 
-
-类型参数的约束条件
-
-
-
-使用注意点
-
-## 6、`Enum` 类型
-
-`Enum` 是 `TypeScript` 新增的一种数据结构和类型，中文译为“枚举”。
-
-**6.1 简介**
-
-
-
-`Enum`  成员的值
-
-
-
-同名 `Enum` 的合并
-
-
-
-字符串 `Enum` 
-
-
-
-`keyof` 运算符
-
-
-
-反向映射
-
-
+数值 `Enum` 存在反向映射，即可以通过成员值获得成员名。
+```ts
+enum Weekdays {
+  Monday = 1,
+  Tuesday,
+  Wednesday,
+}
+console.log(Weekdays[2]) // Tuesday
+// 编译后
+var Weekdays;
+(function (Weekdays) {
+    Weekdays[Weekdays["Monday"] = 1] = "Monday"; // 等价于 Weekdays["Monday"] = 1; Weekdays[1] = "Monday";
+    Weekdays[Weekdays["Tuesday"] = 2] = "Tuesday";
+    Weekdays[Weekdays["Wednesday"] = 3] = "Wednesday";
+})(Weekdays || (Weekdays = {}));
+```
+对于字符串 `Enum`，不存在反向映射。这是因为字符串 `Enum` 编译后只有一组赋值。
+```ts
+enum MyEnum {
+  A = 'a',
+  B = 'b'
+}
+// 编译后
+var MyEnum;
+(function (MyEnum) {
+    MyEnum["A"] = "a";
+    MyEnum["B"] = "b";
+})(MyEnum || (MyEnum = {}));
+```
+### 6.2 同名 `Enum` 的合并
+多个同名的 `Enum` 结构会自动合并，只允许其中一个的首成员省略初始值，否则报错。
+同名 `Enum` 合并时，不能有同名成员，否则报错。
+所有定义必须同为 `const` 枚举或者非 `const` 枚举，不允许混合使用。
+同名 `Enum` 的合并，最大用处就是补充外部定义的 `Enum` 结构。
+```ts
+enum Foo {
+  A,
+  B
+}
+enum Foo {
+  B = 1, // 报错
+  C
+}
+```
 

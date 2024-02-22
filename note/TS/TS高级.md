@@ -1,333 +1,1213 @@
 ## 1、类型断言
+### 1.1 简介
+`TypeScript` 推断变量 `foo` 的类型是 `string`，而变量 `bar` 的类型是 `'a'|'b'|'c'`， `foo` 是 `bar` 的父类型。父类型不能赋值给子类型，所以就报错了。
+`TypeScript` 提供了“类型断言”，允许开发者在代码中“断言”某个值的类型，告诉编译器此处的值是什么类型。
+类型断言并不是真的改变一个值的类型，而是提示编译器，应该如何处理这个值。类型断言不应滥用，因为它改变了 TypeScript 的类型检查，很可能埋下错误的隐患。
+```ts
+type T = 'a'|'b'|'c';
+let foo = 'a';
+let bar:T = foo; // 报错
+let bar:T = foo as T; // 正确
 
-1.1 简介
+// 语法一：<类型>值 <Type>value
+let bar:T = <T>foo;
+// 语法二：值 as 类型 value as Type  推荐 
+let bar:T = foo as T;
 
+// 正确 断言将类型改成与等号左边一致
+const p0:{ x: number } = { x: 0, y: 0 } as { x: number };
+// 正确 断言使得等号右边的类型是左边类型的子类型
+const p1:{ x: number } = { x: 0, y: 0 } as { x: number; y: number };
+```
+类型断言的一大用处是，指定 unknown 类型的变量的具体类型。
+类型断言也适合指定联合类型的值的具体类型。
+```ts
+const value:unknown = 'Hello World';
+const s1:string = value; // 报错
+const s2:string = value as string; // 正确
 
+const s1:number|string = 'hello';
+const s2:number = s1 as number;
+```
+**A 类型断言的条件**
+`expr as T`：`expr` 是 `T` 的子类型，或者 `T` 是 `expr` 的子类型。
+类型断言要求实际的类型与断言的类型兼容，实际类型可以断言为一个更加宽泛的类型（父类型），也可以断言为一个更加精确的类型（子类型），但不能断言为一个完全无关的类型。
+`any` 类型和 `unknown` 类型是所有其他类型的父类型，所以可以作为两种完全无关的类型的中介。
+```ts
+expr as unknown as T // 或者写成 <T><unknown>expr
+const n = 1;
+const m:string = n as unknown as string; // 正确
+```
+### 1.2 `as const` 断言
+如果没有声明变量类型，`let` 命令声明的变量，会被类型推断为 `TypeScript` 内置的基本类型之一；`const` 命令声明的变量，则被推断为值类型常量。
+特殊的类型断言`as const`，把 `let` 变量断言为 `const` 变量，从而把内置的基本类型变更为值类型。
+`as const` 断言只能用于字面量，不能用于变量，不能用于表达式。
+```ts
+let s1 = 'JavaScript'; // 类型推断为基本类型 string
+const s2 = 'JavaScript'; // 类型推断为字符串 “JavaScript”
 
-类型断言的条件
+type Lang = |'JavaScript' |'TypeScript' |'Python';
+function setLang(language:Lang) {}
+let s = 'JavaScript';
+setLang(s); // 报错
 
+// 把 let 命令改成 const 命令，变量s的类型就是值类型JavaScript，它是联合类型Lang的子类型
+const s = 'JavaScript';
+// 特殊的类型断言as const let 变量就不能再改变值了
+let s = 'JavaScript' as const;
+setLang(s);  // 正确
 
+setLang(s as const); // 报错 只能用于字面量
+let s = ('Java' + 'Script') as const; // 报错 不能用于表达式
+```
+`as const` 断言可以用于整个对象，也可以用于对象的单个属性，这时它的类型缩小效果是不一样的。
+```ts
+const v1 = { x: 1,y: 2 }; // 类型是 { x: number; y: number; }
+const v2 = { x: 1 as const, y: 2 }; // 类型是 { x: 1; y: number; }
+const v3 = { x: 1, y: 2 } as const; // 类型是 { readonly x: 1; readonly y: 2; }
+```
+由于`as const`会将数组变成只读元组，所以很适合用于函数的 `rest` 参数。
+`Enum` 成员也可以使用 `as const` 断言。
+```ts
+function add(x:number, y:number) {
+  return x + y;
+}
+const nums = [1, 2]; // 类型推断为number[]
+const total = add(...nums); // 报错 add()只能接受两个参数，而...nums并不能保证参数的个数
+const nums = [1, 2] as const; // 类型会被推断为readonly [1, 2]
+const total = add(...nums); // 正确 使用扩展运算符展开后，正好符合函数add()的参数类型
 
-1.2 `as const`断言
+enum Foo { X, Y }
+let e1 = Foo.X;            // Foo
+let e2 = Foo.X as const;   // Foo.X
+```
+### 1.3 非空断言
+在变量名后面加上感叹号 `!`，保证这些变量不会为空。
+非空断言会造成安全隐患，只有在确定一个表达式的值不为空时才能使用。比较保险的做法还是手动检查一下是否为空。
+非空断言只有在打开编译选项 `strictNullChecks` 时才有意义。如果不打开这个选项，编译器就不会检查某个变量是否可能为 `undefined` 或 `null`。
+```ts
+const root = document.getElementById('root');
+// 表示方法肯定返回非空结果
+const root = document.getElementById('root')!;
 
+// 非空断言还可以用于赋值断言
+class Point {
+  x!:number; // 正确 属性肯定会有值
+  y:number; // 报错 没有初始化
+  constructor(x:number, y:number) {
+    // ...
+  }
+}
+```
+### 1.4 断言函数
+函数返回值的断言写法，只是用来更清晰地表达函数意图，真正的检查是需要开发者自己部署的。
+断言函数的 `asserts` 语句等同于 `void` 类型，所以如果返回除了 `undefined` 和 `null` 以外的值，都会报错。
+断言参数非空，可以使用工具类型 `NonNullable<T>`
+```ts
+// 函数isString()就是一个断言函数，用来保证参数value是一个字符串，否则就会抛出错误，中断程序的执行
+function isString(value:unknown):asserts value is string {
+  if (typeof value !== 'string')
+    throw new Error('Not a string');
+}
+// 用法
+function toUpper(x: string|number) {
+  isString(x);
+  return x.toUpperCase(); // 报错 toUpperCase 只存在string
+}
+// 断言参数非空
+function assertIsDefined<T>(value:T):asserts value is NonNullable<T> {
+  if (value === undefined || value === null) {
+    throw new Error(`${value} is not defined`)
+  }
+}
+```
+将断言函数用于函数表达式
+```ts
+// 写法一
+const assertIsNumber = (value:unknown):asserts value is number => {
+  if (typeof value !== 'number')
+    throw Error('Not a number');
+};
 
+// 写法二
+type AssertIsNumber = (value:unknown) => asserts value is number;
+const assertIsNumber:AssertIsNumber = (value) => {
+  if (typeof value !== 'number')
+    throw Error('Not a number');
+};
+```
+断言函数与类型保护函数（`type guard`）是两种不同的函数。它们的区别是，断言函数不返回值，而类型保护函数总是返回一个布尔值。
+```ts
+function isString(value:unknown):value is string {
+  return typeof value === 'string';
+}
+```
+如果要断言某个参数保证为真（即不等于`false`、`undefined`和`null`），`TypeScript` 提供了断言函数的一种简写形式。
+```ts
+function assert(x:unknown):asserts x {
+  if (!x) {
+    throw new Error(`${x} should be a truthy value.`);
+  }
+}
+```
+## 2、模块
+### 2.1 简介
+`TypeScript` 模块除了支持所有 `ES` 模块的语法，特别之处在于允许输出和输入类型。
+可以只编译 `b.ts`，因为它是入口脚本，`tsc` 会自动编译它依赖的所有脚本。
+```ts
+// a.ts
+export type Bool = true | false;
+// b.ts
+import { Bool } from './a';
+let foo:Bool = true;
+```
+### 2.2 `import type` 语句
+`import` 在一条语句中，可以同时输入类型和正常接口。不利于区分类型和正常接口，容易造成混淆。
+```ts
+// a.ts
+export interface A {
+  foo: string;
+}
+export let a = 123;
 
-1.3 非空断言
+// b.ts
+import { A, a } from './a';
 
+// 第一个方法是在 import 语句输入的类型前面加上type关键字
+import { type A, a } from './a';
+// 第二个方法是使用 import type 语句，这个语句只用来输入类型，不用来输入正常接口。
+import type { A } from './a';
+let b:A = 'hello';
 
+// export 语句也有两种方法，表示输出的是类型。
+type A = 'a';
+type B = 'b';
+// 方法一
+export {type A, type B};
+// 方法二
+export type {A, B};
 
-1.4 断言函数
+// 输入默认类型
+import type DefaultType from 'moduleA';
+// 输入所有类型的写法如下
+import type * as TypeNS from 'moduleA';
+```
+**A `importsNotUsedAsValues` 编译设置**
+`TypeScript` 提供了 `importsNotUsedAsValues` 编译设置项，有三个可能的值。
+（1）`remove`：这是默认值，自动删除输入类型的 `import` 语句。
+（2）`preserve`：保留输入类型的 `import` 语句。
+（3）`error`：保留输入类型的 `import` 语句（与 `preserve` 相同），但是必须写成 `import type` 的形式，否则报错。
+```ts
+import { TypeA } from './a';
+// remove的编译结果会将该语句删掉
+// preserve的编译结果会保留该语句，但会删掉其中涉及类型的部分
+import './a';
+// error的编译结果与preserve相同，但在编译过程中会报错，原始语句改成下面的形式，就不会报错
+import type { TypeA } from './a';
+```
+### 2.3 `CommonJS` 模块
+`CommonJS` 是 `Node.js` 的专用模块格式，与 `ES` 模块格式不兼容。
+**A `import = `语句**
+`TypeScript` 使用 `import =` 语句输入 `CommonJS` 模块。
+```ts
+import fs = require('fs');
+import * as fs from 'fs';
+// 等同于
+import fs = require('fs');
+```
+**B `export =` 语句**
+`TypeScript` 使用 `export =` 语句，输出 `CommonJS` 模块的对象，等同于 `CommonJS` 的 `module.exports` 对象。
+```ts
+let obj = { foo: 123 };
+export = obj;
+```
+### 2.4 模块定位
+模块定位（module resolution）指的是一种算法，用来确定 import 语句和 export 语句里面的模块文件位置。
+编译参数 `moduleResolution`，用来指定具体使用哪一种定位算法。常用的算法有两种：`Classic` 和 `Node`(默认值)。
+如果没有指定 `moduleResolution`，它的默认值与编译参数 `module` 有关。
+```shell
+module: commonjs --> Node
+module: es2015、 esnext、amd, system, umd... --> Classic
+```
+**A 相对模块，非相对模块**
+相对模块指的是路径以 `/、./、../` 开头的模块，根据当前脚本的位置进行计算的，一般用于保存在当前项目目录结构中的模块脚本。
+非相对模块指的是不带有路径信息的模块，由 `baseUrl` 属性或模块映射而确定的，通常用于加载外部模块。
 
+**B `Classic` 方法**
+`Classic` 方法以当前脚本的路径作为“基准路径”，计算相对模块的位置。至于非相对模块，也是以当前脚本的路径作为起点，一层层查找上级目录。
 
+**C `Node` 方法**
+`Node` 方法就是模拟 `Node.js` 的模块加载方法，也就是 `require()` 的实现方法。
+相对模块依然是以当前脚本的路径作为“基准路径”。
+非相对模块则是以当前脚本的路径作为起点，逐级向上层目录查找是否存在子目录 `node_modules`。
 
-## 2、`TypeScript` 模块
+**D 路径映射**
+`TypeScript` 允许开发者在 `tsconfig.json` 文件里面，手动指定脚本模块的路径。
+（1）`baseUrl`字段可以手动指定脚本模块的基准目录。
+```json
+{
+  "compilerOptions": {
+    "baseUrl": "." // 基准目录就是tsconfig.json所在的目录
+  }
+}
+```
+（2）`paths`字段指定非相对路径的模块与实际脚本的映射。
+```json
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "jquery": ["node_modules/jquery/dist/jquery"]
+    }
+  }
+}
+```
+（3）`rootDirs` 字段指定模块定位时必须查找的其他目录。
+```ts
+{
+  "compilerOptions": {
+    "rootDirs": ["src/zh", "src/de", "src/#{locale}"]
+  }
+}
+```
+E `tsc` 参数
+`--traceResolution` 参数：在编译时在命令行显示模块定位的每一步。
+`--noResolve` 参数：表示模块定位时，只考虑在命令行传入的模块
+## 3、命名空间
+### 3.1 基本用法
+命名空间 `Utils` 里面定义了一个函数 `isString()` ，它只能在 `Utils` 里面使用，如果用于外部就会报错。
+如果要在命名空间以外使用内部成员，就必须为该成员加上 `export` 前缀，表示对外输出该成员。
+编译后命名空间 `Utility` 变成了 `JavaScript` 的一个对象，凡是 `export` 的内部成员，都成了该对象的属性。
+```ts
+namespace Utils {
+  function isString(msg:any) {
+    return typeof msg === 'string';
+  }
+  export function log(msg:string) {
+    console.log(msg);
+  }
+  isString('yes'); // 正确
+}
+Utils.isString('no'); // 报错
+Utils.log('Call me'); // 正确
 
-2.1 简介
+// 编译出来的 JavaScript 代码如下。
+var Utils;
+(function (Utils) {
+  function isString(msg) {
+    console.error(msg);
+  }
+  function log(msg) {
+    console.log(msg);
+  }
+  Utility.log = log;
+  isString('yes');
+})(Utility || (Utility = {}));
+```
+`namespace` 内部还可以使用 `import` 命令输入外部成员，相当于为外部成员起别名。
+`namespace` 可以嵌套。
+```ts
+namespace Utils {
+  export function isString(value:any) {
+    return typeof value === 'string';
+  }
+}
+// import命令指定在命名空间App里面，外部成员Utils.isString的别名为isString
+namespace App {
+  import isString = Utils.isString;
+  isString('yes');
+  // 等同于
+  Utils.isString('yes');
+}
+// import命令在命名空间Shapes的外部，指定Shapes.Polygons的别名为polygons
+namespace Shapes {
+  export namespace Polygons {
+    export class Triangle {}
+    export class Square {}
+  }
+}
+import polygons = Shapes.Polygons;
+// 等同于 new Shapes.Polygons.Square()
+let sq = new polygons.Square();
+```
+`namespace` 与模块的作用是一致的，都是把相关代码组织在一起，对外输出接口。区别是一个文件只能有一个模块，但可以有多个 `namespace`。由于模块可以取代 `namespace`，而且是 `JavaScript` 的标准语法，还不需要编译转换，所以建议总是使用模块，替代 `namespace`。
 
+## 3.2 `namespace` 的输出
+`namespace` 本身也可以使用 `export` 命令输出，供其他文件使用。
+```ts
+// shapes.ts
+export namespace Shapes {
+  export class Triangle {
+  }
+  export class Square {
+  }
+}
 
+// 如果 namespace 代码放在一个单独的文件里，那么引入这个文件需要使用三斜杠的语法
+/// <reference path = "SomeFileName.ts" />
 
-2.2 import type 语句
+// 写法一
+import { Shapes } from './shapes';
+let t = new Shapes.Triangle();
+// 写法二
+import * as shapes from "./shapes";
+let t = new shapes.Shapes.Triangle();
+```
+## 3.3 `namespace` 的合并
+多个同名的 `namespace` 会自动合并，这一点跟 `interface` 一样。
+命名空间中的非 `export` 的成员不会被合并，但是它们只能在各自的命名空间中使用。
+```ts
+namespace N {
+  const a = 0;
+  export function foo() {
+    console.log(a);  // 正确
+  }
+}
 
-
-
-2.3 `importsNotUsedAsValues` 编译设置
-
-
-
-2.4 `CommonJS` 模块
-
-A `import =` 语句
-
-
-
-B `export =` 语句
-
-
-
-2.5 模块定位
-
-A 相对模块，非相对模块
-
-
-
-B Classic 方法
-
-
-
-C Node 方法
-
-
-
-D 路径映射
-
-
-
-E `tsc` 的`--traceResolution`参数
-
-
-
-F `tsc` 的`--noResolve`参数
-
-
-
-## 3、`namespace`
-
-3.1 基本用法
-
-
-
-3.2 `namespace` 的输出
-
-
-
-3.3 `namespace`的合并
-
-
-
+namespace N {
+  export function bar() {
+    foo(); // 正确
+    console.log(a);  // 报错
+  }
+}
+```
+命名空间还可以跟同名函数/`class`/`Enum`合并，但是要求同名函数必须在命名空间之前声明。这样做是为了确保先创建出一个函数对象，然后同名的命名空间就相当于给这个函数对象添加额外的属性。
+```ts
+// 函数f()与命名空间f合并，相当于命名空间为函数对象f添加属性
+function f() {
+  return f.version;
+}
+namespace f {
+  export const version = '1.0';
+}
+f()   // '1.0'
+f.version // '1.0'
+```
 ## 4、装饰器
+### 4.1 简介
+装饰器（`Decorator`）是一种语法结构，用来在定义时修改类（`class`）的行为。
+不仅增加了代码的可读性，清晰地表达了意图，而且提供一种方便的手段，增加或修改类的功能。
+在语法上，装饰器有如下几个特征：
+（1）第一个字符（或者说前缀）是 `@`，后面是一个表达式。
+（2）`@` 后面的表达式，必须是一个函数（或者执行后可以得到一个函数）。
+（3）这个函数接受所修饰对象的一些相关值作为参数。
+（4）这个函数要么不返回值，要么返回一个新对象取代所修饰的目标对象。
+```ts
+// 类A在执行前会先执行装饰器simpleDecorator()，并且会向装饰器自动传入参数
+function simpleDecorator(value:any, context:any) {
+  console.log(`hi, this is ${context.kind} ${context.name}`);
+  return value;
+}
+@simpleDecorator
+class A {} // "hi, this is class A"
 
-简介
+// 装饰器有多种形式
+@myFuncFactory(arg1, arg2)
+@libraryModule.prop
+@someObj.method(123)
+@(wrap(dict['prop']))
 
+// 装饰器一般只用来为类添加某种特定行为
+@frozen class Foo {
+  @configurable(false)
+  @enumerable(true)
+  method() {}
 
+  @throttle(500)
+  expensiveMethod() {}
+}
+```
+### 4.2 装饰器的结构
+装饰器函数的类型定义如下
+- `value`：所装饰的对象
+- `context`：上下文对象，`TypeScript` 提供一个原生接口，`kind` 和 `name` 是必有的，其他都是可选的
+	- 	（1）`kind`：字符串，表示所装饰对象的类型，可取值：`class method getter setter field accessor`
+	- 	（2）`name`：字符串或者 `Symbol` 值，所装饰对象的名字，比如类名、属性名等。
+	- 	（3）`addInitializer()`：函数，用来添加类的初始化逻辑。以前，这些逻辑通常放在构造函数里面，对方法进行初始化，现在改成以函数形式传入`addInitializer()` 方法。注意，`addInitializer()` 没有返回值。
+	- 	（4）`private`：布尔值，表示所装饰的对象是否为类的私有成员。
+	- 	（5）`static`：布尔值，表示所装饰的对象是否为类的静态成员。
+	- 	（6）`access`：一个对象，包含了某个值的 get 和 set 方法。
+```ts
+type Decorator = (
+  value: DecoratedValue,
+  context: {
+    kind: string;
+    name: string | symbol;
+    addInitializer?(initializer: () => void): void;
+    static?: boolean;
+    private?: boolean;
+    access: {
+      get?(): unknown;
+      set?(value: unknown): void;
+    };
+  }
+) => void | ReplacementValue;
+```
+**A 类装饰器**
+```ts
+type ClassDecorator = (
+  value: Function,
+  context: {
+    kind: 'class';
+    name: string | undefined;
+    addInitializer(initializer: () => void): void; // 在类完全定义结束后执行
+  }
+) => Function | void;
+```
+类装饰器 `@countInstances` 返回一个函数，替换了类 `MyClass` 的构造方法。新的构造方法实现了实例的计数，每新建一个实例，计数器就会加一，并且对实例添加 `count` 属性，表示当前实例的编号。
+```ts
+function countInstances(value:any, context:any) {
+  let instanceCount = 0;
+  const wrapper = function (...args:any[]) {
+    instanceCount++;
+    const instance = new value(...args);
+    instance.count = instanceCount;
+    return instance;
+  } as unknown as typeof MyClass;
+  wrapper.prototype = value.prototype; // 原型继承
+  return wrapper; // 构造方法
+}
 
-装饰器的版本
+@countInstances
+class MyClass {}
 
+const inst1 = new MyClass();
+inst1 instanceof MyClass // true
+inst1.count // 1
+```
+类装饰器也可以返回一个新的类，替代原来所装饰的类。
+```ts
+function countInstances(value:any, context:any) {
+  let instanceCount = 0;
+  return class extends value {
+    constructor(...args:any[]) {
+      super(...args);
+      instanceCount++;
+      this.count = instanceCount;
+    }
+  };
+}
 
+@countInstances
+class MyClass {}
 
-装饰器的结构
+const inst1 = new MyClass();
+inst1 instanceof MyClass // true
+inst1.count // 1
+```
+**B 方法装饰器**
+```ts
+type ClassMethodDecorator = (
+  value: Function,
+  context: {
+    kind: 'method';
+    name: string | symbol;
+    static: boolean;
+    private: boolean;
+    access: { get: () => unknown };
+    addInitializer(initializer: () => void): void; // 在构造方法执行期间执行，早于属性（field）的初始化
+  }
+) => Function | void;
+// 方法装饰器会改写类的原始方法，实质等同于下面的操作
+function trace(decoratedMethod) { }
+class C {
+  @trace
+  toString() {
+    return 'C';
+  }
+}
 
+// `@trace` 等同于
+// C.prototype.toString = trace(C.prototype.toString);
+```
+如果方法装饰器返回一个新的函数，就会替代所装饰的原始函数。
+`delay()` 的作用是接收参数，用来设置推迟执行的时间。这种通过高阶函数返回装饰器的做法，称为“工厂模式”。
+```ts
+function delay(milliseconds: number = 0) {
+  return function replacementMethod(value, context) {
+    if (context.kind === "method") {
+      return function (...args: any[]) {
+        setTimeout(() => {
+          value.apply(this, args); // 调用原始方法
+        }, milliseconds);
+      };
+    }
+  };
+}
 
+class Logger {
+  @delay(1000)
+  log(msg: string) {
+    console.log(`${msg}`);
+  }
+}
+// 装饰器@log的返回值是一个函数replacementMethod，替代了原始方法log，replacementMethod将方法log的执行推迟了1秒
+let logger = new Logger();
+logger.log("Hello World");
+```
+`this` 的绑定必须放在构造方法里面，因为这必须在类的初始化阶段完成。现在，它可以移到方法装饰器的 `addInitializer()` 里面。
+```ts
+function bound(
+  originalMethod:any, context:ClassMethodDecoratorContext
+) {
+  const methodName = context.name;
+  if (context.private) {
+    throw new Error(`不能绑定私有方法 ${methodName as string}`);
+  }
+  context.addInitializer(function () {
+    this[methodName] = this[methodName].bind(this);
+  });
+}
+```
+**C 属性装饰器**
+属性装饰器要么不返回值，要么返回一个函数，该函数会自动执行，用来对所装饰属性进行初始化。该函数的参数是所装饰属性的初始值，该函数的返回值是该属性的最终值。
+```ts
+type ClassFieldDecorator = (
+  value: undefined, // 实际上没用，装饰器不能从value获取所装饰属性的值
+  context: {
+    kind: 'field';
+    name: string | symbol;
+    static: boolean;
+    private: boolean;
+    access: { get: () => unknown, set: (value: unknown) => void };
+    addInitializer(initializer: () => void): void;
+  }
+) => (initialValue: unknown) => unknown | void;
+```
+属性装饰器的返回值函数，可以用来更改属性的初始值。
+```ts
+function twice() {
+  return initialValue => initialValue * 2;
+}
 
-类装饰器
+class C {
+  @twice
+  field = 3;
+}
 
+const inst = new C();
+inst.field // 6
+```
+`access` 属性，提供所装饰属性的存取器，`access` 包含了属性 `name` 的存取器，可以对该属性进行取值和赋值。
+```ts
+let acc; // 创建装饰属性access变量，用来改变装饰器属性
+function exposeAccess(value, {access}) {
+  acc = access;
+}
+class Color {
+  @exposeAccess
+  name = 'green'
+}
 
+const green = new Color();
+green.name // 'green'
+acc.get(green) // 'green'
+acc.set(green, 'red'); // 改变属性值
+green.name // 'red'
+```
+**D `getter` 装饰器，`setter` 装饰器**
+这两个装饰器要么不返回值，要么返回一个函数，取代原来的取值器或存值器。
+```ts
+type ClassGetterDecorator = (
+  value: Function,
+  context: {
+    kind: 'getter';
+    name: string | symbol;
+    static: boolean;
+    private: boolean;
+    access: { get: () => unknown };
+    addInitializer(initializer: () => void): void;
+  }
+) => Function | void;
 
-方法装饰器
+type ClassSetterDecorator = (
+  value: Function,
+  context: {
+    kind: 'setter';
+    name: string | symbol;
+    static: boolean;
+    private: boolean;
+    access: { set: (value: unknown) => void };
+    addInitializer(initializer: () => void): void;
+  }
+) => Function | void;
+```
+第一次读取 `inst.value`，会进行计算，然后装饰器 `@lazy` 将结果存入只读属性 `value`，后面再读取这个属性，就不会进行计算了。
+```ts
+class C {
+  @lazy
+  get value() {
+    console.log('正在计算……');
+    return '开销大的计算结果';
+  }
+}
 
+function lazy(
+  value:any,
+  {kind, name}:any
+) {
+  if (kind === 'getter') {
+    return function (this:any) {
+      const result = value.call(this);
+      Object.defineProperty(
+        this, name,
+        { value: result, writable: false, }
+      );
+      return result;
+    };
+  }
+  return;
+}
 
+const inst = new C();
+inst.value
+// 正在计算……
+// '开销大的计算结果'
+inst.value
+// '开销大的计算结果'
+```
+**E `accessor` 装饰器**
+装饰器语法引入了一个新的属性修饰符 `accessor`。
+```ts
+class C {
+  accessor x = 1;
+}
 
-属性装饰器
+class C {
+  #x = 1;
+  get x() {
+    return this.#x;
+  }
+  set x(val) {
+    this.#x = val;
+  }
+}
 
+// accessor也可以与静态属性和私有属性一起使用
+class C {
+  static accessor x = 1;
+  accessor #y = 2;
+}
+```
+`accessor` 装饰器的类型如下。装饰器可以不返回值，或者返回一个新的对象，用来取代原来的 `get()` 方法和 `set()` 方法。
+```ts
+type ClassAutoAccessorDecorator = (
+  value: {
+    get: () => unknown;
+    set: (value: unknown) => void;
+  },
+  context: {
+    kind: "accessor";
+    name: string | symbol;
+    access: { get(): unknown, set(value: unknown): void };
+    static: boolean;
+    private: boolean;
+    addInitializer(initializer: () => void): void;
+  }
+) => {
+  get?: () => unknown;
+  set?: (value: unknown) => void;
+  init?: (initialValue: unknown) => unknown; // 改变私有属性的初始值
+} | void;
+```
+装饰器 `@logged` 为属性 `x` 的存值器和取值器，加上了日志输出。
+```ts
+class C {
+  @logged accessor x = 1;
+}
+function logged(value, { kind, name }) {
+  if (kind === "accessor") {
+    let { get, set } = value;
+    return {
+      get() {
+        console.log(`getting ${name}`);
+        return get.call(this);
+      },
+      set(val) {
+        console.log(`setting ${name} to ${val}`);
+        return set.call(this, val);
+      },
+      init(initialValue) {
+        console.log(`initializing ${name} with value ${initialValue}`);
+        return initialValue;
+      }
+    };
+  }
+}
+let c = new C();
+c.x; // getting x
+c.x = 123; // setting x to 123
+```
+### 4.3 装饰器的执行顺序
+装饰器的执行分为两个阶段：先评估所有装饰器表达式的值，再将其应用于当前类。
+（1）评估（`evaluation`）：计算 `@` 符号后面的表达式的值，得到的应该是函数。
+（2）应用（`application`）：将评估装饰器后得到的函数，应用于所装饰对象。
+静态方法装饰器首先应用，然后是原型方法的装饰器和静态属性装饰器，接下来是实例属性装饰器，最后是类装饰器。
+```ts
+function d(str:string) {
+  console.log(`评估 @d(): ${str}`);
+  return (
+    value:any, context:any
+  ) => console.log(`应用 @d(): ${str}`);
+}
 
+function log(str:string) {
+  console.log(str);
+  return str;
+}
 
-`getter` 装饰器，`setter` 装饰器
+@d('类装饰器')
+class T {
+  @d('静态属性装饰器')
+  static staticField = log('静态属性值'); // 最后计算
+  @d('原型方法')
+  [log('计算方法名')]() {} // 属性名或方法名是计算值（本例是“计算方法名”），则它们在对应的装饰器评估之后，也会进行自身的评估
+  @d('实例属性')
+  instanceField = log('实例属性值'); // “实例属性值”在类初始化的阶段并不执行，直到类实例化时才会执行
+  @d('静态方法装饰器')
+  static fn(){}
+}
 
+类T有四种装饰器：类装饰器、静态属性装饰器、方法装饰器、属性装饰器
+评估 @d(): 类装饰器
+评估 @d(): 静态属性装饰器
+评估 @d(): 原型方法
+计算方法名
+评估 @d(): 实例属性
+评估 @d(): 静态方法装饰器
+应用 @d(): 静态方法装饰器
+应用 @d(): 原型方法
+应用 @d(): 静态属性装饰器
+应用 @d(): 实例属性
+应用 @d(): 类装饰器
+静态属性值
+```
+如果一个方法或属性有多个装饰器，则内层的装饰器先执行，外层的装饰器后执行。
+内层的 `@log` 先执行，外层的 `@bound` 针对得到的结果再执行。
+```ts
+class Person {
+  name: string;
+  constructor(name: string) {
+    this.name = name;
+  }
+  @bound
+  @log
+  greet() {
+    console.log(`Hello, my name is ${this.name}.`);
+  }
+}
+```
+## 5、declare
+### 5.1 简介
+`declare` 关键字用来告诉编译器，某个类型是存在的，可以在当前文件中使用。它的主要作用，就是让当前文件可以使用其他文件声明的类型。
+`declare` 只能用来描述已经存在的变量和数据结构，不能用来声明新的变量和数据结构。另外，所有 declare 语句都不会出现在编译后的文件里面。
+`declare` 关键字可以描述以下类型。
+- 变量（`const`、`let`、`var` 命令声明）
+- `type` 或者 `interface` 命令声明的类型
+- `class`
+- `enum`
+- 函数（`function`）
+- 模块（`module`）
+- 命名空间（`namespace`）
+### 5.2 应用
+`declare` 关键字只用来给出类型描述，是纯的类型代码，不允许设置变量的初始值，即不能涉及值。
+如果 `declare` 关键字没有给出变量的具体类型，那么变量类型就是 `any`。
+```ts
+// 当前脚本使用了其他脚本定义的全局变量x。
+x = 123; // 报错
 
+// 使用 declare 命令给出它的类型，就不会报错了。
+declare let x:number;
+x = 1;
+```
+如果想把变量、函数、类组织在一起，可以将 `declare` 与 `module` 或 `namespace` 一起使用，加不加 export 关键字都可以。
+```ts
+declare namespace AnimalLib {
+  class Animal {
+    constructor(name:string);
+    eat():void;
+    sleep():void;
+  }
+  type Animals = 'Fish' | 'Dog';
+}
 
-`accessor` 装饰器
+// 或者
+declare module AnimalLib {
+  class Animal {
+    constructor(name:string);
+    eat(): void;
+    sleep(): void;
+  }
+  type Animals = 'Fish' | 'Dog';
+}
+```
+`declare` 关键字的另一个用途，是为外部模块添加属性和方法时，给出新增部分的类型描述。
+从模块 `moduleA` 导入了类型 `Foo`，它是一个接口（`interface`），并将其重命名为 `Bar`，然后用 `declare` 关键字为 `Foo` 增加一个属性 `custom`。这里需要注意的是，虽然接口 `Foo` 改名为 `Bar`，但是扩充类型时，还是扩充原始的接口 `Foo`，因为同名 `interface` 会自动合并类型声明。
+```ts
+import { Foo as Bar } from 'moduleA';
+declare module 'moduleA' {
+  interface Foo {
+    custom: {
+      prop1: string;
+    }
+  }
+}
+```
+`declare module` 描述的模块名可以使用通配符。
+模块名 `my-plugin-*` 表示适配所有以 `my-plugin-` 开头的模块名（比如 `my-plugin-logger`）。
+```ts
+declare module 'my-plugin-*' {
+  interface PluginOptions {
+    enabled: boolean;
+    priority: number;
+  }
 
+  function initialize(options: PluginOptions): void;
+  export = initialize;
+}
+```
+如果要为 `JavaScript` 引擎的原生对象添加属性和方法，可以使用 `declare global {}` 语法。
+```ts
+export {}; // 强制编译器将这个脚本当作模块处理
+declare global {
+  interface String {
+    toSmallString(): string; // 为 JavaScript 原生的String对象添加了toSmallString()方法
+  }
+}
+String.prototype.toSmallString = ():string => {
+  // 具体实现
+  return '';
+};
+```
+可以为每个模块脚本，定义一个 `.d.ts` 文件，把该脚本用到的类型定义都放在这个文件里面。但是，更方便的做法是为整个项目，定义一个大的 `.d.ts` 文件，在这个文件里面使用 `declare module` 定义每个模块脚本的类型。
+上面示例中，`url` 和 `path` 都是单独的模块脚本，但是它们的类型都定义在 `node.d.ts` 这个文件里面。
+```ts
+declare module "url" {
+  export interface Url {
+    protocol?: string;
+    hostname?: string;
+    pathname?: string;
+  }
 
+  export function parse(
+    urlStr: string,
+    parseQueryString?,
+    slashesDenoteHost?
+  ): Url;
+}
 
-装饰器的执行顺序
-
-## 5、declare 关键字
-
-简介
-
-
-
-`declare variable`
-
-
-
-`declare function`
-
-
-
-`declare class`
-
-
-
-`declare module`，`declare namespace`
-
-
-
-`declare global`
-
-
-
-`declare enum`
-
-
-
-`declare module` 用于类型声明文件
-
-
-
+declare module "path" {
+  export function normalize(p: string): string;
+  export function join(...paths: any[]): string;
+  export var sep: string;
+}
+```
+使用时，自己的脚本使用三斜杠命令，加载这个类型声明文件。如果没有上面这一行命令，自己的脚本使用外部模块时，就需要在脚本里面使用 declare 命令单独给出外部模块的类型。
+```ts
+/// <reference path="node.d.ts"/>
+```
 ## 6、`d.ts` 类型声明文件
+### 6.1 简介
+类型声明文件里面只有类型代码，没有具体的代码实现。它的文件名一般为 `[模块名].d.ts` 的形式，其中的 `d` 表示 `declaration`（声明）。
+```ts
+const maxInterval = 12;
+function getArrayLength(arr) {
+  return arr.length;
+}
+module.exports = {
+  getArrayLength,
+  maxInterval,
+};
 
-6.1 简介
+// 类型声明文件可以写成下面这样
+export function getArrayLength(arr: any[]): number;
+export const maxInterval: 12;
 
+// 类型声明文件也可以使用 export = 命令，输出对外接口
+declare module 'moment' {
+  function moment(): any;
+  export = moment;
+}
+```
+类型声明文件也可以包括在项目的 `tsconfig.json` 文件里面，这样的话，编译器打包项目时，会自动将类型声明文件加入编译，而不必在每个脚本里面加载类型声明文件。
+```ts
+{
+  "compilerOptions": {},
+  "files": [
+    "src/index.ts",
+    "typings/moment.d.ts"
+  ]
+}
+```
+### 6.2 类声明文件的来源
+**A 自动生成**
+只要使用编译选项 `declaration`，编译器就会在编译时自动生成单独的类型声明文件。
+```json
+{
+  "compilerOptions": {
+    "declaration": true
+  }
+}
+```
+**B 内置声明文件**
+安装 `TypeScript` 语言时，会同时安装一些内置的类型声明文件，主要是内置的全局对象（`JavaScript` 语言接口和运行环境 `API`）的类型声明。
+这些内置声明文件的文件名统一为 `lib.[description].d.ts` 的形式，其中 `description` 部分描述了文件内容。比如，`lib.dom.d.ts` 这个文件就描述了 `DOM` 结构的类型。
+`TypeScript` 编译器会自动根据编译目标 `target` 的值，加载对应的内置声明文件，所以不需要特别的配置。但是，可以使用编译选项 `lib`，指定加载哪些内置声明文件。
+编译选项 `noLib` 会禁止加载任何内置声明文件。
+```json
+{
+  "compilerOptions": {
+    "lib": ["dom", "es2021"]
+  }
+}
+```
+**C 外部类型声明文件**
+（1）这个库自带了类型声明文件。
+如果这个库的源码包含了 `[name].d.ts` 文件，那么就自带了类型声明文件。使用这个库可能需要单独加载它的类型声明文件。
+（2）这个库没有自带，但是可以找到社区制作的类型声明文件。
+`TypeScript` 社区主要使用 `DefinitelyTyped` 仓库，各种类型声明文件都会提交到那里。
+社区制作的声明文件都会作为一个单独的库，发布到 `npm` 的 `@types` 名称空间之下。
+`@types/jquery` 这个库就安装到项目的 `node_modules/@types/jquery` 目录，里面的 `index.d.ts` 文件就是 `jQuery` 的类型声明文件。
+`$ npm install @types/jquery --save-dev`
+`TypeScript` 会自动加载 `node_modules/@types` 目录下的模块，但可以使用编译选项 `typeRoots` 改变这种行为。
+默认情况下，`TypeScript` 会自动加载 `typeRoots`目录里的所有模块，编译选项 `types` 可以指定加载哪些模块。
+```json
+{
+  "compilerOptions": {
+    "typeRoots": ["./typings", "./vendor/types"],
+     "types" : ["jquery"]
+  }
+}
+```
+（3）找不到类型声明文件，需要自己写。
+告诉 `TypeScript` 相关对象的类型是 `any`。
+```ts
+declare var $:any // jQuery 的$对象是外部引入的，类型是any
+// 或者
+declare type JQuery = any;
+declare var $:JQuery;
 
-
-6.2 类型声明文件的来源
-
-A 自动生成
-
-
-
-B 内置声明文件
-
-
-
-C 外部类型声明文件
-
-
-
-6.3 declare 关键字
-
-
-
-6.4 模块发布
-
-
-
-6.5 三斜杠命令
-A `/// <reference path="" />`
-
-
-
-B `/// <reference types="" />`
-
-
-
-C `/// <reference lib="" />`
-
-
-
+// 将整个外部模块的类型设为any
+declare module '模块名';
+```
+### 6.3 declare 关键字
+类型声明文件只包含类型描述，不包含具体实现，所以非常适合使用 `declare` 语句来描述类型。
+```ts
+// moment 模块的类型描述文件 moment.d.ts
+declare module 'moment' {
+  export interface Moment {
+    format(format:string): string;
+    add(
+      amount: number,
+      unit: 'days' | 'months' | 'years'
+    ): Moment;
+    subtract(
+      amount:number,
+      unit:'days' | 'months' | 'years'
+    ): Moment;
+  }
+  function moment(
+    input?: string | Date
+  ): Moment;
+  export default moment;
+}
+```
+### 6.4 三斜杠命令
+如果类型声明文件的内容非常多，可以拆分成多个文件，然后入口文件使用三斜杠命令，加载其他拆分后的文件。
+**A `path`**
+告诉编译器在编译时需要包括的文件，常用来声明当前脚本依赖的类型文件。
+编译当前脚本时，还会同时编译 `./lib.ts`。编译产物会有两个 `JS` 文件，一个当前脚本，另一个就是 `./lib.js`。
+```ts
+/// <reference path="./lib.ts" />
+let count = add(1, 2);
+```
+**B `types`**
+告诉编译器当前脚本依赖某个 `DefinitelyTyped` 类型库，通常安装在 `node_modules/@types` 目录。
+编译时添加 `Node.js` 的类型库，实际添加的脚本是 `node_modules` 目录里面的 `@types/node/index.d.ts`。
+```ts
+/// <reference types="node" />
+```
+这个命令只在你自己手写类型声明文件（`.d.ts` 文件）时，才有必要用到，也就是说，只应该用在 `.d.ts` 文件中，普通的 `.ts` 脚本文件不需要写这个命令。如果是普通的 `.ts` 脚本，可以使用 `tsconfig.json` 文件的 `types` 属性指定依赖的类型库。
+**C `lib`**
+允许脚本文件显式包含内置 `lib` 库，等同于在 `tsconfig.json` 文件里面使用lib属性指定 `lib` 库。
+安装 `TypeScript` 软件包时，会同时安装一些内置的类型声明文件，即内置的 `lib` 库。
+```ts
+// 加载lib.es2017.string.d.ts
+/// <reference lib="es2017.string" />
+```
 ## 7、类型运算符
-
-7.1 `keyof` 运算符
-
-
-
-7.2 in 运算符
-
-
-
-7.3 方括号运算符
-
-
-
-7.4 extends...?: 条件运算符
-
-
-
-7.5 infer 关键字
-
-
-
-7.6 is 运算符
-
-
-
-7.7 模板字符串
-
-
-
-7.8 satisfies 运算符
-
-
-
-## 8、类型映射
-
-8.1 简介
-
-
-
-8.2 映射修饰符
-
-
-
-8.3 键名重映射
-
-A 语法
-
-
-
-B 属性过滤
-
-
-
-C 联合类型的映射
-
-
-
-## 9、注释指令
-
-9.1 `// @ts-nocheck`
-
-
-
-9.2 `// @ts-check`
-
-
-
-9.3 `// @ts-ignore`
-
-
-
-9.4 `// @ts-expect-error`
-
-
-
-9.5 `JSDoc`
-A `@typedef`
-
-
-
-B `@type`
-
-
-
-C `@param`
-
-
-
-D `@return`，`@returns`
-
-
-
-E `@extends` 和类型修饰符
-
-
-
-## 10、`tsconfig.json`
-
-10.1 简介
-
-
-
-10.2 `exclude`
-
-
-
-10.3 `extends`
-
-
-
-10.4 `files`
-
-
-
-10.5 `include`
-
-
-
-10.6 `references`
-
-
-
-10.7 `compilerOptions`
-
-
-
-11、`tsc` 命令行编译器
-11.1 简介
-
-
-
-11.2 命令行参数
-
-
-
+### 7.1 `keyof` 运算符
+单目运算符，接受一个对象类型作为参数，返回该对象的所有键名组成的联合类型。
+```ts
+type MyObj = {
+  foo: number,
+  bar: string,
+};
+type Keys = keyof MyObj; // 'foo'|'bar'
+type KeyT = keyof any; // string | number | symbol JavaScript 对象的键名只有三种类型
+type KeyT = keyof object;  // never 没有自定义键名的类型
+
+type Capital<T extends string> = Capitalize<T>;
+// 传入keyof Obj会报错，原因是这时的类型参数是string|number|symbol，跟字符串不兼容
+type MyKeys<Obj extends object> = Capital<keyof Obj>; // 报错
+// string & keyof Obj等同于string & string|number|symbol进行交集运算，最后返回string
+type MyKeys<Obj extends object> = Capital<string & keyof Obj>;
+
+// 对象属性名采用索引形式，keyof 会返回属性名的索引类型
+interface T {
+  [prop: string]: number;
+}
+type KeyT = keyof T; // string|number JavaScript 属性名为字符串时，包含了属性名为数值的情况，因为数值属性名会自动转为字符串
+
+// 对于联合类型，keyof 返回成员共有的键名
+type A = { a: string; z: boolean };
+type B = { b: string; z: boolean };
+type KeyT = keyof (A | B); // 返回 'z'
+// 对于交叉类型，keyof 返回所有键名
+type A = { a: string; x: boolean };
+type B = { b: string; y: number };
+type KeyT = keyof (A & B); // 返回 'a' | 'x' | 'b' | 'y'
+// 相当于
+keyof (A & B) ≡ keyof A | keyof B
+
+// 取出键值组成的联合类型
+type MyObj = {
+  foo: number,
+  bar: string,
+};
+type Keys = keyof MyObj;
+type Values = MyObj[Keys]; // number|string
+```
+`keyof` 运算符往往用于精确表达对象的属性类型。
+```ts
+// K extends keyof Obj 表示K是Obj的一个属性名，传入其他字符串会报错
+function prop<Obj, K extends keyof Obj>(obj:Obj, key:K):Obj[K] {
+  return obj[key];
+}
+```
+`keyof` 的另一个用途是用于属性映射，即将一个类型的所有属性逐一映射成其他值。
+```ts
+// 类型Mutable是类型MyObj的映射类型，Mutable继承了MyObj的所有属性，但是把所有属性值去掉 readonly 修饰符
+type Mutable<Obj> = {
+  -readonly [Prop in keyof Obj]: Obj[Prop];
+};
+// 用法
+type MyObj = {
+  readonly foo: number;
+}
+// 等于 { foo: number; }
+type NewObj = Mutable<MyObj>;
+```
+### 7.2 `in` 运算符
+`JavaScript` 语言中，`in` 运算符用来确定对象是否包含某个属性名。
+```js
+const obj = { a: 123 };
+if ('a' in obj)
+  console.log('found a');
+```
+`TypeScript` 语言的类型运算中，`in`运算符有不同的用法，用来取出（遍历）联合类型的每一个成员类型。
+```ts
+type U = 'a'|'b'|'c';
+type Foo = {
+  [Prop in U]: number;
+};
+
+// 等同于
+type Foo = {
+  a: number,
+  b: number,
+  c: number
+};
+```
+### 7.3 方括号运算符
+取出对象的键值类型，比如 `T[K]` 会返回对象 `T` 的属性 `K` 的类型。
+```ts
+type Person = {
+  age: number;
+  name: string;
+  alive: boolean;
+};
+type Age = Person['age']; // Age 的类型是 number
+
+// 方括号的参数如果是联合类型，那么返回的也是联合类型
+type T = Person['age'|'name']; // number|string
+type A = Person[keyof Person]; // number|string|boolean
+
+// 如果访问不存在的属性，会报错
+type T = Person['notExisted']; // 报错
+
+// 方括号运算符的参数也可以是属性名的索引类型。
+type Obj = {
+  [key:string]: number,
+};
+type T = Obj[string]; // number
+ 
+const MyArray = ['a','b','c']; // MyArray 的类型是 { [key:number]: string }
+type Person = typeof MyArray[number]; // typeof运算优先级高于方括号 等同于 (typeof MyArray)[number] 返回 string
+
+// 注意，方括号里面不能有值的运算。
+const key = 'age';
+type Age = Person[key]; // 报错
+type Age = Person['a' + 'g' + 'e']; // 报错
+```
+### 7.4 `extends...?:` 条件运算符
+根据当前类型是否符合某种条件，返回不同的类型。
+```ts
+// 类型T是否可以赋值给类型U，即T是否为U的子类型，如果T能够赋值给类型U，表达式的结果为类型X，否则结果为类型Y
+T extends U ? X : Y
+
+interface Animal {
+  live(): void;
+}
+interface Dog extends Animal {
+  woof(): void;
+}
+type T1 = Dog extends Animal ? number : string; // number
+type T2 = RegExp extends Animal ? number : string; // string
+
+// 如果需要判断的类型是一个联合类型，那么条件运算符会展开这个联合类型
+(A|B) extends U ? X : Y
+// 等同于 相当于A和B分别进行运算符，返回结果组成一个联合类型
+(A extends U ? X : Y) | (B extends U ? X : Y)
+// 如果不希望联合类型被条件运算符展开，可以把extends两侧的操作数都放在方括号里面
+type ToArray<Type> = Type extends any ? Type[] : never;
+type T = ToArray<string|number>; // string[]|number[]
+
+type ToArray<Type> = [Type] extends [any] ? Type[] : never; // extends两侧的运算数都放在方括号里面，所以传入的联合类型不会展开
+type T = ToArray<string|number>; // (string | number)[]
+```
+### 7.5 `infer` 关键字
+`infer` 关键字用来定义泛型里面推断出来的类型参数，而不是外部传入的类型参数。
+```ts
+type Flatten<Type> = Type extends Array<infer Item> ? Item : Type;
+// 如果不用infer定义类型参数，那么就要传入两个类型参数。
+type Flatten<Type, Item> = Type extends Array<Item> ? Item : Type;
+
+type Str = Flatten<string[]>; // string
+type Num = Flatten<number>; // number 不是数组，所以直接返回自身
+```
+### 7.6 `is` 运算符
+函数返回布尔值的时候，可以使用 `is` 运算符，限定返回值与参数之间的关系。
+```ts
+
+```
+### 7.7 模板字符串
+`TypeScript` 允许使用模板字符串，构建类型。
+```ts
+
+```
+### 7.8 `satisfies` 运算符
+`satisfies` 运算符用来检测某个值是否符合指定类型。
+```ts
+
+```
+
+8、类型映射
+
+9、类型工具
+
+10、注释指令
+
+11、`tsconfig.json`
+
+12、`tsc`
