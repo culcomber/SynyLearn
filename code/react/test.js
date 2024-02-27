@@ -1,18 +1,12 @@
-class A {
-  constructor() {
-    this.x = 1;
+let phrase = "Hello";
+
+function test() {
+  if (true) { // 代码块有词法环境
+    let user = "John";
+    function sayHi() {
+      console.log(`${phrase}, ${user}`);
+    }
+    return sayHi
   }
 }
-
-class B extends A {
-  constructor() {
-    super();
-    this.x = 2;
-    super.x = 3; // 等同于对this.x赋值为3
-    console.log(super.x); // undefined  读的是A.prototype.x
-    console.log(this.x); // 3
-    console.log(super.valueOf() instanceof B); // true
-  }
-}
-
-let b = new B();
+test()(); // Hello, John
