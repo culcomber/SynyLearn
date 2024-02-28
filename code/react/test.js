@@ -1,12 +1,6 @@
-let phrase = "Hello";
-
-function test() {
-  if (true) { // 代码块有词法环境
-    let user = "John";
-    function sayHi() {
-      console.log(`${phrase}, ${user}`);
-    }
-    return sayHi
-  }
+function foo() {
+  console.log(a);
+  var a = 1;
 }
-test()(); // Hello, John
+
+foo(); // 报错，没有用var声明a
