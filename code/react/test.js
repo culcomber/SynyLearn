@@ -1,10 +1,30 @@
-let o1 = { a: 1 };
-let o2 = { b: 2 };
-o2.__proto__ = o1;
-let { ...o3 } = o2;
-o3 // { b: 2 }
-o3.a // undefined
+// 三种写法是等价的
+const promise1 = new Promise(function(resolve, reject) {
+  throw new Error('test');
+});
+const promise2 = new Promise(function(resolve, reject) {
+  try {
+    throw new Error('test');
+  } catch(e) {
+    reject(e);
+  }
+});
+const promise3 = new Promise(function(resolve, reject) {
+  reject(new Error('test'));
+});
+const promise4 = new Promise(function(resolve, reject) {
+    reject('test');
+});
 
-let { o4 } = {o2};
-o4 // { b: 2 }
-o4.a // undefined
+promise1.catch(function(error) {
+  console.log(error);
+}); // Error: test
+promise2.catch(function(error) {
+  console.log(error);
+}); // Error: test
+promise3.catch(function(error) {
+  console.log(error);
+}); // Error: test
+promise4.catch(function(error) {
+  console.log(error);
+}); // Error: test
