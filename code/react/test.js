@@ -12,9 +12,8 @@ const promise2 = new Promise(function(resolve, reject) {
 const promise3 = new Promise(function(resolve, reject) {
   reject(new Error('test'));
 });
-const promise4 = new Promise(function(resolve, reject) {
-    reject('test');
-});
+
+
 
 promise1.catch(function(error) {
   console.log(error);

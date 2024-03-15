@@ -125,4 +125,58 @@ ctrl + 1
 
 实体化修改器挡住视线
 
+关闭编辑模式下的修改器效果
+
 <img src="../assets/image-20240219133158724.png" alt="image-20240219133158724" style="zoom:33%;" />
+
+糖霜往下拉，糖霜没有吸附到甜甜圈上面
+
+开启吸附模式
+
+<img src="../assets/image-20240313131259019.png" alt="image-20240313131259019" style="zoom:30%;" />
+
+<img src="../assets/image-20240313131145414.png" alt="image-20240313131145414" style="zoom:50%;" />
+
+默认吸附到网格平面，要吸附到甜甜圈上面，需要修改配置为吸附到面
+
+<img src="../assets/image-20240313131446216.png" alt="image-20240313131446216" style="zoom:33%;" />
+
+<img src="../assets/image-20240314125808167.png" alt="image-20240314125808167" style="zoom:33%;" />
+
+拖动过程中糖霜的点穿透甜甜圈，开启面投射
+
+<img src="../assets/image-20240314130131369.png" alt="image-20240314130131369" style="zoom:25%;" />
+
+<img src="../assets/image-20240314130253702.png" alt="image-20240314130253702" style="zoom:35%;" />
+
+拖动过程中烫糖霜细节不够，应用修改器，增加细节
+
+<img src="../assets/image-20240314131328881.png" alt="image-20240314131328881" style="zoom:25%;" />
+
+<img src="../assets/image-20240314131614079.png" alt="image-20240314131614079" style="zoom:25%;" />
+
+<img src="../assets/image-20240314131650436.png" alt="image-20240314131650436" style="zoom:33%;" />
+
+拖动过程中影响到了其他面，隐藏不需要修改的面
+
+<img src="../assets/image-20240314132012492.png" alt="image-20240314132012492" style="zoom:25%;" />
+
+双击选中一圈，ctrl + 数字键盘+/- 扩展选中，点击H隐藏，Alt + H 显示
+
+<img src="../assets/image-20240314132648989.png" alt="image-20240314132648989" style="zoom:25%;" />
+
+边缘是直角，增加细节，修改器顺序很重要，先增加厚度，然后修改细节
+
+<img src="../assets/image-20240315131149615.png" alt="image-20240315131149615" style="zoom:25%;" />
+
+<img src="../assets/image-20240315131331650.png" alt="image-20240315131331650" style="zoom:25%;" />
+
+下边缘是尖，修改增加厚度修改器的边数据
+
+<img src="../assets/image-20240315131413918.png" alt="image-20240315131413918" style="zoom:25%;" />
+
+增加流下水珠
+
+点击一个点，shift+点击第二个点，点击E同时下移两个点，移动鼠标，点击鼠标左键确认位置，创建一个平面，重复点击E，不断创造平面
+
+<img src="../assets/image-20240315132214523.png" alt="image-20240315132214523" style="zoom:25%;" />
