@@ -10,7 +10,7 @@
 - 平滑缩放 ctrl + 按住鼠标中键 + 前后滑动鼠标
 - 按住放大键滑动鼠标
 
-<img src="../assets/image-20240112193100370.png" alt="image-20240112193100370" style="zoom:50%;" />
+<img src="../assets/image-20240112193100370.png" alt="image-20240112193100370" style="zoom:40%;" />
 
 **旋转** 
 
@@ -18,7 +18,7 @@
 - 按住鼠标左键拖动右上角圆圈
 - Alt + 按住鼠标左键
 
-<img src="../assets/image-20240112193013191.png" alt="image-20240112193013191" style="zoom:50%;" />
+<img src="../assets/image-20240112193013191.png" alt="image-20240112193013191" style="zoom:40%;" />
 
 **非焦点平移** 
 
@@ -105,7 +105,7 @@ ctrl + 1
 
 重命名 双击名字 / F2
 
-<img src="../assets/image-20240125130539278.png" alt="image-20240125130539278" style="zoom:50%;" />
+<img src="../assets/image-20240125130539278.png" alt="image-20240125130539278" style="zoom:40%;" />
 
 删除下半部分 打开透视模式
 
@@ -119,7 +119,7 @@ ctrl + 1
 
 <img src="../assets/image-20240219132404534.png" alt="image-20240219132404534" style="zoom:33%;" />
 
-给糖霜增加厚度
+给糖霜增加厚度 0.025 1
 
 <img src="../assets/image-20240219132716672.png" alt="image-20240219132716672" style="zoom:33%;" />
 
@@ -133,7 +133,7 @@ ctrl + 1
 
 开启吸附模式
 
-<img src="../assets/image-20240313131259019.png" alt="image-20240313131259019" style="zoom:30%;" />
+<img src="../assets/image-20240313131259019.png" alt="image-20240313131259019" style="zoom:20%;" />
 
 <img src="../assets/image-20240313131145414.png" alt="image-20240313131145414" style="zoom:50%;" />
 
@@ -145,33 +145,35 @@ ctrl + 1
 
 拖动过程中糖霜的点穿透甜甜圈，开启面投射
 
-<img src="../assets/image-20240314130131369.png" alt="image-20240314130131369" style="zoom:25%;" />
+<img src="../assets/image-20240314130131369.png" alt="image-20240314130131369" style="zoom:20%;" />
 
 <img src="../assets/image-20240314130253702.png" alt="image-20240314130253702" style="zoom:35%;" />
 
 拖动过程中烫糖霜细节不够，应用修改器，增加细节
 
-<img src="../assets/image-20240314131328881.png" alt="image-20240314131328881" style="zoom:25%;" />
+<img src="../assets/image-20240314131328881.png" alt="image-20240314131328881" style="zoom:20%;" />
 
-<img src="../assets/image-20240314131614079.png" alt="image-20240314131614079" style="zoom:25%;" />
+<img src="../assets/image-20240314131614079.png" alt="image-20240314131614079" style="zoom:20%;" />
 
 <img src="../assets/image-20240314131650436.png" alt="image-20240314131650436" style="zoom:33%;" />
 
 拖动过程中影响到了其他面，隐藏不需要修改的面
 
-<img src="../assets/image-20240314132012492.png" alt="image-20240314132012492" style="zoom:25%;" />
+<img src="../assets/image-20240314132012492.png" alt="image-20240314132012492" style="zoom:20%;" />
 
 双击选中一圈，ctrl + 数字键盘+/- 扩展选中，点击H隐藏，Alt + H 显示
 
-<img src="../assets/image-20240314132648989.png" alt="image-20240314132648989" style="zoom:25%;" />
+扩展选区菜单如下
+
+<img src="../assets/image-20240314132648989.png" alt="image-20240314132648989" style="zoom:35%;" />
 
 边缘是直角，增加细节，修改器顺序很重要，先增加厚度，然后修改细节
 
 <img src="../assets/image-20240315131149615.png" alt="image-20240315131149615" style="zoom:25%;" />
 
-<img src="../assets/image-20240315131331650.png" alt="image-20240315131331650" style="zoom:25%;" />
+<img src="../assets/image-20240315131331650.png" alt="image-20240315131331650" style="zoom:35%;" />
 
-下边缘是尖，修改增加厚度修改器的边数据
+下边缘是尖，修改增加厚度修改器的边数据，折痕内侧修改为1
 
 <img src="../assets/image-20240315131413918.png" alt="image-20240315131413918" style="zoom:25%;" />
 
@@ -180,3 +182,63 @@ ctrl + 1
 点击一个点，shift+点击第二个点，点击E同时下移两个点，移动鼠标，点击鼠标左键确认位置，创建一个平面，重复点击E，不断创造平面
 
 <img src="../assets/image-20240315132214523.png" alt="image-20240315132214523" style="zoom:25%;" />
+
+## 4、雕刻
+
+1、在衰减时部分节点在边缘，容易造成错位，点击G选中点，移动到合适位置
+
+<img src="../assets/image-20240322125136882.png" alt="image-20240322125136882" style="zoom:40%;" />
+
+2、有些部分和模型分离，关掉衰减，点击G选中点，就会恢复
+
+<img src="../assets/image-20240322124715620.png" alt="image-20240322124715620" style="zoom:25%;" />
+
+<img src="../assets/image-20240322124741085.png" alt="image-20240322124741085" style="zoom:25%;" />
+
+3、使用修改器帮助修正
+
+shrink wrap modifier
+
+<img src="../assets/image-20240322125528347.png" alt="image-20240322125528347" style="zoom:35%;" />
+
+将网格收缩到物体，目标上面的小吸管可以选择物品
+
+<img src="../assets/image-20240322125900299.png" alt="image-20240322125900299" style="zoom:35%;" />
+
+修改器的执行顺序是从上到下，糖霜收缩到甜甜圈应该发生在糖霜突出之前
+
+<img src="../assets/image-20240322130016612.png" alt="image-20240322130016612" style="zoom:35%;" />
+
+<img src="../assets/image-20240322130030376.png" alt="image-20240322130030376" style="zoom:15%;" />
+
+移动到合适位置后，应用修改器，就不用像1/2两步一样一个个修改
+
+<img src="../assets/image-20240322130324418.png" alt="image-20240322130324418" style="zoom:35%;" />
+
+4、糖霜底部边缘比起顶部更厚
+
+进入编辑模式，拖动网格并不会增加厚度，糖霜厚度是修改器生成的，**让这个厚度生成，应用掉这个修改器**
+
+<img src="../assets/image-20240322131000800.png" alt="image-20240322131000800" style="zoom:25%;" />
+
+<img src="../assets/image-20240322131041121.png" alt="image-20240322131041121" style="zoom:25%;" />
+
+此时就可以拖动外边的节点增加厚度，但是一个个操作很繁琐，编辑模式适合精细调整
+
+<img src="../assets/image-20240322131415487.png" alt="image-20240322131415487" style="zoom:33%;" />
+
+organic freehand tool —— sculpting 雕刻可以快速添加很多复杂的形状
+
+<img src="../assets/image-20240322131716743.png" alt="image-20240322131716743" style="zoom:35%;" />
+
+点击F后，滑动鼠标可以修改笔刷尺寸
+
+shift + F 修改强度
+
+<img src="../assets/image-20240322132348792.png" alt="image-20240322132348792" style="zoom:33%;" />
+
+底部增加厚度后，因为细节不够导致锯齿干，应用网格修改器
+
+<img src="../assets/image-20240322133406623.png" alt="image-20240322133406623" style="zoom:33%;" />
+
+<img src="../assets/image-20240322133048248.png" alt="image-20240322133048248" style="zoom:33%;" />
