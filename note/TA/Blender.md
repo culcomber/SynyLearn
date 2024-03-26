@@ -237,8 +237,20 @@ shift + F 修改强度
 
 <img src="../assets/image-20240322132348792.png" alt="image-20240322132348792" style="zoom:33%;" />
 
-底部增加厚度后，因为细节不够导致锯齿干，应用网格修改器
+底部增加厚度后，因为细节不够导致锯齿干，应用网格修改器，视图层级增加网格，1-->4    2-->4*4=16
 
 <img src="../assets/image-20240322133406623.png" alt="image-20240322133406623" style="zoom:33%;" />
 
-<img src="../assets/image-20240322133048248.png" alt="image-20240322133048248" style="zoom:33%;" />
+<img src="../assets/image-20240326125111393.png" alt="image-20240326125111393" style="zoom:33%;" />
+
+做出夸张水滴
+
+<img src="../assets/image-20240326132133862.png" alt="image-20240326132133862" style="zoom:50%;" />
+
+<img src="../assets/image-20240326132119973.png" alt="image-20240326132119973" style="zoom:25%;" />
+
+<img src="../assets/image-20240326132250762.png" alt="image-20240326132250762" style="zoom:25%;" />
+
+遮罩
+
+<img src="../assets/image-20240326135701915.png" alt="image-20240326135701915" style="zoom:33%;" />
