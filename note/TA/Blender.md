@@ -251,6 +251,48 @@ shift + F 修改强度
 
 <img src="../assets/image-20240326132250762.png" alt="image-20240326132250762" style="zoom:25%;" />
 
-遮罩
+遮罩，可以取消应用雕刻效果，勾选仅前面的面，不然遮罩会涂抹到后面
 
 <img src="../assets/image-20240326135701915.png" alt="image-20240326135701915" style="zoom:33%;" />
+
+<img src="../assets/image-20240328125905546.png" alt="image-20240328125905546" style="zoom:33%;" />
+
+<img src="../assets/image-20240328130903897.png" alt="image-20240328130903897" style="zoom:33%;" />
+
+仅看到选中物体 / 
+
+<img src="../assets/image-20240328130105903.png" alt="image-20240328130105903" style="zoom:25%;" />
+
+反转遮罩选中内容 Ctrl+I，此时选中膨胀笔刷，只会对边缘有影响
+
+<img src="../assets/image-20240328131307204.png" alt="image-20240328131307204" style="zoom:23%;" />
+
+如果要对边缘做统一膨胀处理，网格滤镜：将一个统一的值应用到整个模型上
+
+<img src="../assets/image-20240328131417730.png" alt="image-20240328131417730" style="zoom:50%;" />
+
+可以改变效果如下，鼠标往右拖动就会膨胀，鼠标往左拖动就会向内压缩（方向效果）
+
+<img src="../assets/image-20240328131629059.png" alt="image-20240328131629059" style="zoom:50%;" />
+
+降低强度，方便控制
+
+<img src="../assets/image-20240328132217202.png" alt="image-20240328132217202" style="zoom:50%;" />
+
+边缘过度太生硬，使用平滑遮罩
+
+<img src="../assets/image-20240328132059857.png" alt="image-20240328132059857" style="zoom:50%;" />
+
+存在虚影，遮罩本身虚化，作用效果不是很准确
+
+<img src="../assets/image-20240328132657658.png" alt="image-20240328132657658" style="zoom:25%;" />
+
+关闭遮罩
+
+<img src="../assets/image-20240328132837352.png" alt="image-20240328132837352" style="zoom:50%;" />
+
+使用光滑笔刷
+
+<img src="../assets/image-20240328132915857.png" alt="image-20240328132915857" style="zoom:50%;" />
+
+<img src="../assets/image-20240328133008560.png" alt="image-20240328133008560" style="zoom:50%;" />
