@@ -296,3 +296,41 @@ shift + F 修改强度
 <img src="../assets/image-20240328132915857.png" alt="image-20240328132915857" style="zoom:50%;" />
 
 <img src="../assets/image-20240328133008560.png" alt="image-20240328133008560" style="zoom:50%;" />
+
+5、材质
+
+<img src="../assets/image-20240401125255926.png" alt="image-20240401125255926" style="zoom:50%;" />
+
+shift + A 增加网格——平面，S拉伸3倍大
+
+糖霜附着到甜甜圈上面，父子级绑定，选定子级，shift选中父级，Ctrl+P进行绑定，移动的时候是选中子级
+
+<img src="../assets/image-20240401130511130.png" alt="image-20240401130511130" style="zoom:50%;" />
+
+给平面增加不是纯色的材质
+
+<img src="../assets/image-20240401131336670.png" alt="image-20240401131336670" style="zoom:50%;" />
+
+选择图片
+
+<img src="../assets/image-20240401135336273.png" alt="image-20240401135336273" style="zoom:50%;" />
+
+右侧菜单不适合做大量材质处理，打开Shading面板
+
+<img src="../assets/image-20240401132438869.png" alt="image-20240401132438869" style="zoom:50%;" />
+
+!
+
+用不到的面板，在两个面板分割线处右键，选择合并区域
+
+<img src="../assets/image-20240401132706614.png" alt="image-20240401132706614" style="zoom:50%;" />
+
+<img src="../assets/image-20240401135913329.png" alt="image-20240401135913329" style="zoom:50%;" />
+
+
+
+
+
+
+
+ASD
