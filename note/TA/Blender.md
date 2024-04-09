@@ -297,7 +297,7 @@ shift + F 修改强度
 
 <img src="../assets/image-20240328133008560.png" alt="image-20240328133008560" style="zoom:50%;" />
 
-5、材质
+## 5、材质
 
 <img src="../assets/image-20240401125255926.png" alt="image-20240401125255926" style="zoom:50%;" />
 
@@ -319,18 +319,44 @@ shift + A 增加网格——平面，S拉伸3倍大
 
 <img src="../assets/image-20240401132438869.png" alt="image-20240401132438869" style="zoom:50%;" />
 
-!
-
 用不到的面板，在两个面板分割线处右键，选择合并区域
 
 <img src="../assets/image-20240401132706614.png" alt="image-20240401132706614" style="zoom:50%;" />
 
-<img src="../assets/image-20240401135913329.png" alt="image-20240401135913329" style="zoom:50%;" />
+将原本右侧菜单的材质面板（简化版本）扩展成下面的节点，改变节点右侧菜单同步修改
 
+<img src="../assets/image-20240409125253901.png" alt="image-20240409125253901" style="zoom:50%;" />
 
+两个节点之间 shift + A 可以增加新节点，调节色相饱和度
 
+<img src="../assets/image-20240409125459528.png" alt="image-20240409125459528" style="zoom:50%;" />
 
+也可以直接点解要修改的参数旁边的节点
 
+<img src="../assets/image-20240409125716623.png" alt="image-20240409125716623" style="zoom:50%;" />
 
+给大理石添加粗糙的信息，防止每一处都是一样的光滑，这个张图片不是普通的图片，需要设置节点颜色信息为no-color，让blender处理时只关注图片数值信息
 
-ASD
+<img src="../assets/image-20240409125946792.png" alt="image-20240409125946792" style="zoom:50%;" />
+
+增加大理石凹凸效果，需要调整法向信息，本质指面的朝向，通过调整法线伪造细节
+
+<img src="../assets/image-20240409130957837.png" alt="image-20240409130957837" style="zoom:50%;" />
+
+需要将图像纹理转换成着色器可以识别的信息
+
+<img src="../assets/image-20240409131155162.png" alt="image-20240409131155162" style="zoom:50%;" />
+
+ctrl + space可以关闭节点处理面板
+
+N唤出面板，可以直接使用poliigon插件
+
+通过/可以隔离糖霜和甜甜圈
+
+甜甜圈中间通常有白边，进入纹理面板，直接在模型上绘制贴图
+
+<img src="../assets/image-20240409132221033.png" alt="image-20240409132221033" style="zoom:50%;" />
+
+需要增加绘制的载体
+
+<img src="../assets/image-20240409132444000.png" alt="image-20240409132444000" style="zoom:33%;" />
