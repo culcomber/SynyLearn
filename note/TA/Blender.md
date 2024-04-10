@@ -351,12 +351,38 @@ ctrl + space可以关闭节点处理面板
 
 N唤出面板，可以直接使用poliigon插件
 
-通过/可以隔离糖霜和甜甜圈
+通过/可以隔离糖霜和甜甜圈，也会隔离灯光，使用材质预览就可以看到有灯光的颜色
+
+<img src="../assets/image-20240410130650260.png" alt="image-20240410130650260" style="zoom:33%;" />
 
 甜甜圈中间通常有白边，进入纹理面板，直接在模型上绘制贴图
 
 <img src="../assets/image-20240409132221033.png" alt="image-20240409132221033" style="zoom:50%;" />
 
+顶部菜单显示不全，在顶部使用滚轮滑动菜单
+
+<img src="../assets/image-20240410130841609.png" alt="image-20240410130841609" style="zoom:50%;" />
+
 需要增加绘制的载体
 
 <img src="../assets/image-20240409132444000.png" alt="image-20240409132444000" style="zoom:33%;" />
+
+改变甜甜圈材质
+
+<img src="../assets/image-20240410131035413.png" alt="image-20240410131035413" style="zoom:40%;" />
+
+新建纯色材质，如果色盘是黑色，滑动右侧圆点到最上面
+
+<img src="../assets/image-20240410131419299.png" alt="image-20240410131419299" style="zoom:50%;" />
+
+右侧面板选择新建好的材质，此时左右两边绘制是同步的，原理是把右侧的`3D`模型展开成左侧平面(UV unwrapping)
+
+<img src="../assets/image-20240410131625824.png" alt="image-20240410131625824" style="zoom:33%;" />
+
+选择笔刷颜色，比甜甜圈材质偏白写些，可以使用吸色笔
+
+<img src="../assets/image-20240410132201972.png" alt="image-20240410132201972" style="zoom:50%;" />
+
+保存材质
+
+<img src="../assets/image-20240410132827123.png" alt="image-20240410132827123" style="zoom:50%;" />
