@@ -33,7 +33,6 @@
 
 - 取消移动回到原点 esc / 右键点击
 
-
 **导出图像** F12 / 渲染--导出图像
 
 **切换摄像机视角** 0
@@ -44,7 +43,6 @@
 
 - N唤出菜单，暂时跟随摄像机视角，此时摄影机是焦点
 
-
 <img src="../assets/image-20240116130108615.png" alt="image-20240116130108615" style="zoom:33%;" />
 
 **缩放** 
@@ -53,7 +51,6 @@
 
 - 轴缩放 S + X/X/Z
 
-
 **旋转**
 
 - 焦点旋转 R
@@ -61,7 +58,6 @@
 - 焦点轴旋转 R + X/X/Z
 
 - 自由旋转 R + 鼠标中键
-
 
 **新建材质**
 
@@ -133,29 +129,19 @@ ctrl + 1
 
 开启吸附模式
 
-<img src="../assets/image-20240313131259019.png" alt="image-20240313131259019" style="zoom:20%;" />
-
-<img src="../assets/image-20240313131145414.png" alt="image-20240313131145414" style="zoom:50%;" />
+<img src="../assets/image-20240313131259019.png" alt="image-20240313131259019" style="zoom:20%;" /><img src="../assets/image-20240313131145414.png" alt="image-20240313131145414" style="zoom:50%;" />
 
 默认吸附到网格平面，要吸附到甜甜圈上面，需要修改配置为吸附到面
 
-<img src="../assets/image-20240313131446216.png" alt="image-20240313131446216" style="zoom:33%;" />
-
-<img src="../assets/image-20240314125808167.png" alt="image-20240314125808167" style="zoom:33%;" />
+<img src="../assets/image-20240313131446216.png" alt="image-20240313131446216" style="zoom:33%;" /><img src="../assets/image-20240314125808167.png" alt="image-20240314125808167" style="zoom:33%;" />
 
 拖动过程中糖霜的点穿透甜甜圈，开启面投射
 
-<img src="../assets/image-20240314130131369.png" alt="image-20240314130131369" style="zoom:20%;" />
-
-<img src="../assets/image-20240314130253702.png" alt="image-20240314130253702" style="zoom:35%;" />
+<img src="../assets/image-20240314130131369.png" alt="image-20240314130131369" style="zoom:20%;" /><img src="../assets/image-20240314130253702.png" alt="image-20240314130253702" style="zoom:35%;" />
 
 拖动过程中烫糖霜细节不够，应用修改器，增加细节
 
-<img src="../assets/image-20240314131328881.png" alt="image-20240314131328881" style="zoom:20%;" />
-
-<img src="../assets/image-20240314131614079.png" alt="image-20240314131614079" style="zoom:20%;" />
-
-<img src="../assets/image-20240314131650436.png" alt="image-20240314131650436" style="zoom:33%;" />
+<img src="../assets/image-20240314131328881.png" alt="image-20240314131328881" style="zoom:20%;" /><img src="../assets/image-20240314131614079.png" alt="image-20240314131614079" style="zoom:20%;" /><img src="../assets/image-20240314131650436.png" alt="image-20240314131650436" style="zoom:33%;" />
 
 拖动过程中影响到了其他面，隐藏不需要修改的面
 
@@ -169,9 +155,7 @@ ctrl + 1
 
 边缘是直角，增加细节，修改器顺序很重要，先增加厚度，然后修改细节
 
-<img src="../assets/image-20240315131149615.png" alt="image-20240315131149615" style="zoom:25%;" />
-
-<img src="../assets/image-20240315131331650.png" alt="image-20240315131331650" style="zoom:35%;" />
+<img src="../assets/image-20240315131149615.png" alt="image-20240315131149615" style="zoom:25%;" /><img src="../assets/image-20240315131331650.png" alt="image-20240315131331650" style="zoom:35%;" />
 
 下边缘是尖，修改增加厚度修改器的边数据，折痕内侧修改为1
 
@@ -191,9 +175,7 @@ ctrl + 1
 
 2、有些部分和模型分离，关掉衰减，点击G选中点，就会恢复
 
-<img src="../assets/image-20240322124715620.png" alt="image-20240322124715620" style="zoom:25%;" />
-
-<img src="../assets/image-20240322124741085.png" alt="image-20240322124741085" style="zoom:25%;" />
+<img src="../assets/image-20240322124715620.png" alt="image-20240322124715620" style="zoom:25%;" /><img src="../assets/image-20240322124741085.png" alt="image-20240322124741085" style="zoom:25%;" />
 
 3、使用修改器帮助修正
 
@@ -207,9 +189,7 @@ shrink wrap modifier
 
 修改器的执行顺序是从上到下，糖霜收缩到甜甜圈应该发生在糖霜突出之前
 
-<img src="../assets/image-20240322130016612.png" alt="image-20240322130016612" style="zoom:35%;" />
-
-<img src="../assets/image-20240322130030376.png" alt="image-20240322130030376" style="zoom:15%;" />
+<img src="../assets/image-20240322130016612.png" alt="image-20240322130016612" style="zoom:35%;" /><img src="../assets/image-20240322130030376.png" alt="image-20240322130030376" style="zoom:15%;" />
 
 移动到合适位置后，应用修改器，就不用像1/2两步一样一个个修改
 
@@ -219,9 +199,7 @@ shrink wrap modifier
 
 进入编辑模式，拖动网格并不会增加厚度，糖霜厚度是修改器生成的，**让这个厚度生成，应用掉这个修改器**
 
-<img src="../assets/image-20240322131000800.png" alt="image-20240322131000800" style="zoom:25%;" />
-
-<img src="../assets/image-20240322131041121.png" alt="image-20240322131041121" style="zoom:25%;" />
+<img src="../assets/image-20240322131000800.png" alt="image-20240322131000800" style="zoom:25%;" /><img src="../assets/image-20240322131041121.png" alt="image-20240322131041121" style="zoom:25%;" />
 
 此时就可以拖动外边的节点增加厚度，但是一个个操作很繁琐，编辑模式适合精细调整
 
@@ -239,25 +217,15 @@ shift + F 修改强度
 
 底部增加厚度后，因为细节不够导致锯齿干，应用网格修改器，视图层级增加网格，1-->4    2-->4*4=16
 
-<img src="../assets/image-20240322133406623.png" alt="image-20240322133406623" style="zoom:33%;" />
-
-<img src="../assets/image-20240326125111393.png" alt="image-20240326125111393" style="zoom:33%;" />
+<img src="../assets/image-20240322133406623.png" alt="image-20240322133406623" style="zoom:33%;" /><img src="../assets/image-20240326125111393.png" alt="image-20240326125111393" style="zoom:33%;" />
 
 做出夸张水滴
 
-<img src="../assets/image-20240326132133862.png" alt="image-20240326132133862" style="zoom:50%;" />
-
-<img src="../assets/image-20240326132119973.png" alt="image-20240326132119973" style="zoom:25%;" />
-
-<img src="../assets/image-20240326132250762.png" alt="image-20240326132250762" style="zoom:25%;" />
+<img src="../assets/image-20240326132133862.png" alt="image-20240326132133862" style="zoom:50%;" /><img src="../assets/image-20240326132119973.png" alt="image-20240326132119973" style="zoom:25%;" /><img src="../assets/image-20240326132250762.png" alt="image-20240326132250762" style="zoom:25%;" />
 
 遮罩，可以取消应用雕刻效果，勾选仅前面的面，不然遮罩会涂抹到后面
 
-<img src="../assets/image-20240326135701915.png" alt="image-20240326135701915" style="zoom:33%;" />
-
-<img src="../assets/image-20240328125905546.png" alt="image-20240328125905546" style="zoom:33%;" />
-
-<img src="../assets/image-20240328130903897.png" alt="image-20240328130903897" style="zoom:33%;" />
+<img src="../assets/image-20240326135701915.png" alt="image-20240326135701915" style="zoom:33%;" /><img src="../assets/image-20240328125905546.png" alt="image-20240328125905546" style="zoom:33%;" /><img src="../assets/image-20240328130903897.png" alt="image-20240328130903897" style="zoom:33%;" />
 
 仅看到选中物体 / 
 
@@ -293,9 +261,7 @@ shift + F 修改强度
 
 使用光滑笔刷
 
-<img src="../assets/image-20240328132915857.png" alt="image-20240328132915857" style="zoom:50%;" />
-
-<img src="../assets/image-20240328133008560.png" alt="image-20240328133008560" style="zoom:50%;" />
+<img src="../assets/image-20240328132915857.png" alt="image-20240328132915857" style="zoom:50%;" /><img src="../assets/image-20240328133008560.png" alt="image-20240328133008560" style="zoom:50%;" />
 
 ## 5、材质
 
@@ -403,9 +369,7 @@ N唤出面板，可以直接使用poliigon插件
 
 糖针——分布一些点到模型上
 
-<img src="../assets/image-20240411131029015.png" alt="image-20240411131029015" style="zoom:50%;" />
-
-<img src="../assets/image-20240411131340568.png" alt="image-20240411131340568" style="zoom:50%;" />
+<img src="../assets/image-20240411131029015.png" alt="image-20240411131029015" style="zoom:50%;" /><img src="../assets/image-20240411131340568.png" alt="image-20240411131340568" style="zoom:50%;" />
 
 因为输入糖霜模型-->将糖霜变成点分布-->输入糖霜模型，所以糖霜消失了，点和模型都需要，增加合并集合节点的Node
 
@@ -442,3 +406,25 @@ N唤出面板，可以直接使用poliigon插件
 4、将模型连接到 `实例化于点上`
 
 <img src="../assets/image-20240411133731305.png" alt="image-20240411133731305" style="zoom:50%;" />
+
+解决问题
+
+1、糖霜之间会相互覆盖，改变分布方式
+
+<img src="../assets/image-20240412123849422.png" alt="image-20240412123849422" style="zoom:50%;" /><img src="../assets/image-20240412124709031.png" alt="image-20240412124709031" style="zoom:50%;" />
+
+2、糖霜底部不需要糖针，使用权重绘制，新建数据修改器，然后新建 `已命名节点`，`已命名节点` 的名称选择数据修改器，然后就可以开始绘制，1表示展示，0表示不展示，ctrl可以切换权重
+
+<img src="../assets/image-20240412124814819.png" alt="image-20240412124814819" style="zoom:50%;" /><img src="../assets/image-20240412125207009.png" alt="image-20240412125207009" style="zoom:50%;" /><img src="../assets/image-20240412125319388.png" alt="image-20240412125319388" style="zoom:50%;" /><img src="../assets/image-20240412125418482.png" alt="image-20240412125418482" style="zoom:50%;" />
+
+3、球体锯齿感严重，选中物体，平滑着色，快速选中：数字键盘`.` / `~`查看所选，可以选中让物体居中
+
+4、复制一个新的甜甜圈，使用不同密度的糖针，把密度值暴露出来，然后就可以在各自糖霜修改中自定义，N调出面板可以重命名 `密度最大值`，几何节点可以制作一些自定义程度非常高的东西，并且方便的调用
+
+<img src="../assets/image-20240412131449898.png" alt="image-20240412131449898" style="zoom:50%;" /><img src="../assets/image-20240412132340106.png" alt="image-20240412132340106" style="zoom:50%;" />
+
+5、调整甜甜圈大小，N调出面板，可以看到物体尺寸，A选中选中所有物体，shift+左键排除摄影机和灯光，S缩放，按住ctrl此时拖动每次缩小0.1，输入具体数值回车，可以准确缩放，选中物体 `ctrl+A` 缩放，应用缩放，不然物体大小其实没有改变只是按比例展示
+
+<img src="../assets/image-20240412133549470.png" alt="image-20240412133549470" style="zoom:50%;" />
+
+6、糖针不见了
