@@ -427,4 +427,12 @@ N唤出面板，可以直接使用poliigon插件
 
 <img src="../assets/image-20240412133549470.png" alt="image-20240412133549470" style="zoom:50%;" />
 
-6、糖针不见了
+6、糖针不见了，因为糖针的密度是相对与整个空间的，调整糖针密度为原来十倍，修改距离最小值
+
+<img src="../assets/image-20240412135810972.png" alt="image-20240412135810972" style="zoom:50%;" />
+
+7、糖针密度太大，修改起来不方便，100200和100000没有区别，增加一个数值计算的节点
+
+<img src="../assets/image-20240415125401533.png" alt="image-20240415125401533" style="zoom:50%;" /><img src="../assets/image-20240415125724780.png" alt="image-20240415125724780" style="zoom:50%;" />
+
+<img src="../assets/image-20240415125538369.png" alt="image-20240415125538369" style="zoom:50%;" />
