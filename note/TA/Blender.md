@@ -436,3 +436,27 @@ N唤出面板，可以直接使用poliigon插件
 <img src="../assets/image-20240415125401533.png" alt="image-20240415125401533" style="zoom:50%;" /><img src="../assets/image-20240415125724780.png" alt="image-20240415125724780" style="zoom:50%;" />
 
 <img src="../assets/image-20240415125538369.png" alt="image-20240415125538369" style="zoom:50%;" />
+
+## 7、长糖针
+
+blender会根据游标位置新建物体，通过 `shift+右键` 可以移动游标
+
+<img src="../assets/image-20240416130707742.png" alt="image-20240416130707742" style="zoom:50%;" />
+
+创建圆柱体
+
+<img src="../assets/image-20240416131002954.png" alt="image-20240416131002954" style="zoom:50%;" />
+
+防止被裁剪，需要调节裁起点，在输入框按住左键，左右拖动可以快速调节数值
+
+<img src="../assets/image-20240416131307459.png" alt="image-20240416131307459" style="zoom:50%;" />
+
+建立长糖针两端圆角，进入编辑模式的面，左键选中一个面，shift+右键选中另一个面，ctrl + B拉伸，鼠标向上/下移动可以增加平面
+
+<img src="../assets/image-20240416132033857.png" alt="image-20240416132033857" style="zoom:50%;" />
+
+shift+D复制，x往轴移动，进入编辑模式，选择点模式，打开透视模式，选中上方的点，关掉衰减，G选中，Z往上拖动
+
+<img src="../assets/image-20240416133451891.png" alt="image-20240416133451891" style="zoom:33%;" />
+
+弯曲
