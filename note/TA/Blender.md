@@ -467,6 +467,29 @@ shift+D复制，x往轴移动，进入编辑模式，选择点模式，打开透
 
 <img src="../assets/image-20240423132937161.png" alt="image-20240423132937161" style="zoom:33%;" /><img src="../assets/image-20240423133056041.png" alt="image-20240423133056041" style="zoom:33%;" />
 
-新建集合管理物体
+新建集合管理物体，可以直接拖拽到集合，或者选中物体后右键，添加到集合
 
 <img src="../assets/image-20240423133308959.png" alt="image-20240423133308959" style="zoom:50%;" />
+
+复制甜甜圈和糖霜后，选中糖霜，和被复制者共用一个几何节点，点击数字就会创建一个新的几何节点了，这样修改就不会影响到圆糖针
+
+<img src="../assets/image-20240424125008248.png" alt="image-20240424125008248" style="zoom:50%;" />
+
+选中长糖针后切换到几何节点面板，取消固定的园糖针，才能看到长糖针
+
+<img src="../assets/image-20240424125546984.png" alt="image-20240424125546984" style="zoom:50%;" />
+
+删除园糖针实例，直接把长糖针集合拖动到集合面板，勾选相关配置，但是长糖针摆放位置有问题，配置旋转，糖针x轴旋转90度R+X+90，ctrl可以增量旋转5度，ctrl+A应用旋转
+
+<img src="../assets/image-20240424125839479.png" alt="image-20240424125839479" style="zoom:40%;" /><img src="../assets/image-20240424130014589.png" alt="image-20240424130014589" style="zoom:40%;" /><img src="../assets/image-20240424130111225.png" alt="image-20240424130111225" style="zoom:50%;" /><img src="../assets/image-20240424130426369.png" alt="image-20240424130426369" style="zoom:40%;" />
+
+让长糖针每个旋转角度不一样
+
+<img src="../assets/image-20240424131211257.png" alt="image-20240424131211257" style="zoom:40%;" /><img src="../assets/image-20240424131740110.png" alt="image-20240424131740110" style="zoom:53%;" />
+
+修改糖针大小
+
+<img src="../assets/image-20240424132032105.png" alt="image-20240424132032105" style="zoom:50%;" />
+
+## 8、渲染
+
