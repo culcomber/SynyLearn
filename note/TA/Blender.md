@@ -493,3 +493,13 @@ shift+D复制，x往轴移动，进入编辑模式，选择点模式，打开透
 
 ## 8、渲染
 
+将相同材质应用于多个物体，选中A物体创建材质，shift选中其他要共享物体，最后shift点击A，选中A，shift+L关联到A材质
+
+<img src="../assets/image-20240425130159023.png" alt="image-20240425130159023" style="zoom:50%;" />
+
+切换到着色面板，创建节点，金属度和粗糙度也是用随机值
+
+
+
+<img src="../assets/image-20240425130550993.png" alt="image-20240425130550993" style="zoom:33%;" /><img src="../assets/image-20240425130807598.png" alt="image-20240425130807598" style="zoom:33%;" /><img src="../assets/image-20240425132842044.png" alt="image-20240425132842044" style="zoom:33%;" />
+
