@@ -503,3 +503,4 @@ shift+D复制，x往轴移动，进入编辑模式，选择点模式，打开透
 
 <img src="../assets/image-20240425130550993.png" alt="image-20240425130550993" style="zoom:33%;" /><img src="../assets/image-20240425130807598.png" alt="image-20240425130807598" style="zoom:33%;" /><img src="../assets/image-20240425132842044.png" alt="image-20240425132842044" style="zoom:33%;" />
 
+切换到摄影机模式，选中摄影机，shift + ~ 可以自由移动
