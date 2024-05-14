@@ -503,4 +503,22 @@ shift+D复制，x往轴移动，进入编辑模式，选择点模式，打开透
 
 <img src="../assets/image-20240425130550993.png" alt="image-20240425130550993" style="zoom:33%;" /><img src="../assets/image-20240425130807598.png" alt="image-20240425130807598" style="zoom:33%;" /><img src="../assets/image-20240425132842044.png" alt="image-20240425132842044" style="zoom:33%;" />
 
-切换到摄影机模式，选中摄影机，shift + ~ 可以自由移动
+切换到摄影机模式，选中摄影机，shift + ~ 可以自由移动，WASDE(向上)Q(向下)可以移动，滚轮可以调整速度，左键结束移动
+
+Eevee实时渲染 光栅渲染引擎 渲染很快但是会不准确，选择Cycle 离线渲染
+
+ALT+G可以让物体移到中心
+
+<img src="../assets/image-20240429131950862.png" alt="image-20240429131950862" style="zoom:33%;" />
+
+使用GPU渲染
+
+<img src="../assets/image-20240514124710396.png" alt="image-20240514124710396" style="zoom:50%;" />
+
+增加阴影
+
+<img src="../assets/image-20240429131428261.png" alt="image-20240429131428261" style="zoom:33%;" /><img src="../assets/image-20240429131632475.png" alt="image-20240429131632475" style="zoom:33%;" />
+
+光会透过物体，让阴影边缘柔和，增加表面散射
+
+<img src="../assets/image-20240514125155356.png" alt="image-20240514125155356" style="zoom:50%;" />
