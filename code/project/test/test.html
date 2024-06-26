@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .mulit_line{line-height:150px; border:1px dashed #cccccc; padding-left:5px; font-size:0;}
+        .mulit_line span{display:-moz-inline-stack; display:inline-block; line-height:1.4em; vertical-align:middle;}
+        .mulit_line i{width:0; display:-moz-inline-stack; display:inline-block; vertical-align:middle;}
+
+        .box{background:black; color:white; padding-left:20px;}
+        .dot{display:inline-block; width:4px; height:4px; background:white;}
+
+    </style>
+</head>
+<body>
+<p class="mulit_line">
+    xxxxxxxx
+    <span style="font-size:12px;">这里是高度为150像素的标签内的多行文字，文字大小为12像素。<br />这里是第二行，用来测试多行的显示效果。</span><i>&nbsp;</i>
+</p>
+<br />
+<span class="box">
+    <span class="dot"></span>
+    我是一段卡哇伊的文字。
+</span>
+</body>
+</html>
