@@ -1,18 +1,6 @@
-```js
-const shape = {
-  radius: 10,
-  diameter() {
-    return this.radius * 2;
-  },
-  perimeter: () => 2 * Math.PI * this.radius, // 箭头函数this不会变，指向shape = {this-->window}
-};
+参考：https://github.com/lydiahallie/javascript-questions
 
-console.log(shape.diameter()); // 是直接取出shape.diameter地址
-console.log(shape.perimeter());
-// 20 and NaN
-```
-
-参考
+<img src="./assets/image-20240725155051737.png" alt="image-20240725155051737" style="zoom:80%;" />
 
 ```js
 var obj ={
@@ -54,24 +42,9 @@ foo.call({ id: 42 }); // id: 42 此时才生成箭头函数
 // 箭头函数导致this总是指向函数定义生效时所在的对象（本例是{id: 42}），所以打印出来的是42
 ```
 
-4
+<img src="./assets/image-20240725155120706.png" alt="image-20240725155120706" style="zoom:60%;" />
 
-```js
-+true;
-!'Lydia';
-```
-
-7
-
-```js
-let a = 3;
-let b = new Number(3);
-let c = 3;
-
-console.log(a == b);
-console.log(a === b);
-console.log(b === c);
-```
+<img src="./assets/image-20240725155146704.png" alt="image-20240725155146704" style="zoom:80%;" />
 
 ![image-20221216164407735](../assets/image-20221216164407735.png)
 
