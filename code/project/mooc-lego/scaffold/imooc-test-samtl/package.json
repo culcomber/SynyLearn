@@ -11,8 +11,5 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "",
-  "dependencies": {
-    "imooc-test-lib": "^1.0.0"
-  }
+  "description": ""
 }
