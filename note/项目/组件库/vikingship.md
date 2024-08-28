@@ -144,9 +144,9 @@ function Profile() {
 
 `index.scss`
 
-css @import happens at runtime, Sass @import at build time
+- css @import happens at runtime, Sass @import at build time
 
-Unlike plain CSS imports, which require the browser to make **multiple HTTP** requests as it renders your page, Sass imports are handled entirely **during compilation**.
+- Unlike plain CSS imports, which require the browser to make **multiple HTTP** requests as it renders your page, Sass imports are handled entirely **during compilation**.
 
 **Sass简单语法**
 
