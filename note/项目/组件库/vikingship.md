@@ -95,11 +95,20 @@ npm i node-sass --save
 ```shell
 classname
 @type/classname
+
+disable样式
+mixin
 ```
 
-
-
 # 4、组件测试
+
+React组件适合单元测试
+
+- Component 组件：互不影响
+- Function 函数：纯函数方便写测试
+- 单向数据流：只要测试是否触发相应回调
+
+
 
 # 5、`Menu`
 
