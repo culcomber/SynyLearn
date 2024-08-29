@@ -140,6 +140,13 @@ function Profile() {
 
 `_reboot.scss`
 
+normalize.css
+
+作用
+
+- 保护有用浏览器样式
+- 保持浏览器一致性
+
 **导入样式**
 
 `index.scss`
@@ -147,6 +154,27 @@ function Profile() {
 - css @import happens at runtime, Sass @import at build time
 
 - Unlike plain CSS imports, which require the browser to make **multiple HTTP** requests as it renders your page, Sass imports are handled entirely **during compilation**.
+
+**引用样式**
+
+```shell
+# /src/index.tsx
+- import './index.css';
++ import './style/index.scss';
+
+# /src/App.tsx
+import React from 'react';
+function App() {
+  return (
+    <div>
+      test
+    </div>
+  );
+}
+export default App;
+```
+
+- 删除App.css、index.css、logo.svg
 
 **Sass简单语法**
 
@@ -203,8 +231,9 @@ code {
 }
 ```
 
-- 样式名称最前面有下划线，该文件只能导入，不能直接使用，导入时不需要下划线。These are called *partials*, and they tell Sass tools not to try to compile those files on their own. You can leave off the `_` when importing a partial.
+- 样式名称最前面有下划线，该文件只能导入，不能直接使用，导入时不需要下划线。不能被编译成 `css` 文件。These are called *partials*, and they tell Sass tools **not to try to compile** those files on their own. You can leave off the `_` when importing a partial.
 - Sass 团队不鼓励继续使用`@import`规则，推荐 [`@use`规则](https://sass-lang.com/documentation/at-rules/use)。 
+- % @extend
 
 **`CSS` 相对单位**
 
