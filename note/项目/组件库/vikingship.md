@@ -140,11 +140,12 @@ function Profile() {
 
 `_reboot.scss`
 
-normalize.css
+参考 [normalize.css](https://github.com/necolas/normalize.css)
 
 作用
 
 - 保护有用浏览器样式
+- 标准化各种元素的样式
 - 保持浏览器一致性
 
 **导入样式**
@@ -172,9 +173,9 @@ function App() {
   );
 }
 export default App;
-```
 
-- 删除App.css、index.css、logo.svg
+# 删除App.css、index.css、logo.svg
+```
 
 **Sass简单语法**
 
@@ -233,7 +234,8 @@ code {
 
 - 样式名称最前面有下划线，该文件只能导入，不能直接使用，导入时不需要下划线。不能被编译成 `css` 文件。These are called *partials*, and they tell Sass tools **not to try to compile** those files on their own. You can leave off the `_` when importing a partial.
 - Sass 团队不鼓励继续使用`@import`规则，推荐 [`@use`规则](https://sass-lang.com/documentation/at-rules/use)。 
-- % @extend
+- `@extend` 一个类应该具有另一个类的所有样式，以及它自己的特定样式。
+- `&` 父选择器
 
 **`CSS` 相对单位**
 
@@ -282,12 +284,71 @@ code {
 
 **组件编码**
 
-```shell
-classname
-@type/classname
+```tsx
+// classnames：方便拼接className字符串，接受字符串或者对象，对象值为返回布尔值的表达式
+// npm install classnames--save
 
-disable样式
-mixin
+import React from "react";
+import classNames from "classnames";
+
+export enum ButtonSize {
+    Large = 'lg',
+    Small = 'sm'
+}
+
+export enum ButtonType {
+    Primary = 'primary',
+    Default = 'default',
+    Danger = 'danger',
+    Link = 'link',
+}
+
+interface BaseButtonProps {
+    className?: string;
+    disabled?: boolean;
+    size?: ButtonSize;
+    btnType?: ButtonType;
+    children: React.ReactNode;
+    href?: string;
+}
+
+const Button: React.FC<BaseButtonProps> = (props) => {
+    const {
+        className,
+        disabled = false,
+        size = ButtonSize.Small,
+        btnType = ButtonType.Default,
+        children,
+        href,
+    } = props;
+    // btn btn-lg btn-primary
+    const classes = classNames('btn', {
+        [`btn-${btnType}`]: btnType,
+        [`btn-${size}`]: size,
+        'disabled': (btnType === ButtonType.Link) && disabled // button本身就有disable属性不用样式禁用
+    });
+    if (btnType === ButtonType.Link && href) {
+        return (
+            <a
+                className={classes}
+                href={href}
+            >
+                {children}
+            </a>
+        )
+    } else {
+        return (
+            <button
+                className={classes}
+                disabled={disabled}
+            >
+                {children}
+            </button>
+        )
+    }
+}
+
+export default Button;
 ```
 
 # 4、组件测试
