@@ -1,9 +1,11 @@
-body {
-  color: #333;
-  background-color: #f0f0f0;
+$variable: blue;
+.button11 {
+  background-color: $variable;
+  color: white;
 }
 
-.button {
-  background-color: blue;
+$variable: red;
+.button22 {
+  background-color: $variable;
   color: white;
 }

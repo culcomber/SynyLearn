@@ -181,25 +181,32 @@ export default App;
 
 - 变量：以 `$` 开头的名称。Sass 变量全部由 Sass 编译掉，CSS变量包含在CSS输出中。可以使用 JS 访问和更改 CSS 自定义属性。Sass 变量是*命令式的*，这意味着如果你使用一个变量然后更改它的值，之前的使用将保持不变。 CSS变量是*声明性的*，这意味着如果您更改值，它将影响早期使用和以后使用。
 
-==todo==
-
 ```css
-$variable: value 1;
-.rule-1 {
-  value: $variable;
+# scss
+$variable: blue;
+.button11 {
+  background-color: $variable; # blue
+  color: white;
 }
 
-$variable: value 2;
-.rule-2 {
-  value: $variable;
+$variable: red;
+.button22 {
+  background-color: $variable; # red
+  color: white;
 }
 
-.rule-1 {
-  value: value 1;
+# css
+:root {
+    --main-bg-color: brown;
 }
-
-.rule-2 {
-  value: value 2;
+.button33 {
+    background-color: var(--main-bg-color); # yellow
+}
+:root {
+    --main-bg-color: yellow;
+}
+.button44 {
+    background-color: var(--main-bg-color); # yellow
 }
 ```
 
