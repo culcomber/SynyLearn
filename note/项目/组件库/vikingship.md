@@ -268,6 +268,12 @@ code {
 }
 ```
 
+**创建可以编译Sass的项目**
+
+- 可以全局安装` scss`，执行命令 `sass --watch input.scss output.css`，就可以将Sass文件编译成 `css` 文件，`html` 就可以导入
+- 如果手动编译太麻烦，可以借助 `webpack`，构建 `webpack` 项目可以[参考](https://webpack.js.org/guides/getting-started/)，添加 `scss` 支持可以[参考](https://webpack.js.org/loaders/sass-loader/)
+  - 根目录下存在 `webpack.config.js`，执行 `npx webpack`，`webpack` 就会自动编译，为了查看编译结果就需要在输出文件夹中添加 `index.html` 引用导出文件就可以看到导出效果
+
 参考：[What is the difference between CSS variables and preprocessor variables?](https://css-tricks.com/difference-between-types-of-css-variables/)
 
 [Learn CSS Units – Em, Rem, VH, and VW with Code Examples](https://www.freecodecamp.org/news/learn-css-units-em-rem-vh-vw-with-code-examples/#heading-what-are-rem-units)
