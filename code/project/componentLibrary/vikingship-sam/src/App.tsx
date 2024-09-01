@@ -6,10 +6,13 @@ function App() {
     <div>
         <div>
             <h3>Button</h3>
+            <button>Button</button>
             <Button>HELLO</Button>
-            <Button btnType={ButtonType.Primary} size={ButtonSize.Large}>Primary</Button>
-            <Button btnType={ButtonType.Danger} size={ButtonSize.Small}>Primary</Button>
+            <Button btnType={ButtonType.Primary} size={ButtonSize.Large}>Primary_lg</Button>
+            <Button btnType={ButtonType.Primary} size={ButtonSize.Large} disabled={true}>Primary_lg</Button>
+            <Button btnType={ButtonType.Danger} size={ButtonSize.Small}>Danger_sm</Button>
             <Button btnType={ButtonType.Link} href="https://react.dev/">Link</Button>
+            <Button btnType={ButtonType.Link} href="https://react.dev/" disabled={true}>Link disabled</Button>
         </div>
 
     </div>

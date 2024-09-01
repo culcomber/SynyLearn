@@ -1,0 +1,29 @@
+.btn {
+  position: relative;
+  // display: inline-block; // 按钮本身就是inline-block
+  font-weight: $btn-font-weight;
+  line-height: $btn-line-height;
+  font-size: $btn-font-size;
+  color: $body-color;
+  // white-space: normal; // 初始值本来就是normal
+  text-align: center; // 按钮内字体居中
+  vertical-align: middle; // todo
+  // background-image: none; // 初始值本来就是none
+  border: $btn-border-width solid transparent; // transparent 关键字表示完全透明的颜色
+  border-radius: $border-radius;
+  padding: $btn-padding-y $btn-padding-x;
+  box-shadow: $btn-box-shadow;
+  cursor: pointer;
+  transition: $btn-transition;
+
+  &.disabled, // &指向外层元素btn 交集选择器；同时有.btn和.disabled才会被选中 并集选择器(,)
+  &[disabled] { // []元素选择器
+    cursor: not-allowed;
+    opacity: $btn-disabled-opacity;
+    box-shadow: none;
+    > * { // 通用选择器（*） 子选择器（E>F） 包含选择器(E F) 接续兄弟选择器（+）后续兄弟选择器（~）
+      pointer-events: none; // pointer-events 属性允许你控制元素如何响应鼠标事件，例如点击、悬停和滚动。
+      // none 永远不会成为鼠标事件的target，鼠标事件会直接穿过该元素，并传递给它后面的元素。
+    }
+  }
+}
