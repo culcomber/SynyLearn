@@ -18,13 +18,8 @@ function App() {
         </div>
         <div>
             <h3>Alert</h3>
-            <Alert>
-                hello
-            </Alert>
-            <Alert allowClose={false}>
-                <p>hello11</p>
-                <p>hello22</p>
-            </Alert>
+            <Alert title="title" />
+            <Alert title="title" description="description" closable={false} />
         </div>
     </div>
   );

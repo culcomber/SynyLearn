@@ -10,7 +10,7 @@ export interface AlertProps {
     /**描述 */
     description?: string;
     /**类型 四种可选 针对四种不同的场景 */
-    alertType?: AlertType;
+    type?: AlertType;
     /**关闭alert时触发的事件 */
     onClose?: () => void;
     /**是否显示关闭图标*/
@@ -18,13 +18,22 @@ export interface AlertProps {
 }
 
 const Alert: React.FC<AlertProps> = (props) => {
-    const { title, description, alertType, onClose, closable } = props;
+    const { title, description, type = 'default', onClose, closable = true } = props;
     // 3、定义样式
-    const classes = classNames('alert', {
-        [`alert-${alertType}`]: alertType,
+    const classes = classNames('viking-alert', {
+        [`viking-alert-${type}`]: type,
+    })
+    const titleClass = classNames('viking-alert-title', {
+        'bold-title': description
     })
     // 4、关闭逻辑
-    const [close, setClose] = useState(true);
+    const [ hide, setHide ] = useState(false)
+    const handleClose = (e: React.MouseEvent) => {
+        if (onClose) {
+            onClose()
+        }
+        setHide(true)
+    }
 
     return (
         <>
@@ -33,14 +42,14 @@ const Alert: React.FC<AlertProps> = (props) => {
                     <div className={classes}>
                         <p>{title}</p>
                         <p>{description}</p>
+                        <button onClick={() => setHide(false)}>关闭</button>
                     </div>
                 )
                 : <>
-                    {close && (
+                {!hide && (
                         <div className={classes}>
                             <p>{title}</p>
                             <p>{description}</p>
-                            <button onClick={() => setClose(false)}>关闭</button>
                         </div>
                     )}
                 </>
