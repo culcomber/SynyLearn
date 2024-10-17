@@ -421,3 +421,406 @@ React 社区中非常经典的分类模式：
 
 （ 19 ~ 20 ）：讲解面试必考的 React-Router 以及常用的工具库，带你探索 React 生态圈，帮助你掌握经过时间和大型项目验证的 React 工具。
 
+
+
+
+
+## 1、react事件系统
+### 1.1 JS事件处理机制
+
+**添加事件方式**
+
+```js
+// 方式1 函数带有括号 只有一个 onclick 属性，所以无法分配更多事件处理程序
+<input value="Click me" onclick="alert('Click!')" type="button">
+
+// 方式2 方式1的另外一种写法
+<button id="elem">Click me</button>
+<script>
+  elem.onclick = function() {
+    alert(this.innerHTML); // Click me，this指向button 
+  };
+</script>
+
+// 点击 <body> 将产生 error，因为特性总是字符串的，函数变成了一个字符串
+document.body.setAttribute('onclick', function() { alert(1) });
+<input id="elem" type="button" value="Click me"/>
+
+// 方式3 addEventListener允许添加多个处理程序，当事件发生时，浏览器会创建一个 event 对象，将其作为参数传递给处理程序
+<form id="form">FORM
+    <div>DIV
+      <p>P</p>
+    </div>
+</form>
+
+<script>
+  function handler1(event) {
+    // currentTarget返回事件当前所在的节点，也就是当前正在执行（绑定）的监听函数所在的那个节点。随着事件的传播，这个属性的值会变。
+    // target返回原始触发事件的那个节点，即事件最初发生的节点（点击p，target是p；点击div，target是div）。这个属性不会随着事件的传播而改变。
+    // this指向addEventListener绑定的元素form
+    alert('this', this, 'event', event);
+  };
+
+  function handler2() {
+    alert("Coordinates: " + event.clientX + ":" + event.clientY);
+  }
+  
+  form.addEventListener("click", handler1); // Thanks!
+  form.addEventListener("click", handler2); // Thanks again!
+</script>
+```
+
+每个处理程序都可以访问 event 对象的属性：
+
+- event.target —— 引发事件的层级最深的元素。
+- event.currentTarget（=this<addEventListener的处理函数非箭头函数>）—— 处理事件的当前元素（具有处理程序的元素）
+- event.eventPhase —— 当前阶段（capturing=1，target=2，bubbling=3）。
+
+**冒泡和捕获**
+
+`addEventListener(type, listener, useCapture);`，useCapture选项有两个可能的值：
+- 如果为 false（默认值），则在冒泡阶段设置处理程序。
+- 如果为 true，则在捕获阶段设置处理程序。
+
+```js
+<form>FORM
+  <div>DIV
+    <p>P</p>
+  </div>
+</form>
+
+<script>
+  const BubblingClick = function (event) {
+    console.log('Capturing this', this, 'event', event)
+  }
+
+  for(let elem of document.querySelectorAll('*')) {
+  	// 因为是箭头函数，this指向window，currentTarget指向绑定addEventListener的elem
+    elem.addEventListener("click", event => console.log('Capturing this', this, 'event', event), true);
+    // this/currentTarget, 指向addEventListener绑定的元素elem，冒泡到div则是div，冒泡到form则是form
+    elem.addEventListener("click", BubblingClick);
+  }
+</script>
+```
+
+- HTML → BODY → FORM → DIV（捕获阶段第一个监听器）：
+- P（目标阶段，触发两次，因为我们设置了两个监听器：捕获和冒泡）
+- DIV → FORM → BODY → HTML（冒泡阶段，第二个监听器）。
+
+**停止冒泡/捕获**
+
+如果一个元素在一个事件上有多个处理程序，即使其中一个停止冒泡，其他处理程序仍会执行，也会执行当前处理函数。
+
+`event.stopImmediatePropagation()` 方法，可以用于停止冒泡，并阻止当前元素上的处理程序运行。
+
+如果addEventListener的处理函数是加在捕获阶段，则事件不会往下传播。
+
+```js
+<body onclick="alert(`the bubbling doesn't reach here`)">
+  <button onclick="event.stopPropagation()">Click me</button>
+</body>
+```
+
+**事件取消**
+
+移除需要相同的函数，移除处理程序需要在同一阶段
+
+```js
+// 不起作用
+elem.addEventListener( "click" , () => alert('Thanks!'));
+elem.removeEventListener( "click", () => alert('Thanks!'));
+
+// 有用
+function handler() {
+  alert( 'Thanks!' );
+}
+input.addEventListener("click", handler);
+input.removeEventListener("click", handler);
+
+// 移除处理程序需要同一阶段
+addEventListener(..., true)
+removeEventListener(..., true)
+```
+## 1.2 React事件处理机制
+
+原生事件 `SyntheticEvent`：使用原生事件合成一个 React 事件， 例如使用原生click事件合成了onClick事件，以此抹平不同浏览器的差异。
+
+**合成事件对原生事件的优化：**
+
+- 对原生事件的封装
+给一个元素添加click事件的回调方法，方法中的参数e，其实不是原生事件对象而是react包装过的对象，同时原生事件对象被放在了属性 e.nativeEvent内。
+react会根据当前的事件类型来使用不同的合成事件对象，比如鼠标单机事件 - SyntheticMouseEvent，焦点事件-SyntheticFocusEvent等，但是都是继承自SyntheticEvent。
+
+- 对某些原生事件的升级和改造
+原生只注册一个onchange的话，需要在失去焦点的时候才能触发这个事件，react不只是注册了一个onchange事件，还注册了很多其他事件，依赖了`['change','click','focusin','focusout','input','keydown','keyup','selectionchange']`。
+
+- 不同浏览器事件兼容的处理
+
+- 减少内存消耗，提升性能，不需要注册那么多的事件了，一种事件类型只在 document 上注册一次
+
+**A.事件收集**
+
+React 对在 React 中使用的事件进行了分类，具体通过各个类型的事件处理插件分别处理：
+
+- SimpleEventPlugin简单事件，代表事件onClick
+- BeforeInputEventPlugin输入前事件，代表事件onBeforeInput
+- ChangeEventPlugin表单修改事件，代表事件onChange
+- EnterLeaveEnventPlugin鼠标进出事件，代表事件onMouseEnter
+- SelectEventPlugin选择事件，代表事件onSelect
+
+在页面加载时，会执行各个插件的registerEvents，将所有依赖的原生事件都注册到allNativeEvents中去，并且在registrationNameDependencies中存储映射关系。
+
+```js
+// React代码加载时就会执行以下js代码
+SimpleEventPlugin.registerEvents();
+EnterLeaveEventPlugin.registerEvents();
+ChangeEventPlugin.registerEvents();
+SelectEventPlugin.registerEvents();
+BeforeInputEventPlugin.registerEvents();
+
+// 上述代码执行完后allNativeEvents集合中就会有cancel、click等80种事件
+allNativeEvents = ['cancel','click', ...]
+
+// nonDelegatedEvents有cancel、close等29种事件
+// 非代理事件，其他的事件称为代理事件，区别在于原生事件是否支持冒泡
+nonDelegatedEvents = ['cancel','close'，...]
+
+// registrationNameDependencies保存react事件和其依赖的事件的映射
+registrationNameDependencies = {
+  onClick: ['click'],
+  onClickCapture: ['click'],
+  onChange: ['change','click','focusin','focusout','input','keydown','keyup','selectionchange'],
+  ...
+}
+```
+
+**B.事件代理**
+
+**`listenToAllSupportedEvents` 进行事件的绑定委托**
+
+在`ReactDOM.render`的实现中，在创建了`fiberRoot`后，**在开始构造`fiber`树前**，会调用`listenToAllSupportedEvents`进行事件的绑定委托，将事件委托代理到根。
+
+首先会判断**根节点**上的事件监听器相关的字段**是否已标记完成过监听**，如果没有完成，则将根标记为已监听过，并遍历`allNativeEvents`进行事件的委托绑定。避免多次调用`ReactDOM.render(element, container)`是对同一个`container`重复委托事件。
+
+对于不存在冒泡阶段的事件，React 只委托了捕获阶段的监听器，而对于其他的事件，则对于捕获阶段和冒泡阶段都委托了监听器。
+
+```js
+export function listenToAllSupportedEvents(rootContainerElement: EventTarget) {
+  if (enableEagerRootListeners) {
+    if ((rootContainerElement: any)[listeningMarker]) {
+      // 避免重复初始化
+      return;
+    }
+    // 将该根元素标记为已初始化事件监听
+    (rootContainerElement: any)[listeningMarker] = true;
+    allNativeEvents.forEach(domEventName => {
+      if (!nonDelegatedEvents.has(domEventName)) {
+        // 第二个参数的含义是是否将监听器绑定在捕获阶段
+        listenToNativeEvent(
+          domEventName,
+          false,
+          ((rootContainerElement: any): Element),
+          null,
+        );
+      }
+      listenToNativeEvent(
+        domEventName,
+        true,
+        ((rootContainerElement: any): Element),
+        null,
+      );
+    });
+  }
+}
+```
+
+**`listenToNativeEvent` 对元素进行事件绑定的方法**
+
+在根节点添加事件，绑定事件触发处理函数 `dispatchEvent`
+
+```js
+export function dispatchEvent(
+  domEventName: DOMEventName, // 原生事件名
+  eventSystemFlags: EventSystemFlags, // 事件标记，如是否捕获阶段
+  targetContainer: EventTarget, // 绑定事件的根
+  nativeEvent: AnyNativeEvent, // 实际触发时传入的真实事件对象
+): void {
+    //... 前三个参数在绑定到根上时已传入
+}
+// 提前绑定入参
+const listener = dispatchEvent.bind(
+  null,
+  targetContainer,
+  domEventName,
+  eventSystemFlags,
+)
+if(isCapturePhaseListener){
+    addEventCaptureListener(targetContainer,domEventName,listener)
+}else{
+    addEventBubbleListener(targetContainer,domEventName,listener)
+}
+
+// 添加冒泡事件监听器
+export function addEventBubbleListener(
+  target: EventTarget,
+  eventType: string,
+  listener: Function,
+): Function {
+  target.addEventListener(eventType, listener, false);
+  return listener;
+}
+// 添加捕获事件监听器
+export function addEventCaptureListener(
+  target: EventTarget,
+  eventType: string,
+  listener: Function,
+): Function {
+  target.addEventListener(eventType, listener, true);
+  return listener;
+}
+```
+
+**没有冒泡的原生事件处理**
+
+由于非代理事件的原生事件不会冒泡，就不会触发绑定在根节点上的react原生事件，所以需要对这些不可冒泡的事件都进行了冒泡模拟。
+
+实际上这些事件的代理发生在 DOM 实例的创建阶段，也就是render阶段的completeWork阶段。通过调用finalizeInitialChildren为 DOM 实例设置属性时，判断 DOM 节点类型来添加响应的冒泡阶段监听器。 如为<img />和<link />标签对应的 DOM 实例添加error和load的监听器。
+
+**C.事件触发**
+
+**合成事件的实例**
+
+由于不同的类型的事件其字段有所不同，所以 React 实现了针对事件接口的合成事件构造函数的工厂函数。 通过传入不一样的事件接口返回对应事件的合成事件构造函数，然后在事件触发回调时根据触发的事件类型判断使用哪种类型的合成事件构造函数来实例化合成事件。
+
+createSyntheticEvent会添加些公共属性，并且根据传入的Interface给合成事件event 对象添加属性
+
+Object.assign覆盖原生stopPropagation和preventDefault方法，处理isPropagationStopped和isDefaultPrevented的值，后续合成事件调用时用来判断是否阻止冒泡和默认行为
+
+**事件触发**
+
+当页面上触发了特定的事件时，如点击事件 `click`，就会触发绑定在根元素上的事件回调函数`dispatchEvent`，而`dispatchEvent`在内部最终会调用`dispatchEventsForPlugins`。
+
+```js
+function dispatchEventsForPlugins(
+  domEventName: DOMEventName, // dispatchEvent中绑定的事件名
+  eventSystemFlags: EventSystemFlags, // dispatchEvent绑定的事件标记
+  nativeEvent: AnyNativeEvent, // 事件触发时回调传入的原生事件对象
+  targetInst: null | Fiber, // 事件触发目标元素对应的fiber
+  targetContainer: EventTarget, // 绑定事件的根元素
+): void {
+  // 磨平浏览器差异，拿到真正的target
+  const nativeEventTarget = getEventTarget(nativeEvent);
+  // 要处理事件回调的队列
+  const dispatchQueue: DispatchQueue = [];
+  // 将fiber树上的回调收集
+  extractEvents(
+    dispatchQueue,
+    domEventName,
+    targetInst,
+    nativeEvent,
+    nativeEventTarget,
+    eventSystemFlags,
+    targetContainer,
+  );
+  // 根据收集到的回调及事件标记处理事件
+  processDispatchQueue(dispatchQueue, eventSystemFlags);
+}
+```
+
+**事件对应回调的收集**
+
+回调的收集也是根据事件的类型分别处理的，将`extractEvents`的入参分别给各个事件处理插件的`extractEvents`进行分别处理。例如：`SimpleEventPlugin.extractEvents`。
+
+可以看到`SimpleEventPlugin.extractEvents`的主要处理逻辑：
+
+ 1. 根据原生事件名，得到对应的 React 事件名。 
+ 2. 根据原生事件名，判断需要使用的合成事件构造函数。
+ 3. 根据绑定的事件标记得出事件是否捕获阶段。 
+ 4. 判断事件名是否为 scoll 且不是捕获阶段，如果是则只收集事件触发节点。
+ 5. 从触发事件的DOM 实例对应的 fiber 节点开始，向上遍历 fiber 树，判断遍历到的 fiber 是否宿主类型 fiber节点，是的话判断在其 props 上是否存在 React 事件名同名属性，如果存在，则 push到数组中，遍历结束即可收集由叶子节点到根节点的回调函数。
+ 6. 如果收集的回调数组不为空，则实例化对应的合成事件，并与收集的回调函数一同收集到dispatchQueue中。
+
+**处理回调**
+
+根据收集到的回调数组，判断事件的触发是处于捕获阶段还是冒泡阶段来决定是顺序执行还是倒序执行回调数组。并且通过`event.isPropagationStopped()`来判断事件是否执行过`event.stopPropagation()`以决定是否继续执行。
+
+**D.React17 与 React16 事件系统的差别**
+
+在 React16 中，对 document 的事件委托都委托在冒泡阶段，当事件冒泡到 document 之后触发绑定的回调函数，在回调函数中重新模拟一次 捕获-冒泡 的行为，所以 React 事件中的e.stopPropagation()无法阻止原生事件的捕获和冒泡，因为原生事件的捕获和冒泡已经执行完了。
+
+在 React17 中，对 React 应用根 DOM 容器的事件委托分别在捕获阶段和冒泡阶段。即：
+
+- 当根容器接收到捕获事件时，先触发一次 React 事件的捕获阶段，然后再执行原生事件的捕获传播。所以 React 事件的捕获阶段调用e.stopPropagation()能阻止原生事件的传播。
+- 当根容器接受到冒泡事件时，会触发一次 React 事件的冒泡阶段，此时原生事件的冒泡传播已经传播到根了，所以 React 事件的冒泡阶段调用e.stopPropagation()不能阻止原生事件向根容器的传播，但是能阻止根容器到页面顶层的传播。
+
+参考：https://zhuanlan.zhihu.com/p/583059579
+## 2、对函数式编程的理解
+
+学习函数式编程真正的意义在于：让你意识到在指令式编程，面向对象编程之外，还有一种全新的编程思路，一种用函数的角度去抽象问题的思路。
+
+函数式编程有两个核心概念。
+
+ - 数据不可变（无副作用）：它要求你所有的数据都是不可变的，这意味着如果你想修改一个对象，那你应该创建一个新的对象用来修改，而不是修改已有的对象。 
+ - 无状态：主要是强调对于一个函数，不管你何时运行，它都应该像第一次运行一样，给定相同的输入，给出相同的输出，完全不依赖外部状态的变化。
+
+借鉴函数式编程中的思路，例如：
+
+ - 多使用纯函数减少副作用的影响。
+ - 使用柯里化增加函数适用率。 
+
+函数式编程的优点：
+
+ - 代码简洁，开发快速：函数式编程大量使用函数的组合，函数的复用率很高，减少了代码的重复，因此程序比较短，开发速度较快。
+ - 接近自然语言，易于理解：函数式编程大量使用声明式代码，基本都是接近自然语言的，加上它没有乱七八糟的循环，判断的嵌套，因此特别易于理解。
+ - 易于"并发编程"：函数式编程没有副作用，所以函数式编程不需要考虑“死锁”（Deadlock），所以根本不存在“锁”线程的问题。
+ - 更少的出错概率：因为每个函数都很小，而且相同输入永远可以得到相同的输出，因此测试很简单，同时函数式编程强调使用纯函数，没有副作用，因此也很少出现奇怪的Bug。
+
+缺陷：
+
+ - 性能：函数式编程往往会对一个方法进行过度包装，从而产生上下文切换的性能开销。同时，在 JS这种非函数式语言中，函数式的方式必然会比直接写语句指令慢（引擎会针对很多指令做特别优化）。就拿原生方法 map来说，它就要比纯循环语句实现迭代慢 8 倍。
+   
+ - 资源占用：在 JS 中为了实现对象状态的不可变，往往会创建新的对象，因此，它对垃圾回收（Garbage Collection）所产生的压力远远超过其他编程方式。
+   
+ - 递归陷阱：在函数式编程中，为了实现迭代，通常会采用递归操作，为了减少递归的性能开销，我们往往会把递归写成尾递归形式，以便让解析器进行优化。但是众所周知，JS是不支持尾递归优化的（虽然 ES6 中将尾递归优化作为了一个规范，但是真正实现的少之又少，[传送门](https://link.juejin.cn/?target=http://kangax.github.io/compat-table/es6/)）
+
+参考：https://juejin.cn/post/6844903936378273799#heading-32
+## 3、对 React Fiber 的理解
+### 3.1 引入 Fiber 原因
+在浏览器中，页面是一帧一帧绘制出来的。一般情况下，设备的屏幕刷新率为1s 60次，当每秒内绘制的帧数（`FPS`）超过60时，页面渲染是流畅的；而当 `FPS` 小于60时，会出现一定程度的卡顿现象。完整的一帧中，浏览器做了：
+ 1. 首先需要处理输入事件，能够让用户得到最早的反馈 
+ 2. 接下来是处理定时器，需要检查定时器是否到时间，并执行对应的回调 
+ 3. 接下来处理 `Begin Frame`（开始帧），即每一帧的事件，包括 `window.resize`、`scroll`、`media query change` 等
+ 4. 接下来执行请求动画帧 `requestAnimationFrame`（`rAF`），即在每次绘制之前，会执行 `rAF` 回调 
+ 5. 紧接着进行 `Layout` 操作，包括计算布局和更新布局，即这个元素的样式是怎样的，它应该在页面如何展示 
+ 6. 接着进行 `Paint` 操作，得到树中每个节点的尺寸与位置等信息，浏览器针对每个元素进行内容填充 
+ 7. 以上的六个阶段都已经完成了，接下来处于空闲阶段（`Idle Peroid`），可以在这时执行 `requestIdleCallback` 里注册的任务
+
+**为什么需要Fiber：**
+- 在 react16 引入 Fiber 架构之前，react 会采用递归对比虚拟DOM树，找出需要变动的节点，然后同步更新它们，这个过程 react 称为reconcilation（协调）。在reconcilation期间，react 会一直占用浏览器资源，会导致用户触发的事件得不到响应。
+- 通过Fiber架构，让reconcilation过程变得可被中断。适时地让出CPU执行权，可以让浏览器及时地响应用户的交互。
+
+**Vue 是没有 Fiber 的原因是二者的优化思路不一样：**
+ - Vue 是基于 template 和 watcher 的组件级更新，把每个更新任务分割得足够小，不需要使用到 Fiber
+   架构，将任务进行更细粒度的拆分  
+- React 是不管在哪里调用 setState，都是从根节点开始更新的，更新任务还是很大，需要使用到 Fiber 将大任务分割为多个小任务，可以中断和恢复，不阻塞主进程执行高优先级的任务
+
+参考：https://juejin.cn/post/6943896410987659277
+
+## 3.2 什么是Fiber
+**一个执行单元**
+JSX 经过 bebal 之后生成的 elmrnt 是树形结构，react 遍历 elment 生成 Fiber树，每一个 elment 就是一个执行单元
+
+**一种数据结构**
+React Fiber 用链表实现。每个 Virtual DOM 都可以表示为一个 fiber，fiber 是指数据结构中的每一个节点，如下图所示的A1、B1都是一个 fiber。
+
+## 4、React dom diff 算法
+
+参考：
+[让虚拟DOM和DOM-diff不再成为你的绊脚石](https://juejin.cn/post/6844903806132568072)
+[15张图，20分钟吃透Diff算法核心原理](https://juejin.cn/post/6994959998283907102)
+[图解 React 的 diff 算法](https://juejin.cn/post/7131741751152214030?searchId=2023122615320448423064621951278452)
+
+
+**参考：**
+[React进阶](https://juejin.cn/column/6961274930306482206)
+[React 组件设计的相关实践和规范](https://juejin.cn/post/6844903842392309768)
